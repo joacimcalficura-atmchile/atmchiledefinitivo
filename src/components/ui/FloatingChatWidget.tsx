@@ -13,7 +13,19 @@ import { X, Send, Activity } from "lucide-react";
 // COMPONENTE: ModernMessage
 // Diseño moderno con Glassmorphism y sombras suaves
 // ============================================================================
-const ModernMessage = ({ msg, isLoading }: { msg?: { role: string; content?: string }; isLoading?: boolean }) => {
+interface MessagePart {
+  type: string;
+  text?: string;
+  content?: string;
+}
+
+interface MessageContent {
+  role: string;
+  content?: string | MessagePart[];
+  parts?: MessagePart[];
+}
+
+const ModernMessage = ({ msg, isLoading }: { msg?: MessageContent; isLoading?: boolean }) => {
   if (isLoading) {
     return (
       <div className="flex justify-start animate-in fade-in duration-500">
@@ -29,8 +41,23 @@ const ModernMessage = ({ msg, isLoading }: { msg?: { role: string; content?: str
   }
 
   if (!msg) return null;
+  
   const isUser = msg.role === 'user';
-  const content = typeof msg.content === 'string' ? msg.content : '';
+  
+  // Extraer contenido del mensaje - maneja diferentes formatos del AI SDK v6
+  let content = '';
+  if (typeof msg.content === 'string') {
+    content = msg.content;
+  } else if (Array.isArray(msg.parts)) {
+    content = msg.parts.map((part) => part.text || '').join('');
+  } else if (Array.isArray(msg.content)) {
+    content = msg.content.map((part) => part.text || part.content || '').join('');
+  }
+  
+  if (!content) {
+    console.warn('Mensaje vacío:', msg);
+    return null;
+  }
   
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2 duration-300`}>
@@ -62,7 +89,12 @@ export const FloatingChatWidget = () => {
     }),
   });
   
-  const isLoading = status === "streaming";
+  // AI SDK v6: status puede ser 'submitted' | 'streaming' | 'ready' | 'error'
+  const isLoading = status === "submitted" || status === "streaming";
+  
+  console.log('[Chat] Status:', status);
+  console.log('[Chat] Messages:', messages);
+  console.log('[Chat] Error:', error);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -154,7 +186,7 @@ export const FloatingChatWidget = () => {
               {messages.map((msg, idx) => (
                 <ModernMessage key={idx} msg={msg} />
               ))}
-              {isLoading && messages[messages.length - 1]?.role === 'user' && <ModernMessage isLoading={true} />}
+              {isLoading && <ModernMessage isLoading={true} />}
               <div ref={messagesEndRef} />
             </div>
 
