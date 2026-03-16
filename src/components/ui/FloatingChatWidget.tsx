@@ -1,22 +1,19 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { m as motion, AnimatePresence } from "framer-motion";
 import { X, Send, Activity } from "lucide-react";
 
 // ============================================================================
 // TIPOS
 // ============================================================================
-interface ChatMessage {
-  role: "user" | "assistant";
-  content: string;
-}
 
 // ============================================================================
 // COMPONENTE: ModernMessage
 // Diseño moderno con Glassmorphism y sombras suaves
 // ============================================================================
-const ModernMessage = ({ msg, isLoading }: { msg?: ChatMessage; isLoading?: boolean }) => {
+const ModernMessage = ({ msg, isLoading }: { msg?: { role: string; content?: string }; isLoading?: boolean }) => {
   if (isLoading) {
     return (
       <div className="flex justify-start animate-in fade-in duration-500">
@@ -33,6 +30,7 @@ const ModernMessage = ({ msg, isLoading }: { msg?: ChatMessage; isLoading?: bool
 
   if (!msg) return null;
   const isUser = msg.role === 'user';
+  const content = typeof msg.content === 'string' ? msg.content : '';
   
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2 duration-300`}>
@@ -41,7 +39,7 @@ const ModernMessage = ({ msg, isLoading }: { msg?: ChatMessage; isLoading?: bool
           ? 'bg-gradient-to-br from-cyan-600 to-cyan-500 text-white rounded-tr-sm' 
           : 'bg-slate-800/80 backdrop-blur-md text-slate-100 rounded-tl-sm border border-slate-700/50'
       }`}>
-        <p>{msg.content}</p>
+        <p>{content}</p>
       </div>
     </div>
   );
@@ -50,11 +48,22 @@ const ModernMessage = ({ msg, isLoading }: { msg?: ChatMessage; isLoading?: bool
 // ============================================================================
 // COMPONENTE PRINCIPAL: FloatingChatWidget (Modern & Empático)
 // ============================================================================
+import { useChat } from "@ai-sdk/react";
+import { DefaultChatTransport } from "ai";
+
+// ... (ModernMessage se mantiene igual)
+
 export const FloatingChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const { messages, sendMessage, status, error } = useChat({
+    transport: new DefaultChatTransport({
+      api: "/api/chat",
+    }),
+  });
+  
+  const isLoading = status === "streaming";
+  
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll logic
@@ -63,43 +72,20 @@ export const FloatingChatWidget = () => {
   }, []);
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages, isLoading, scrollToBottom]);
-
-  const handleSendMessage = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const userMsg = input.trim();
-    if (!userMsg || isLoading) return;
-
-    setInput("");
-    const newHistory: ChatMessage[] = [...messages, { role: "user", content: userMsg }];
-    setMessages(newHistory);
-    setIsLoading(true);
-
-    try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: newHistory }),
-      });
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.debug || data.error || "Error en el servidor");
-      }
-
-      setMessages(prev => [...prev, { 
-        role: "assistant", 
-        content: data.message || "¡Uy! Parece que tuvimos un pequeño inconveniente técnico."
-      }]);
-    } catch (error: any) {
-      setMessages(prev => [...prev, { 
-        role: "assistant", 
-        content: "¡Uy! Parece que tuvimos un pequeño corte de conexión. ¿Podrías intentar enviarlo de nuevo?" 
-      }]);
-    } finally {
-      setIsLoading(false);
+    if (isOpen) {
+      scrollToBottom();
     }
+  }, [messages, isLoading, isOpen, scrollToBottom]);
+
+  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!input.trim() || isLoading) return;
+    sendMessage({ text: input });
+    setInput("");
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
   };
 
   return (
@@ -126,10 +112,11 @@ export const FloatingChatWidget = () => {
                   
                   {/* Capa de Textura Principal */}
                   <div className="absolute inset-0 rounded-full border border-cyan-500/40 overflow-hidden shadow-inner z-10 bg-slate-900">
-                    <img 
-                      src="/images/ia-3d-texture.jpg" 
-                      alt="IA" 
-                      className="w-full h-full object-cover opacity-90 group-hover/header:scale-110 transition-transform duration-700" 
+                    <Image 
+                      src="/images/asistente-futurista.jpg" 
+                      alt="ATM AI Assistant" 
+                      fill
+                      className="object-cover rounded-full group-hover/header:scale-110 transition-transform duration-700"
                       onError={(e) => {
                         e.currentTarget.style.display = 'none';
                         e.currentTarget.nextElementSibling?.classList.remove('hidden');
@@ -167,22 +154,29 @@ export const FloatingChatWidget = () => {
               {messages.map((msg, idx) => (
                 <ModernMessage key={idx} msg={msg} />
               ))}
-              {isLoading && <ModernMessage isLoading={true} />}
+              {isLoading && messages[messages.length - 1]?.role === 'user' && <ModernMessage isLoading={true} />}
               <div ref={messagesEndRef} />
             </div>
 
+            {/* Banner de Error */}
+            {error && (
+              <div className="mx-5 mt-3 px-4 py-3 bg-red-900/60 border border-red-700/50 rounded-xl">
+                <p className="text-red-200 text-sm">Error de conexión: {error.message}</p>
+              </div>
+            )}
+
             {/* Input Panel Moderno */}
-            <form onSubmit={handleSendMessage} className="p-5 bg-slate-800/40 border-t border-slate-700/50 flex gap-3">
+            <form onSubmit={onFormSubmit} className="p-5 bg-slate-800/40 border-t border-slate-700/50 flex gap-3">
               <input
                 type="text"
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={handleInputChange}
                 placeholder="Escribe tu mensaje..."
                 className="flex-1 bg-slate-900/60 text-slate-100 border border-slate-600/40 rounded-2xl px-5 py-3 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30 transition-all placeholder-slate-500"
               />
               <button 
                 type="submit" 
-                disabled={isLoading || !input.trim()} 
+                disabled={isLoading || !input?.trim()} 
                 className="bg-cyan-500 hover:bg-cyan-400 text-white w-12 h-12 rounded-2xl flex items-center justify-center transition-all active:scale-90 disabled:opacity-30 disabled:hover:bg-cyan-500 shadow-xl shadow-cyan-900/20 group"
                 aria-label="Enviar mensaje"
               >
@@ -230,10 +224,11 @@ export const FloatingChatWidget = () => {
           transition={{ type: "spring", stiffness: 200, damping: 15 }}
           className="relative w-16 h-16 rounded-full shadow-[0_5px_15px_rgba(0,0,0,0.5)] overflow-hidden border-2 border-cyan-500/40 bg-slate-950 z-20"
         >
-          <img 
-            src="/images/ia-3d-texture.jpg" 
+          <Image 
+            src="/images/asistente-futurista.jpg" 
             alt="Avatar ATM 3D" 
-            className="w-full h-full object-cover opacity-90 group-hover:scale-110 transition-transform duration-700"
+            fill
+            className="object-cover group-hover:scale-110 transition-transform duration-700"
             onError={(e) => {
               e.currentTarget.style.display = 'none';
               e.currentTarget.nextElementSibling?.classList.remove('hidden');
