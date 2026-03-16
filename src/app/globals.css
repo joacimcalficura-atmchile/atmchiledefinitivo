@@ -1,0 +1,174 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8fafc;
+  /* slate-50 */
+  --foreground: #0f172a;
+  /* slate-900 */
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: #02121d;
+  --color-brand-light: #f5f7f8;
+  --color-brand-dark: #020b12;
+  --color-brand-blue: #00a8e8;
+  --color-accent: #00d2ff;
+  --color-brand-slate: #475569;
+  --color-brand-cobalt: #0047AB;
+  --color-brand-glass-bg: rgba(255, 255, 255, 0.4);
+  --color-brand-glass-border: rgba(255, 255, 255, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #020617;
+    /* slate-950 */
+    --foreground: #f8fafc;
+    /* slate-50 */
+  }
+
+  @theme {
+    --color-brand-glass-bg: rgba(30, 41, 59, 0.4);
+    --color-brand-glass-border: rgba(51, 65, 85, 0.2);
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  @apply antialiased scroll-smooth;
+}
+
+/* Glassmorphism Utilities */
+@utility glass {
+  background-color: var(--color-brand-glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-brand-glass-border);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+/* Inline SVG Noise to avoid 404 File Not Found */
+@utility noise-bg {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Nuevas Utilidades del diseño Premium */
+@utility glass-card-premium {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@utility neon-border {
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+}
+
+@utility neon-button {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-brand-blue) 100%);
+  transition: all 0.3s ease;
+  &:hover {
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
+  }
+}
+
+@utility brand-gradient-text {
+  background: linear-gradient(to right, var(--color-accent), var(--color-brand-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility glow-text {
+  text-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+}
+
+@utility depth-3d {
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1), 0 20px 40px -10px rgba(2, 18, 29, 0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  &:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 25px 50px -12px rgba(0, 210, 255, 0.25);
+  }
+}
+
+@utility glass-3d {
+  background: rgba(2, 11, 18, 0.8);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+@utility icon-3d {
+  filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.6));
+  transform: translateZ(20px);
+}
+
+/* ── Scrollbar Apple Glass ─────────────────────────────────────────────────── */
+
+/* Scrollbar vertical */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 71, 171, 0.18);
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 71, 171, 0.38);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 71, 171, 0.2) transparent;
+}
+
+@utility scrollbar-cyan {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(6, 182, 212, 0.5);
+    border-radius: 3px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(6, 182, 212, 0.8);
+  }
+}
+
+@utility sci-fi-scanlines {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, .1) 50%);
+  background-size: 100% 4px;
+}
+
+@keyframes sci-fi-glowing-ring {
+  0% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); }
+  50% { box-shadow: 0 0 40px rgba(6, 182, 212, 0.8); }
+  100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); }
+}
+
+@utility sci-fi-glowing-ring {
+  animation: sci-fi-glowing-ring 2s infinite ease-in-out;
+}
