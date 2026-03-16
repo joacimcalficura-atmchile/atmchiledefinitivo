@@ -1,5 +1,5 @@
 import { google } from "@ai-sdk/google";
-import { streamText } from "ai";
+import { streamText, convertToModelMessages, UIMessage } from "ai";
 import { NextResponse } from "next/server";
 
 const SYSTEM_PROMPT = `[ROL E IDENTIDAD]
@@ -52,7 +52,7 @@ export async function POST(req: Request) {
         try {
             const result = streamText({
                 model: google("gemini-1.5-flash"),
-                messages,
+                messages: await convertToModelMessages(messages),
                 system: SYSTEM_PROMPT,
                 temperature: 0.7,
                 onFinish: async (event) => {
@@ -89,8 +89,8 @@ export async function POST(req: Request) {
                 }
             });
 
-            // 3. Retorno de stream moderno (Compatible con v3.1.30)
-            return result.toDataStreamResponse({
+            // 3. Retorno de stream moderno (AI SDK v6)
+            return result.toUIMessageStreamResponse({
                 headers: {
                     'Cache-Control': 'no-cache, no-store, must-revalidate'
                 }
