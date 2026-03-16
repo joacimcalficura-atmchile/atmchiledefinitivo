@@ -166,7 +166,7 @@ export const FloatingChatWidget = () => {
             )}
 
             {/* Input Panel Moderno */}
-            <form onSubmit={onFormSubmit} className="p-5 bg-slate-800/40 border-t border-slate-700/50 flex gap-3">
+            <form onSubmit={(e) => onFormSubmit(e)} className="p-5 bg-slate-800/40 border-t border-slate-700/50 flex gap-3">
               <input
                 type="text"
                 value={input}
