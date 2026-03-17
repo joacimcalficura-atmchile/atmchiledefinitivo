@@ -72,25 +72,33 @@ export default function ContactoPage() {
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-     const handleSubmit = async (e: React.FormEvent) => {
-         e.preventDefault();
-         setLoading(true);
-         
-         try {
-             // Envío directo a Google Apps Script (Web App)
-             const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx9PfLeO--fdgsmboteL2f8rulv-6dADdl86WvD8UuUtKI45PAF1gZhHOFWauEXdEBw8w/exec';
-             
-             const response = await fetch(APPS_SCRIPT_URL, {
-                 method: 'POST',
-                 headers: { 'Content-Type': 'text/plain' },
-                 body: JSON.stringify({
-                     type: 'contact',
-                     data: {
-                         ...form,
-                         canal: isWhatsAppMode ? 'WhatsApp' : 'Formulario Web'
-                     }
-                 })
-             });
+      const handleSubmit = async (e: React.FormEvent) => {
+          e.preventDefault();
+          setLoading(true);
+          
+          try {
+              // Envío directo a Google Apps Script (Web App v2 con enrutamiento dinámico)
+              const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbrMhGRRHLx8UylQSoCITSLqc_r8PZGm3cwYX5yYQ_aWwgJ2yk1XIbiPS4KY0njfHeMJqg/exec';
+              
+              // Mapeo de variables de estado al payload requerido (dinámico según canal)
+              const payload = {
+                  hojaDestino: isWhatsAppMode ? "leeads wsp" : "Leeads atm",
+                  nombre: form.nombre,
+                  correo: form.email,
+                  numero: "", // Campo no presente en formulario de contacto
+                  empresa: form.empresa,
+                  estadoLegal: "", // Campo no presente en formulario de contacto
+                  rubro: "", // Campo no presente en formulario de contacto
+                  comunicaciones: isWhatsAppMode ? 'WhatsApp' : 'Formulario Web', 
+                  desafio: form.mensaje, 
+                  auditoria: "" 
+              };
+              
+              const response = await fetch(APPS_SCRIPT_URL, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'text/plain' },
+                  body: JSON.stringify(payload)
+              });
 
              if (!response.ok) {
                  throw new Error(`Error ${response.status}: ${response.statusText}`);

@@ -48,36 +48,52 @@ export const AdmissionAgent = () => {
         setFormData(prev => ({ ...prev, [field]: value }));
     };
 
-    const submitForm = async () => {
-        setIsSubmitting(true);
-        
-        try {
-            const response = await fetch('/api/forms', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    type: 'admission',
-                    data: formData
-                })
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error('API Error details:', errorData);
-                const errorMsg = errorData.sheetsDetected 
-                    ? `${errorData.details}\nPestañas encontradas: ${errorData.sheetsDetected}`
-                    : errorData.details;
-                throw new Error(errorMsg || 'Failed to submit admission');
-            }
-            
-            setStep(9); // Éxito
-        } catch (error: any) {
-            console.error('Error submitting form:', error);
-            alert(`Error al enviar la solicitud: ${error.message || 'Verifica tu conexión.'}`);
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
+     const submitForm = async () => {
+         setIsSubmitting(true);
+         
+         try {
+             const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMhGRRHLx8UylQSoCITSLqc_r8PZGm3cwYX5yYQ_aWwgJ2yk1XIbiPS4KY0njfHeMJqg/exec';
+             
+             // Mapeo de variables de estado al payload requerido (v2 con enrutamiento dinámico)
+             const payload = {
+                 hojaDestino: "el club de los 100 ", // Espacio final obligatorio
+                 nombre: formData.fullName,
+                 correo: formData.email,
+                 numero: formData.whatsapp,
+                 empresa: formData.projectName,
+                 estadoLegal: formData.legalStatus,
+                 rubro: formData.industry,
+                 comunicaciones: formData.whatsappStatus,
+                 desafio: formData.painPoint,
+                 auditoria: formData.wantAudit
+             };
+ 
+             const response = await fetch(APPS_SCRIPT_URL, {
+                 method: 'POST',
+                 headers: { 'Content-Type': 'text/plain' },
+                 body: JSON.stringify(payload)
+             });
+ 
+             if (!response.ok) {
+                 // Intentamos obtener más detalles si la respuesta es JSON
+                 let errorDetails = '';
+                 try {
+                     const errorData = await response.json();
+                     errorDetails = `: ${errorData.details || ''}`;
+                 } catch (e) {
+                     // Si no es JSON, continuamos sin detalles
+                 }
+                 throw new Error(`Error ${response.status}: ${response.statusText}${errorDetails}`);
+             }
+             
+             setStep(9); // Éxito
+         } catch (error: any) {
+             console.error('Error submitting form:', error);
+             alert(`Error al enviar la solicitud: ${error.message || 'Verifica tu conexión.'}`);
+         } finally {
+             setIsSubmitting(false);
+         }
+     };
 
     const nextStep = () => {
         if (step === 8) {
