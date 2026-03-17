@@ -72,27 +72,38 @@ export default function ContactoPage() {
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-        
-        try {
-            // 1. Envío silencioso a Google Sheets (CRM)
-            const response = await fetch('/api/forms', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    type: 'contact',
-                    data: {
-                        ...form,
-                        canal: isWhatsAppMode ? 'WhatsApp' : 'Formulario Web'
-                    }
-                })
-            });
+     const handleSubmit = async (e: React.FormEvent) => {
+         e.preventDefault();
+         setLoading(true);
+         
+         try {
+             // Envío directo a Google Apps Script (Web App)
+             const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx9PfLeO--fdgsmboteL2f8rulv-6dADdl86WvD8UuUtKI45PAF1gZhHOFWauEXdEBw8w/exec';
+             
+             const response = await fetch(APPS_SCRIPT_URL, {
+                 method: 'POST',
+                 headers: { 'Content-Type': 'text/plain' },
+                 body: JSON.stringify({
+                     type: 'contact',
+                     data: {
+                         ...form,
+                         canal: isWhatsAppMode ? 'WhatsApp' : 'Formulario Web'
+                     }
+                 })
+             });
 
-            if (!response.ok) {
-                console.warn('Silent sync failed, but proceeding with redirect...');
-            }
+             if (!response.ok) {
+                 throw new Error(`Error ${response.status}: ${response.statusText}`);
+             }
+             
+             // Opcional: intentar parsear respuesta JSON si el script la devuelve
+             let result = {};
+             try {
+                 result = await response.json();
+             } catch (jsonError) {
+                 // Si no es JSON, continuamos sin ella
+                 console.log('Respuesta no es JSON, continuando...');
+             }
             
             // 2. Lógica Dual: Redirección según canal con Copywriting especializado
             if (isWhatsAppMode) {
