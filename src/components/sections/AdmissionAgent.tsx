@@ -56,7 +56,7 @@ export const AdmissionAgent = () => {
              
              // Mapeo de variables de estado al payload requerido (v2 con enrutamiento dinámico)
              const payload = {
-                 hojaDestino: "el club de los 100 ", // Espacio final obligatorio
+                 hojaDestino: "el_club_de_los_100", // Exactamente como en la hoja
                  nombre: formData.fullName,
                  correo: formData.email,
                  numero: formData.whatsapp,
