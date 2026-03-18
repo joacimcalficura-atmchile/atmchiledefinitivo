@@ -80,18 +80,14 @@ export default function ContactoPage() {
               // Envío directo a Google Apps Script (Web App v2 con enrutamiento dinámico corregido)
               const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMhGRRHLx8UylQSoCITSLqc_r8PZGm3cwYX5yYQ_aWwgJ2yk1XIbiPS4KY0njfHeMJqg/exec';
               
-              // Mapeo de variables de estado al payload (blindado con .trim())
+              // Mapeo de variables de estado al payload estándar (blindado con .trim())
               const payload = {
-                  hojaDestino: isWhatsAppMode ? "leeads_wsp" : "Leeads_atm",
                   nombre: form.nombre.trim(),
-                  correo: form.email.trim(),
-                  numero: "", 
                   empresa: form.empresa.trim(),
-                  estadoLegal: "", 
-                  rubro: "", 
-                  comunicaciones: isWhatsAppMode ? 'WhatsApp' : 'Formulario Web', 
-                  desafio: form.mensaje.trim(), 
-                  auditoria: "" 
+                  correo: form.email.trim(),
+                  datoExtra: form.tamano.trim(),
+                  mensaje: form.mensaje.trim(),
+                  hojaDestino: isWhatsAppMode ? "leeads_wsp" : "Leeads_atm"
               };
               
               // Blindaje de comunicación con patrón Senior
@@ -465,7 +461,7 @@ export default function ContactoPage() {
                                                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                                                         className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full"
                                                     />
-                                                    Sincronizando...
+                                                    Cargando...
                                                 </>
                                             ) : (
                                                 <>
