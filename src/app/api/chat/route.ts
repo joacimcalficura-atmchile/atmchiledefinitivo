@@ -62,28 +62,30 @@ export async function POST(req: Request) {
                         const match = fullText.match(/\[LEAD_COMPLETO:\s*(.*?)\|(.*?)\|(.*?)\]/);
                         if (match && match.length >= 4) {
                             const [_, nombre, correo, servicio] = match;
-                            const url = new URL(req.url);
-                            const baseUrl = `${url.protocol}//${url.host}`;
 
-                            // Guardamos el lead de forma asíncrona sin bloquear la respuesta
-                            try {
-                                await fetch(`${baseUrl}/api/forms`, {
-                                    method: 'POST',
-                                    headers: { 'Content-Type': 'application/json' },
-                                    body: JSON.stringify({
-                                        type: 'contact',
-                                        data: {
-                                            nombre: nombre.trim(),
-                                            email: correo.trim(),
-                                            mensaje: `Lead calificado estratégicamente. Contexto: ${servicio.trim()}`,
-                                            tamano: 'Lead IA Premium',
-                                            canal: 'Chat IA'
-                                        }
-                                    })
-                                });
-                            } catch (err) {
-                                console.error("Error al guardar lead:", err);
-                            }
+                             // Guardamos el lead directamente en Google Apps Script (Blindaje Server-Side)
+                             try {
+                                 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMhGRRHLx8UylQSoCITSLqc_r8PZGm3cwYX5yYQ_aWwgJ2yk1XIbiPS4KY0njfHeMJqg/exec';
+                                 
+                                 await fetch(APPS_SCRIPT_URL, {
+                                     method: 'POST',
+                                     headers: { 'Content-Type': 'text/plain' },
+                                     body: JSON.stringify({
+                                         hojaDestino: "ia_leeds",
+                                         nombre: nombre.trim(),
+                                         correo: correo.trim(),
+                                         numero: "",
+                                         empresa: "Lead IA Premium",
+                                         estadoLegal: "",
+                                         rubro: "",
+                                         comunicaciones: "Chat IA",
+                                         desafio: servicio.trim(),
+                                         auditoria: ""
+                                     })
+                                 });
+                             } catch (err) {
+                                 console.error("Error al guardar lead IA en Apps Script:", err);
+                             }
                         }
                     }
                 }

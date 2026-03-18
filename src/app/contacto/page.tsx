@@ -77,41 +77,32 @@ export default function ContactoPage() {
           setLoading(true);
           
           try {
-              // Envío directo a Google Apps Script (Web App v2 con enrutamiento dinámico)
-              const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbrMhGRRHLx8UylQSoCITSLqc_r8PZGm3cwYX5yYQ_aWwgJ2yk1XIbiPS4KY0njfHeMJqg/exec';
+              // Envío directo a Google Apps Script (Web App v2 con enrutamiento dinámico corregido)
+              const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMhGRRHLx8UylQSoCITSLqc_r8PZGm3cwYX5yYQ_aWwgJ2yk1XIbiPS4KY0njfHeMJqg/exec';
               
-              // Mapeo de variables de estado al payload requerido (dinámico según canal)
+              // Mapeo de variables de estado al payload (blindado con .trim())
               const payload = {
-                  hojaDestino: isWhatsAppMode ? "leeads wsp" : "Leeads atm",
-                  nombre: form.nombre,
-                  correo: form.email,
-                  numero: "", // Campo no presente en formulario de contacto
-                  empresa: form.empresa,
-                  estadoLegal: "", // Campo no presente en formulario de contacto
-                  rubro: "", // Campo no presente en formulario de contacto
+                  hojaDestino: isWhatsAppMode ? "leeads_wsp" : "Leeads_atm",
+                  nombre: form.nombre.trim(),
+                  correo: form.email.trim(),
+                  numero: "", 
+                  empresa: form.empresa.trim(),
+                  estadoLegal: "", 
+                  rubro: "", 
                   comunicaciones: isWhatsAppMode ? 'WhatsApp' : 'Formulario Web', 
-                  desafio: form.mensaje, 
+                  desafio: form.mensaje.trim(), 
                   auditoria: "" 
               };
               
-              const response = await fetch(APPS_SCRIPT_URL, {
+              // Blindaje de comunicación con patrón Senior
+              await fetch(APPS_SCRIPT_URL, {
                   method: 'POST',
+                  mode: 'no-cors', // Evita bloqueos de redirección de Google
                   headers: { 'Content-Type': 'text/plain' },
                   body: JSON.stringify(payload)
               });
-
-             if (!response.ok) {
-                 throw new Error(`Error ${response.status}: ${response.statusText}`);
-             }
              
-             // Opcional: intentar parsear respuesta JSON si el script la devuelve
-             let result = {};
-             try {
-                 result = await response.json();
-             } catch (jsonError) {
-                 // Si no es JSON, continuamos sin ella
-                 console.log('Respuesta no es JSON, continuando...');
-             }
+             setSubmitted(true);
             
             // 2. Lógica Dual: Redirección según canal con Copywriting especializado
             if (isWhatsAppMode) {

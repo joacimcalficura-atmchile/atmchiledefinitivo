@@ -56,37 +56,27 @@ export const AdmissionAgent = () => {
              
              // Mapeo de variables de estado al payload requerido (v2 con enrutamiento dinámico)
              const payload = {
-                 hojaDestino: "el_club_de_los_100", // Pestaña específica en web_site
-                 nombre: formData.fullName,
-                 correo: formData.email,
-                 numero: formData.whatsapp,
-                 empresa: formData.projectName,
-                 estadoLegal: formData.legalStatus,
-                 rubro: formData.industry,
-                 comunicaciones: formData.whatsappStatus,
-                 desafio: formData.painPoint,
-                 auditoria: formData.wantAudit
+                 hojaDestino: "el_club_de_los_100", // Exactamente como en la hoja
+                 nombre: formData.fullName.trim(),
+                 correo: formData.email.trim(),
+                 numero: formData.whatsapp.trim(),
+                 empresa: formData.projectName.trim(),
+                 estadoLegal: formData.legalStatus.trim(),
+                 rubro: formData.industry.trim(),
+                 comunicaciones: formData.whatsappStatus.trim(),
+                 desafio: formData.painPoint.trim(),
+                 auditoria: formData.wantAudit.trim()
              };
  
-             const response = await fetch(APPS_SCRIPT_URL, {
+             // Blindaje de comunicación con patrón Senior
+             await fetch(APPS_SCRIPT_URL, {
                  method: 'POST',
+                 mode: 'no-cors', // Evita bloqueos de redirección de Google
                  headers: { 'Content-Type': 'text/plain' },
                  body: JSON.stringify(payload)
              });
- 
-             if (!response.ok) {
-                 // Intentamos obtener más detalles si la respuesta es JSON
-                 let errorDetails = '';
-                 try {
-                     const errorData = await response.json();
-                     errorDetails = `: ${errorData.details || ''}`;
-                 } catch (e) {
-                     // Si no es JSON, continuamos sin detalles
-                 }
-                 throw new Error(`Error ${response.status}: ${response.statusText}${errorDetails}`);
-             }
              
-             setStep(9); // Éxito
+             setStep(9); // Con no-cors asumimos éxito si la promesa se resuelve
          } catch (error: any) {
              console.error('Error submitting form:', error);
              alert(`Error al enviar la solicitud: ${error.message || 'Verifica tu conexión.'}`);
