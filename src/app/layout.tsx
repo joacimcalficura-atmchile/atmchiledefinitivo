@@ -6,6 +6,7 @@ import { Navbar } from "@/components/shared/Navbar";
 import { Providers } from "@/components/providers/Providers";
 import { FloatingChatWidget } from "@/components/ui/FloatingChatWidget";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -61,6 +62,7 @@ export default function RootLayout({
           <FloatingChatWidget />
         </Providers>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
