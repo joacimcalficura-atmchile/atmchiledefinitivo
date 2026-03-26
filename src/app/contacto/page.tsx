@@ -13,6 +13,7 @@ interface FormData {
     email: string; // Nuevo campo requerido por el usuario
     tamano: string;
     mensaje: string;
+    _honey: string; // Campo Honeypot silencioso
 }
 
 const smoothEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -48,7 +49,7 @@ import { FloatingCubes } from "@/components/ui/FloatingCubes";
 
 // ── Página de Contacto ─────────────────────────────────────────────────────────
 export default function ContactoPage() {
-    const [form, setForm]           = useState<FormData>({ nombre: "", empresa: "", email: "", tamano: "", mensaje: "" });
+    const [form, setForm]           = useState<FormData>({ nombre: "", empresa: "", email: "", tamano: "", mensaje: "", _honey: "" });
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading]     = useState(false);
     const [isWhatsAppMode, setIsWhatsAppMode] = useState(false);
@@ -77,9 +78,6 @@ export default function ContactoPage() {
           setLoading(true);
           
           try {
-              // Envío directo a Google Apps Script (Web App v2 con enrutamiento dinámico corregido)
-              const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMhGRRHLx8UylQSoCITSLqc_r8PZGm3cwYX5yYQ_aWwgJ2yk1XIbiPS4KY0njfHeMJqg/exec';
-              
               // Mapeo de variables de estado al payload estándar (blindado con .trim())
               const payload = {
                   nombre: form.nombre.trim(),
@@ -87,16 +85,26 @@ export default function ContactoPage() {
                   correo: form.email.trim(),
                   datoExtra: form.tamano.trim(),
                   mensaje: form.mensaje.trim(),
-                  hojaDestino: isWhatsAppMode ? "leeads_wsp" : "Leeads_atm"
+                  hojaDestino: isWhatsAppMode ? "leeads_wsp" : "Leeads_atm",
+                  _honey: form._honey // Se envía para validación backend
               };
               
-              // Blindaje de comunicación con patrón Senior
-              await fetch(APPS_SCRIPT_URL, {
+              // Envío a nuestro endpoint protegido con Gemini AI
+              const response = await fetch('/api/submit-lead', {
                   method: 'POST',
-                  mode: 'no-cors', // Evita bloqueos de redirección de Google
-                  headers: { 'Content-Type': 'text/plain' },
+                  headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify(payload)
               });
+
+              if (!response.ok) {
+                  const errorData = await response.json();
+                  if (errorData.error === 'SPAM_DETECTED') {
+                      alert("Tu solicitud ha sido retenida por nuestros filtros de seguridad automatizados debido a actividad sospechosa. Por favor, asegúrate de ingresar datos reales con sentido humano e intenta nuevamente.");
+                      setLoading(false);
+                      return;
+                  }
+                  throw new Error(errorData.error || 'Error de conexión');
+              }
              
              setSubmitted(true);
             
@@ -109,8 +117,6 @@ export default function ContactoPage() {
                     : `Hola Francisco, ¿cómo estás? Mi nombre es ${form.nombre} de ${form.empresa}. Te escribo para solicitar la evaluación y desarrollo de un nuevo proyecto. Ya dejé mis datos registrados y me gustaría que conversáramos sobre los detalles técnicos y comerciales cuando tengas un momento. ¡Gracias!`;
 
                 window.open(`https://wa.me/${targetPhone}?text=${encodeURIComponent(message)}`, '_blank');
-                setSubmitted(true);
-            } else {
                 setSubmitted(true);
             }
         } catch (error: any) {
@@ -319,7 +325,7 @@ export default function ContactoPage() {
                                             </p>
                                         </div>
                                         <button
-                                            onClick={() => { setSubmitted(false); setForm({ nombre: "", empresa: "", email: "", tamano: "", mensaje: "" }); }}
+                                            onClick={() => { setSubmitted(false); setForm({ nombre: "", empresa: "", email: "", tamano: "", mensaje: "", _honey: "" }); }}
                                             className="inline-flex items-center gap-2 text-sm font-bold text-[#0047AB] hover:gap-3 transition-all"
                                         >
                                             Enviar otra consulta <ArrowRight className="w-4 h-4" />
@@ -358,6 +364,17 @@ export default function ContactoPage() {
                                                 </div>
                                             </div>
                                         </div>
+
+                                        {/* Trampa Honeypot: Oculta visualmente pero disponible para bots */}
+                                        <input 
+                                            type="text" 
+                                            name="_honey" 
+                                            value={form._honey} 
+                                            onChange={handleChange} 
+                                            style={{ display: 'none' }} 
+                                            tabIndex={-1} 
+                                            autoComplete="off" 
+                                        />
 
                                         <div className="grid md:grid-cols-2 gap-5">
                                             <div className="flex flex-col gap-2">
