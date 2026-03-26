@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import dns from 'dns';
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMhGRRHLx8UylQSoCITSLqc_r8PZGm3cwYX5yYQ_aWwgJ2yk1XIbiPS4KY0njfHeMJqg/exec';
 
@@ -16,6 +17,24 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'SPAM_DETECTED' }, { status: 400 });
         }
 
+        // 2. DNS MX DOMAIN VERIFICATION: Block non-existent or fake domains
+        const targetEmail = payload.correo || payload.email;
+        if (targetEmail) {
+            const domain = targetEmail.split('@')[1];
+            if (domain) {
+                try {
+                    const mxRecords = await dns.promises.resolveMx(domain);
+                    if (!mxRecords || mxRecords.length === 0) {
+                        console.warn(`SPAM REJECTED: Domain ${domain} has no MX records.`);
+                        return NextResponse.json({ error: 'SPAM_DETECTED' }, { status: 400 });
+                    }
+                } catch (mxError) {
+                    console.warn(`SPAM REJECTED: Bad or non-existent email domain: ${domain}`);
+                    return NextResponse.json({ error: 'SPAM_DETECTED' }, { status: 400 });
+                }
+            }
+        }
+
         // 2. AI SEMANTIC FILTER: Analyze sense and context
         if (process.env.GOOGLE_GENERATIVE_AI_API_KEY) {
             try {
@@ -27,9 +46,13 @@ export async function POST(req: Request) {
 Datos del formulario (formato JSON):
 ${JSON.stringify(payload, null, 2)}
 
-Pregúntate: ¿Tienen sentido las palabras ingresadas? ¿O es una secuencia aleatoria de letras ("KGufwxLsxUL", "TnoqLsn")? No importa el idioma, pero DEBE ser lenguaje humano o datos reales.
+Análisis obligatorio (Responde evaluando esto):
+1. ¿El correo electrónico fue inventado golpeando el teclado al azar? Ojo especial si el correo es algo como "qweasd123@gmail.com", "asdfg@gmail.com", o "sdfsdgsfg@...". Incluso si el dominio es gmail/hotmail, si el nombre de usuario parece basura tipeada sin sentido (Keyboard Mashing), ES SPAM 100%.
+2. ¿Los textos de nombre, empresa o mensaje parecen reales o secuencias aleatorias ("KGufwxLsxUL", "TnoqLsn")?
 
-Responde ÚNICAMENTE con la palabra "VALID" (si es texto normal/humano) o "SPAM" (si es basura/aleatorio). No incluyas signos de puntuación, ni explicaciones extra.`;
+Si descubres textos o correos creados como "Keyboard Mashing" u odio, márcarlo como "SPAM". Si parece un mensaje real humano, sin importar si es corto, márcalo "VALID".
+
+Responde ÚNICAMENTE con la palabra "VALID" (si es texto humano y correo creíble) o "SPAM" (si es basura o el correo parece falso/letras aleatorias). No escribas NADA MÁS que esa única palabra.`;
 
                 const result = await model.generateContent(prompt);
                 const aiResponse = result.response.text().trim().toUpperCase();
