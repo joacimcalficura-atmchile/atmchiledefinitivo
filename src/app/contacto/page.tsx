@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import {
     Mail, Phone, MapPin, Send, Users,
-    CheckCircle2, ArrowRight, Building2, MessageSquare
+    CheckCircle2, ArrowRight, Building2, MessageSquare, ShieldAlert
 } from "lucide-react";
 
 // ── Tipos ──────────────────────────────────────────────────────────────────────
@@ -51,6 +51,7 @@ import { FloatingCubes } from "@/components/ui/FloatingCubes";
 export default function ContactoPage() {
     const [form, setForm]           = useState<FormData>({ nombre: "", empresa: "", email: "", tamano: "", mensaje: "", _honey: "" });
     const [submitted, setSubmitted] = useState(false);
+    const [isSpamBlocked, setIsSpamBlocked] = useState(false);
     const [loading, setLoading]     = useState(false);
     const [isWhatsAppMode, setIsWhatsAppMode] = useState(false);
     const [targetContact, setTargetContact]   = useState<"manager" | "ceo">("manager");
@@ -99,7 +100,7 @@ export default function ContactoPage() {
               if (!response.ok) {
                   const errorData = await response.json();
                   if (errorData.error === 'SPAM_DETECTED') {
-                      alert("Tu solicitud ha sido retenida por nuestros filtros de seguridad automatizados debido a actividad sospechosa. Por favor, asegúrate de ingresar datos reales con sentido humano e intenta nuevamente.");
+                      setIsSpamBlocked(true);
                       setLoading(false);
                       return;
                   }
@@ -305,7 +306,35 @@ export default function ContactoPage() {
                             <div className="absolute top-0 left-12 right-12 h-px rounded-full" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,1), transparent)" }} />
 
                             <AnimatePresence mode="wait">
-                                {submitted ? (
+                                {isSpamBlocked ? (
+                                    /* ── Estado de Bloqueo por Spam ── */
+                                    <m.div
+                                        key="spam-error"
+                                        initial={{ opacity: 0, scale: 0.92 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                        className="flex flex-col items-center justify-center gap-6 py-16 text-center"
+                                    >
+                                        <div className="w-20 h-20 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center relative overflow-hidden">
+                                            <div className="absolute inset-0 bg-red-500/20 animate-ping rounded-full" />
+                                            <ShieldAlert className="w-10 h-10 text-red-500 relative z-10" />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-2xl font-bold text-slate-900 mb-2">Conexión Denegada</h3>
+                                            <p className="text-slate-500 text-sm max-w-sm mx-auto leading-relaxed">
+                                                Nuestra Inteligencia Artificial y sistemas de seguridad han bloqueado esta solicitud por considerarla <span className="font-bold text-red-500">Comportamiento Inusual (Bot/SPAM)</span>.
+                                            </p>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={() => { setIsSpamBlocked(false); setForm({ nombre: "", empresa: "", email: "", tamano: "", mensaje: "", _honey: "" }); }}
+                                            className="px-6 py-2.5 rounded-lg bg-slate-100 font-bold text-slate-600 hover:bg-slate-200 transition-all text-sm mt-4"
+                                        >
+                                            Entendido. Intentar Nuevamente
+                                        </button>
+                                    </m.div>
+                                ) : submitted ? (
                                     /* ── Estado de éxito ── */
                                     <m.div
                                         key="success"

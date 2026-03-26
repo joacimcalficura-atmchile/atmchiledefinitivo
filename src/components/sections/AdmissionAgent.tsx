@@ -13,7 +13,8 @@ import {
     Zap, 
     Info, 
     Loader2,
-    ArrowLeft
+    ArrowLeft,
+    ShieldAlert
 } from "lucide-react";
 import { FloatingCubes } from "@/components/ui/FloatingCubes";
 
@@ -33,6 +34,7 @@ interface FormData {
 export const AdmissionAgent = () => {
     const [step, setStep] = useState(0);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSpamBlocked, setIsSpamBlocked] = useState(false);
     const [formData, setFormData] = useState<FormData>({
         fullName: '',
         email: '',
@@ -79,8 +81,7 @@ export const AdmissionAgent = () => {
              if (!response.ok) {
                  const errorData = await response.json();
                  if (errorData.error === 'SPAM_DETECTED') {
-                     alert("Tu solicitud ha sido retenida por fuertes detectores de seguridad bot/spam. Por favor revisa e ingresa datos reales.");
-                     setStep(0); // Reiniciar al inicio
+                     setIsSpamBlocked(true);
                      setIsSubmitting(false);
                      return;
                  }
@@ -179,7 +180,28 @@ export const AdmissionAgent = () => {
                                 exit="exit"
                                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                             >
-                                {isSubmitting ? (
+                                {isSpamBlocked ? (
+                                    <div className="flex flex-col items-center justify-center text-center py-12">
+                                        <div className="w-20 h-20 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center relative mb-6">
+                                            <div className="absolute inset-0 bg-red-500/20 animate-ping rounded-full" />
+                                            <ShieldAlert className="w-10 h-10 text-red-500 relative z-10" />
+                                        </div>
+                                        <h4 className="text-3xl font-black text-white mb-4 tracking-tight">Acceso Denegado</h4>
+                                        <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-lg mx-auto mb-8">
+                                            Nuestra Inteligencia Artificial consideró esta solicitud como <span className="text-red-500 font-bold">SPAM inusual</span> y bloqueó la conexión a nuestro ecosistema.
+                                        </p>
+                                        <button
+                                            onClick={() => { setIsSpamBlocked(false); setStep(0); setFormData({
+                                                fullName: '', email: '', whatsapp: '', projectName: '',
+                                                legalStatus: '', industry: '', whatsappStatus: '',
+                                                painPoint: '', wantAudit: '', _honey: ''
+                                            }); }}
+                                            className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 font-bold text-white hover:bg-white/10 transition-all text-sm uppercase tracking-widest"
+                                        >
+                                            Reintentar (Soy Humano)
+                                        </button>
+                                    </div>
+                                ) : isSubmitting ? (
                                     <div className="text-center py-12">
                                         <m.div 
                                             animate={{ rotate: 360 }}
@@ -452,7 +474,7 @@ export const AdmissionAgent = () => {
                     </div>
 
                     {/* Footer del Formulario */}
-                    {step < 9 && (
+                    {step < 9 && !isSpamBlocked && (
                         <div className="px-6 md:px-12 py-6 md:py-8 bg-black/20 border-t border-white/20 flex items-center justify-between relative z-10">
                             <button
                                 onClick={prevStep}
