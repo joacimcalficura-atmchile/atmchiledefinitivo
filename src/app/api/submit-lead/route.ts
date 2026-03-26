@@ -17,9 +17,9 @@ export async function POST(req: Request) {
         }
 
         // 2. AI SEMANTIC FILTER: Analyze sense and context
-        if (process.env.GEMINI_API_KEY) {
+        if (process.env.GOOGLE_GENERATIVE_AI_API_KEY) {
             try {
-                const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+                const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_API_KEY);
                 const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
                 const prompt = `Eres un sistema de seguridad anti-spam corporativo. Evalúa este payload de formulario para decidir si fue escrito por un humano o es spam generado.
