@@ -27,6 +27,7 @@ interface FormData {
     whatsappStatus: string;
     painPoint: string;
     wantAudit: string;
+    _honey: string;
 }
 
 export const AdmissionAgent = () => {
@@ -41,7 +42,8 @@ export const AdmissionAgent = () => {
         industry: '',
         whatsappStatus: '',
         painPoint: '',
-        wantAudit: ''
+        wantAudit: '',
+        _honey: ''
     });
 
     const handleInputChange = (field: keyof FormData, value: string) => {
@@ -52,9 +54,7 @@ export const AdmissionAgent = () => {
          setIsSubmitting(true);
          
          try {
-             const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMhGRRHLx8UylQSoCITSLqc_r8PZGm3cwYX5yYQ_aWwgJ2yk1XIbiPS4KY0njfHeMJqg/exec';
-             
-             // Mapeo de variables de estado al payload requerido (v2 con enrutamiento dinámico)
+             // Mapeo de variables de estado al payload requerido
              const payload = {
                  hojaDestino: "el_club_de_los_100", // Exactamente como en la hoja
                  nombre: formData.fullName.trim(),
@@ -65,18 +65,29 @@ export const AdmissionAgent = () => {
                  rubro: formData.industry.trim(),
                  comunicaciones: formData.whatsappStatus.trim(),
                  desafio: formData.painPoint.trim(),
-                 auditoria: formData.wantAudit.trim()
+                 auditoria: formData.wantAudit.trim(),
+                 _honey: formData._honey
              };
  
-             // Blindaje de comunicación con patrón Senior
-             await fetch(APPS_SCRIPT_URL, {
+             // Enviar al nuevo backend protegido por IA
+             const response = await fetch('/api/submit-lead', {
                  method: 'POST',
-                 mode: 'no-cors', // Evita bloqueos de redirección de Google
-                 headers: { 'Content-Type': 'text/plain' },
+                 headers: { 'Content-Type': 'application/json' },
                  body: JSON.stringify(payload)
              });
+
+             if (!response.ok) {
+                 const errorData = await response.json();
+                 if (errorData.error === 'SPAM_DETECTED') {
+                     alert("Tu solicitud ha sido retenida por fuertes detectores de seguridad bot/spam. Por favor revisa e ingresa datos reales.");
+                     setStep(0); // Reiniciar al inicio
+                     setIsSubmitting(false);
+                     return;
+                 }
+                 throw new Error(errorData.error || 'Error de conexión');
+             }
              
-             setStep(9); // Con no-cors asumimos éxito si la promesa se resuelve
+             setStep(9);
          } catch (error: any) {
              console.error('Error submitting form:', error);
              alert(`Error al enviar la solicitud: ${error.message || 'Verifica tu conexión.'}`);
@@ -197,6 +208,16 @@ export const AdmissionAgent = () => {
                                                     onChange={(e) => handleInputChange('fullName', e.target.value)}
                                                     placeholder="Escribe tu respuesta aquí..."
                                                     className="w-full bg-black/40 border-2 border-white/20 p-4 md:p-5 rounded-2xl text-lg md:text-xl font-bold text-white outline-none focus:border-brand-cyan focus:bg-black/60 focus:ring-4 focus:ring-brand-cyan/10 transition-all placeholder:text-slate-600"
+                                                />
+                                                {/* Honeypot Silencioso */}
+                                                <input 
+                                                    type="text" 
+                                                    name="_honey" 
+                                                    value={formData._honey} 
+                                                    onChange={(e) => handleInputChange('_honey', e.target.value)} 
+                                                    style={{ display: 'none' }} 
+                                                    tabIndex={-1} 
+                                                    autoComplete="off" 
                                                 />
                                             </div>
                                         )}
