@@ -142,35 +142,35 @@ export const AdmissionAgent = () => {
                 {/* Header del Formulario */}
                 <div className="flex items-center justify-between mb-12">
                     <div className="flex items-center gap-3">
-                        <div className="p-2 md:p-2.5 rounded-xl bg-brand-cobalt text-white shadow-xl shadow-brand-cobalt/40 border border-white/20">
+                        <div className="p-2 md:p-2.5 rounded-xl bg-[#00AEEF]/10 text-[#00AEEF] shadow-[0_0_20px_rgba(0,174,239,0.1)] border border-[#00AEEF]/30">
                             <Lock size={18} className="md:w-5 md:h-5" />
                         </div>
                         <div>
-                            <h3 className="text-white font-black text-lg md:text-xl tracking-tight">Portal de Admisión</h3>
-                            <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Protocolo Club 100</p>
+                            <h3 className="text-white font-black text-lg md:text-xl tracking-tight uppercase">Portal de Admisión</h3>
+                            <p className="text-[#00AEEF] text-[10px] font-black uppercase tracking-[0.2em] opacity-80">Protocolo Nivel Senior</p>
                         </div>
                     </div>
                     {step < 9 && (
                         <div className="text-right">
-                            <span className="block text-brand-cyan/60 text-[10px] font-black uppercase tracking-widest mb-1">Estado: Gravedad Cero</span>
-                            <div className="flex items-center gap-3">
-                                <div className="w-32 h-1.5 bg-white/20 rounded-full overflow-hidden">
+                            <span className="block text-slate-500 text-[9px] font-black uppercase tracking-widest mb-1.5">Sincronización en curso</span>
+                            <div className="flex items-center gap-4">
+                                <div className="w-32 h-1 bg-white/5 rounded-full overflow-hidden">
                                     <m.div 
                                         initial={{ width: 0 }}
                                         animate={{ width: `${(step / 9) * 100}%` }}
-                                        className="h-full bg-brand-cyan shadow-[0_0_15px_#22D3EE]"
+                                        className="h-full bg-[#00AEEF] shadow-[0_0_15px_#00AEEF]"
                                     />
                                 </div>
-                                <span className="text-brand-cyan font-black text-sm">{Math.round((step / 9) * 100)}%</span>
+                                <span className="text-[#00AEEF] font-black text-xs tabular-nums">{Math.round((step / 9) * 100)}%</span>
                             </div>
                         </div>
                     )}
                 </div>
 
                 {/* Contenedor Principal (Dark Glassmorphism) */}
-                <div className="bg-[#0A0F14]/90 backdrop-blur-3xl border border-white/20 rounded-[2rem] md:rounded-[2.5rem] shadow-[0_20px_80px_rgba(0,0,0,0.8)] overflow-hidden min-h-[450px] md:min-h-[500px] flex flex-col relative group ring-1 ring-white/10">
-                    <div className="absolute inset-0 bg-gradient-to-br from-brand-cobalt/5 to-transparent pointer-events-none" />
-                    <div className="p-6 md:p-12 flex-grow flex flex-col justify-center relative z-10">
+                <div className="bg-[#02121d]/80 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.9)] overflow-hidden min-h-[500px] flex flex-col relative group ring-1 ring-white/5">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#00AEEF]/5 to-transparent pointer-events-none" />
+                    <div className="p-8 md:p-14 flex-grow flex flex-col justify-center relative z-10">
                         <AnimatePresence mode="wait">
                             <m.div
                                 key={step}
@@ -290,18 +290,18 @@ export const AdmissionAgent = () => {
                                         {/* Step 3: Project Name */}
                                         {step === 3 && (
                                             <div className="space-y-6">
-                                                <div className="p-4 rounded-2xl bg-brand-cobalt/20 border border-brand-cobalt/30 w-fit text-brand-cyan">
+                                                <div className="p-4 rounded-2xl bg-[#00AEEF]/10 border border-[#00AEEF]/20 w-fit text-[#00AEEF]">
                                                     <Building size={28} />
                                                 </div>
                                                 <h4 className="text-2xl md:text-4xl font-black text-white tracking-tight leading-tight">
-                                                    ¿Cómo se llama <br/><span className="text-brand-cyan glow-text-subtle">tu empresa o proyecto?</span>
+                                                    ¿Cómo se llama <br/><span className="text-[#00AEEF] glow-text-subtle">tu empresa o proyecto?</span>
                                                 </h4>
                                                 <input
                                                     type="text"
                                                     value={formData.projectName}
                                                     onChange={(e) => handleInputChange('projectName', e.target.value)}
                                                     placeholder="Nombre de la organización..."
-                                                    className="w-full bg-black/40 border-2 border-white/20 p-4 md:p-5 rounded-2xl text-lg md:text-xl font-bold text-white outline-none focus:border-brand-cyan focus:bg-black/60 focus:ring-4 focus:ring-brand-cyan/10 transition-all placeholder:text-slate-600"
+                                                    className="w-full bg-black/40 border-2 border-white/10 p-4 md:p-5 rounded-2xl text-lg md:text-xl font-bold text-white outline-none focus:border-[#00AEEF] focus:bg-black/60 focus:ring-4 focus:ring-[#00AEEF]/10 transition-all placeholder:text-slate-700"
                                                     autoFocus
                                                 />
                                             </div>
@@ -414,24 +414,24 @@ export const AdmissionAgent = () => {
                                         {/* Step 8: Audit? */}
                                         {step === 8 && (
                                             <div className="space-y-6">
-                                                <div className="p-4 rounded-2xl bg-brand-cyan/20 border border-brand-cyan/30 w-fit text-brand-cyan">
+                                                <div className="p-4 rounded-2xl bg-[#00AEEF]/10 border border-[#00AEEF]/20 w-fit text-[#00AEEF]">
                                                     <Zap size={28} />
                                                 </div>
                                                 <h4 className="text-3xl font-black text-white tracking-tight leading-none">
-                                                    ¿Deseas una auditoría <br/><span className="text-brand-cyan glow-text-subtle">de procesos gratuita?</span>
+                                                    ¿Deseas una <span className="text-[#00AEEF]">auditoría estratégica</span> <br/>de procesos gratuita?
                                                 </h4>
-                                                <div className="grid gap-3">
+                                                <div className="grid gap-3 pt-4">
                                                     {[
-                                                        "Sí, me interesa optimizar",
+                                                        "Sí, agendar análisis senior",
                                                         "No por el momento"
                                                     ].map((opt) => (
                                                         <button
                                                             key={opt}
                                                             onClick={() => handleInputChange('wantAudit', opt)}
-                                                            className={`p-4 md:p-5 rounded-2xl text-left font-bold transition-all border-2 text-sm md:text-base ${
+                                                            className={`p-5 rounded-2xl text-left font-black tracking-widest uppercase transition-all border-2 text-xs md:text-sm ${
                                                                 formData.wantAudit === opt 
-                                                                ? 'bg-[#FACC15] border-[#FACC15] text-slate-950 shadow-[0_0_20px_rgba(250,204,21,0.4)]' 
-                                                                : 'bg-black/40 border-white/20 text-slate-300 hover:border-[#FACC15]/40 hover:text-white'
+                                                                ? 'bg-[#00AEEF] border-[#00AEEF] text-[#010912] shadow-[0_0_30px_rgba(0,174,239,0.3)]' 
+                                                                : 'bg-black/40 border-white/10 text-slate-400 hover:border-[#00AEEF]/40 hover:text-white'
                                                             }`}
                                                         >
                                                             {opt}
@@ -443,26 +443,26 @@ export const AdmissionAgent = () => {
 
                                         {/* Step 9: Success */}
                                         {step === 9 && (
-                                            <div className="text-center py-6">
+                                            <div className="text-center py-10">
                                                 <m.div 
                                                     initial={{ scale: 0.8, opacity: 0 }}
                                                     animate={{ scale: 1, opacity: 1 }}
-                                                    className="inline-block p-6 rounded-full bg-brand-cyan/10 text-brand-cyan mb-8"
+                                                    className="inline-block p-8 rounded-full bg-[#00AEEF]/10 text-[#00AEEF] mb-10 border border-[#00AEEF]/20 shadow-[0_0_50px_rgba(0,174,239,0.1)]"
                                                 >
                                                     <CheckCircle size={84} />
                                                 </m.div>
-                                                <h4 className="text-4xl font-black text-white mb-4 tracking-tight">¡Perfil Sincronizado!</h4>
-                                                <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-lg mx-auto mb-10">
+                                                <h4 className="text-4xl font-black text-white mb-4 tracking-tight uppercase">Protocolo Sincronizado</h4>
+                                                <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-lg mx-auto mb-12">
                                                     Misión cumplida. Un arquitecto senior procesará sus datos y se conectará a través de un canal seguro en menos de 24 horas.
                                                 </p>
-                                                <div className="grid md:grid-cols-2 gap-4 text-left p-6 rounded-3xl bg-black/40 border border-white/20 shadow-xl">
-                                                    <div>
-                                                        <span className="text-[10px] font-black text-brand-cyan uppercase tracking-widest block mb-1">Email de Auditoría</span>
-                                                        <span className="font-bold text-white text-lg">{formData.email}</span>
+                                                <div className="grid md:grid-cols-2 gap-6 text-left p-8 rounded-[2rem] bg-black/40 border border-white/10 shadow-2xl">
+                                                    <div className="space-y-1">
+                                                        <span className="text-[9px] font-black text-[#00AEEF] uppercase tracking-[0.3em] block opacity-70">Canal Seguro</span>
+                                                        <span className="font-bold text-white text-lg block">{formData.email}</span>
                                                     </div>
-                                                    <div>
-                                                        <span className="text-[10px] font-black text-brand-cyan uppercase tracking-widest block mb-1">WhatsApp Directo</span>
-                                                        <span className="font-bold text-white text-lg">{formData.whatsapp}</span>
+                                                    <div className="space-y-1 border-l border-white/5 pl-6">
+                                                        <span className="text-[9px] font-black text-[#00AEEF] uppercase tracking-[0.3em] block opacity-70">WhatsApp Directo</span>
+                                                        <span className="font-bold text-white text-lg block">{formData.whatsapp}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -475,26 +475,26 @@ export const AdmissionAgent = () => {
 
                     {/* Footer del Formulario */}
                     {step < 9 && !isSpamBlocked && (
-                        <div className="px-6 md:px-12 py-6 md:py-8 bg-black/20 border-t border-white/20 flex items-center justify-between relative z-10">
+                        <div className="px-8 md:px-14 py-8 bg-black/40 border-t border-white/10 flex items-center justify-between relative z-10">
                             <button
                                 onClick={prevStep}
                                 disabled={step === 0}
                                 className={`flex items-center gap-2 font-black text-[10px] md:text-xs uppercase tracking-widest transition-all ${
                                     step === 0 
                                     ? 'opacity-0 pointer-events-none' 
-                                    : 'text-white/60 hover:text-brand-cyan hover:translate-x-[-4px]'
+                                    : 'text-white/40 hover:text-[#00AEEF] hover:translate-x-[-4px]'
                                 }`}
                             >
-                                <ArrowLeft size={16} /> <span className="hidden xs:inline">Atrás</span>
+                                <ArrowLeft size={16} /> <span className="hidden xs:inline">Volver</span>
                             </button>
                             
                             <button
                                 onClick={nextStep}
                                 disabled={!isStepValid()}
-                                className={`group flex items-center gap-3 px-6 md:px-10 py-4 md:py-5 rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-[0.2em] transition-all duration-500 relative overflow-hidden ${
+                                className={`group flex items-center gap-3 px-8 md:px-12 py-4 md:py-5 rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-[0.3em] transition-all duration-500 relative overflow-hidden ${
                                     isStepValid() 
-                                    ? 'bg-brand-cyan text-slate-950 shadow-[0_0_50px_rgba(34,211,238,0.5)] hover:scale-105 hover:bg-white hover:text-brand-cobalt active:scale-95 active:bg-white active:shadow-none' 
-                                    : 'bg-white/5 text-white/30 border border-white/10 opacity-100 cursor-not-allowed'
+                                    ? 'bg-[#00AEEF] text-[#010912] shadow-[0_0_40px_rgba(0,174,239,0.3)] hover:scale-105 hover:bg-white active:scale-95' 
+                                    : 'bg-white/5 text-white/20 border border-white/5 cursor-not-allowed'
                                 }`}
                             >
                                 <span className="relative z-10">
@@ -503,12 +503,9 @@ export const AdmissionAgent = () => {
                                 <ChevronRight 
                                     size={18} 
                                     className={`relative z-10 transition-all duration-500 ${isStepValid() ? 'group-hover:translate-x-1.5' : 'opacity-40'}`} 
-                                />
+                                 />
                                 {isStepValid() && (
-                                    <m.div 
-                                        layoutId="glow"
-                                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_2s_infinite]"
-                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                                 )}
                             </button>
                         </div>

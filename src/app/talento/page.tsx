@@ -167,13 +167,7 @@ const tabContentVariant: Variants = {
 // ─────────────────────────────────────────────────────────
 
 export default function TalentoPage() {
-    const [isLoading, setIsLoading] = useState(true);
     const [activeTab, setActiveTab] = useState(0);
-
-    useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 2800);
-        return () => clearTimeout(timer);
-    }, []);
 
     return (
         <div
@@ -181,76 +175,13 @@ export default function TalentoPage() {
             aria-label="ATM Chile – Talento & Transformación"
         >
             {/* ══════════════════════════════════════════════════
-          PANTALLA DE CARGA — People Power
-        ══════════════════════════════════════════════════ */}
-                <AnimatePresence>
-                    {isLoading && (
-                        <m.div
-                            key="talent-loader"
-                            initial={{ opacity: 1 }}
-                            exit={{ opacity: 0, filter: "blur(16px)", scale: 1.06 }}
-                            transition={{ duration: 0.8, ease: "easeInOut" }}
-                            className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-[#F8FAFC]/95 backdrop-blur-3xl"
-                        >
-                            {/* Pulso animado */}
-                            <m.div
-                                animate={{ scale: [1, 2.2, 3.2], opacity: [0.35, 0.1, 0] }}
-                                transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut" }}
-                                className="absolute w-48 h-48 border-2 border-[#0047AB]/40 rounded-full pointer-events-none"
-                            />
-                            <m.div
-                                animate={{ scale: [1, 1.6, 2.6], opacity: [0.5, 0.15, 0] }}
-                                transition={{ duration: 2.5, delay: 0.6, repeat: Infinity, ease: "easeOut" }}
-                                className="absolute w-40 h-40 border-2 border-[#22D3EE]/50 rounded-full pointer-events-none"
-                            />
-
-                            {/* Ícono central */}
-                            <div className="relative z-10 w-48 h-48 flex items-center justify-center bg-white rounded-[2.5rem] shadow-[0_10px_60px_rgba(0,71,171,0.15)] border border-slate-100 overflow-hidden">
-                                <m.div
-                                    animate={{ y: [-4, 4, -4] }}
-                                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                                >
-                                    <Users className="w-24 h-24 text-[#0047AB]" />
-                                </m.div>
-                                {/* Escáner horizontal */}
-                                <m.div
-                                    initial={{ y: "-100%" }}
-                                    animate={{ y: "320%" }}
-                                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                                    className="absolute top-0 left-0 w-full h-1.5 bg-[#22D3EE] shadow-[0_0_20px_4px_#22D3EE]"
-                                />
-                            </div>
-
-                            <m.p
-                                animate={{ opacity: [0.4, 1, 0.4] }}
-                                transition={{ duration: 1.5, repeat: Infinity }}
-                                className="mt-10 text-sm font-bold tracking-[0.3em] text-[#0047AB] uppercase"
-                            >
-                                Cargando Talento Senior...
-                            </m.p>
-
-                            {/* Barra de progreso */}
-                            <div className="mt-6 w-48 h-[2px] bg-slate-200/50 rounded-full overflow-hidden shadow-inner">
-                                <m.div
-                                    initial={{ width: "0%" }}
-                                    animate={{ width: "100%" }}
-                                    transition={{ duration: 2.6, ease: [0.16, 1, 0.3, 1] }}
-                                    className="h-full bg-gradient-to-r from-[#0047AB] to-[#22D3EE] shadow-[0_0_10px_#22D3EE]"
-                                />
-                            </div>
-                        </m.div>
-                    )}
-                </AnimatePresence>
-
-                {/* ══════════════════════════════════════════════════
-              CONTENIDO PRINCIPAL (post-loading)
+              CONTENIDO PRINCIPAL
             ══════════════════════════════════════════════════ */}
-                {!isLoading && (
-                    <m.div
-                        initial={{ opacity: 0, scale: 0.98, filter: "blur(8px)" }}
-                        animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                    >
+            <m.div
+                initial={{ opacity: 0, scale: 0.98, filter: "blur(8px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            >
                         {/* ──────────────────────────────────────────────────────
                     SECCIÓN 1: HERO — PROPÓSITO + PROPUESTA DE VALOR
                     ────────────────────────────────────────────────── */}
@@ -583,14 +514,12 @@ export default function TalentoPage() {
                                                     >
                                                         <div className="w-full h-full bg-brand-cobalt flex items-center justify-center text-white font-black text-xs">JC</div>
                                                     </Link>
-                                                    <Link 
-                                                        href="https://www.linkedin.com/in/fcespedm/"
-                                                        target="_blank"
-                                                        className="group/avatar relative w-12 h-12 rounded-full border-2 border-[#020B12] bg-brand-cyan overflow-hidden hover:z-30 transition-all hover:scale-110"
-                                                        title="Felipe Céspedes - Project Manager"
+                                                    <div 
+                                                        className="group/avatar relative w-12 h-12 rounded-full border-2 border-[#020B12] bg-[#3B00B9] overflow-hidden hover:z-30 transition-all hover:scale-110"
+                                                        title="Cristopher Poblete - Project Manager"
                                                     >
-                                                        <div className="w-full h-full bg-brand-cyan flex items-center justify-center text-white font-black text-xs">FC</div>
-                                                    </Link>
+                                                        <div className="w-full h-full bg-brand-cyan flex items-center justify-center text-white font-black text-xs">CP</div>
+                                                    </div>
                                                 </div>
                                                 <div className="h-8 w-px bg-white/10 hidden md:block" />
                                                 <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest hidden md:block">
@@ -900,7 +829,6 @@ export default function TalentoPage() {
                             </m.div>
                         </section>
                     </m.div>
-                )}
         </div>
     );
 }

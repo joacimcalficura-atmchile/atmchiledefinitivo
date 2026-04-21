@@ -57,9 +57,9 @@ export default function ContactoPage() {
     const [targetContact, setTargetContact]   = useState<"manager" | "ceo">("manager");
 
     // Configuración de contactos reales
-    const WHATSAPP_MANAGER = "56945186499"; 
+    const WHATSAPP_MANAGER = "56942781028"; 
     const WHATSAPP_CEO     = "56942781028"; 
-    const MANAGER_EMAIL    = "francisco.cesped@atmchile.cl";
+    const MANAGER_EMAIL    = "cristopher.poblete@atmchile.cl";
     const CEO_EMAIL        = "joacim.calficura@atmchile.cl";
     const LOCATION_TEXT    = "Santa Magdalena 75, Providencia, Santiago de Chile";
 
@@ -114,8 +114,8 @@ export default function ContactoPage() {
                 const targetPhone = targetContact === "ceo" ? WHATSAPP_CEO : WHATSAPP_MANAGER;
                 
                 const message = targetContact === "ceo" 
-                    ? `Estimado Joacim, es un honor saludarle. Mi nombre es ${form.nombre} de la empresa ${form.empresa}. Me pongo en contacto directo con usted para conversar sobre una oportunidad estratégica de alto nivel. Entiendo que su tiempo es valioso, por lo que me gustaría saber cuándo sería prudente agendar una breve llamada. Quedo a su disposición.`
-                    : `Hola Francisco, ¿cómo estás? Mi nombre es ${form.nombre} de ${form.empresa}. Te escribo para solicitar la evaluación y desarrollo de un nuevo proyecto. Ya dejé mis datos registrados y me gustaría que conversáramos sobre los detalles técnicos y comerciales cuando tengas un momento. ¡Gracias!`;
+                    ? `Estimado Joacim, es un honor saludarle. Mi nombre es ${form.nombre} de la empresa ${form.empresa}. Me pongo en contacto directo con usted para conversar sobre una oportunidad estratégica de alto nivel. (Proviene de atmchile.com).`
+                    : `Hola Cristopher, ¿cómo estás? Mi nombre es ${form.nombre} de ${form.empresa}. Te escribo para solicitar la evaluación de un nuevo proyecto. Dejé mis datos en atmchile.com y me gustaría conversar sobre detalles técnicos.`;
 
                 window.open(`https://wa.me/${targetPhone}?text=${encodeURIComponent(message)}`, '_blank');
                 setSubmitted(true);
@@ -186,7 +186,7 @@ export default function ContactoPage() {
                                 Información de contacto
                             </h3>
                             <ul className="space-y-6">
-                                {/* Francisco Cesped */}
+                                {/* Responsable de Operaciones */}
                                 <li className="group">
                                     <div className="flex items-start gap-4 p-2 -m-2 rounded-xl">
                                         <div className="w-10 h-10 rounded-xl bg-[#0047AB]/8 border border-[#0047AB]/10 flex items-center justify-center shrink-0">
@@ -194,9 +194,9 @@ export default function ContactoPage() {
                                         </div>
                                         <div className="flex-grow">
                                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Gerente de Proyectos (Operativo)</p>
-                                            <p className="font-bold text-slate-800 text-sm mb-2">Francisco Césped</p>
+                                            <p className="font-bold text-slate-800 text-sm mb-2">Cristopher Poblete</p>
                                             <div className="flex gap-2">
-                                                <a href={`mailto:${MANAGER_EMAIL}?subject=Solicitud de Nuevo Proyecto / Cotización - [Nombre de la Empresa]&body=Hola Francisco, ¿qué tal? Te escribo porque estamos interesados en iniciar un nuevo proyecto con ustedes. Nos gustaría que nos pudieras asesorar y enviar una cotización basada en nuestros requerimientos. Quedo atento a tus comentarios para coordinar los próximos pasos. Saludos.`} 
+                                                <a href={`mailto:${MANAGER_EMAIL}?subject=Solicitud de Nuevo Proyecto - [Nombre de la Empresa] (atmchile.com)&body=Hola Cristopher, ¿qué tal? Te escribo desde atmchile.com porque estamos interesados en un nuevo proyecto.`} 
                                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 text-[11px] font-bold hover:bg-slate-200 hover:text-[#EA4335] transition-all group/btn">
                                                     <GmailIcon className="w-3.5 h-3.5 opacity-70 group-hover/btn:opacity-100 transition-opacity" /> Email
                                                 </a>
@@ -221,7 +221,7 @@ export default function ContactoPage() {
                                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Founder & CEO (Strategic Contact)</p>
                                             <p className="font-bold text-slate-800 text-sm mb-2">Joacim Calficura</p>
                                             <div className="flex gap-2">
-                                                <a href={`mailto:${CEO_EMAIL}?subject=Propuesta Estratégica / Oportunidad de Negocio - [Nombre de la Empresa]&body=Estimado Joacim, un cordial saludo. Me dirijo a usted, conociendo su rol como fundador de ATM Chile, para plantearle una oportunidad de negocio/alianza de alto nivel. Me gustaría que pudiéramos agendar una breve reunión para conversar sobre cómo nuestras empresas pueden colaborar y generar valor mutuo. Quedo atento a su disponibilidad. Saludos cordiales.`} 
+                                                <a href={`mailto:${CEO_EMAIL}?subject=Propuesta Estratégica (atmchile.com)&body=Estimado Joacim, un cordial saludo. Le contacto desde atmchile.com para plantearle una oportunidad de negocio.`} 
                                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 text-[11px] font-bold hover:bg-slate-200 hover:text-[#EA4335] transition-all group/btn">
                                                     <GmailIcon className="w-3.5 h-3.5 opacity-70 group-hover/btn:opacity-100 transition-opacity" /> Email
                                                 </a>
@@ -275,7 +275,7 @@ export default function ContactoPage() {
                                 <div className="flex items-center gap-3">
                                     <div className="flex -space-x-2">
                                         <ConsultantAvatar initials="JC" color="#0047AB" />
-                                        <ConsultantAvatar initials="AM" color="#0369A1" />
+                                        <ConsultantAvatar initials="CP" color="#3B00B9" />
                                         <ConsultantAvatar initials="RV" color="#22D3EE" />
                                         <div className="w-10 h-10 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[10px] font-black text-slate-600 shrink-0">
                                             +5

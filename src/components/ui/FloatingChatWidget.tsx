@@ -148,6 +148,7 @@ export const FloatingChatWidget = () => {
                       src="/images/asistente-futurista.jpg" 
                       alt="ATM AI Assistant" 
                       fill
+                      sizes="48px"
                       className="object-cover rounded-full group-hover/header:scale-110 transition-transform duration-700"
                       onError={(e) => {
                         e.currentTarget.style.display = 'none';
@@ -260,6 +261,7 @@ export const FloatingChatWidget = () => {
             src="/images/asistente-futurista.jpg" 
             alt="Avatar ATM 3D" 
             fill
+            sizes="64px"
             className="object-cover group-hover:scale-110 transition-transform duration-700"
             onError={(e) => {
               e.currentTarget.style.display = 'none';

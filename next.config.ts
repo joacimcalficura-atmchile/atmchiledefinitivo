@@ -65,8 +65,16 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
+
+  // Redirecciones para evitar 404 tras el rebranding de secciones
+  async redirects() {
+    return [
+      {
+        source: '/profepyme',
+        destination: '/insights',
+        permanent: true,
+      },
+    ]
   },
 };
 
