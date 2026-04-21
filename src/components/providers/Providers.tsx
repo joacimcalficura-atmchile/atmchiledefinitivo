@@ -3,6 +3,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import { LazyMotion, domMax } from "framer-motion";
+import { ReactLenis } from "lenis/react";
 import { TransitionProvider } from "@/context/TransitionContext";
 
 // SSR-safe: PageTransition uses web components that cannot run on Node.js
@@ -13,11 +14,13 @@ const PageTransition = dynamic(
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <LazyMotion features={domMax} strict>
-      <TransitionProvider>
-        <PageTransition />
-        {children}
-      </TransitionProvider>
-    </LazyMotion>
+    <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothWheel: true }}>
+      <LazyMotion features={domMax} strict>
+        <TransitionProvider>
+          <PageTransition />
+          {children}
+        </TransitionProvider>
+      </LazyMotion>
+    </ReactLenis>
   );
 }

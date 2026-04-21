@@ -56,17 +56,19 @@ export const FooterUnified = () => {
     <footer className="relative bg-white border-t border-slate-200 overflow-hidden">
       {/* Elementos decorativos de fondo */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10">
-        <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] bg-brand-cobalt/5 blur-[120px] rounded-full" />
-        <div className="absolute bottom-[-10%] left-[-5%] w-[300px] h-[300px] bg-brand-cyan/5 blur-[100px] rounded-full" />
+        <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] bg-brand-cobalt/10 blur-[150px] rounded-full" />
+        <div className="absolute bottom-[-10%] left-[-5%] w-[300px] h-[300px] bg-brand-cyan/10 blur-[120px] rounded-full" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Columna Marca */}
           <div className="space-y-6">
-            <Link href="/" className="inline-block text-2xl font-black tracking-tighter text-slate-900">
-              &lt; ATM /&gt;
-            </Link>
+            <m.div className="mb-4">
+              <h2 className="text-2xl font-black tracking-tighter text-slate-900">
+                ATM Chile
+              </h2>
+            </m.div>
             <p className="text-slate-600 text-sm leading-relaxed max-w-xs">
               Partner Tecnológico Estratégico 360. Transformamos la visión empresarial en realidades digitales escalables y seguras.
             </p>

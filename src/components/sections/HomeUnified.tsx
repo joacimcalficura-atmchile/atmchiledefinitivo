@@ -100,7 +100,7 @@ export const HomeUnified = () => {
                                 sizes="100vw"
                             />
                             {/* Overlay para legibilidad */}
-                            <div className="absolute inset-0 bg-slate-950/45 backdrop-blur-[1px]" />
+                            <div className="absolute inset-0 bg-slate-950/45" />
                             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
                         </m.div>
                     </AnimatePresence>
@@ -427,17 +427,13 @@ export const HomeUnified = () => {
                                 </m.div>
 
                                 {/* Glass VIP card */}
-                                <div className="relative rounded-3xl md:rounded-[2.5rem] bg-white/10 backdrop-blur-2xl border border-white/30 shadow-[0_24px_80px_rgba(0,0,0,0.15)] overflow-hidden p-6 md:p-10">
+                                <div className="relative rounded-3xl md:rounded-[2.5rem] bg-white/10 backdrop-blur-md border border-white/30 shadow-[0_24px_80px_rgba(0,0,0,0.15)] overflow-hidden p-6 md:p-10">
                                     {/* 3D ATM Logo — Spline transparente */}
-                                    <div className="w-full h-36 md:h-52 relative mb-4 md:mb-6 overflow-hidden rounded-2xl">
-                                        <Spline
-                                            scene="https://prod.spline.design/VHOh8tlGMrRFNCSy/scene.splinecode"
-                                            className="w-full h-full"
-                                            style={{ background: 'transparent' }}
-                                        />
-                                        {/* Overlay para dar transparencia */}
-                                        <div className="absolute inset-0 bg-white/5 rounded-2xl pointer-events-none" />
-                                    </div>
+                                <div className="w-full h-36 md:h-52 relative mb-4 md:mb-6 overflow-hidden rounded-2xl bg-[#00AEEF]/10 flex items-center justify-center border border-white/20">
+                                    <div className="text-white/40 font-black text-4xl md:text-6xl tracking-tighter select-none">ATM</div>
+                                    {/* Glass reflection effect */}
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent pointer-events-none" />
+                                </div>
 
                                     <h4 className="text-xl md:text-3xl font-black text-white text-center mb-3 md:mb-4">Membresía<br/>VIP ATM</h4>
 

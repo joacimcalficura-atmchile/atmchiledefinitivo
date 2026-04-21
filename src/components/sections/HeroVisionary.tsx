@@ -133,7 +133,7 @@ export const HeroVisionary = () => {
 
                     <m.div variants={fadeUpItem} className="mb-4">
                         <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-slate-900">
-                            <span className="text-slate-300 font-light">&lt;</span> ATM <span className="text-slate-300 font-light">/&gt;</span>
+                            ATM Chile
                         </h2>
                     </m.div>
 
