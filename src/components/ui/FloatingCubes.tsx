@@ -4,13 +4,15 @@ import React, { useRef, useMemo, useState, useEffect, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Float, PerspectiveCamera, Environment, ContactShadows } from "@react-three/drei";
 import * as THREE from "three";
+import { usePerformanceOptimization } from "@/hooks/usePerformanceOptimization";
 
-const Fragment = ({ position, rotation, scale, color, light }: any) => {
+const Fragment = ({ position, rotation, scale, color, light, isVisible }: any) => {
     const mesh = useRef<THREE.Mesh>(null!);
     const [hovered, setHover] = useState(false);
     const { mouse } = useThree();
 
     useFrame((state) => {
+        if (!isVisible) return; // Optimization: Stop calculations if not visible
         const time = state.clock.getElapsedTime();
         if (mesh.current) {
             // Movimiento base de antigravedad
@@ -47,7 +49,7 @@ const Fragment = ({ position, rotation, scale, color, light }: any) => {
     );
 };
 
-const FragmentsCloud = ({ count = 40, light = false }) => {
+const FragmentsCloud = ({ count = 40, light = false, isVisible = true }) => {
     const fragments = useMemo(() => {
         const temp = [];
         for (let i = 0; i < count; i++) {
@@ -73,16 +75,25 @@ const FragmentsCloud = ({ count = 40, light = false }) => {
     return (
         <group>
             {fragments.map((props, i) => (
-                <Fragment key={i} {...props} light={light} />
+                <Fragment key={i} {...props} light={light} isVisible={isVisible} />
             ))}
         </group>
     );
 };
 
 export const FloatingCubes = ({ count = 40, light = false }) => {
+    const { containerRef, isVisible, isMobile, dpr } = usePerformanceOptimization({ threshold: 0 });
+    
+    // Optimize count for mobile
+    const optimizedCount = isMobile ? Math.min(count, 15) : count;
+
     return (
-        <div className="absolute inset-0 z-0">
-            <Canvas dpr={[1, 2]} gl={{ antialias: true }}>
+        <div ref={containerRef} className="absolute inset-0 z-0 will-change-transform" style={{ transform: "translateZ(0)" }}>
+            <Canvas 
+                dpr={dpr} 
+                gl={{ antialias: !isMobile, powerPreference: "high-performance" }}
+                frameloop={isVisible ? "always" : "never"}
+            >
                 <PerspectiveCamera makeDefault position={[0, 0, 12]} fov={50} />
                 
                 {/* Iluminación Dinámica según el tema */}
@@ -92,11 +103,11 @@ export const FloatingCubes = ({ count = 40, light = false }) => {
                 <pointLight position={[-10, -10, -10]} intensity={light ? 50 : 1.5} color="#0047AB" />
                 
                 <Suspense fallback={null}>
-                    <FragmentsCloud count={count} light={light} />
+                    <FragmentsCloud count={optimizedCount} light={light} isVisible={isVisible} />
                     <Environment preset="city" />
-                    {!light && (
+                    {!light && !isMobile && ( // Further optimize mobile by removing shadows
                         <ContactShadows 
-                            resolution={1024} 
+                            resolution={512} 
                             scale={40} 
                             blur={2.5} 
                             opacity={0.3} 

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { BadgeCheck, Layers, Users, Bot, LineChart, ShieldCheck, Cloud, Box, Check, ArrowRight, Lock, BookOpen } from "lucide-react";
 import { PartnersEcosystem } from "./PartnersEcosystem";
 import { AdmissionAgent } from "./AdmissionAgent";
+import { usePerformanceOptimization } from "@/hooks/usePerformanceOptimization";
 
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
     ssr: false,
@@ -68,6 +69,7 @@ const HERO_IMAGES = [
 
 export const HomeUnified = () => {
     const [currentImageIdx, setCurrentImageIdx] = useState(0);
+    const { containerRef, isVisible, shouldLoad, isMobile } = usePerformanceOptimization({ threshold: 0.1 });
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -146,15 +148,44 @@ export const HomeUnified = () => {
                             className="relative flex items-center justify-center p-0 bg-transparent"
                         >
                             <m.div 
+                                ref={containerRef}
                                 variants={floatAnimation}
                                 initial="initial"
                                 animate="animate"
-                                className="w-full h-[400px] md:h-[650px] relative group cursor-pointer bg-transparent overflow-visible"
+                                className="w-full h-[400px] md:h-[650px] relative group cursor-pointer bg-transparent overflow-visible will-change-transform"
+                                style={{ transform: "translateZ(0)" }}
                             >
-                                <Spline 
-                                    scene="https://prod.spline.design/VHOh8tlGMrRFNCSy/scene.splinecode" 
-                                    className="w-full h-full bg-transparent"
-                                />
+                                <AnimatePresence mode="wait">
+                                    {(shouldLoad && isVisible) ? (
+                                        <m.div
+                                            key="spline-active"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            transition={{ duration: 1 }}
+                                            className="w-full h-full"
+                                        >
+                                            <Spline 
+                                                scene="https://prod.spline.design/VHOh8tlGMrRFNCSy/scene.splinecode" 
+                                                className="w-full h-full bg-transparent"
+                                            />
+                                        </m.div>
+                                    ) : (
+                                        <m.div
+                                            key="spline-placeholder"
+                                            className="w-full h-full flex items-center justify-center relative overflow-hidden rounded-3xl"
+                                        >
+                                            {/* Advanced Skeleton / Placeholder */}
+                                            <div className="absolute inset-0 bg-[#02121d]/40 backdrop-blur-sm border border-white/5 rounded-3xl" />
+                                            <div className="relative z-10 flex flex-col items-center gap-4">
+                                                <div className="w-16 h-16 rounded-full border-t-2 border-[#00AEEF] animate-spin shadow-[0_0_15px_#00AEEF]"></div>
+                                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#00AEEF]/60">Sincronizando Motor 3D</span>
+                                            </div>
+                                            {/* Glow effect for placeholder */}
+                                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#00AEEF]/5 blur-[80px] rounded-full animate-pulse" />
+                                        </m.div>
+                                    )}
+                                </AnimatePresence>
                             </m.div>
                             <m.div
                                 animate={{ y: [0, -15, 0] }}

@@ -168,7 +168,10 @@ export const AdmissionAgent = () => {
                 </div>
 
                 {/* Contenedor Principal (Dark Glassmorphism) */}
-                <div className="bg-[#02121d]/80 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.9)] overflow-hidden min-h-[500px] flex flex-col relative group ring-1 ring-white/5">
+                <div 
+                    className="bg-[#02121d]/80 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.9)] overflow-hidden min-h-[500px] flex flex-col relative group ring-1 ring-white/5 will-change-transform"
+                    style={{ transform: "translateZ(0)" }}
+                >
                     <div className="absolute inset-0 bg-gradient-to-br from-[#00AEEF]/5 to-transparent pointer-events-none" />
                     <div className="p-8 md:p-14 flex-grow flex flex-col justify-center relative z-10">
                         <AnimatePresence mode="wait">
