@@ -144,7 +144,7 @@ const VideoLightbox = ({ url, onClose }: { url: string; onClose: () => void }) =
 );
 
 // ── Main Client Component ─────────────────────────────────────────────────────
-export const ProfepymeContent = () => {
+export const InsightsContent = () => {
     const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
     return (
@@ -168,9 +168,9 @@ export const ProfepymeContent = () => {
                             Recursos Estratégicos
                         </div>
                         <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
-                            Profepyme: <br className="hidden sm:block" />
+                            Insights: <br className="hidden sm:block" />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00AEEF] to-[#22D3EE]">
-                                Insights y Recursos
+                                Recursos Estratégicos
                             </span>
                         </h1>
                         <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
@@ -195,7 +195,7 @@ export const ProfepymeContent = () => {
                                 key={idx}
                                 variants={cardVariants}
                                 whileHover={{ y: -10 }}
-                                className="group bg-[#02121d] border border-white/5 rounded-2xl overflow-hidden hover:border-[#00AEEF]/30 hover:shadow-[0_0_40px_rgba(0,174,239,0.12)] transition-all duration-500 flex flex-col h-full"
+                                className="group bg-[#02121d] border border-white/5 rounded-2xl overflow-hidden hover:border-[#00AEEF]/30 hover:shadow-[0_0_40px_rgba(0,174,239,0.12)] flex flex-col h-full"
                             >
                                 {/* Thumbnail / Video Trigger */}
                                 <div className="relative aspect-video w-full bg-[#031d2e] overflow-hidden flex items-center justify-center border-b border-white/5">
@@ -285,7 +285,7 @@ export const ProfepymeContent = () => {
                         <div className="relative z-10">
                             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00AEEF]/10 border border-[#00AEEF]/20 text-[10px] font-black tracking-[0.2em] text-[#00AEEF] uppercase mb-6">
                                 <Sparkles size={14} />
-                                Comunidad Profepyme
+                                Comunidad Insights
                             </div>
 
                             <h2 className="text-3xl md:text-4xl font-black text-white mb-4 leading-tight">

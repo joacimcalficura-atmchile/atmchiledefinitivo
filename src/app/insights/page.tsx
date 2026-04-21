@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ProfepymeContent } from '@/components/sections/ProfepymeContent';
+import { InsightsContent } from '@/components/sections/InsightsContent';
 
 export const metadata: Metadata = {
   title: 'Insights | Recursos Estratégicos y Transformación Digital - ATM',
@@ -23,5 +23,5 @@ export const metadata: Metadata = {
 };
 
 export default function InsightsPage() {
-  return <ProfepymeContent />;
+  return <InsightsContent />;
 }
