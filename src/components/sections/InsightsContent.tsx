@@ -184,7 +184,7 @@ export const InsightsContent = () => {
             <section className="relative z-10 pb-32">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <m.div
-                        variants={containerVariants}
+                        variants={containerVariants as any}
                         initial="hidden"
                         whileInView="show"
                         viewport={{ once: true, margin: "-50px" }}
@@ -193,7 +193,7 @@ export const InsightsContent = () => {
                         {resources.map((resource, idx) => (
                             <m.article
                                 key={idx}
-                                variants={cardVariants}
+                                variants={cardVariants as any}
                                 whileHover={{ y: -10 }}
                                 className="group bg-[#02121d] border border-white/5 rounded-2xl overflow-hidden hover:border-[#00AEEF]/30 hover:shadow-[0_0_40px_rgba(0,174,239,0.12)] flex flex-col h-full"
                             >
