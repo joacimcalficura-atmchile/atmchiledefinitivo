@@ -12,10 +12,14 @@ export const LeadSchema = z.object({
 export type LeadInput = z.infer<typeof LeadSchema>;
 
 export const ChatMessageSchema = z.object({
-    role: z.enum(['user', 'assistant', 'system']),
-    content: z.string().min(1).max(4000),
-});
+    role: z.enum(['user', 'assistant', 'system', 'data']),
+    content: z.union([
+        z.string(),
+        z.array(z.any()),
+        z.any()
+    ]).optional(),
+}).passthrough();
 
 export const ChatSchema = z.object({
     messages: z.array(ChatMessageSchema),
-});
+}).passthrough();
