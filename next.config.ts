@@ -10,7 +10,7 @@ const ContentSecurityPolicy = `
   img-src 'self' blob: data: https:;
   font-src 'self' data:;
   connect-src 'self' https: wss: https://prod.spline.design https://va.vercel-scripts.com;
-  frame-ancestors 'none';
+  frame-ancestors 'self' https://vercel.com https://*.vercel.app;
 `;
 
 const securityHeaders = [
@@ -19,10 +19,10 @@ const securityHeaders = [
     key: 'Strict-Transport-Security',
     value: 'max-age=63072000; includeSubDomains; preload'
   },
-  // 2. Previene Clickjacking bloqueando que tu web se incruste en iframes de terceros.
+  // 2. Previene Clickjacking bloqueando que tu web se incruste en iframes de terceros (Permite dashboard Vercel).
   {
     key: 'X-Frame-Options',
-    value: 'DENY'
+    value: 'SAMEORIGIN'
   },
   // 3. Previene que el navegador "adivine" el tipo de archivo (MIME Sniffing), forzando el declarado.
   {
