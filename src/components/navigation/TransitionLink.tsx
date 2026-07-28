@@ -10,9 +10,18 @@ interface TransitionLinkProps {
   children: React.ReactNode;
   className?: string;
   target?: string;
+  "aria-label"?: string;
+  "aria-current"?: React.AriaAttributes["aria-current"];
 }
 
-export const TransitionLink = ({ href, children, className, target }: TransitionLinkProps) => {
+export const TransitionLink = ({
+  href,
+  children,
+  className,
+  target,
+  "aria-label": ariaLabel,
+  "aria-current": ariaCurrent,
+}: TransitionLinkProps) => {
   const router = useRouter();
   const { setIsTransitioning } = useTransitionContext();
 
@@ -38,7 +47,14 @@ export const TransitionLink = ({ href, children, className, target }: Transition
   };
 
   return (
-    <Link href={href} onClick={handleClick} className={className} target={target}>
+    <Link
+      href={href}
+      onClick={handleClick}
+      className={className}
+      target={target}
+      aria-label={ariaLabel}
+      aria-current={ariaCurrent}
+    >
       {children}
     </Link>
   );

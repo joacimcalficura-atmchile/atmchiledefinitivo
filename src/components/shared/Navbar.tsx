@@ -17,20 +17,25 @@ const navItems = [
 
 export const Navbar = () => {
   const pathname = usePathname();
+
+  // La píldora animada usa layoutId y solo puede correr en cliente, pero la nav
+  // en sí se renderiza siempre: si devolvemos null en SSR, Google no ve ni un
+  // solo enlace interno del sitio.
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  if (!isMounted) return null;
-
   const activeIndex = navItems.findIndex((item) =>
     item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
   );
 
   return (
-    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] flex gap-1 p-2 bg-white/70 backdrop-blur-2xl border border-white/20 rounded-full shadow-2xl">
+    <nav
+      aria-label="Navegación principal"
+      className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] flex gap-1 p-2 bg-white/70 backdrop-blur-2xl border border-white/20 rounded-full shadow-2xl"
+    >
       <LayoutGroup>
         {navItems.map((item, index) => {
           const isActive = index === activeIndex;
@@ -40,9 +45,10 @@ export const Navbar = () => {
               key={item.name}
               href={item.href}
               className="relative"
+              aria-current={isActive ? "page" : undefined}
             >
               {/* Liquid Active Pill — slides between items via layoutId */}
-              {isActive && (
+              {isMounted && isActive && (
                 <m.div
                   layoutId="active-pill"
                   className="absolute inset-0 bg-[#00AEEF]/10 border border-[#00AEEF]/20 rounded-full"
@@ -59,13 +65,18 @@ export const Navbar = () => {
                 }`}
               >
                 {/* Icon — always visible */}
-                <span className="shrink-0">{item.icon}</span>
+                <span className="shrink-0" aria-hidden="true">{item.icon}</span>
+
+                {/* Texto real en el DOM para crawlers y lectores de pantalla,
+                    aunque visualmente solo se muestre el ítem activo. */}
+                <span className="sr-only">{item.name}</span>
 
                 {/* Label — only shown when active */}
                 <AnimatePresence mode="popLayout" initial={false}>
-                  {isActive && (
+                  {isMounted && isActive && (
                     <m.span
                       key="label"
+                      aria-hidden="true"
                       initial={{ opacity: 0, width: 0 }}
                       animate={{ opacity: 1, width: "auto" }}
                       exit={{ opacity: 0, width: 0 }}

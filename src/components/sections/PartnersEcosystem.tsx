@@ -1,8 +1,15 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { m, useMotionValue, useTransform, useSpring, useMotionValueEvent, MotionValue } from "framer-motion";
-import * as SimpleIcons from "simple-icons";
-import type { SimpleIcon } from "simple-icons";
+// Imports nombrados (no `import * as`): permiten tree-shaking y evitan
+// arrastrar los ~3.300 iconos del paquete al bundle del cliente.
+import {
+    siAnthropic, siCloudflare, siDatabricks, siDatadog, siDocker,
+    siGithubactions, siGooglecloud, siGooglegemini, siGraphql, siKubernetes,
+    siLangchain, siNextdotjs, siNvidia, siSnowflake, siTerraform,
+    siUipath, siVercel,
+    type SimpleIcon,
+} from "simple-icons";
 
 // ── Simple Icon renderer ──────────────────────────────────────────────────────
 const SI = ({ icon, size = "100%" }: { icon: SimpleIcon; size?: string | number }) => (
@@ -59,24 +66,24 @@ interface Tech {
 const techBase: Tech[] = [
     { name: "AWS",        label: "AWS",        logo: <AwsSvg /> },
     { name: "Azure",      label: "AZURE",      logo: <AzureSvg uid="geco-az" /> },
-    { name: "GCP",        label: "GCP",        logo: <SI icon={SimpleIcons.siGooglecloud} /> },
-    { name: "Docker",     label: "DOCKER",     logo: <SI icon={SimpleIcons.siDocker} /> },
-    { name: "Kubernetes", label: "K8S",        logo: <SI icon={SimpleIcons.siKubernetes} /> },
-    { name: "Terraform",  label: "TERRAFORM",  logo: <SI icon={SimpleIcons.siTerraform} /> },
+    { name: "GCP",        label: "GCP",        logo: <SI icon={siGooglecloud} /> },
+    { name: "Docker",     label: "DOCKER",     logo: <SI icon={siDocker} /> },
+    { name: "Kubernetes", label: "K8S",        logo: <SI icon={siKubernetes} /> },
+    { name: "Terraform",  label: "TERRAFORM",  logo: <SI icon={siTerraform} /> },
     { name: "GPT-4o",     label: "GPT-4O",     logo: <OpenAISvg /> },
-    { name: "Claude",     label: "CLAUDE",     logo: <SI icon={SimpleIcons.siAnthropic} /> },
-    { name: "Gemini",     label: "GEMINI",     logo: <SI icon={SimpleIcons.siGooglegemini} /> },
-    { name: "NVIDIA",     label: "NVIDIA",     logo: <SI icon={SimpleIcons.siNvidia} /> },
-    { name: "LangChain",  label: "LANGCHAIN",  logo: <SI icon={SimpleIcons.siLangchain} /> },
-    { name: "Snowflake",  label: "SNOWFLAKE",  logo: <SI icon={SimpleIcons.siSnowflake} /> },
-    { name: "Datadog",    label: "DATADOG",    logo: <SI icon={SimpleIcons.siDatadog} /> },
-    { name: "Databricks", label: "DATABRICKS", logo: <SI icon={SimpleIcons.siDatabricks} /> },
-    { name: "CI/CD",      label: "CI/CD",      logo: <SI icon={SimpleIcons.siGithubactions} /> },
-    { name: "UiPath",     label: "UIPATH",     logo: <SI icon={SimpleIcons.siUipath} /> },
-    { name: "Zero Trust", label: "ZERO TRUST", logo: <SI icon={SimpleIcons.siCloudflare} /> },
-    { name: "Next.js",    label: "NEXT.JS",    logo: <SI icon={SimpleIcons.siNextdotjs} /> },
-    { name: "GraphQL",    label: "GRAPHQL",    logo: <SI icon={SimpleIcons.siGraphql} /> },
-    { name: "Vercel",     label: "VERCEL",     logo: <SI icon={SimpleIcons.siVercel} /> },
+    { name: "Claude",     label: "CLAUDE",     logo: <SI icon={siAnthropic} /> },
+    { name: "Gemini",     label: "GEMINI",     logo: <SI icon={siGooglegemini} /> },
+    { name: "NVIDIA",     label: "NVIDIA",     logo: <SI icon={siNvidia} /> },
+    { name: "LangChain",  label: "LANGCHAIN",  logo: <SI icon={siLangchain} /> },
+    { name: "Snowflake",  label: "SNOWFLAKE",  logo: <SI icon={siSnowflake} /> },
+    { name: "Datadog",    label: "DATADOG",    logo: <SI icon={siDatadog} /> },
+    { name: "Databricks", label: "DATABRICKS", logo: <SI icon={siDatabricks} /> },
+    { name: "CI/CD",      label: "CI/CD",      logo: <SI icon={siGithubactions} /> },
+    { name: "UiPath",     label: "UIPATH",     logo: <SI icon={siUipath} /> },
+    { name: "Zero Trust", label: "ZERO TRUST", logo: <SI icon={siCloudflare} /> },
+    { name: "Next.js",    label: "NEXT.JS",    logo: <SI icon={siNextdotjs} /> },
+    { name: "GraphQL",    label: "GRAPHQL",    logo: <SI icon={siGraphql} /> },
+    { name: "Vercel",     label: "VERCEL",     logo: <SI icon={siVercel} /> },
 ];
 
 const pillsMerged = [

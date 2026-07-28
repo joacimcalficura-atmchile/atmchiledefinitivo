@@ -58,6 +58,10 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
+  compiler: {
+    // Consola limpia en producción: se conservan error/warn para observabilidad en el servidor
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
+  },
   async redirects() {
     return [
       {

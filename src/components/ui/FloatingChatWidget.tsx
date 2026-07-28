@@ -54,10 +54,7 @@ const ModernMessage = ({ msg, isLoading }: { msg?: MessageContent; isLoading?: b
     content = msg.content.map((part) => part.text || part.content || '').join('');
   }
   
-  if (!content) {
-    console.warn('Mensaje vacío:', msg);
-    return null;
-  }
+  if (!content) return null;
   
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2 duration-300`}>
@@ -91,10 +88,6 @@ export const FloatingChatWidget = () => {
   
   // AI SDK v6: status puede ser 'submitted' | 'streaming' | 'ready' | 'error'
   const isLoading = status === "submitted" || status === "streaming";
-  
-  console.log('[Chat] Status:', status);
-  console.log('[Chat] Messages:', messages);
-  console.log('[Chat] Error:', error);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
 

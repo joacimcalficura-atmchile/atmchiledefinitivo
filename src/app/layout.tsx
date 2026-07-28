@@ -68,7 +68,7 @@ export default function RootLayout({
         <Script
           type="module"
           src="https://unpkg.com/@splinetool/viewer@1.9.72/build/spline-viewer.js"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
 
         <Providers>

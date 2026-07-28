@@ -41,10 +41,7 @@ export async function POST(req: Request) {
         try {
             const result = streamText({
                 model: google("gemini-2.5-flash"),
-                messages: messages.map(m => ({
-                    role: m.role as "user" | "assistant" | "system",
-                    content: m.content as string
-                })),
+                messages: await convertToModelMessages(messages),
                 system: SYSTEM_PROMPT,
                 temperature: 0.4, // Menor temperatura para mayor control/seguridad
                 onFinish: async (event) => {

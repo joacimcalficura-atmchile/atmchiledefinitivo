@@ -45,7 +45,13 @@ const GmailIcon = ({ className }: { className?: string }) => (
     </svg>
 );
 
-import { FloatingCubes } from "@/components/ui/FloatingCubes";
+import dynamic from "next/dynamic";
+
+// Three.js fuera del bundle inicial de /contacto (ver AdmissionAgent).
+const FloatingCubes = dynamic(
+    () => import("@/components/ui/FloatingCubes").then((mod) => mod.FloatingCubes),
+    { ssr: false }
+);
 
 // ── Página de Contacto ─────────────────────────────────────────────────────────
 export default function ContactoPage() {

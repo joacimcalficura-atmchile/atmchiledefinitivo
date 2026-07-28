@@ -2,11 +2,11 @@ import { google } from 'googleapis';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
+    const trackingId = crypto.randomUUID();
+
     try {
         const body = await req.json();
         const { type, data } = body;
-
-        console.log('API Request received:', { type, data });
 
         if (!process.env.GOOGLE_SHEETS_CLIENT_EMAIL || !process.env.GOOGLE_SHEETS_PRIVATE_KEY) {
             console.error('Missing Google Sheets credentials in environment variables');
@@ -37,18 +37,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'ID de hoja de cálculo no configurado' }, { status: 500 });
         }
 
-        // --- DEBUG: List all current sheet names ---
-        let availableSheets: string[] = [];
-        try {
-            const spreadsheetData = await sheets.spreadsheets.get({ spreadsheetId });
-            availableSheets = spreadsheetData.data.sheets?.map(s => s.properties?.title || '') || [];
-            console.log('Available sheets in spreadsheet:', availableSheets);
-        } catch (e: any) {
-            console.error('Error fetching spreadsheet metadata:', e.message);
-        }
-        // -------------------------------------------
-
-        let range = 'Sheet1'; 
+        let range = 'Sheet1';
         let values: any[][] = [];
 
         if (type === 'contact') {
@@ -96,15 +85,8 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Tipo de formulario inválido' }, { status: 400 });
         }
 
-        console.log(`Final Range selected: ${range}`);
-
-        if (!spreadsheetId) {
-            console.error('Missing Spreadsheet ID for type:', type);
-            return NextResponse.json({ error: 'ID de hoja de cálculo no configurado' }, { status: 500 });
-        }
-
         // Añadir fila a la hoja
-        const result = await sheets.spreadsheets.values.append({
+        await sheets.spreadsheets.values.append({
             spreadsheetId,
             range,
             valueInputOption: 'USER_ENTERED',
@@ -113,36 +95,14 @@ export async function POST(req: Request) {
             },
         });
 
-        console.log('Append result:', result.statusText);
-
         return NextResponse.json({ success: true });
-    } catch (error: any) {
-        console.error('CRITICAL ERROR in Google Sheets API:', error);
-        
-        // Fetch sheets one last time if possible for context
-        let sheetsDetected = 'Unknown';
-        try {
-            const auth = new google.auth.GoogleAuth({
-                credentials: {
-                    client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
-                    private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-                },
-                scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-            });
-            const sheets = google.sheets({ version: 'v4', auth });
-            const body = await req.json().catch(() => ({}));
-            const spreadsheetId = body.type === 'contact' ? process.env.GOOGLE_SHEETS_CONTACT_ID : process.env.GOOGLE_SHEETS_ADMISSION_ID;
-            if (spreadsheetId) {
-                const meta = await sheets.spreadsheets.get({ spreadsheetId });
-                sheetsDetected = meta.data.sheets?.map(s => `"${s.properties?.title}"`).join(', ') || 'None';
-            }
-        } catch (e) {}
+    } catch (error: unknown) {
+        // El detalle queda solo en los logs del servidor; al cliente solo le llega el trackingId.
+        console.error(`[CRITICAL] Google Sheets API. ID: ${trackingId}`, error);
 
-        return NextResponse.json({ 
-            error: 'Error al procesar el formulario', 
-            details: error.message,
-            sheetsDetected: sheetsDetected,
-            code: error.code || 'UNKNOWN'
+        return NextResponse.json({
+            error: 'Error al procesar el formulario',
+            trackingId,
         }, { status: 500 });
     }
 }

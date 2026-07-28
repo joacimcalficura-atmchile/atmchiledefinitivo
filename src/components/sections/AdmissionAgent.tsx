@@ -16,7 +16,14 @@ import {
     ArrowLeft,
     ShieldAlert
 } from "lucide-react";
-import { FloatingCubes } from "@/components/ui/FloatingCubes";
+import dynamic from "next/dynamic";
+
+// Three.js + react-three-fiber (~430 KB) fuera del bundle inicial: este bloque
+// vive bajo el pliegue, así que se carga en cliente cuando hace falta.
+const FloatingCubes = dynamic(
+    () => import("@/components/ui/FloatingCubes").then((mod) => mod.FloatingCubes),
+    { ssr: false }
+);
 
 interface FormData {
     fullName: string;
