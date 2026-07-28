@@ -74,9 +74,11 @@ export async function POST(req: Request) {
 
                 if (aiResponse.includes('SPAM')) {
                     console.warn(`[SECURITY] AI rejected payload as SPAM/Attack. ID: ${securityId}`);
-                    return NextResponse.json({ 
-                        status: "SECURITY_FILTER_TRIGGERED", 
-                        message: "Nuestro sistema de IA ha marcado este mensaje como no seguro." 
+                    // `error: 'SPAM_DETECTED'` es lo que el frontend detecta para
+                    // mostrar la pantalla "Acceso Denegado / Soy Humano".
+                    return NextResponse.json({
+                        error: "SPAM_DETECTED",
+                        message: "Nuestro sistema de IA ha marcado este mensaje como no seguro."
                     }, { status: 403 });
                 }
             } catch (aiError) {
