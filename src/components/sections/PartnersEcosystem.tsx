@@ -91,10 +91,10 @@ const GlassCard = ({ tech, index, dragX, dim }: { tech: Tech; index: number; dra
         return cardGlobalCenter - screenCenter;
     });
 
-    // Apple VisionOS style interpolations
-    const scale = useTransform(offsetFromCenter, [-dim.maxDist, 0, dim.maxDist], [0.8, 1.2, 0.8]);
-    const opacity = useTransform(offsetFromCenter, [-dim.maxDist, 0, dim.maxDist], [0.3, 1, 0.3]);
-    const blurObj = useTransform(offsetFromCenter, [-dim.maxDist, 0, dim.maxDist], [10, 0, 10]);
+    // Apple VisionOS style interpolations with 3 cards in focus
+    const scale = useTransform(offsetFromCenter, [-dim.maxDist, -dim.step, 0, dim.step, dim.maxDist], [0.8, 1.15, 1.2, 1.15, 0.8]);
+    const opacity = useTransform(offsetFromCenter, [-dim.maxDist, -dim.step, 0, dim.step, dim.maxDist], [0.3, 1, 1, 1, 0.3]);
+    const blurObj = useTransform(offsetFromCenter, [-dim.maxDist, -dim.step, 0, dim.step, dim.maxDist], [10, 0, 0, 0, 10]);
     const filter = useTransform(blurObj, (val) => `blur(${val}px)`);
     const shadow = useTransform(offsetFromCenter, [-dim.step, 0, dim.step], [
         "0 20px 50px rgba(0,0,0,0.15), 0 0 0px rgba(0,174,239,0)",
@@ -137,7 +137,6 @@ export const PartnersEcosystem = () => {
     const [dim, setDim] = useState<Dimensions | null>(null);
     const [initialDragSet, setInitialDragSet] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
-    const [isHovered, setIsHovered] = useState(false);
 
     // Initialize dimensions & perfect CSS-free centering
     useEffect(() => {
@@ -203,8 +202,6 @@ export const PartnersEcosystem = () => {
         <section
             id="ecosistema"
             className="relative w-full py-24 md:py-40 overflow-hidden bg-[#FAFAFA]"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
         >
             {/* ── Transition & Blends ── */}
             <div className="absolute top-0 inset-x-0 h-48 bg-gradient-to-b from-[#010912] to-transparent z-10 pointer-events-none w-full" />
