@@ -64,12 +64,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} bg-brand-light text-slate-900 antialiased selection:bg-brand-cobalt selection:text-white`}
         suppressHydrationWarning
       >
-        {/* Spline Viewer Runtime — registers <spline-viewer> web component globally */}
-        <Script
-          type="module"
-          src="https://unpkg.com/@splinetool/viewer@1.9.72/build/spline-viewer.js"
-          strategy="lazyOnload"
-        />
+        {/* Spline Viewer Runtime removed to avoid multiple ThreeJS instances / eval issues */}
 
         <Providers>
           

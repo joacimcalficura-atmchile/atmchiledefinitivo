@@ -1,6 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useTransitionContext } from "@/context/TransitionContext";
+import dynamic from "next/dynamic";
+
+const Spline = dynamic(() => import('@splinetool/react-spline'), {
+    ssr: false,
+});
 
 export const PageTransition = () => {
     const { isTransitioning } = useTransitionContext();
@@ -24,9 +29,8 @@ export const PageTransition = () => {
             {/* The Blend-Mode Container: Makes black pixels transparent */}
             <div className="absolute inset-0 flex items-center justify-center z-10 mix-blend-screen">
                 <div className="w-full h-full max-w-3xl max-h-[80vh] relative">
-                    <spline-viewer 
-                        url="https://prod.spline.design/ms-LBcsqYsg04mgw/scene.splinecode"
-                        background="none"
+                    <Spline 
+                        scene="https://prod.spline.design/ms-LBcsqYsg04mgw/scene.splinecode"
                         className="w-full h-full block"
                     />
                     

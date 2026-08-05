@@ -114,7 +114,7 @@ export const FloatingChatWidget = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end pointer-events-none font-sans">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[9999] flex flex-col items-end pointer-events-none font-sans">
       
       {/* Ventana de Chat - Glassmorphism Moderno */}
       <AnimatePresence>
@@ -124,7 +124,7 @@ export const FloatingChatWidget = () => {
             animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
             exit={{ opacity: 0, scale: 0.9, y: 40, filter: "blur(10px)" }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="w-[340px] sm:w-[400px] h-[580px] bg-slate-900/85 backdrop-blur-2xl border border-slate-700/50 rounded-[2rem] shadow-2xl mb-6 overflow-hidden flex flex-col pointer-events-auto origin-bottom-right"
+            className="w-[calc(100vw-2rem)] sm:w-[400px] h-[75vh] sm:h-[580px] max-h-[800px] bg-slate-900/85 backdrop-blur-2xl border border-slate-700/50 rounded-[2rem] shadow-2xl mb-4 sm:mb-6 overflow-hidden flex flex-col pointer-events-auto origin-bottom-right"
           >
             
             {/* Header Limpio y Amigable */}
