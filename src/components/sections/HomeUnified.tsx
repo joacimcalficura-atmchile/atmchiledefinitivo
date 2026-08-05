@@ -158,27 +158,15 @@ export const HomeUnified = () => {
                                     {/* Glowing Orbs */}
                                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#00AEEF]/20 blur-[100px] rounded-full animate-pulse" />
                                     
-                                    {/* Tech Nodes Animation */}
-                                    <div className="relative z-10 w-full h-full flex items-center justify-center">
-                                        <div className="relative w-48 h-48">
-                                            {/* Core Node */}
-                                            <div className="absolute inset-0 m-auto w-16 h-16 bg-gradient-to-tr from-[#00AEEF] to-blue-400 rounded-full shadow-[0_0_40px_rgba(0,174,239,0.5)] flex items-center justify-center animate-[pulse_3s_ease-in-out_infinite]">
-                                                <Bot className="text-white" size={28} />
-                                            </div>
-                                            
-                                            {/* Orbit 1 */}
-                                            <div className="absolute inset-0 border border-white/10 rounded-full animate-[spin_10s_linear_infinite]">
-                                                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-blue-400/80 rounded-full shadow-[0_0_15px_rgba(96,165,250,0.8)]" />
-                                                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-3 h-3 bg-purple-400/80 rounded-full shadow-[0_0_15px_rgba(192,132,252,0.8)]" />
-                                            </div>
-
-                                            {/* Orbit 2 */}
-                                            <div className="absolute inset-[-40px] border border-white/5 rounded-full animate-[spin_15s_linear_infinite_reverse]">
-                                                <div className="absolute top-1/2 -left-2 -translate-y-1/2 w-5 h-5 bg-[#00AEEF]/80 rounded-full shadow-[0_0_20px_rgba(0,174,239,0.8)] flex items-center justify-center">
-                                                    <div className="w-2 h-2 bg-white rounded-full animate-ping" />
-                                                </div>
-                                                <div className="absolute top-1/2 -right-2 -translate-y-1/2 w-4 h-4 bg-cyan-400/80 rounded-full shadow-[0_0_15px_rgba(34,211,238,0.8)]" />
-                                            </div>
+                                    {/* Tech Nodes Animation -> Replaced with ATM Logo */}
+                                    <div className="relative z-10 w-full h-full flex items-center justify-center p-8">
+                                        <div className="relative w-full h-full max-w-[300px] max-h-[300px] animate-[pulse_4s_ease-in-out_infinite]">
+                                            <Image 
+                                                src="/logos/ATM_logo_png" 
+                                                alt="ATM Chile Logo" 
+                                                fill 
+                                                className="object-contain drop-shadow-[0_0_30px_rgba(0,174,239,0.5)]" 
+                                            />
                                         </div>
                                     </div>
                                     
