@@ -13,14 +13,6 @@ const AdmissionAgent = dynamic(() => import("./AdmissionAgent").then(mod => mod.
 });
 import { usePerformanceOptimization } from "@/hooks/usePerformanceOptimization";
 
-const Spline = dynamic(() => import("@splinetool/react-spline"), {
-    ssr: false,
-    loading: () => (
-        <div className="absolute inset-0 flex items-center justify-center bg-[#02121d]">
-            <div className="w-12 h-12 rounded-full border-t-2 border-[#00AEEF] animate-spin"></div>
-        </div>
-    )
-});
 
 // Premium Easing Curves
 const smoothEase: [number, number, number, number] = [0.16, 1, 0.3, 1]; // Apple-like smooth ease out
@@ -159,37 +151,40 @@ export const HomeUnified = () => {
                                 className="w-full h-[400px] md:h-[650px] relative group cursor-pointer bg-transparent overflow-visible will-change-transform"
                                 style={{ transform: "translateZ(0)" }}
                             >
-                                <AnimatePresence mode="wait">
-                                    {(shouldLoad && isVisible) ? (
-                                        <m.div
-                                            key="spline-active"
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            transition={{ duration: 1 }}
-                                            className="w-full h-full"
-                                        >
-                                            <Spline 
-                                                scene="https://prod.spline.design/VHOh8tlGMrRFNCSy/scene.splinecode" 
-                                                className="w-full h-full bg-transparent"
-                                            />
-                                        </m.div>
-                                    ) : (
-                                        <m.div
-                                            key="spline-placeholder"
-                                            className="w-full h-full flex items-center justify-center relative overflow-hidden rounded-3xl"
-                                        >
-                                            {/* Advanced Skeleton / Placeholder */}
-                                            <div className="absolute inset-0 bg-[#02121d]/40 backdrop-blur-sm border border-white/5 rounded-3xl" />
-                                            <div className="relative z-10 flex flex-col items-center gap-4">
-                                                <div className="w-16 h-16 rounded-full border-t-2 border-[#00AEEF] animate-spin shadow-[0_0_15px_#00AEEF]"></div>
-                                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#00AEEF]/60">Sincronizando Motor 3D</span>
+                                <div className="w-full h-full flex items-center justify-center relative overflow-hidden rounded-3xl group">
+                                    {/* Glass Container */}
+                                    <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-md border border-white/10 rounded-3xl transition-colors group-hover:border-[#00AEEF]/30" />
+                                    
+                                    {/* Glowing Orbs */}
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#00AEEF]/20 blur-[100px] rounded-full animate-pulse" />
+                                    
+                                    {/* Tech Nodes Animation */}
+                                    <div className="relative z-10 w-full h-full flex items-center justify-center">
+                                        <div className="relative w-48 h-48">
+                                            {/* Core Node */}
+                                            <div className="absolute inset-0 m-auto w-16 h-16 bg-gradient-to-tr from-[#00AEEF] to-blue-400 rounded-full shadow-[0_0_40px_rgba(0,174,239,0.5)] flex items-center justify-center animate-[pulse_3s_ease-in-out_infinite]">
+                                                <Bot className="text-white" size={28} />
                                             </div>
-                                            {/* Glow effect for placeholder */}
-                                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#00AEEF]/5 blur-[80px] rounded-full animate-pulse" />
-                                        </m.div>
-                                    )}
-                                </AnimatePresence>
+                                            
+                                            {/* Orbit 1 */}
+                                            <div className="absolute inset-0 border border-white/10 rounded-full animate-[spin_10s_linear_infinite]">
+                                                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-blue-400/80 rounded-full shadow-[0_0_15px_rgba(96,165,250,0.8)]" />
+                                                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-3 h-3 bg-purple-400/80 rounded-full shadow-[0_0_15px_rgba(192,132,252,0.8)]" />
+                                            </div>
+
+                                            {/* Orbit 2 */}
+                                            <div className="absolute inset-[-40px] border border-white/5 rounded-full animate-[spin_15s_linear_infinite_reverse]">
+                                                <div className="absolute top-1/2 -left-2 -translate-y-1/2 w-5 h-5 bg-[#00AEEF]/80 rounded-full shadow-[0_0_20px_rgba(0,174,239,0.8)] flex items-center justify-center">
+                                                    <div className="w-2 h-2 bg-white rounded-full animate-ping" />
+                                                </div>
+                                                <div className="absolute top-1/2 -right-2 -translate-y-1/2 w-4 h-4 bg-cyan-400/80 rounded-full shadow-[0_0_15px_rgba(34,211,238,0.8)]" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    {/* Data Stream Lines */}
+                                    <div className="absolute inset-0 opacity-20 bg-[linear-gradient(transparent_90%,#00AEEF_100%)] bg-[length:100%_4px] animate-[slide_2s_linear_infinite] mix-blend-screen" />
+                                </div>
                             </m.div>
                             <m.div
                                 animate={{ y: [0, -15, 0] }}

@@ -259,7 +259,7 @@ export const PartnersEcosystem = () => {
 
     // Auto-scroll loop
     useAnimationFrame((time, delta) => {
-        if (!dim || isDragging || isHovered) return;
+        if (!dim || isDragging) return;
         // Smooth slide left: approx 30px per second
         const moveBy = (delta / 1000) * 30;
         dragX.set(dragX.get() - moveBy);
@@ -305,18 +305,15 @@ export const PartnersEcosystem = () => {
                 {dim && (
                     <m.div
                         drag="x"
-                        dragElastic={0.2}
-                        dragTransition={{ power: 0.3, timeConstant: 200 }}
+                        dragConstraints={{ left: -10000, right: 10000 }}
+                        dragElastic={1}
+                        dragMomentum={false}
                         onDragStart={() => setIsDragging(true)}
                         onDragEnd={() => setIsDragging(false)}
-                        onHoverStart={() => setIsHovered(true)}
-                        onHoverEnd={() => setIsHovered(false)}
                         className="flex cursor-grab active:cursor-grabbing w-max items-center touch-pan-y"
                         style={{
                             x: dragX,
                             gap: dim.gap,
-                            // SSR: padding left/right removed to avoid calc mismatches 
-                            // as positioning is entirely controlled by `dragX` math post-mount.
                         }}
                     >
                         {loopedTech.map((tech, i) => (
