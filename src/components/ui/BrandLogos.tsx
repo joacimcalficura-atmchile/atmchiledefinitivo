@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 
 const LogoWrapper = ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
-  <div className={`relative ${className || ''}`}>
+  <div className={`relative w-full h-full ${className || ''}`}>
     <Image src={src} alt={alt} fill className="object-contain" />
   </div>
 );
