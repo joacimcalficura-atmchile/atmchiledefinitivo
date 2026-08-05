@@ -236,17 +236,18 @@ export const PartnersEcosystem = () => {
                 }}
             >
                 {dim && (
-                    <m.div
-                        drag="x"
-                        dragConstraints={{ left: -10000, right: 10000 }}
-                        dragElastic={1}
-                        dragMomentum={false}
-                        onPointerDown={() => { isDraggingRef.current = true; }}
-                        onPointerUp={() => { isDraggingRef.current = false; }}
-                        onPointerCancel={() => { isDraggingRef.current = false; }}
-                        onDragStart={() => { isDraggingRef.current = true; }}
-                        onDragEnd={() => { isDraggingRef.current = false; }}
-                        className="flex cursor-grab active:cursor-grabbing w-max items-center"
+                    <div 
+                        onPointerDownCapture={() => { isDraggingRef.current = true; }}
+                        onPointerUpCapture={() => { isDraggingRef.current = false; }}
+                        onPointerCancelCapture={() => { isDraggingRef.current = false; }}
+                        className="w-full touch-pan-y overflow-hidden"
+                    >
+                        <m.div
+                            drag="x"
+                            dragMomentum={false}
+                            onDragStart={() => { isDraggingRef.current = true; }}
+                            onDragEnd={() => { isDraggingRef.current = false; }}
+                            className="flex cursor-grab active:cursor-grabbing w-max items-center"
                         style={{
                             x: dragX,
                             gap: dim.gap,
@@ -261,7 +262,8 @@ export const PartnersEcosystem = () => {
                                 dim={dim} 
                             />
                         ))}
-                    </m.div>
+                        </m.div>
+                    </div>
                 )}
             </div>
 
