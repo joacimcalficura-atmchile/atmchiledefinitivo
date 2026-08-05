@@ -121,7 +121,7 @@ const GlassCard = ({ tech, index, dragX, dim }: { tech: Tech; index: number; dra
                 zIndex: useTransform(scale, (s) => Math.round(s * 100)),
             }}
         >
-            <div className="relative flex items-center justify-center w-[35%] h-[35%] mb-2">
+            <div className="relative flex items-center justify-center w-[65%] h-[65%] mb-2">
                 {tech.logo}
             </div>
             <span className="text-[10px] md:text-xs font-black tracking-widest text-[#00AEEF] uppercase mt-2 px-2 text-center pointer-events-none">
@@ -203,11 +203,14 @@ export const PartnersEcosystem = () => {
         <section
             id="ecosistema"
             className="relative w-full py-24 md:py-40 overflow-hidden bg-[#FAFAFA]"
+            ref={containerRef}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
         >
             {/* ── Transition & Blends ── */}
             <div className="absolute top-0 inset-x-0 h-48 bg-gradient-to-b from-[#010912] to-transparent z-10 pointer-events-none w-full" />
             <div className="absolute bottom-0 inset-x-0 h-48 bg-gradient-to-t from-[#00AEEF] to-transparent z-10 pointer-events-none w-full" />
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none w-full" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00AEEF]/[0.02] to-transparent pointer-events-none" />
 
             {/* ── Header ── */}
             <div className="max-w-7xl mx-auto px-6 relative z-20">
