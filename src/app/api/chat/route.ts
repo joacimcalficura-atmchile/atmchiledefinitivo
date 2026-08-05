@@ -80,6 +80,10 @@ function createLeadCaptureTransform(
         return new TransformStream({
             transform(part, controller) {
                 if (part.type !== "text-delta") {
+                    if ((part.type === "text-end" || part.type === "finish") && !capturing && pending) {
+                        controller.enqueue({ type: "text-delta", id: lastId, text: pending });
+                        pending = "";
+                    }
                     controller.enqueue(part);
                     return;
                 }
@@ -110,6 +114,7 @@ function createLeadCaptureTransform(
             async flush(controller) {
                 if (!capturing && pending) {
                     controller.enqueue({ type: "text-delta", id: lastId, text: pending });
+                    pending = "";
                 }
                 if (markerText) {
                     await onLead(markerText);
