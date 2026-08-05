@@ -229,25 +229,20 @@ export const PartnersEcosystem = () => {
 
             {/* ── Seamless 3D Carousel Track ── */}
             <div 
-                className={`relative flex items-center py-16 w-full z-20 transition-opacity duration-500 ease-in-out ${dim ? "opacity-100" : "opacity-0"}`}
+                className={`relative flex items-center py-16 w-full z-20 transition-opacity duration-500 ease-in-out overflow-hidden touch-pan-y ${dim ? "opacity-100" : "opacity-0"}`}
                 style={{ 
                     maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)", 
                     WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)" 
                 }}
             >
                 {dim && (
-                    <div 
-                        onPointerDownCapture={() => { isDraggingRef.current = true; }}
-                        onPointerUpCapture={() => { isDraggingRef.current = false; }}
-                        onPointerCancelCapture={() => { isDraggingRef.current = false; }}
-                        className="w-full touch-pan-y overflow-hidden"
-                    >
-                        <m.div
-                            drag="x"
-                            dragMomentum={false}
-                            onDragStart={() => { isDraggingRef.current = true; }}
-                            onDragEnd={() => { isDraggingRef.current = false; }}
-                            className="flex cursor-grab active:cursor-grabbing w-max items-center"
+                    <m.div
+                        onPanStart={() => { isDraggingRef.current = true; }}
+                        onPan={(e, info) => {
+                            dragX.set(dragX.get() + info.delta.x);
+                        }}
+                        onPanEnd={() => { isDraggingRef.current = false; }}
+                        className="flex cursor-grab active:cursor-grabbing w-max items-center select-none"
                         style={{
                             x: dragX,
                             gap: dim.gap,
@@ -262,8 +257,7 @@ export const PartnersEcosystem = () => {
                                 dim={dim} 
                             />
                         ))}
-                        </m.div>
-                    </div>
+                    </m.div>
                 )}
             </div>
 
