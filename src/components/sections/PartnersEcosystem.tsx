@@ -203,7 +203,6 @@ export const PartnersEcosystem = () => {
         <section
             id="ecosistema"
             className="relative w-full py-24 md:py-40 overflow-hidden bg-[#FAFAFA]"
-            ref={containerRef}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
