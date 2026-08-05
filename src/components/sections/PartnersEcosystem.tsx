@@ -241,9 +241,12 @@ export const PartnersEcosystem = () => {
                         dragConstraints={{ left: -10000, right: 10000 }}
                         dragElastic={1}
                         dragMomentum={false}
+                        onPointerDown={() => setIsDragging(true)}
+                        onPointerUp={() => setIsDragging(false)}
+                        onPointerCancel={() => setIsDragging(false)}
                         onDragStart={() => setIsDragging(true)}
                         onDragEnd={() => setIsDragging(false)}
-                        className="flex cursor-grab active:cursor-grabbing w-max items-center touch-pan-y"
+                        className="flex cursor-grab active:cursor-grabbing w-max items-center"
                         style={{
                             x: dragX,
                             gap: dim.gap,
