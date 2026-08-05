@@ -5,8 +5,12 @@ import Image from "next/image";
 import { m, Variants, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { BadgeCheck, Layers, Users, Bot, LineChart, ShieldCheck, Cloud, Box, Check, ArrowRight, Lock, BookOpen } from "lucide-react";
-import { PartnersEcosystem } from "./PartnersEcosystem";
-import { AdmissionAgent } from "./AdmissionAgent";
+const PartnersEcosystem = dynamic(() => import("./PartnersEcosystem").then(mod => mod.PartnersEcosystem), {
+    loading: () => <div className="h-64 w-full animate-pulse bg-slate-50" />
+});
+const AdmissionAgent = dynamic(() => import("./AdmissionAgent").then(mod => mod.AdmissionAgent), {
+    loading: () => <div className="h-[800px] w-full animate-pulse bg-slate-900" />
+});
 import { usePerformanceOptimization } from "@/hooks/usePerformanceOptimization";
 
 const Spline = dynamic(() => import("@splinetool/react-spline"), {

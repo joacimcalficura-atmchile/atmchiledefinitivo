@@ -2,7 +2,7 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
-import { LazyMotion, domMax } from "framer-motion";
+import { LazyMotion, domAnimation } from "framer-motion";
 import { ReactLenis } from "lenis/react";
 import { TransitionProvider } from "@/context/TransitionContext";
 
@@ -15,7 +15,7 @@ const PageTransition = dynamic(
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothWheel: true }}>
-      <LazyMotion features={domMax} strict>
+      <LazyMotion features={domAnimation} strict>
         <TransitionProvider>
           <PageTransition />
           {children}
