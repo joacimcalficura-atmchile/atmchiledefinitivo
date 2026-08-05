@@ -162,7 +162,7 @@ export const HomeUnified = () => {
                                     <div className="relative z-10 w-full h-full flex items-center justify-center p-8">
                                         <div className="relative w-full h-full max-w-[300px] max-h-[300px] animate-[pulse_4s_ease-in-out_infinite]">
                                             <Image 
-                                                src="/logos/ATM_logo_png" 
+                                                src="/logos/ATM_logo.png" 
                                                 alt="ATM Chile Logo" 
                                                 fill 
                                                 className="object-contain drop-shadow-[0_0_30px_rgba(0,174,239,0.5)]" 
