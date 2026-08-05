@@ -157,11 +157,12 @@ export const HomeUnified = () => {
                                     
                                     {/* ATM Logo */}
                                     <div className="relative z-10 w-full h-full flex items-center justify-center p-4">
-                                        <div className="relative w-full h-full max-w-[480px] max-h-[480px]">
+                                        <div className="relative w-full max-w-[560px] aspect-[1050/565]">
                                             <Image 
                                                 src="/logos/ATM_logo.png" 
                                                 alt="ATM Chile Logo" 
                                                 fill 
+                                                priority
                                                 className="object-contain drop-shadow-[0_0_35px_rgba(0,174,239,0.4)]" 
                                             />
                                         </div>
