@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { m, useMotionValue, useTransform, useSpring, useMotionValueEvent, MotionValue, useAnimationFrame } from "framer-motion";
 import {
     TransbankSvg, MercadoPagoSvg, AnthropicSvg, AwsSvg, AzureSvg, GoogleCloudSvg,
@@ -136,7 +136,7 @@ export const PartnersEcosystem = () => {
     const dragX = useMotionValue(0);
     const [dim, setDim] = useState<Dimensions | null>(null);
     const [initialDragSet, setInitialDragSet] = useState(false);
-    const [isDragging, setIsDragging] = useState(false);
+    const isDraggingRef = useRef(false);
 
     // Initialize dimensions & perfect CSS-free centering
     useEffect(() => {
@@ -192,7 +192,7 @@ export const PartnersEcosystem = () => {
 
     // Auto-scroll loop
     useAnimationFrame((time, delta) => {
-        if (!dim || isDragging) return;
+        if (!dim || isDraggingRef.current) return;
         // Smooth slide left: approx 30px per second
         const moveBy = (delta / 1000) * 30;
         dragX.set(dragX.get() - moveBy);
@@ -241,11 +241,11 @@ export const PartnersEcosystem = () => {
                         dragConstraints={{ left: -10000, right: 10000 }}
                         dragElastic={1}
                         dragMomentum={false}
-                        onPointerDown={() => setIsDragging(true)}
-                        onPointerUp={() => setIsDragging(false)}
-                        onPointerCancel={() => setIsDragging(false)}
-                        onDragStart={() => setIsDragging(true)}
-                        onDragEnd={() => setIsDragging(false)}
+                        onPointerDown={() => { isDraggingRef.current = true; }}
+                        onPointerUp={() => { isDraggingRef.current = false; }}
+                        onPointerCancel={() => { isDraggingRef.current = false; }}
+                        onDragStart={() => { isDraggingRef.current = true; }}
+                        onDragEnd={() => { isDraggingRef.current = false; }}
                         className="flex cursor-grab active:cursor-grabbing w-max items-center"
                         style={{
                             x: dragX,
