@@ -1,13 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { m, useMotionValue, useTransform, useSpring, useMotionValueEvent, MotionValue } from "framer-motion";
+import { m, useMotionValue, useTransform, useSpring, useMotionValueEvent, MotionValue, useAnimationFrame } from "framer-motion";
 // Imports nombrados (no `import * as`): permiten tree-shaking y evitan
 // arrastrar los ~3.300 iconos del paquete al bundle del cliente.
 import {
     siAnthropic, siCloudflare, siDatabricks, siDatadog, siDocker,
     siGithubactions, siGooglecloud, siGooglegemini, siGraphql, siKubernetes,
     siLangchain, siNextdotjs, siNvidia, siSnowflake, siTerraform,
-    siUipath, siVercel,
+    siUipath, siVercel, siMercadopago,
     type SimpleIcon,
 } from "simple-icons";
 
@@ -56,6 +56,22 @@ const OpenAISvg = () => (
     </svg>
 );
 
+// ── Transbank ─────────────────────────────────────────────────────────────────
+const TransbankSvg = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100%" height="100%" aria-label="Transbank">
+        <path fill="#EE2737" d="M2.5 6h19A1.5 1.5 0 0 1 23 7.5v9a1.5 1.5 0 0 1-1.5 1.5h-19A1.5 1.5 0 0 1 1 16.5v-9A1.5 1.5 0 0 1 2.5 6z" />
+        <path fill="#fff" d="M4 11h3.5v2H4zm5 0h8v2H9z" />
+    </svg>
+);
+
+// ── SII Chile ─────────────────────────────────────────────────────────────────
+const SiiSvg = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100%" height="100%" aria-label="SII">
+        <path fill="#003580" d="M12 2L3 6v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6l-9-4zm0 18.5c-4.14-1.11-7-5.32-7-10V7.3l7-3.11 7 3.11v4.2c0 4.68-2.86 8.89-7 10z" />
+        <path fill="#00AEEF" d="M11 9h2v6h-2zM11 16h2v2h-2z" />
+    </svg>
+);
+
 // ── Tech Ecosystem Data ───────────────────────────────────────────────────────
 interface Tech {
     name: string;
@@ -84,6 +100,9 @@ const techBase: Tech[] = [
     { name: "Next.js",    label: "NEXT.JS",    logo: <SI icon={siNextdotjs} /> },
     { name: "GraphQL",    label: "GRAPHQL",    logo: <SI icon={siGraphql} /> },
     { name: "Vercel",     label: "VERCEL",     logo: <SI icon={siVercel} /> },
+    { name: "Mercado Pago",label: "MERCADO PAGO",logo: <SI icon={siMercadopago} /> },
+    { name: "Transbank",  label: "TRANSBANK",  logo: <TransbankSvg /> },
+    { name: "SII Chile",  label: "SII CHILE",  logo: <SiiSvg /> },
 ];
 
 const pillsMerged = [
@@ -107,6 +126,9 @@ const pillsMerged = [
     { label: "NEXT.JS",    bg: "bg-slate-100", text: "text-slate-500"  },
     { label: "GRAPHQL",    bg: "bg-pink-50",   text: "text-pink-500"   },
     { label: "VERCEL",     bg: "bg-slate-100", text: "text-slate-500"  },
+    { label: "MERCADO PAGO",bg: "bg-blue-50",  text: "text-blue-500"   },
+    { label: "TRANSBANK",  bg: "bg-red-50",    text: "text-red-600"    },
+    { label: "SII CHILE",  bg: "bg-indigo-50", text: "text-indigo-600" },
 ];
 
 // TRIANGULATED INFINITE LOOP ARRAY
@@ -180,6 +202,8 @@ export const PartnersEcosystem = () => {
     const dragX = useMotionValue(0);
     const [dim, setDim] = useState<Dimensions | null>(null);
     const [initialDragSet, setInitialDragSet] = useState(false);
+    const [isDragging, setIsDragging] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
 
     // Initialize dimensions & perfect CSS-free centering
     useEffect(() => {
@@ -233,6 +257,14 @@ export const PartnersEcosystem = () => {
         }
     });
 
+    // Auto-scroll loop
+    useAnimationFrame((time, delta) => {
+        if (!dim || isDragging || isHovered) return;
+        // Smooth slide left: approx 30px per second
+        const moveBy = (delta / 1000) * 30;
+        dragX.set(dragX.get() - moveBy);
+    });
+
     return (
         <section
             id="ecosistema"
@@ -275,7 +307,11 @@ export const PartnersEcosystem = () => {
                         drag="x"
                         dragElastic={0.2}
                         dragTransition={{ power: 0.3, timeConstant: 200 }}
-                        className="flex cursor-grab active:cursor-grabbing w-max items-center"
+                        onDragStart={() => setIsDragging(true)}
+                        onDragEnd={() => setIsDragging(false)}
+                        onHoverStart={() => setIsHovered(true)}
+                        onHoverEnd={() => setIsHovered(false)}
+                        className="flex cursor-grab active:cursor-grabbing w-max items-center touch-pan-y"
                         style={{
                             x: dragX,
                             gap: dim.gap,
