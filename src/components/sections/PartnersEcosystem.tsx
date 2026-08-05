@@ -109,7 +109,7 @@ const GlassCard = ({ tech, index, dragX, dim }: { tech: Tech; index: number; dra
 
     return (
         <m.div
-            className="flex flex-col items-center justify-center shrink-0 rounded-[2.5rem] bg-white/10 backdrop-blur-xl border border-white/30"
+            className="flex flex-col items-center justify-center shrink-0 rounded-[2.5rem] bg-white border border-gray-100"
             style={{
                 width: dim.w,
                 height: dim.w,
