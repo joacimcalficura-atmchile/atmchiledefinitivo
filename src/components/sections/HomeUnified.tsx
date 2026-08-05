@@ -151,27 +151,21 @@ export const HomeUnified = () => {
                                 className="w-full h-[400px] md:h-[650px] relative group cursor-pointer bg-transparent overflow-visible will-change-transform"
                                 style={{ transform: "translateZ(0)" }}
                             >
-                                <div className="w-full h-full flex items-center justify-center relative overflow-hidden rounded-3xl group">
-                                    {/* Glass Container */}
-                                    <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-md border border-white/10 rounded-3xl transition-colors group-hover:border-[#00AEEF]/30" />
+                                <div className="w-full h-full flex items-center justify-center relative overflow-hidden group">
+                                    {/* Glowing Blue Backlight */}
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#00AEEF]/20 blur-[120px] rounded-full animate-pulse pointer-events-none" />
                                     
-                                    {/* Glowing Orbs */}
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#00AEEF]/20 blur-[100px] rounded-full animate-pulse" />
-                                    
-                                    {/* Tech Nodes Animation -> Replaced with ATM Logo */}
-                                    <div className="relative z-10 w-full h-full flex items-center justify-center p-8">
-                                        <div className="relative w-full h-full max-w-[300px] max-h-[300px] animate-[pulse_4s_ease-in-out_infinite]">
+                                    {/* ATM Logo */}
+                                    <div className="relative z-10 w-full h-full flex items-center justify-center p-4">
+                                        <div className="relative w-full h-full max-w-[480px] max-h-[480px]">
                                             <Image 
                                                 src="/logos/ATM_logo.png" 
                                                 alt="ATM Chile Logo" 
                                                 fill 
-                                                className="object-contain drop-shadow-[0_0_30px_rgba(0,174,239,0.5)]" 
+                                                className="object-contain drop-shadow-[0_0_35px_rgba(0,174,239,0.4)]" 
                                             />
                                         </div>
                                     </div>
-                                    
-                                    {/* Data Stream Lines */}
-                                    <div className="absolute inset-0 opacity-20 bg-[linear-gradient(transparent_90%,#00AEEF_100%)] bg-[length:100%_4px] animate-[slide_2s_linear_infinite] mix-blend-screen" />
                                 </div>
                             </m.div>
                             <m.div
