@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { m, Variants, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { BadgeCheck, Layers, Users, Bot, LineChart, ShieldCheck, Cloud, Box, Check, ArrowRight, Lock, BookOpen } from "lucide-react";
+import { BadgeCheck, Users, Bot, LineChart, ShieldCheck, Cloud, Box, Check, ArrowRight, Lock, BookOpen } from "lucide-react";
 const PartnersEcosystem = dynamic(() => import("./PartnersEcosystem").then(mod => mod.PartnersEcosystem), {
     loading: () => <div className="h-64 w-full animate-pulse bg-slate-50" />
 });
@@ -170,19 +170,6 @@ export const HomeUnified = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </m.div>
-                            <m.div
-                                animate={{ y: [0, -15, 0] }}
-                                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                                className="absolute -bottom-8 -left-8 glass-3d p-6 rounded-2xl max-w-xs z-30 shadow-2xl"
-                            >
-                                <div className="flex items-center gap-4 mb-2">
-                                    <div className="p-2 bg-primary/40 rounded-lg border border-white/10">
-                                        <Layers size={24} className="text-accent icon-3d" />
-                                    </div>
-                                    <span className="font-bold text-white">Eficiencia Operativa</span>
-                                </div>
-                                <p className="text-xs text-blue-200/80">Optimizamos procesos críticos con tecnología de última generación.</p>
                             </m.div>
                         </m.div>
                     </div>
