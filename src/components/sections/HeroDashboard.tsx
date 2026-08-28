@@ -133,7 +133,7 @@ export const HeroDashboard = () => {
                     initial={{ opacity: 0, y: 30, scale: 0.96 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ duration: 0.7, type: "spring", stiffness: 90, damping: 20 }}
-                    className="order-1 lg:order-2 lg:col-span-2 flex flex-col items-center text-center justify-center p-8 md:p-12 lg:p-14 bg-white/80 backdrop-blur-2xl border border-white/80 shadow-[0_20px_80px_rgba(0,71,171,0.07)] rounded-[3rem] relative overflow-hidden"
+                    className="order-1 lg:order-2 lg:col-span-2 flex flex-col items-center text-center justify-center p-8 md:p-12 lg:p-14 bg-white/80 backdrop-blur-2xl border border-white/80 shadow-[0_20px_80px_rgba(23, 107, 222,0.07)] rounded-[3rem] relative overflow-hidden"
                 >
                     {/* Brillo interno estilo Apple */}
                     <div

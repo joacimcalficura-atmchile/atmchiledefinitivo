@@ -145,7 +145,7 @@ export default function ContactoPage() {
             {/* Glow decorativo */}
             <div
                 className="absolute top-0 right-0 w-[800px] h-[800px] pointer-events-none -translate-y-1/4 translate-x-1/4 z-10"
-                style={{ background: "radial-gradient(ellipse, rgba(0,71,171,0.05) 0%, transparent 70%)" }}
+                style={{ background: "radial-gradient(ellipse, rgba(23, 107, 222,0.05) 0%, transparent 70%)" }}
             />
 
             <div className="relative z-10 max-w-7xl mx-auto px-6 pt-28 pb-24">
@@ -261,7 +261,7 @@ export default function ContactoPage() {
                         <div
                             className="p-8 rounded-2xl border border-[#0047AB]/10 overflow-hidden relative"
                             style={{
-                                background: "linear-gradient(135deg, rgba(0,71,171,0.06) 0%, rgba(34,211,238,0.04) 100%)",
+                                background: "linear-gradient(135deg, rgba(23, 107, 222,0.06) 0%, rgba(34,211,238,0.04) 100%)",
                                 backdropFilter: "blur(12px)",
                                 WebkitBackdropFilter: "blur(12px)",
                             }}
@@ -305,7 +305,7 @@ export default function ContactoPage() {
                         className="lg:col-span-8 scroll-mt-20"
                     >
                         <div
-                            className="p-8 md:p-12 rounded-2xl border border-white/80 shadow-[0_20px_60px_-12px_rgba(0,71,171,0.10),0_0_0_1px_rgba(255,255,255,0.8),inset_0_1px_0_rgba(255,255,255,0.9)]"
+                            className="p-8 md:p-12 rounded-2xl border border-white/80 shadow-[0_20px_60px_-12px_rgba(23, 107, 222,0.10),0_0_0_1px_rgba(255,255,255,0.8),inset_0_1px_0_rgba(255,255,255,0.9)]"
                             style={{ background: "rgba(255,255,255,0.88)", backdropFilter: "saturate(180%) blur(40px)", WebkitBackdropFilter: "saturate(180%) blur(40px)" }}
                         >
                             {/* Brillo superior */}
@@ -503,7 +503,7 @@ export default function ContactoPage() {
                                                     : "linear-gradient(135deg, #0047AB 0%, #0369A1 100%)",
                                                 boxShadow: isWhatsAppMode 
                                                     ? "0 8px 24px -4px rgba(37,211,102,0.35)" 
-                                                    : "0 8px 24px -4px rgba(0,71,171,0.35)" 
+                                                    : "0 8px 24px -4px rgba(23, 107, 222,0.35)" 
                                             }}
                                         >
                                             {loading ? (

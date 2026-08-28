@@ -143,7 +143,7 @@ export const ProductVisualization3DServices = ({ onClose }: ProductVisualization
                                         className={`
                                             relative z-10 flex items-center p-5 rounded-2xl cursor-pointer transition-all duration-400 border backdrop-blur-xl
                                             ${isActive
-                                                ? "bg-white border-[#0047AB] shadow-[0_10px_30px_rgba(0,71,171,0.12)] scale-[1.02]"
+                                                ? "bg-white border-[#0047AB] shadow-[0_10px_30px_rgba(23, 107, 222,0.12)] scale-[1.02]"
                                                 : "bg-white/50 border-transparent hover:border-slate-200 hover:bg-white/80 shadow-sm"
                                             }
                                         `}

@@ -51,7 +51,7 @@ export const Navbar = () => {
               {isMounted && isActive && (
                 <m.div
                   layoutId="active-pill"
-                  className="absolute inset-0 bg-[#00AEEF]/10 border border-[#00AEEF]/20 rounded-full"
+                  className="absolute inset-0 bg-[#176BDE]/10 border border-[#176BDE]/20 rounded-full"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
@@ -60,7 +60,7 @@ export const Navbar = () => {
                 layout
                 className={`relative z-10 flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold transition-colors duration-300 ${
                   isActive
-                    ? "text-[#00AEEF]"
+                    ? "text-[#176BDE]"
                     : "text-slate-500 hover:text-slate-800"
                 }`}
               >

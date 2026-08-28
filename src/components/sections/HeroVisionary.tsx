@@ -157,7 +157,7 @@ export const HeroVisionary = () => {
                     <m.div variants={fadeUpItem} className="flex flex-col sm:flex-row gap-4 w-full justify-center">
                         <Link
                             href="/servicios"
-                            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#0047AB] text-white rounded-2xl font-bold text-base overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_10px_40px_rgba(0,71,171,0.3)] active:scale-[0.98]"
+                            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#0047AB] text-white rounded-2xl font-bold text-base overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_10px_40px_rgba(23, 107, 222,0.3)] active:scale-[0.98]"
                         >
                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
                             Potenciar Operación 360

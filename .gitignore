@@ -49,3 +49,6 @@ next-env.d.ts
 
 # tests
 test-*.js
+
+# brand manual — assets internos, no exponer en el repo público
+public/ATM_Brandbook/

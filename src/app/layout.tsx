@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Roboto, Roboto_Slab } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Navbar } from "@/components/shared/Navbar";
@@ -7,14 +7,20 @@ import { Providers } from "@/components/providers/Providers";
 import { FloatingChatWidget } from "@/components/ui/FloatingChatWidget";
 import { Analytics } from "@vercel/analytics/react";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Tipografía oficial ATM Brandbook: Roboto (ExtraLight/Medium/Black) para textos,
+// Roboto Slab (Medium) reservada para el eslogan «A tu medida».
+const roboto = Roboto({
+  variable: "--font-roboto",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "700", "900"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const robotoSlab = Roboto_Slab({
+  variable: "--font-roboto-slab",
   subsets: ["latin"],
+  weight: ["500"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -61,7 +67,7 @@ export default function RootLayout({
   return (
     <html lang="es" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-brand-light text-slate-900 antialiased selection:bg-brand-cobalt selection:text-white`}
+        className={`${roboto.variable} ${robotoSlab.variable} bg-brand-light text-slate-900 antialiased selection:bg-brand-cobalt selection:text-white`}
         suppressHydrationWarning
       >
         {/* Spline Viewer Runtime removed to avoid multiple ThreeJS instances / eval issues */}

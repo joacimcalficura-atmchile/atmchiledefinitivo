@@ -118,7 +118,7 @@ export const HomeUnified = () => {
                             </div>
                             <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight mb-8">
                                 Software a Medida: <br/>
-                                <span className="text-[#00AEEF] glow-text drop-shadow-[0_0_15px_rgba(0,174,239,0.5)]">Hub Tecnológico Latam</span>
+                                <span className="text-[#176BDE] glow-text drop-shadow-[0_0_15px_rgba(23, 107, 222,0.5)]">Hub Tecnológico Latam</span>
                             </h1>
                             <p className="text-lg text-blue-200/80 leading-relaxed mb-10 max-w-xl">
                                 No solo implementamos tecnología. Somos el partner estratégico de alta fidelidad que transforma operaciones complejas en Chile y el mundo a través de ingeniería de software premium.
@@ -129,7 +129,7 @@ export const HomeUnified = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 1, delay: 0.3, ease: smoothEase }}
                             >
-                                <Link href="/servicios" className="neon-button text-white px-8 py-4 rounded-xl text-lg font-bold shadow-xl shadow-primary/20 hover:scale-[1.02] transition-transform text-center flex items-center justify-center bg-[#00AEEF] hover:bg-[#009bcf]">
+                                <Link href="/servicios" className="neon-button text-white px-8 py-4 rounded-xl text-lg font-bold shadow-xl shadow-primary/20 hover:scale-[1.02] transition-transform text-center flex items-center justify-center bg-[#176BDE] hover:bg-[#009bcf]">
                                     Potenciar Operación 360
                                 </Link>
                                 <a href="#club100" className="bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-white/10 transition-colors text-center flex items-center justify-center">
@@ -152,18 +152,20 @@ export const HomeUnified = () => {
                                 style={{ transform: "translateZ(0)" }}
                             >
                                 <div className="w-full h-full flex items-center justify-center relative overflow-hidden group">
-                                    {/* Glowing Blue Backlight */}
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#00AEEF]/20 blur-[120px] rounded-full animate-pulse pointer-events-none" />
-                                    
-                                    {/* ATM Logo */}
+                                    {/* Soft brand backlight (ambiance behind the logo, never on it) */}
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#16F3E8]/12 blur-[130px] rounded-full animate-pulse pointer-events-none" />
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[28rem] h-[28rem] bg-[#176BDE]/15 blur-[150px] rounded-full pointer-events-none" />
+
+                                    {/* Official ATM Logotype — white + "A TU MEDIDA" (Brandbook, no invasive glow) */}
                                     <div className="relative z-10 w-full h-full flex items-center justify-center p-4">
-                                        <div className="relative w-full max-w-[560px] aspect-[1050/565]">
-                                            <Image 
-                                                src="/logos/ATM_logo.png" 
-                                                alt="ATM Chile Logo" 
-                                                fill 
+                                        <div className="relative w-full max-w-[560px] aspect-[1036/620]">
+                                            <Image
+                                                src="/logos/ATM_logo_slogan_white.png"
+                                                alt="ATM Chile — A tu medida"
+                                                fill
                                                 priority
-                                                className="object-contain drop-shadow-[0_0_35px_rgba(0,174,239,0.4)]" 
+                                                sizes="(max-width: 768px) 90vw, 560px"
+                                                className="object-contain drop-shadow-[0_4px_18px_rgba(0,0,0,0.45)]"
                                             />
                                         </div>
                                     </div>
@@ -212,17 +214,17 @@ export const HomeUnified = () => {
                         <m.div
                             variants={cardVariant}
                             whileHover={{ y: -8, scale: 1.02 }}
-                            className="service-card group relative p-8 rounded-2xl border border-slate-100/50 hover:border-[#00AEEF]/30 bg-white shadow-xl hover:shadow-[0_0_30px_rgba(0,174,239,0.15)] transition-all duration-300 depth-3d flex flex-col h-full"
+                            className="service-card group relative p-8 rounded-2xl border border-slate-100/50 hover:border-[#176BDE]/30 bg-white shadow-xl hover:shadow-[0_0_30px_rgba(23, 107, 222,0.15)] transition-all duration-300 depth-3d flex flex-col h-full"
                         >
-                            <div className="absolute top-4 right-4 text-white text-[10px] font-bold px-2 py-1 rounded bg-[#00AEEF] shadow-[0_0_10px_rgba(0,174,239,0.5)] uppercase tracking-wider z-20">Most Requested</div>
+                            <div className="absolute top-4 right-4 text-white text-[10px] font-bold px-2 py-1 rounded bg-[#176BDE] shadow-[0_0_10px_rgba(23, 107, 222,0.5)] uppercase tracking-wider z-20">Most Requested</div>
                             
                             {/* High-Fidelity Photorealistic Image */}
-                            <div className="aspect-video w-full rounded-xl bg-[#02121d] border border-white/5 group-hover:border-[#00AEEF]/40 group-hover:shadow-[0_0_15px_rgba(0,174,239,0.2)] transition-all duration-300 mb-6 overflow-hidden relative z-10">
+                            <div className="aspect-video w-full rounded-xl bg-[#02121d] border border-white/5 group-hover:border-[#176BDE]/40 group-hover:shadow-[0_0_15px_rgba(23, 107, 222,0.2)] transition-all duration-300 mb-6 overflow-hidden relative z-10">
                                <Image src="/images/talento_senior.png" alt="Desarrollador Senior Chileno en vscode" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
                                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-xl" />
                             </div>
 
-                            <h4 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-[#00AEEF] transition-colors">Talento Senior On-Demand</h4>
+                            <h4 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-[#176BDE] transition-colors">Talento Senior On-Demand</h4>
                             <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">
                                 Células ágiles de desarrolladores senior integradas a su flujo de trabajo. Ingeniería de software a medida bajo estándares Audit-Ready y Clean Code.
                             </p>
@@ -230,7 +232,7 @@ export const HomeUnified = () => {
                                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Tech Stack</span>
                                 <p className="text-xs font-semibold text-slate-500 italic">Agile / Senior Management / High Performance Teams</p>
                             </div>
-                            <Link href="/talento" className="mt-6 flex items-center justify-center w-full py-3 bg-slate-50 group-hover:bg-[#00AEEF]/10 text-slate-600 group-hover:text-[#00AEEF] font-bold rounded-lg transition-colors text-sm">
+                            <Link href="/talento" className="mt-6 flex items-center justify-center w-full py-3 bg-slate-50 group-hover:bg-[#176BDE]/10 text-slate-600 group-hover:text-[#176BDE] font-bold rounded-lg transition-colors text-sm">
                                 Leer equipo
                             </Link>
                         </m.div>
@@ -239,15 +241,15 @@ export const HomeUnified = () => {
                         <m.div
                             variants={cardVariant}
                             whileHover={{ y: -8, scale: 1.02 }}
-                            className="service-card group p-8 rounded-2xl border border-slate-100/50 hover:border-[#00AEEF]/30 bg-white shadow-xl hover:shadow-[0_0_30px_rgba(0,174,239,0.15)] transition-all duration-300 depth-3d flex flex-col h-full"
+                            className="service-card group p-8 rounded-2xl border border-slate-100/50 hover:border-[#176BDE]/30 bg-white shadow-xl hover:shadow-[0_0_30px_rgba(23, 107, 222,0.15)] transition-all duration-300 depth-3d flex flex-col h-full"
                         >
                             {/* High-Fidelity Photorealistic Image */}
-                            <div className="aspect-video w-full rounded-xl bg-[#02121d] border border-white/5 group-hover:border-[#00AEEF]/40 group-hover:shadow-[0_0_15px_rgba(0,174,239,0.2)] transition-all duration-300 mb-6 overflow-hidden relative z-10">
+                            <div className="aspect-video w-full rounded-xl bg-[#02121d] border border-white/5 group-hover:border-[#176BDE]/40 group-hover:shadow-[0_0_15px_rgba(23, 107, 222,0.2)] transition-all duration-300 mb-6 overflow-hidden relative z-10">
                                <Image src="/images/ia_generativa.png" alt="Analista de IA Chilena" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
                                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-xl" />
                             </div>
 
-                            <h4 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-[#00AEEF] transition-colors">IA Generativa & Automatización</h4>
+                            <h4 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-[#176BDE] transition-colors">IA Generativa & Automatización</h4>
                             <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">
                                 Soluciones de IA que razonan según el perfil del cliente. No es un chatbot: es un equipo digital a medida con CRM inteligente y scoring de leads.
                             </p>
@@ -255,7 +257,7 @@ export const HomeUnified = () => {
                                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Tech Stack</span>
                                 <p className="text-xs font-semibold text-slate-500 italic">Python / PyTorch / LangChain</p>
                             </div>
-                            <Link href="/servicios" className="mt-6 flex items-center justify-center w-full py-3 bg-slate-50 group-hover:bg-[#00AEEF]/10 text-slate-600 group-hover:text-[#00AEEF] font-bold rounded-lg transition-colors text-sm">
+                            <Link href="/servicios" className="mt-6 flex items-center justify-center w-full py-3 bg-slate-50 group-hover:bg-[#176BDE]/10 text-slate-600 group-hover:text-[#176BDE] font-bold rounded-lg transition-colors text-sm">
                                 Explorar
                             </Link>
                         </m.div>
@@ -264,15 +266,15 @@ export const HomeUnified = () => {
                         <m.div
                             variants={cardVariant}
                             whileHover={{ y: -8, scale: 1.02 }}
-                            className="service-card group p-8 rounded-2xl border border-slate-100/50 hover:border-[#00AEEF]/30 bg-white shadow-xl hover:shadow-[0_0_30px_rgba(0,174,239,0.15)] transition-all duration-300 depth-3d flex flex-col h-full"
+                            className="service-card group p-8 rounded-2xl border border-slate-100/50 hover:border-[#176BDE]/30 bg-white shadow-xl hover:shadow-[0_0_30px_rgba(23, 107, 222,0.15)] transition-all duration-300 depth-3d flex flex-col h-full"
                         >
                             {/* High-Fidelity Photorealistic Image */}
-                            <div className="aspect-video w-full rounded-xl bg-[#02121d] border border-white/5 group-hover:border-[#00AEEF]/40 group-hover:shadow-[0_0_15px_rgba(0,174,239,0.2)] transition-all duration-300 mb-6 overflow-hidden relative z-10">
+                            <div className="aspect-video w-full rounded-xl bg-[#02121d] border border-white/5 group-hover:border-[#176BDE]/40 group-hover:shadow-[0_0_15px_rgba(23, 107, 222,0.2)] transition-all duration-300 mb-6 overflow-hidden relative z-10">
                                <Image src="/images/ciberseguridad_soc.png" alt="Analista de Ciberseguridad SOC Chile" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
                                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-xl" />
                             </div>
 
-                            <h4 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-[#00AEEF] transition-colors">Ciberseguridad 360</h4>
+                            <h4 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-[#176BDE] transition-colors">Ciberseguridad 360</h4>
                             <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">
                                 Protección integral de infraestructuras críticas en el Hub Metropolitano. Auditoría preventiva, Pentesting y cumplimiento de estándares internacionales ISO 27001.
                             </p>
@@ -280,7 +282,7 @@ export const HomeUnified = () => {
                                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Tech Stack</span>
                                 <p className="text-xs font-semibold text-slate-500 italic">ISO 27001 / Pentesting / Zero Trust</p>
                             </div>
-                            <Link href="/seguridad" className="mt-6 flex items-center justify-center w-full py-3 bg-slate-50 group-hover:bg-[#00AEEF]/10 text-slate-600 group-hover:text-[#00AEEF] font-bold rounded-lg transition-colors text-sm">
+                            <Link href="/seguridad" className="mt-6 flex items-center justify-center w-full py-3 bg-slate-50 group-hover:bg-[#176BDE]/10 text-slate-600 group-hover:text-[#176BDE] font-bold rounded-lg transition-colors text-sm">
                                 Centro de Mando
                             </Link>
                         </m.div>
@@ -292,17 +294,17 @@ export const HomeUnified = () => {
 
             {/* Insights Section Preview (Profepyme) */}
             <section className="py-24 bg-slate-50 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-80 h-80 bg-[#00AEEF]/5 blur-[120px] rounded-full pointer-events-none" />
+                <div className="absolute top-0 right-0 w-80 h-80 bg-[#176BDE]/5 blur-[120px] rounded-full pointer-events-none" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
                         <div className="max-w-2xl">
-                            <h2 className="text-sm font-bold text-[#00AEEF] tracking-[0.2em] uppercase mb-4">Insights de Vanguardia</h2>
+                            <h2 className="text-sm font-bold text-[#176BDE] tracking-[0.2em] uppercase mb-4">Insights de Vanguardia</h2>
                             <h3 className="text-3xl md:text-4xl font-black text-slate-900 leading-tight">
                                 Recursos para liderar la <br className="hidden md:block" />
-                                <span className="text-[#00AEEF]">Transformación Digital</span>
+                                <span className="text-[#176BDE]">Transformación Digital</span>
                             </h3>
                         </div>
-                        <Link href="/insights" className="group inline-flex items-center gap-2 text-slate-600 font-bold hover:text-[#00AEEF] transition-colors">
+                        <Link href="/insights" className="group inline-flex items-center gap-2 text-slate-600 font-bold hover:text-[#176BDE] transition-colors">
                             Ver todos los recursos
                             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                         </Link>
@@ -337,13 +339,13 @@ export const HomeUnified = () => {
                                 <div className="aspect-[16/10] relative rounded-xl overflow-hidden mb-6">
                                     <Image src={post.img} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100" />
                                     <div className="absolute top-4 left-4">
-                                        <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-black text-[#00AEEF] uppercase tracking-wider">{post.category}</span>
+                                        <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-black text-[#176BDE] uppercase tracking-wider">{post.category}</span>
                                     </div>
                                 </div>
                                 <div className="px-4 pb-6">
-                                    <h4 className="text-lg font-bold text-slate-900 mb-3 group-hover:text-[#00AEEF] transition-colors">{post.title}</h4>
+                                    <h4 className="text-lg font-bold text-slate-900 mb-3 group-hover:text-[#176BDE] transition-colors">{post.title}</h4>
                                     <p className="text-slate-500 text-sm leading-relaxed mb-6">{post.desc}</p>
-                                    <Link href="/insights" className="text-xs font-black text-[#00AEEF] uppercase tracking-widest flex items-center gap-2">
+                                    <Link href="/insights" className="text-xs font-black text-[#176BDE] uppercase tracking-widest flex items-center gap-2">
                                         Leer Artículo <ArrowRight size={12} />
                                     </Link>
                                 </div>
@@ -358,7 +360,7 @@ export const HomeUnified = () => {
 
 
             {/* Premium Section: Club 100 (Círculo Privado) */}
-            <section id="club100" className="py-20 md:py-32 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #00AEEF 0%, #0086C3 60%, #005F8E 100%)" }}>
+            <section id="club100" className="py-20 md:py-32 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #176BDE 0%, #0086C3 60%, #005F8E 100%)" }}>
                 {/* Glows decorativos */}
                 <div className="absolute top-0 left-0 w-[45%] h-full bg-gradient-to-r from-white/10 to-transparent pointer-events-none" />
                 <div className="absolute bottom-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-[100px] pointer-events-none" />
@@ -416,7 +418,7 @@ export const HomeUnified = () => {
                             >
                                 <span className="relative z-10">Solicitar Admisión</span>
                                 <ArrowRight size={20} className="relative z-10 group-hover:translate-x-1 transition-transform" />
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00AEEF]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#176BDE]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                             </m.button>
                         </m.div>
 
@@ -442,7 +444,7 @@ export const HomeUnified = () => {
                                 {/* Glass VIP card */}
                                 <div className="relative rounded-3xl md:rounded-[2.5rem] bg-white/10 backdrop-blur-md border border-white/30 shadow-[0_24px_80px_rgba(0,0,0,0.15)] overflow-hidden p-6 md:p-10">
                                     {/* 3D ATM Logo — Spline transparente */}
-                                <div className="w-full h-36 md:h-52 relative mb-4 md:mb-6 overflow-hidden rounded-2xl bg-[#00AEEF]/10 flex items-center justify-center border border-white/20">
+                                <div className="w-full h-36 md:h-52 relative mb-4 md:mb-6 overflow-hidden rounded-2xl bg-[#176BDE]/10 flex items-center justify-center border border-white/20">
                                     <div className="text-white/40 font-black text-4xl md:text-6xl tracking-tighter select-none">ATM</div>
                                     {/* Glass reflection effect */}
                                     <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent pointer-events-none" />

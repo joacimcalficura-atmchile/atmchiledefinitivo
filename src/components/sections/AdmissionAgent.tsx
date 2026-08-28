@@ -149,12 +149,12 @@ export const AdmissionAgent = () => {
                 {/* Header del Formulario */}
                 <div className="flex items-center justify-between mb-12">
                     <div className="flex items-center gap-3">
-                        <div className="p-2 md:p-2.5 rounded-xl bg-[#00AEEF]/10 text-[#00AEEF] shadow-[0_0_20px_rgba(0,174,239,0.1)] border border-[#00AEEF]/30">
+                        <div className="p-2 md:p-2.5 rounded-xl bg-[#176BDE]/10 text-[#176BDE] shadow-[0_0_20px_rgba(23, 107, 222,0.1)] border border-[#176BDE]/30">
                             <Lock size={18} className="md:w-5 md:h-5" />
                         </div>
                         <div>
                             <h3 className="text-white font-black text-lg md:text-xl tracking-tight uppercase">Portal de Admisión</h3>
-                            <p className="text-[#00AEEF] text-[10px] font-black uppercase tracking-[0.2em] opacity-80">Protocolo Nivel Senior</p>
+                            <p className="text-[#176BDE] text-[10px] font-black uppercase tracking-[0.2em] opacity-80">Protocolo Nivel Senior</p>
                         </div>
                     </div>
                     {step < 9 && (
@@ -165,10 +165,10 @@ export const AdmissionAgent = () => {
                                     <m.div 
                                         initial={{ width: 0 }}
                                         animate={{ width: `${(step / 9) * 100}%` }}
-                                        className="h-full bg-[#00AEEF] shadow-[0_0_15px_#00AEEF]"
+                                        className="h-full bg-[#176BDE] shadow-[0_0_15px_#176BDE]"
                                     />
                                 </div>
-                                <span className="text-[#00AEEF] font-black text-xs tabular-nums">{Math.round((step / 9) * 100)}%</span>
+                                <span className="text-[#176BDE] font-black text-xs tabular-nums">{Math.round((step / 9) * 100)}%</span>
                             </div>
                         </div>
                     )}
@@ -179,7 +179,7 @@ export const AdmissionAgent = () => {
                     className="bg-[#02121d]/80 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.9)] overflow-hidden min-h-[500px] flex flex-col relative group ring-1 ring-white/5 will-change-transform"
                     style={{ transform: "translateZ(0)" }}
                 >
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#00AEEF]/5 to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#176BDE]/5 to-transparent pointer-events-none" />
                     <div className="p-8 md:p-14 flex-grow flex flex-col justify-center relative z-10">
                         <AnimatePresence mode="wait">
                             <m.div
@@ -300,18 +300,18 @@ export const AdmissionAgent = () => {
                                         {/* Step 3: Project Name */}
                                         {step === 3 && (
                                             <div className="space-y-6">
-                                                <div className="p-4 rounded-2xl bg-[#00AEEF]/10 border border-[#00AEEF]/20 w-fit text-[#00AEEF]">
+                                                <div className="p-4 rounded-2xl bg-[#176BDE]/10 border border-[#176BDE]/20 w-fit text-[#176BDE]">
                                                     <Building size={28} />
                                                 </div>
                                                 <h4 className="text-2xl md:text-4xl font-black text-white tracking-tight leading-tight">
-                                                    ¿Cómo se llama <br/><span className="text-[#00AEEF] glow-text-subtle">tu empresa o proyecto?</span>
+                                                    ¿Cómo se llama <br/><span className="text-[#176BDE] glow-text-subtle">tu empresa o proyecto?</span>
                                                 </h4>
                                                 <input
                                                     type="text"
                                                     value={formData.projectName}
                                                     onChange={(e) => handleInputChange('projectName', e.target.value)}
                                                     placeholder="Nombre de la organización..."
-                                                    className="w-full bg-black/40 border-2 border-white/10 p-4 md:p-5 rounded-2xl text-lg md:text-xl font-bold text-white outline-none focus:border-[#00AEEF] focus:bg-black/60 focus:ring-4 focus:ring-[#00AEEF]/10 transition-all placeholder:text-slate-700"
+                                                    className="w-full bg-black/40 border-2 border-white/10 p-4 md:p-5 rounded-2xl text-lg md:text-xl font-bold text-white outline-none focus:border-[#176BDE] focus:bg-black/60 focus:ring-4 focus:ring-[#176BDE]/10 transition-all placeholder:text-slate-700"
                                                     autoFocus
                                                 />
                                             </div>
@@ -424,11 +424,11 @@ export const AdmissionAgent = () => {
                                         {/* Step 8: Audit? */}
                                         {step === 8 && (
                                             <div className="space-y-6">
-                                                <div className="p-4 rounded-2xl bg-[#00AEEF]/10 border border-[#00AEEF]/20 w-fit text-[#00AEEF]">
+                                                <div className="p-4 rounded-2xl bg-[#176BDE]/10 border border-[#176BDE]/20 w-fit text-[#176BDE]">
                                                     <Zap size={28} />
                                                 </div>
                                                 <h4 className="text-3xl font-black text-white tracking-tight leading-none">
-                                                    ¿Deseas una <span className="text-[#00AEEF]">auditoría estratégica</span> <br/>de procesos gratuita?
+                                                    ¿Deseas una <span className="text-[#176BDE]">auditoría estratégica</span> <br/>de procesos gratuita?
                                                 </h4>
                                                 <div className="grid gap-3 pt-4">
                                                     {[
@@ -440,8 +440,8 @@ export const AdmissionAgent = () => {
                                                             onClick={() => handleInputChange('wantAudit', opt)}
                                                             className={`p-5 rounded-2xl text-left font-black tracking-widest uppercase transition-all border-2 text-xs md:text-sm ${
                                                                 formData.wantAudit === opt 
-                                                                ? 'bg-[#00AEEF] border-[#00AEEF] text-[#010912] shadow-[0_0_30px_rgba(0,174,239,0.3)]' 
-                                                                : 'bg-black/40 border-white/10 text-slate-400 hover:border-[#00AEEF]/40 hover:text-white'
+                                                                ? 'bg-[#176BDE] border-[#176BDE] text-[#010912] shadow-[0_0_30px_rgba(23, 107, 222,0.3)]' 
+                                                                : 'bg-black/40 border-white/10 text-slate-400 hover:border-[#176BDE]/40 hover:text-white'
                                                             }`}
                                                         >
                                                             {opt}
@@ -457,7 +457,7 @@ export const AdmissionAgent = () => {
                                                 <m.div 
                                                     initial={{ scale: 0.8, opacity: 0 }}
                                                     animate={{ scale: 1, opacity: 1 }}
-                                                    className="inline-block p-8 rounded-full bg-[#00AEEF]/10 text-[#00AEEF] mb-10 border border-[#00AEEF]/20 shadow-[0_0_50px_rgba(0,174,239,0.1)]"
+                                                    className="inline-block p-8 rounded-full bg-[#176BDE]/10 text-[#176BDE] mb-10 border border-[#176BDE]/20 shadow-[0_0_50px_rgba(23, 107, 222,0.1)]"
                                                 >
                                                     <CheckCircle size={84} />
                                                 </m.div>
@@ -467,11 +467,11 @@ export const AdmissionAgent = () => {
                                                 </p>
                                                 <div className="grid md:grid-cols-2 gap-6 text-left p-8 rounded-[2rem] bg-black/40 border border-white/10 shadow-2xl">
                                                     <div className="space-y-1">
-                                                        <span className="text-[9px] font-black text-[#00AEEF] uppercase tracking-[0.3em] block opacity-70">Canal Seguro</span>
+                                                        <span className="text-[9px] font-black text-[#176BDE] uppercase tracking-[0.3em] block opacity-70">Canal Seguro</span>
                                                         <span className="font-bold text-white text-lg block">{formData.email}</span>
                                                     </div>
                                                     <div className="space-y-1 border-l border-white/5 pl-6">
-                                                        <span className="text-[9px] font-black text-[#00AEEF] uppercase tracking-[0.3em] block opacity-70">WhatsApp Directo</span>
+                                                        <span className="text-[9px] font-black text-[#176BDE] uppercase tracking-[0.3em] block opacity-70">WhatsApp Directo</span>
                                                         <span className="font-bold text-white text-lg block">{formData.whatsapp}</span>
                                                     </div>
                                                 </div>
@@ -492,7 +492,7 @@ export const AdmissionAgent = () => {
                                 className={`flex items-center gap-2 font-black text-[10px] md:text-xs uppercase tracking-widest transition-all ${
                                     step === 0 
                                     ? 'opacity-0 pointer-events-none' 
-                                    : 'text-white/40 hover:text-[#00AEEF] hover:translate-x-[-4px]'
+                                    : 'text-white/40 hover:text-[#176BDE] hover:translate-x-[-4px]'
                                 }`}
                             >
                                 <ArrowLeft size={16} /> <span className="hidden xs:inline">Volver</span>
@@ -503,7 +503,7 @@ export const AdmissionAgent = () => {
                                 disabled={!isStepValid()}
                                 className={`group flex items-center gap-3 px-8 md:px-12 py-4 md:py-5 rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-[0.3em] transition-all duration-500 relative overflow-hidden ${
                                     isStepValid() 
-                                    ? 'bg-[#00AEEF] text-[#010912] shadow-[0_0_40px_rgba(0,174,239,0.3)] hover:scale-105 hover:bg-white active:scale-95' 
+                                    ? 'bg-[#176BDE] text-[#010912] shadow-[0_0_40px_rgba(23, 107, 222,0.3)] hover:scale-105 hover:bg-white active:scale-95' 
                                     : 'bg-white/5 text-white/20 border border-white/5 cursor-not-allowed'
                                 }`}
                             >

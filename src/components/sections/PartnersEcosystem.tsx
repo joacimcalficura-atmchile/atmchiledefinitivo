@@ -97,9 +97,9 @@ const GlassCard = ({ tech, index, dragX, dim }: { tech: Tech; index: number; dra
     const blurObj = useTransform(offsetFromCenter, [-dim.maxDist, -dim.step, 0, dim.step, dim.maxDist], [10, 0, 0, 0, 10]);
     const filter = useTransform(blurObj, (val) => `blur(${val}px)`);
     const shadow = useTransform(offsetFromCenter, [-dim.step, 0, dim.step], [
-        "0 20px 50px rgba(0,0,0,0.15), 0 0 0px rgba(0,174,239,0)",
-        "0 20px 50px rgba(0,0,0,0.15), 0 0 60px rgba(0,174,239,0.3)",
-        "0 20px 50px rgba(0,0,0,0.15), 0 0 0px rgba(0,174,239,0)",
+        "0 20px 50px rgba(0,0,0,0.15), 0 0 0px rgba(23, 107, 222,0)",
+        "0 20px 50px rgba(0,0,0,0.15), 0 0 60px rgba(23, 107, 222,0.3)",
+        "0 20px 50px rgba(0,0,0,0.15), 0 0 0px rgba(23, 107, 222,0)",
     ]);
 
     // Heavily organic springs
@@ -124,7 +124,7 @@ const GlassCard = ({ tech, index, dragX, dim }: { tech: Tech; index: number; dra
             <div className="relative flex items-center justify-center w-[65%] h-[65%] mb-2">
                 {tech.logo}
             </div>
-            <span className="text-[10px] md:text-xs font-black tracking-widest text-[#00AEEF] uppercase mt-2 px-2 text-center pointer-events-none">
+            <span className="text-[10px] md:text-xs font-black tracking-widest text-[#176BDE] uppercase mt-2 px-2 text-center pointer-events-none">
                 {tech.label}
             </span>
         </m.div>
@@ -205,8 +205,8 @@ export const PartnersEcosystem = () => {
         >
             {/* ── Transition & Blends ── */}
             <div className="absolute top-0 inset-x-0 h-48 bg-gradient-to-b from-[#010912] to-transparent z-10 pointer-events-none w-full" />
-            <div className="absolute bottom-0 inset-x-0 h-48 bg-gradient-to-t from-[#00AEEF] to-transparent z-10 pointer-events-none w-full" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00AEEF]/[0.02] to-transparent pointer-events-none" />
+            <div className="absolute bottom-0 inset-x-0 h-48 bg-gradient-to-t from-[#176BDE] to-transparent z-10 pointer-events-none w-full" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#176BDE]/[0.02] to-transparent pointer-events-none" />
 
             {/* ── Header ── */}
             <div className="max-w-7xl mx-auto px-6 relative z-20">
@@ -217,12 +217,12 @@ export const PartnersEcosystem = () => {
                     transition={{ duration: 0.7 }}
                     className="text-center mb-10 md:mb-16"
                 >
-                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00AEEF]/10 border border-[#00AEEF]/30 text-[10px] uppercase font-black tracking-[0.22em] text-[#00AEEF] mb-5">
+                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#176BDE]/10 border border-[#176BDE]/30 text-[10px] uppercase font-black tracking-[0.22em] text-[#176BDE] mb-5">
                         ✦ Ecosistema 360
                     </span>
                     <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-tight mb-4">
                         Integración perfecta con <br className="hidden md:block" />
-                        <span className="text-[#00AEEF]">estándares globales</span>
+                        <span className="text-[#176BDE]">estándares globales</span>
                     </h2>
                 </m.div>
             </div>

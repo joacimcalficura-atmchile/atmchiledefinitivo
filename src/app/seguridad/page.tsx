@@ -522,7 +522,7 @@ function TechnicalModal({ pillar, onClose }: TechnicalModalProps) {
 
                     <div className="flex-1 overflow-y-auto px-8 py-8 custom-scrollbar">
                         <div className="max-w-3xl mx-auto">
-                            <p className="text-lg text-slate-600 leading-relaxed font-medium mb-10 border-l-4 pl-6 border-[#00AEEF]">
+                            <p className="text-lg text-slate-600 leading-relaxed font-medium mb-10 border-l-4 pl-6 border-[#176BDE]">
                                 {mdata.intro}
                             </p>
 
@@ -530,10 +530,10 @@ function TechnicalModal({ pillar, onClose }: TechnicalModalProps) {
                                 {mdata.sections.map((section, sidx) => (
                                     <div key={sidx} className="group">
                                         <h3 className="flex items-center gap-3 text-sm font-black uppercase tracking-widest text-[#0047AB] mb-4">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-[#00AEEF]" />
+                                            <span className="w-1.5 h-1.5 rounded-full bg-[#176BDE]" />
                                             {section.heading}
                                         </h3>
-                                        <div className="text-slate-600 text-sm leading-relaxed bg-slate-50/50 p-6 rounded-2xl border border-slate-100 group-hover:border-[#00AEEF]/20 transition-colors">
+                                        <div className="text-slate-600 text-sm leading-relaxed bg-slate-50/50 p-6 rounded-2xl border border-slate-100 group-hover:border-[#176BDE]/20 transition-colors">
                                             {section.body}
                                         </div>
                                     </div>

@@ -10,15 +10,29 @@
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: #02121d;
-  --color-brand-light: #f5f7f8;
-  --color-brand-dark: #020b12;
-  --color-brand-blue: #00a8e8;
-  --color-accent: #00d2ff;
-  --color-brand-slate: #475569;
-  --color-brand-cobalt: #0047AB;
+
+  /* ── Paleta Oficial ATM Brandbook ──────────────────────────────────────── */
+  --color-atm-onyx: #0F1215;
+  --color-atm-graphite: #3F3D44;
+  --color-atm-rosy-granite: #A09DA0;
+  --color-atm-neon-ice: #16F3E8;
+  --color-atm-sapphire: #176BDE;
+  --color-atm-alabaster: #E8E8E8;
+
+  /* Roles semánticos anclados a la marca */
+  --color-primary: #0F1215;        /* Onyx  */
+  --color-brand-light: #E8E8E8;    /* Alabaster Grey */
+  --color-brand-dark: #0F1215;     /* Onyx  */
+  --color-brand-blue: #176BDE;     /* Sapphire Sky */
+  --color-accent: #16F3E8;         /* Neon Ice */
+  --color-brand-slate: #3F3D44;    /* Graphite */
+  --color-brand-cobalt: #176BDE;   /* Sapphire Sky */
   --color-brand-glass-bg: rgba(255, 255, 255, 0.4);
   --color-brand-glass-border: rgba(255, 255, 255, 0.2);
+
+  /* Tipografía oficial (Brandbook) */
+  --font-sans: var(--font-roboto), Arial, Helvetica, sans-serif;
+  --font-slab: var(--font-roboto-slab), Georgia, serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,8 +52,13 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-roboto), Arial, Helvetica, sans-serif;
   @apply antialiased scroll-smooth;
+}
+
+/* Utilidad para el eslogan «A tu medida» — Roboto Slab Medium */
+@utility font-slab {
+  font-family: var(--font-roboto-slab), Georgia, serif;
 }
 
 /* Glassmorphism Utilities */
@@ -65,14 +84,14 @@ body {
 
 @utility neon-border {
   border: 2px solid var(--color-accent);
-  box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+  box-shadow: 0 0 15px rgba(22, 243, 232, 0.3);
 }
 
 @utility neon-button {
   background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-brand-blue) 100%);
   transition: all 0.3s ease;
   &:hover {
-    box-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
+    box-shadow: 0 0 20px rgba(22, 243, 232, 0.6);
   }
 }
 
@@ -83,7 +102,7 @@ body {
 }
 
 @utility glow-text {
-  text-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+  text-shadow: 0 0 15px rgba(22, 243, 232, 0.4);
 }
 
 @utility depth-3d {
@@ -91,7 +110,7 @@ body {
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   &:hover {
     transform: translateY(-12px) scale(1.02);
-    box-shadow: 0 25px 50px -12px rgba(0, 210, 255, 0.25);
+    box-shadow: 0 25px 50px -12px rgba(22, 243, 232, 0.25);
   }
 }
 
@@ -103,7 +122,7 @@ body {
 }
 
 @utility icon-3d {
-  filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.6));
+  filter: drop-shadow(0 0 8px rgba(22, 243, 232, 0.6));
   transform: translateZ(20px);
 }
 
@@ -120,7 +139,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 71, 171, 0.18);
+  background: rgba(23, 107, 222, 0.18);
   border-radius: 100px;
   border: 1px solid rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(4px);
@@ -129,7 +148,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 71, 171, 0.38);
+  background: rgba(23, 107, 222, 0.38);
 }
 
 ::-webkit-scrollbar-corner {
@@ -139,7 +158,7 @@ body {
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(0, 71, 171, 0.2) transparent;
+  scrollbar-color: rgba(23, 107, 222, 0.2) transparent;
 }
 
 @utility scrollbar-cyan {
@@ -150,11 +169,11 @@ body {
     background: rgba(0, 0, 0, 0.3);
   }
   &::-webkit-scrollbar-thumb {
-    background: rgba(6, 182, 212, 0.5);
+    background: rgba(22, 243, 232, 0.5);
     border-radius: 3px;
   }
   &::-webkit-scrollbar-thumb:hover {
-    background: rgba(6, 182, 212, 0.8);
+    background: rgba(22, 243, 232, 0.8);
   }
 }
 
@@ -164,9 +183,9 @@ body {
 }
 
 @keyframes sci-fi-glowing-ring {
-  0% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); }
-  50% { box-shadow: 0 0 40px rgba(6, 182, 212, 0.8); }
-  100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); }
+  0% { box-shadow: 0 0 20px rgba(22, 243, 232, 0.4); }
+  50% { box-shadow: 0 0 40px rgba(22, 243, 232, 0.8); }
+  100% { box-shadow: 0 0 20px rgba(22, 243, 232, 0.4); }
 }
 
 @utility sci-fi-glowing-ring {

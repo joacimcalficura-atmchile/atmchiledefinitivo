@@ -151,8 +151,8 @@ const ComparisonCard = ({ item }: { item: ComparisonItem }) => (
             className="relative p-4 rounded-xl border"
             style={{
                 background:
-                    "linear-gradient(135deg, rgba(0,71,171,0.04) 0%, rgba(34,211,238,0.04) 100%)",
-                borderColor: "rgba(0,71,171,0.12)",
+                    "linear-gradient(135deg, rgba(23, 107, 222,0.04) 0%, rgba(34,211,238,0.04) 100%)",
+                borderColor: "rgba(23, 107, 222,0.12)",
             }}
         >
             <div className="absolute top-3 right-3">
@@ -189,7 +189,7 @@ export const AIGenerativeArchitecture = ({
                 className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[500px] pointer-events-none -z-10 opacity-30"
                 style={{
                     background:
-                        "radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,71,171,0.15), transparent 70%)",
+                        "radial-gradient(ellipse 70% 50% at 50% 0%, rgba(23, 107, 222,0.15), transparent 70%)",
                 }}
             />
 
@@ -238,7 +238,7 @@ export const AIGenerativeArchitecture = ({
                                         relative text-left w-full p-5 rounded-2xl border transition-all duration-500 backdrop-blur-xl
                                         ${
                                             isActive
-                                                ? "bg-white/90 border-[#0047AB]/20 shadow-[0_12px_48px_rgba(0,71,171,0.12)]"
+                                                ? "bg-white/90 border-[#0047AB]/20 shadow-[0_12px_48px_rgba(23, 107, 222,0.12)]"
                                                 : "bg-white/50 border-white/60 hover:bg-white/70 shadow-sm hover:shadow-md"
                                         }
                                     `}
@@ -306,7 +306,7 @@ export const AIGenerativeArchitecture = ({
                                 className="mt-2 p-5 rounded-2xl border border-[#0047AB]/10"
                                 style={{
                                     background:
-                                        "linear-gradient(135deg, rgba(0,71,171,0.03) 0%, rgba(34,211,238,0.03) 100%)",
+                                        "linear-gradient(135deg, rgba(23, 107, 222,0.03) 0%, rgba(34,211,238,0.03) 100%)",
                                 }}
                             >
                                 <div className="text-[10px] font-bold tracking-[0.2em] text-[#0047AB] uppercase mb-2">
@@ -341,7 +341,7 @@ export const AIGenerativeArchitecture = ({
                                     background: "rgba(255,255,255,0.75)",
                                     borderColor: "rgba(255,255,255,0.85)",
                                     boxShadow: [
-                                        "0 24px 80px -12px rgba(0,71,171,0.10)",
+                                        "0 24px 80px -12px rgba(23, 107, 222,0.10)",
                                         "0 8px 24px -4px rgba(0,0,0,0.04)",
                                         "inset 0 1px 0 rgba(255,255,255,1)",
                                     ].join(","),
@@ -477,7 +477,7 @@ export const AIGenerativeArchitecture = ({
                         background: "rgba(255,255,255,0.7)",
                         borderColor: "rgba(255,255,255,0.8)",
                         boxShadow:
-                            "0 20px 60px -12px rgba(0,71,171,0.08), inset 0 1px 0 rgba(255,255,255,1)",
+                            "0 20px 60px -12px rgba(23, 107, 222,0.08), inset 0 1px 0 rgba(255,255,255,1)",
                     }}
                 >
                     <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-[#0047AB] mb-8">

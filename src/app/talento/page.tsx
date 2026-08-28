@@ -253,7 +253,7 @@ export default function TalentoPage() {
                                     initial={{ opacity: 0, y: 40, scale: 0.96 }}
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     transition={{ delay: 0.3, duration: 0.8, type: "spring", stiffness: 90, damping: 20 }}
-                                    className="relative bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_20px_80px_rgba(0,71,171,0.08)] rounded-[2.5rem] p-10 md:p-14 text-center overflow-hidden"
+                                    className="relative bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_20px_80px_rgba(23, 107, 222,0.08)] rounded-[2.5rem] p-10 md:p-14 text-center overflow-hidden"
                                 >
                                     {/* Borde luminoso superior */}
                                     <div
@@ -316,7 +316,7 @@ export default function TalentoPage() {
                                     <Link
                                         id="cta-talento-primary"
                                         href="/servicios"
-                                        className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#0047AB] text-white rounded-2xl font-bold text-base overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_10px_40px_rgba(0,71,171,0.3)] active:scale-[0.98]"
+                                        className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#0047AB] text-white rounded-2xl font-bold text-base overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_10px_40px_rgba(23, 107, 222,0.3)] active:scale-[0.98]"
                                     >
                                         <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" aria-hidden="true" />
                                         Ver Nuestros Servicios
@@ -381,7 +381,7 @@ export default function TalentoPage() {
                                             key={member.role}
                                             variants={cardVariant}
                                             whileHover={{ y: -6, scale: 1.02, transition: { type: "spring", stiffness: 400, damping: 25 } }}
-                                            className="group relative flex flex-col p-8 bg-white/70 backdrop-blur-xl border border-white/80 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(0,71,171,0.1)] transition-all duration-500 overflow-hidden cursor-default"
+                                            className="group relative flex flex-col p-8 bg-white/70 backdrop-blur-xl border border-white/80 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(23, 107, 222,0.1)] transition-all duration-500 overflow-hidden cursor-default"
                                         >
                                             <div className="relative z-10">
                                                 <div className="w-12 h-12 rounded-2xl bg-[#0047AB]/5 text-[#0047AB] flex items-center justify-center mb-6 group-hover:bg-[#0047AB] group-hover:text-white transition-colors duration-500">
@@ -592,7 +592,7 @@ export default function TalentoPage() {
                                             className={`
                                                 relative flex items-center gap-2.5 px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 border
                                                 ${activeTab === phase.id
-                                                    ? "bg-[#0047AB] text-white border-[#0047AB] shadow-[0_8px_24px_rgba(0,71,171,0.25)]"
+                                                    ? "bg-[#0047AB] text-white border-[#0047AB] shadow-[0_8px_24px_rgba(23, 107, 222,0.25)]"
                                                     : "bg-white text-slate-700 border-slate-200 hover:border-[#0047AB]/30 hover:text-[#0047AB] hover:shadow-md"
                                                 }
                                             `}
@@ -625,7 +625,7 @@ export default function TalentoPage() {
                                                         initial="enter"
                                                         animate="center"
                                                         exit="exit"
-                                                        className="bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_20px_60px_rgba(0,71,171,0.08)] rounded-[2rem] p-10 md:p-12"
+                                                        className="bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_20px_60px_rgba(23, 107, 222,0.08)] rounded-[2rem] p-10 md:p-12"
                                                     >
                                                         <div className="flex flex-col md:flex-row gap-10 md:gap-16">
                                                             {/* Objetivo */}
@@ -741,7 +741,7 @@ export default function TalentoPage() {
                                                 damping: 18,
                                             }}
                                             whileHover={{ scale: 1.015, transition: { type: "spring", stiffness: 300, damping: 25 } }}
-                                            className={`group flex flex-col md:flex-row items-center gap-8 p-10 bg-white/70 backdrop-blur-xl border border-white/80 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(0,71,171,0.09)] transition-all duration-500 overflow-hidden ${aporte.direction === "right" ? "md:flex-row-reverse" : ""
+                                            className={`group flex flex-col md:flex-row items-center gap-8 p-10 bg-white/70 backdrop-blur-xl border border-white/80 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(23, 107, 222,0.09)] transition-all duration-500 overflow-hidden ${aporte.direction === "right" ? "md:flex-row-reverse" : ""
                                                 }`}
                                         >
                                             {/* Ícono */}
@@ -785,7 +785,7 @@ export default function TalentoPage() {
                                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                                 viewport={{ once: true, margin: "-100px" }}
                                 transition={{ duration: 0.9, type: "spring", stiffness: 80, damping: 18 }}
-                                className="relative z-10 max-w-3xl mx-auto bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_24px_80px_rgba(0,71,171,0.1)] rounded-[2.5rem] p-12 md:p-16 text-center overflow-hidden"
+                                className="relative z-10 max-w-3xl mx-auto bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_24px_80px_rgba(23, 107, 222,0.1)] rounded-[2.5rem] p-12 md:p-16 text-center overflow-hidden"
                             >
                                 {/* Borde luminoso */}
                                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[55%] h-px bg-gradient-to-r from-transparent via-[#0047AB]/30 to-transparent" aria-hidden="true" />
@@ -811,7 +811,7 @@ export default function TalentoPage() {
                                     <Link
                                         id="cta-footer-servicios"
                                         href="/servicios"
-                                        className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#0047AB] text-white rounded-2xl font-bold text-base overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_10px_40px_rgba(0,71,171,0.3)] active:scale-[0.98]"
+                                        className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#0047AB] text-white rounded-2xl font-bold text-base overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_10px_40px_rgba(23, 107, 222,0.3)] active:scale-[0.98]"
                                     >
                                         <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" aria-hidden="true" />
                                         Nuestros Servicios

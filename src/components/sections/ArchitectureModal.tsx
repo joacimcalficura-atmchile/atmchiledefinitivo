@@ -67,11 +67,11 @@ export const ArchitectureModal = ({
                     WebkitBackdropFilter: "saturate(180%) blur(48px)",
                     border: "1.5px solid rgba(255,255,255,0.95)",
                     boxShadow: [
-                        "0 60px 140px -20px rgba(0,71,171,0.20)",
+                        "0 60px 140px -20px rgba(23, 107, 222,0.20)",
                         "0 32px 64px -8px rgba(0,0,0,0.10)",
-                        "0 0 0 1px rgba(0,71,171,0.06)",
+                        "0 0 0 1px rgba(23, 107, 222,0.06)",
                         "inset 0 1px 0 rgba(255,255,255,1)",
-                        "inset 0 -1px 0 rgba(0,71,171,0.04)",
+                        "inset 0 -1px 0 rgba(23, 107, 222,0.04)",
                     ].join(","),
                 }}
             >
@@ -83,7 +83,7 @@ export const ArchitectureModal = ({
                 {/* Glow ambiental azul sutil */}
                 <div
                     className="absolute -inset-1 rounded-[2.5rem] pointer-events-none -z-10 opacity-40"
-                    style={{ background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,71,171,0.12), transparent)" }}
+                    style={{ background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(23, 107, 222,0.12), transparent)" }}
                 />
 
                 {/* Botón cerrar — azul cobalto */}

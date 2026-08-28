@@ -119,7 +119,7 @@ const VideoLightbox = ({ url, onClose }: { url: string; onClose: () => void }) =
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.85, opacity: 0 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                className="relative z-10 w-full max-w-4xl aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_80px_rgba(0,174,239,0.2)]"
+                className="relative z-10 w-full max-w-4xl aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_80px_rgba(23, 107, 222,0.2)]"
                 onClick={(e) => e.stopPropagation()}
             >
                 <iframe
@@ -150,7 +150,7 @@ export const InsightsContent = () => {
     return (
         <div className="relative min-h-screen bg-[#010912] overflow-x-hidden">
             {/* ── Background Effects ── */}
-            <div className="absolute top-0 right-0 w-1/3 h-[60vh] bg-[#00AEEF]/5 blur-[160px] pointer-events-none" />
+            <div className="absolute top-0 right-0 w-1/3 h-[60vh] bg-[#176BDE]/5 blur-[160px] pointer-events-none" />
             <div className="absolute bottom-[20%] left-0 w-1/4 h-[40vh] bg-[#0047AB]/5 blur-[120px] pointer-events-none" />
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
 
@@ -163,13 +163,13 @@ export const InsightsContent = () => {
                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                         className="text-center"
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00AEEF]/10 border border-[#00AEEF]/20 text-[10px] font-black tracking-[0.2em] text-[#00AEEF] uppercase mb-6">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#176BDE]/10 border border-[#176BDE]/20 text-[10px] font-black tracking-[0.2em] text-[#176BDE] uppercase mb-6">
                             <BookOpen size={14} />
                             Recursos Estratégicos
                         </div>
                         <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
                             Insights: <br className="hidden sm:block" />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00AEEF] to-[#22D3EE]">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#176BDE] to-[#22D3EE]">
                                 Recursos Estratégicos
                             </span>
                         </h1>
@@ -195,7 +195,7 @@ export const InsightsContent = () => {
                                 key={idx}
                                 variants={cardVariants as any}
                                 whileHover={{ y: -10 }}
-                                className="group bg-[#02121d] border border-white/5 rounded-2xl overflow-hidden hover:border-[#00AEEF]/30 hover:shadow-[0_0_40px_rgba(0,174,239,0.12)] flex flex-col h-full"
+                                className="group bg-[#02121d] border border-white/5 rounded-2xl overflow-hidden hover:border-[#176BDE]/30 hover:shadow-[0_0_40px_rgba(23, 107, 222,0.12)] flex flex-col h-full"
                             >
                                 {/* Thumbnail / Video Trigger */}
                                 <div className="relative aspect-video w-full bg-[#031d2e] overflow-hidden flex items-center justify-center border-b border-white/5">
@@ -214,14 +214,14 @@ export const InsightsContent = () => {
                                 {resource.videoUrl ? (
                                     <button
                                         onClick={() => setActiveVideo(resource.videoUrl ?? null)}
-                                        className="relative z-10 size-16 rounded-full border-2 border-white/20 flex items-center justify-center bg-white/5 backdrop-blur-sm group-hover:scale-110 group-hover:border-[#00AEEF]/60 group-hover:bg-[#00AEEF]/10 transition-all duration-500"
+                                        className="relative z-10 size-16 rounded-full border-2 border-white/20 flex items-center justify-center bg-white/5 backdrop-blur-sm group-hover:scale-110 group-hover:border-[#176BDE]/60 group-hover:bg-[#176BDE]/10 transition-all duration-500"
                                         aria-label={`Ver video: ${resource.title}`}
                                     >
-                                        <Play size={28} className="text-white/50 group-hover:text-[#00AEEF] transition-colors ml-1" />
+                                        <Play size={28} className="text-white/50 group-hover:text-[#176BDE] transition-colors ml-1" />
                                     </button>
                                 ) : (
                                     <div className="relative z-10 size-14 rounded-full border border-white/10 flex items-center justify-center bg-white/5 backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
-                                        <BookOpen size={24} className="text-[#00AEEF]/40 group-hover:text-[#00AEEF] transition-colors" />
+                                        <BookOpen size={24} className="text-[#176BDE]/40 group-hover:text-[#176BDE] transition-colors" />
                                     </div>
                                 )}
                                 </div>
@@ -229,14 +229,14 @@ export const InsightsContent = () => {
                                 {/* Content */}
                                 <div className="p-8 flex flex-col flex-grow">
                                     <div className="flex items-center gap-3 mb-4">
-                                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-white/5 border border-white/10 text-[10px] font-bold text-slate-500 uppercase tracking-widest group-hover:border-[#00AEEF]/20 group-hover:text-slate-300 transition-colors">
+                                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-white/5 border border-white/10 text-[10px] font-bold text-slate-500 uppercase tracking-widest group-hover:border-[#176BDE]/20 group-hover:text-slate-300 transition-colors">
                                             {resource.icon}
                                             {resource.category}
                                         </span>
                                         <span className="text-[10px] text-slate-600 font-medium">{resource.readTime}</span>
                                     </div>
 
-                                    <h2 className="text-xl font-bold text-white mb-4 leading-tight group-hover:text-[#00AEEF] transition-colors">
+                                    <h2 className="text-xl font-bold text-white mb-4 leading-tight group-hover:text-[#176BDE] transition-colors">
                                         {resource.title}
                                     </h2>
 
@@ -247,7 +247,7 @@ export const InsightsContent = () => {
                                     {resource.videoUrl ? (
                                         <button
                                             onClick={() => setActiveVideo(resource.videoUrl ?? null)}
-                                            className="inline-flex items-center gap-2 text-[#00AEEF] font-bold text-sm group/btn hover:gap-3 transition-all"
+                                            className="inline-flex items-center gap-2 text-[#176BDE] font-bold text-sm group/btn hover:gap-3 transition-all"
                                         >
                                             <Play size={14} />
                                             <span>Ver video</span>
@@ -256,7 +256,7 @@ export const InsightsContent = () => {
                                     ) : (
                                         <Link
                                             href="/contacto"
-                                            className="inline-flex items-center gap-2 text-[#00AEEF] font-bold text-sm group/btn hover:gap-3 transition-all"
+                                            className="inline-flex items-center gap-2 text-[#176BDE] font-bold text-sm group/btn hover:gap-3 transition-all"
                                         >
                                             <span>Leer más</span>
                                             <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
@@ -280,17 +280,17 @@ export const InsightsContent = () => {
                         className="relative rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/[0.04] to-transparent backdrop-blur-xl p-10 md:p-16 text-center overflow-hidden"
                     >
                         {/* Inner Glow */}
-                        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#00AEEF]/10 rounded-full blur-[100px] pointer-events-none" />
+                        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#176BDE]/10 rounded-full blur-[100px] pointer-events-none" />
 
                         <div className="relative z-10">
-                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00AEEF]/10 border border-[#00AEEF]/20 text-[10px] font-black tracking-[0.2em] text-[#00AEEF] uppercase mb-6">
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#176BDE]/10 border border-[#176BDE]/20 text-[10px] font-black tracking-[0.2em] text-[#176BDE] uppercase mb-6">
                                 <Sparkles size={14} />
                                 Comunidad Insights
                             </div>
 
                             <h2 className="text-3xl md:text-4xl font-black text-white mb-4 leading-tight">
                                 Únete a la comunidad de{" "}
-                                <span className="text-[#00AEEF]">líderes digitales</span>
+                                <span className="text-[#176BDE]">líderes digitales</span>
                             </h2>
                             <p className="text-slate-400 text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed">
                                 Recibe insights exclusivos, acceso anticipado a webinars y herramientas estratégicas directamente en tu bandeja.
@@ -304,14 +304,14 @@ export const InsightsContent = () => {
                                 <input
                                     type="email"
                                     placeholder="tu@empresa.cl"
-                                    className="flex-1 px-5 py-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 text-sm font-medium focus:outline-none focus:border-[#00AEEF]/50 focus:ring-2 focus:ring-[#00AEEF]/20 transition-all"
+                                    className="flex-1 px-5 py-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 text-sm font-medium focus:outline-none focus:border-[#176BDE]/50 focus:ring-2 focus:ring-[#176BDE]/20 transition-all"
                                     required
                                 />
                                 <m.button
                                     type="submit"
                                     whileHover={{ scale: 1.03 }}
                                     whileTap={{ scale: 0.97 }}
-                                    className="px-8 py-4 bg-[#00AEEF] text-[#010912] rounded-2xl font-black text-sm uppercase tracking-widest hover:shadow-[0_0_30px_rgba(0,174,239,0.4)] transition-shadow shrink-0"
+                                    className="px-8 py-4 bg-[#176BDE] text-[#010912] rounded-2xl font-black text-sm uppercase tracking-widest hover:shadow-[0_0_30px_rgba(23, 107, 222,0.4)] transition-shadow shrink-0"
                                 >
                                     Suscribirse
                                 </m.button>
@@ -339,7 +339,7 @@ export const InsightsContent = () => {
                                 </a>
                                 <a
                                     href="mailto:contacto@atmchile.com"
-                                    className="p-3 rounded-xl bg-white/5 border border-white/10 text-slate-500 hover:text-[#00AEEF] hover:border-[#00AEEF]/30 hover:bg-[#00AEEF]/5 transition-all"
+                                    className="p-3 rounded-xl bg-white/5 border border-white/10 text-slate-500 hover:text-[#176BDE] hover:border-[#176BDE]/30 hover:bg-[#176BDE]/5 transition-all"
                                     aria-label="Correo electrónico"
                                 >
                                     <Mail size={20} />
@@ -348,8 +348,8 @@ export const InsightsContent = () => {
                         </div>
 
                         {/* Decorative corner accents */}
-                        <div className="absolute top-6 right-6 size-12 border-t-2 border-r-2 border-[#00AEEF]/15 rounded-tr-2xl" />
-                        <div className="absolute bottom-6 left-6 size-12 border-b-2 border-l-2 border-[#00AEEF]/15 rounded-bl-2xl" />
+                        <div className="absolute top-6 right-6 size-12 border-t-2 border-r-2 border-[#176BDE]/15 rounded-tr-2xl" />
+                        <div className="absolute bottom-6 left-6 size-12 border-b-2 border-l-2 border-[#176BDE]/15 rounded-bl-2xl" />
                     </m.div>
                 </div>
             </section>

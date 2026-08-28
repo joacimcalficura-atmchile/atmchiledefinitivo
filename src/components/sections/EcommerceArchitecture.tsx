@@ -71,7 +71,7 @@ export const EcommerceArchitecture = ({ onClose }: EcommerceArchitectureProps) =
                                     className={`
                     relative z-10 flex items-center p-5 rounded-2xl cursor-pointer transition-all duration-500
                     ${isActive
-                                            ? 'bg-white/80 border-[#0047AB] shadow-[0_10px_40px_rgba(0,71,171,0.15)] scale-[1.02]'
+                                            ? 'bg-white/80 border-[#0047AB] shadow-[0_10px_40px_rgba(23, 107, 222,0.15)] scale-[1.02]'
                                             : 'bg-white/40 border-white/60 hover:bg-white/60 shadow-sm hover:shadow-md'
                                         }
                     border backdrop-blur-xl
