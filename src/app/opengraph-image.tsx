@@ -12,9 +12,14 @@ export const size = {
 export const contentType = 'image/png';
 
 export default async function Image() {
+    // Logotipo oficial embebido (Brandbook)
+    const logo = await fetch(
+        new URL('../../public/logos/ATM_logo_white.png', import.meta.url)
+    ).then((res) => res.arrayBuffer());
+    const logoSrc = `data:image/png;base64,${Buffer.from(logo).toString('base64')}`;
+
     return new ImageResponse(
         (
-            // Estilo Glassmorphism para el OG Image
             <div
                 style={{
                     height: '100%',
@@ -23,71 +28,58 @@ export default async function Image() {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor: '#0f172a', // slate-900
+                    backgroundColor: '#0F1215', // Onyx
                     backgroundSize: '100px 100px',
-                    backgroundImage: 'radial-gradient(circle at 25px 25px, rgba(255, 255, 255, 0.05) 2%, transparent 0%), radial-gradient(circle at 75px 75px, rgba(255, 255, 255, 0.05) 2%, transparent 0%)',
+                    backgroundImage:
+                        'radial-gradient(circle at 25px 25px, rgba(23, 107, 222, 0.12) 2%, transparent 0%), radial-gradient(circle at 75px 75px, rgba(22, 243, 232, 0.08) 2%, transparent 0%)',
                     fontFamily: 'sans-serif',
+                    position: 'relative',
                 }}
             >
+                {/* Resplandor de marca sutil (ambiente, no sobre el logo) */}
+                <div
+                    style={{
+                        position: 'absolute',
+                        width: '620px',
+                        height: '620px',
+                        borderRadius: '50%',
+                        background:
+                            'radial-gradient(circle, rgba(23, 107, 222, 0.35) 0%, rgba(22, 243, 232, 0.10) 45%, transparent 70%)',
+                        display: 'flex',
+                    }}
+                />
+
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                    src={logoSrc}
+                    alt="ATM Chile"
+                    width={640}
+                    height={258}
+                    style={{ objectFit: 'contain' }}
+                />
+
                 <div
                     style={{
                         display: 'flex',
-                        flexDirection: 'column',
                         alignItems: 'center',
-                        justifyContent: 'center',
-                        background: 'rgba(255, 255, 255, 0.03)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)',
-                        borderRadius: '24px',
-                        padding: '60px 80px',
-                        maxWidth: '900px',
+                        marginTop: '44px',
+                        padding: '14px 34px',
+                        borderRadius: '999px',
+                        border: '1px solid rgba(22, 243, 232, 0.35)',
+                        background: 'rgba(23, 107, 222, 0.10)',
                     }}
                 >
-                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '40px' }}>
-                        <div
-                            style={{
-                                width: '64px',
-                                height: '64px',
-                                background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)', // cobalt blue
-                                borderRadius: '16px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'white',
-                                fontSize: '32px',
-                                fontWeight: 'bold',
-                                marginRight: '20px',
-                            }}
-                        >
-                            &lt;/&gt;
-                        </div>
-                        <h1
-                            style={{
-                                fontSize: '64px',
-                                fontWeight: '800',
-                                color: 'white',
-                                letterSpacing: '-2px',
-                                margin: 0,
-                                lineHeight: 1,
-                            }}
-                        >
-                            ATM CHILE
-                        </h1>
-                    </div>
-
-                    <h2
+                    <span
                         style={{
-                            fontSize: '36px',
-                            fontWeight: '500',
-                            color: '#94a3b8', // slate-400
-                            textAlign: 'center',
-                            margin: 0,
-                            maxWidth: '800px',
-                            lineHeight: 1.4,
+                            fontSize: '30px',
+                            fontWeight: 600,
+                            letterSpacing: '4px',
+                            color: '#16F3E8', // Neon Ice
+                            textTransform: 'uppercase',
                         }}
                     >
                         Partner Tecnológico Estratégico 360
-                    </h2>
+                    </span>
                 </div>
             </div>
         ),

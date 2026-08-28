@@ -35,9 +35,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://atmchile.com",
   },
-  icons: {
-    icon: "/favicon.png",
-  },
+  // Iconos resueltos por convención de archivos en app/: icon.png, apple-icon.png, favicon.ico
 };
 
 const jsonLd = {
