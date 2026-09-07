@@ -119,7 +119,7 @@ export const FooterUnified = () => {
             </div>
             <div>
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Email Corporativo</p>
-              <p className="text-sm font-bold text-slate-900">cristopher.poblete@atmchile.cl</p>
+              <p className="text-sm font-bold text-slate-900">alberto.castillo@atmchile.cl</p>
             </div>
           </div>
           <div className="flex items-center gap-4">

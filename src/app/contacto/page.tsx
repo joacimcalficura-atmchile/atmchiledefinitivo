@@ -65,7 +65,7 @@ export default function ContactoPage() {
     // Configuración de contactos reales
     const WHATSAPP_MANAGER = "56942781028"; 
     const WHATSAPP_CEO     = "56942781028"; 
-    const MANAGER_EMAIL    = "cristopher.poblete@atmchile.cl";
+    const MANAGER_EMAIL    = "alberto.castillo@atmchile.cl";
     const CEO_EMAIL        = "joacim.calficura@atmchile.cl";
     const LOCATION_TEXT    = "Santa Magdalena 75, Providencia, Santiago de Chile";
 
@@ -121,7 +121,7 @@ export default function ContactoPage() {
                 
                 const message = targetContact === "ceo" 
                     ? `Estimado Joacim, es un honor saludarle. Mi nombre es ${form.nombre} de la empresa ${form.empresa}. Me pongo en contacto directo con usted para conversar sobre una oportunidad estratégica de alto nivel. (Proviene de atmchile.com).`
-                    : `Hola Cristopher, ¿cómo estás? Mi nombre es ${form.nombre} de ${form.empresa}. Te escribo para solicitar la evaluación de un nuevo proyecto. Dejé mis datos en atmchile.com y me gustaría conversar sobre detalles técnicos.`;
+                    : `Hola Alberto, ¿cómo estás? Mi nombre es ${form.nombre} de ${form.empresa}. Te escribo para solicitar la evaluación de un nuevo proyecto. Dejé mis datos en atmchile.com y me gustaría conversar sobre detalles técnicos.`;
 
                 window.open(`https://wa.me/${targetPhone}?text=${encodeURIComponent(message)}`, '_blank');
                 setSubmitted(true);
@@ -200,9 +200,9 @@ export default function ContactoPage() {
                                         </div>
                                         <div className="flex-grow">
                                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Gerente de Proyectos (Operativo)</p>
-                                            <p className="font-bold text-slate-800 text-sm mb-2">Cristopher Poblete</p>
+                                            <p className="font-bold text-slate-800 text-sm mb-2">Alberto Castillo</p>
                                             <div className="flex gap-2">
-                                                <a href={`mailto:${MANAGER_EMAIL}?subject=Solicitud de Nuevo Proyecto - [Nombre de la Empresa] (atmchile.com)&body=Hola Cristopher, ¿qué tal? Te escribo desde atmchile.com porque estamos interesados en un nuevo proyecto.`} 
+                                                <a href={`mailto:${MANAGER_EMAIL}?subject=Solicitud de Nuevo Proyecto - [Nombre de la Empresa] (atmchile.com)&body=Hola Alberto, ¿qué tal? Te escribo desde atmchile.com porque estamos interesados en un nuevo proyecto.`} 
                                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 text-[11px] font-bold hover:bg-slate-200 hover:text-[#EA4335] transition-all group/btn">
                                                     <GmailIcon className="w-3.5 h-3.5 opacity-70 group-hover/btn:opacity-100 transition-opacity" /> Email
                                                 </a>

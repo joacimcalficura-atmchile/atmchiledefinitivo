@@ -516,9 +516,9 @@ export default function TalentoPage() {
                                                     </Link>
                                                     <div 
                                                         className="group/avatar relative w-12 h-12 rounded-full border-2 border-[#020B12] bg-[#3B00B9] overflow-hidden hover:z-30 transition-all hover:scale-110"
-                                                        title="Cristopher Poblete - Project Manager"
+                                                        title="Alberto Castillo - Project Manager"
                                                     >
-                                                        <div className="w-full h-full bg-brand-cyan flex items-center justify-center text-white font-black text-xs">CP</div>
+                                                        <div className="w-full h-full bg-brand-cyan flex items-center justify-center text-white font-black text-xs">AC</div>
                                                     </div>
                                                 </div>
                                                 <div className="h-8 w-px bg-white/10 hidden md:block" />
