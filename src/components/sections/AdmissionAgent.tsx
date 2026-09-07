@@ -17,6 +17,8 @@ import {
     ShieldAlert
 } from "lucide-react";
 import dynamic from "next/dynamic";
+import { TurnstileWidget } from "@/components/ui/TurnstileWidget";
+import { validatePersonName } from "@/lib/anti-spam";
 
 // Three.js + react-three-fiber (~430 KB) fuera del bundle inicial: este bloque
 // vive bajo el pliegue, así que se carga en cliente cuando hace falta.
@@ -35,25 +37,43 @@ interface FormData {
     whatsappStatus: string;
     painPoint: string;
     wantAudit: string;
-    _honey: string;
+    /** Honeypot con nombre verosímil; ver el comentario extendido en `/contacto`. */
+    website: string;
 }
+
+const EMPTY_FORM: FormData = {
+    fullName: '',
+    email: '',
+    whatsapp: '',
+    projectName: '',
+    legalStatus: '',
+    industry: '',
+    whatsappStatus: '',
+    painPoint: '',
+    wantAudit: '',
+    website: ''
+};
 
 export const AdmissionAgent = () => {
     const [step, setStep] = useState(0);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSpamBlocked, setIsSpamBlocked] = useState(false);
-    const [formData, setFormData] = useState<FormData>({
-        fullName: '',
-        email: '',
-        whatsapp: '',
-        projectName: '',
-        legalStatus: '',
-        industry: '',
-        whatsappStatus: '',
-        painPoint: '',
-        wantAudit: '',
-        _honey: ''
-    });
+    const [formData, setFormData] = useState<FormData>(EMPTY_FORM);
+    /** Aviso inline. Sustituye al `alert()` nativo, que mostraba texto técnico en inglés. */
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+    // Este protocolo tiene 9 pasos: un humano tarda minutos, un bot milisegundos.
+    const mountedAt = useRef(Date.now());
+    const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+    const [challengeKey, setChallengeKey] = useState(0);
+
+    /** Reinicia el protocolo completo y pide un desafío nuevo. */
+    const resetProtocol = () => {
+        setFormData(EMPTY_FORM);
+        setStep(0);
+        mountedAt.current = Date.now();
+        setChallengeKey((k) => k + 1);
+    };
 
     const handleInputChange = (field: keyof FormData, value: string) => {
         setFormData(prev => ({ ...prev, [field]: value }));
@@ -61,7 +81,8 @@ export const AdmissionAgent = () => {
 
      const submitForm = async () => {
          setIsSubmitting(true);
-         
+         setErrorMessage(null);
+
          try {
              // Mapeo de variables de estado al payload requerido
              const payload = {
@@ -75,7 +96,9 @@ export const AdmissionAgent = () => {
                  comunicaciones: formData.whatsappStatus.trim(),
                  desafio: formData.painPoint.trim(),
                  auditoria: formData.wantAudit.trim(),
-                 _honey: formData._honey
+                 _honey: formData.website,   // Trampa: si viene con valor, es un bot
+                 _ts: mountedAt.current,     // Para medir el tiempo de llenado
+                 turnstileToken              // Prueba de Cloudflare (si está configurado)
              };
  
              // Enviar al nuevo backend protegido por IA
@@ -86,19 +109,32 @@ export const AdmissionAgent = () => {
              });
 
              if (!response.ok) {
-                 const errorData = await response.json();
+                 const errorData = await response.json().catch(() => ({}));
+
                  if (errorData.error === 'SPAM_DETECTED') {
                      setIsSpamBlocked(true);
                      setIsSubmitting(false);
                      return;
                  }
-                 throw new Error(errorData.error || 'Error de conexión');
+                 if (response.status === 429) {
+                     throw new Error('Hemos recibido varias solicitudes desde tu conexión en poco tiempo. Espera un minuto y vuelve a intentarlo.');
+                 }
+                 if (response.status === 400) {
+                     throw new Error(errorData.message || 'Revisa los datos ingresados e inténtalo nuevamente.');
+                 }
+                 throw new Error('No pudimos procesar tu solicitud en este momento. Escríbenos a contacto@atmchile.com y te atenderemos de inmediato.');
              }
-             
+
              setStep(9);
-         } catch (error: any) {
+         } catch (error: unknown) {
              console.error('Error submitting form:', error);
-             alert(`Error al enviar la solicitud: ${error.message || 'Verifica tu conexión.'}`);
+             setErrorMessage(
+                 error instanceof Error
+                     ? error.message
+                     : 'Verifica tu conexión e inténtalo nuevamente.'
+             );
+             // El desafío consumido ya no sirve: pedimos uno nuevo para el reintento.
+             setChallengeKey((k) => k + 1);
          } finally {
              setIsSubmitting(false);
          }
@@ -118,7 +154,8 @@ export const AdmissionAgent = () => {
 
     const isStepValid = () => {
         switch (step) {
-            case 0: return formData.fullName.trim().length > 2;
+            // Exige nombre y apellido: el bot manda siempre un único token.
+            case 0: return validatePersonName(formData.fullName).ok;
             case 1: return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
             case 2: return formData.whatsapp.trim().length >= 8;
             case 3: return formData.projectName.trim().length > 2;
@@ -192,23 +229,26 @@ export const AdmissionAgent = () => {
                             >
                                 {isSpamBlocked ? (
                                     <div className="flex flex-col items-center justify-center text-center py-12">
-                                        <div className="w-20 h-20 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center relative mb-6">
-                                            <div className="absolute inset-0 bg-red-500/20 animate-ping rounded-full" />
-                                            <ShieldAlert className="w-10 h-10 text-red-500 relative z-10" />
+                                        <div className="w-20 h-20 rounded-full bg-brand-cyan/10 border border-brand-cyan/20 flex items-center justify-center mb-6">
+                                            <ShieldAlert className="w-10 h-10 text-brand-cyan" />
                                         </div>
-                                        <h4 className="text-3xl font-black text-white mb-4 tracking-tight">Acceso Denegado</h4>
-                                        <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-lg mx-auto mb-8">
-                                            Nuestra Inteligencia Artificial consideró esta solicitud como <span className="text-red-500 font-bold">SPAM inusual</span> y bloqueó la conexión a nuestro ecosistema.
+                                        <h4 className="text-3xl font-black text-white mb-4 tracking-tight">Verificación de seguridad no superada</h4>
+                                        <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-lg mx-auto mb-4">
+                                            Por tu seguridad y la nuestra, ATM valida cada solicitud entrante antes de
+                                            incorporarla a nuestros sistemas. Esta no superó dicha validación.
+                                        </p>
+                                        <p className="text-slate-400 text-base font-medium leading-relaxed max-w-lg mx-auto mb-8">
+                                            Si eres una persona real, escríbenos directamente a{" "}
+                                            <a href="mailto:contacto@atmchile.com" className="text-brand-cyan font-bold underline underline-offset-4 hover:text-white transition-colors">
+                                                contacto@atmchile.com
+                                            </a>{" "}
+                                            y te atenderemos de inmediato.
                                         </p>
                                         <button
-                                            onClick={() => { setIsSpamBlocked(false); setStep(0); setFormData({
-                                                fullName: '', email: '', whatsapp: '', projectName: '',
-                                                legalStatus: '', industry: '', whatsappStatus: '',
-                                                painPoint: '', wantAudit: '', _honey: ''
-                                            }); }}
+                                            onClick={() => { setIsSpamBlocked(false); resetProtocol(); }}
                                             className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 font-bold text-white hover:bg-white/10 transition-all text-sm uppercase tracking-widest"
                                         >
-                                            Reintentar (Soy Humano)
+                                            Volver al inicio
                                         </button>
                                     </div>
                                 ) : isSubmitting ? (
@@ -238,19 +278,35 @@ export const AdmissionAgent = () => {
                                                     type="text"
                                                     value={formData.fullName}
                                                     onChange={(e) => handleInputChange('fullName', e.target.value)}
-                                                    placeholder="Escribe tu respuesta aquí..."
+                                                    placeholder="Ej: Juan Pérez"
                                                     className="w-full bg-black/40 border-2 border-white/20 p-4 md:p-5 rounded-2xl text-lg md:text-xl font-bold text-white outline-none focus:border-brand-cyan focus:bg-black/60 focus:ring-4 focus:ring-brand-cyan/10 transition-all placeholder:text-slate-600"
                                                 />
-                                                {/* Honeypot Silencioso */}
-                                                <input 
-                                                    type="text" 
-                                                    name="_honey" 
-                                                    value={formData._honey} 
-                                                    onChange={(e) => handleInputChange('_honey', e.target.value)} 
-                                                    style={{ display: 'none' }} 
-                                                    tabIndex={-1} 
-                                                    autoComplete="off" 
-                                                />
+                                                {/* Explica por qué el botón sigue deshabilitado. */}
+                                                {formData.fullName.trim().length > 0 && !validatePersonName(formData.fullName).ok && (
+                                                    <p className="text-sm text-amber-400 font-medium">
+                                                        {validatePersonName(formData.fullName).message}
+                                                    </p>
+                                                )}
+                                                {/*
+                                                  * Honeypot fuera del viewport, NO `display:none`:
+                                                  * los bots headless consultan la visibilidad y
+                                                  * saltan los campos ocultos.
+                                                  */}
+                                                <div
+                                                    aria-hidden="true"
+                                                    style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}
+                                                >
+                                                    <label htmlFor="admission-website">No completar este campo</label>
+                                                    <input
+                                                        id="admission-website"
+                                                        type="text"
+                                                        name="website"
+                                                        value={formData.website}
+                                                        onChange={(e) => handleInputChange('website', e.target.value)}
+                                                        tabIndex={-1}
+                                                        autoComplete="off"
+                                                    />
+                                                </div>
                                             </div>
                                         )}
 
@@ -482,6 +538,21 @@ export const AdmissionAgent = () => {
                             </m.div>
                         </AnimatePresence>
                     </div>
+
+                    {errorMessage && !isSpamBlocked && (
+                        <div
+                            role="alert"
+                            className="mx-8 md:mx-14 mb-2 flex items-start gap-3 p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 relative z-10"
+                        >
+                            <ShieldAlert className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                            <p className="text-sm text-amber-100 leading-relaxed text-left">{errorMessage}</p>
+                        </div>
+                    )}
+
+                    {/* CAPTCHA invisible: solo se muestra si Cloudflare sospecha del visitante. */}
+                    {step < 9 && !isSpamBlocked && (
+                        <TurnstileWidget onToken={setTurnstileToken} resetKey={challengeKey} />
+                    )}
 
                     {/* Footer del Formulario */}
                     {step < 9 && !isSpamBlocked && (

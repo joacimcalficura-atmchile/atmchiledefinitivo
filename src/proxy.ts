@@ -12,8 +12,16 @@ import type { NextRequest } from 'next/server';
  */
 const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minuto
-const MAX_REQUESTS = 50; // peticiones por minuto por IP
+const MAX_REQUESTS = 50; // peticiones por minuto por IP (navegación general)
 const MAX_TRACKED_IPS = 10_000; // techo de memoria
+
+/**
+ * Los endpoints de captación llevan su propio cupo, mucho más estrecho: nadie
+ * envía cinco formularios de contacto legítimos en un minuto, pero el límite
+ * general de 50 le dejaba margen de sobra a un bot para insistir.
+ */
+const SENSITIVE_PATHS = ['/api/submit-lead', '/api/forms'];
+const MAX_REQUESTS_SENSITIVE = 5;
 
 /**
  * En Vercel, `x-vercel-forwarded-for` lo inyecta la plataforma y el cliente no
@@ -47,16 +55,24 @@ export function proxy(request: NextRequest) {
 
     evictStaleEntries(now);
 
+    // Los formularios se contabilizan en su propio cubo (`ip|form`) para que la
+    // navegación normal del visitante no consuma el cupo estricto, ni al revés.
+    const isSensitive = SENSITIVE_PATHS.some((path) =>
+        request.nextUrl.pathname.startsWith(path)
+    );
+    const key = isSensitive ? `${ip}|form` : ip;
+    const limit = isSensitive ? MAX_REQUESTS_SENSITIVE : MAX_REQUESTS;
+
     // 1. RATE LIMITING
-    const rateData = rateLimitMap.get(ip) ?? { count: 0, lastReset: now };
+    const rateData = rateLimitMap.get(key) ?? { count: 0, lastReset: now };
     if (now - rateData.lastReset > RATE_LIMIT_WINDOW) {
         rateData.count = 0;
         rateData.lastReset = now;
     }
     rateData.count++;
-    rateLimitMap.set(ip, rateData);
+    rateLimitMap.set(key, rateData);
 
-    if (rateData.count > MAX_REQUESTS) {
+    if (rateData.count > limit) {
         const retryAfter = Math.ceil(
             (RATE_LIMIT_WINDOW - (now - rateData.lastReset)) / 1000
         );

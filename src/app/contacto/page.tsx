@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import {
     Mail, Phone, MapPin, Send, Users,
@@ -13,8 +13,16 @@ interface FormData {
     email: string; // Nuevo campo requerido por el usuario
     tamano: string;
     mensaje: string;
-    _honey: string; // Campo Honeypot silencioso
+    /**
+     * Honeypot. Se llama `website` y no `_honey` a propósito: los bots buscan
+     * nombres de campo verosímiles y este es de los más apetecibles para el
+     * spam SEO. Un humano nunca lo ve ni lo puede tabular.
+     */
+    website: string;
 }
+
+/** Estado inicial compartido por el montaje y los dos botones de reinicio. */
+const EMPTY_FORM: FormData = { nombre: "", empresa: "", email: "", tamano: "", mensaje: "", website: "" };
 
 const smoothEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -46,6 +54,8 @@ const GmailIcon = ({ className }: { className?: string }) => (
 );
 
 import dynamic from "next/dynamic";
+import { TurnstileWidget } from "@/components/ui/TurnstileWidget";
+import { validatePersonName } from "@/lib/anti-spam";
 
 // Three.js fuera del bundle inicial de /contacto (ver AdmissionAgent).
 const FloatingCubes = dynamic(
@@ -55,12 +65,27 @@ const FloatingCubes = dynamic(
 
 // ── Página de Contacto ─────────────────────────────────────────────────────────
 export default function ContactoPage() {
-    const [form, setForm]           = useState<FormData>({ nombre: "", empresa: "", email: "", tamano: "", mensaje: "", _honey: "" });
+    const [form, setForm]           = useState<FormData>(EMPTY_FORM);
     const [submitted, setSubmitted] = useState(false);
     const [isSpamBlocked, setIsSpamBlocked] = useState(false);
     const [loading, setLoading]     = useState(false);
+    /** Aviso inline. Sustituye al `alert()` nativo, que mostraba texto técnico en inglés. */
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [isWhatsAppMode, setIsWhatsAppMode] = useState(false);
     const [targetContact, setTargetContact]   = useState<"manager" | "ceo">("manager");
+
+    // Momento en que el formulario quedó disponible: el backend rechaza los
+    // envíos completados en menos de 4s, imposibles para una persona real.
+    const mountedAt = useRef(Date.now());
+    const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+    const [challengeKey, setChallengeKey] = useState(0);
+
+    /** Devuelve el formulario a su estado inicial y pide un desafío nuevo. */
+    const resetForm = () => {
+        setForm(EMPTY_FORM);
+        mountedAt.current = Date.now();
+        setChallengeKey((k) => k + 1);
+    };
 
     // Configuración de contactos reales
     const WHATSAPP_MANAGER = "56942781028"; 
@@ -82,8 +107,18 @@ export default function ContactoPage() {
 
       const handleSubmit = async (e: React.FormEvent) => {
           e.preventDefault();
+          setErrorMessage(null);
+
+          // Misma regla que aplica el servidor, comprobada antes de la red para
+          // que el usuario reciba la corrección al instante.
+          const nameCheck = validatePersonName(form.nombre);
+          if (!nameCheck.ok) {
+              setErrorMessage(nameCheck.message ?? 'Revisa el nombre ingresado.');
+              return;
+          }
+
           setLoading(true);
-          
+
           try {
               // Mapeo de variables de estado al payload estándar (blindado con .trim())
               const payload = {
@@ -93,7 +128,9 @@ export default function ContactoPage() {
                   datoExtra: form.tamano.trim(),
                   mensaje: form.mensaje.trim(),
                   hojaDestino: isWhatsAppMode ? "leeads_wsp" : "Leeads_atm",
-                  _honey: form._honey // Se envía para validación backend
+                  _honey: form.website,      // Trampa: si viene con valor, es un bot
+                  _ts: mountedAt.current,    // Para medir el tiempo de llenado
+                  turnstileToken             // Prueba de Cloudflare (si está configurado)
               };
               
               // Envío a nuestro endpoint protegido con Gemini AI
@@ -104,13 +141,20 @@ export default function ContactoPage() {
               });
 
               if (!response.ok) {
-                  const errorData = await response.json();
+                  const errorData = await response.json().catch(() => ({}));
+
                   if (errorData.error === 'SPAM_DETECTED') {
                       setIsSpamBlocked(true);
                       setLoading(false);
                       return;
                   }
-                  throw new Error(errorData.error || 'Error de conexión');
+                  if (response.status === 429) {
+                      throw new Error('Hemos recibido varias solicitudes desde tu conexión en poco tiempo. Espera un minuto y vuelve a intentarlo.');
+                  }
+                  if (response.status === 400) {
+                      throw new Error(errorData.message || 'Revisa los datos ingresados e inténtalo nuevamente.');
+                  }
+                  throw new Error('No pudimos procesar tu solicitud en este momento. Escríbenos a contacto@atmchile.com y te atenderemos de inmediato.');
               }
              
              setSubmitted(true);
@@ -126,9 +170,15 @@ export default function ContactoPage() {
                 window.open(`https://wa.me/${targetPhone}?text=${encodeURIComponent(message)}`, '_blank');
                 setSubmitted(true);
             }
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('Error submitting contact form:', error);
-            alert(`Error al enviar: ${error.message || 'Verifica tu conexión.'}`);
+            setErrorMessage(
+                error instanceof Error
+                    ? error.message
+                    : 'Verifica tu conexión e inténtalo nuevamente.'
+            );
+            // El desafío consumido ya no sirve: pedimos uno nuevo para el reintento.
+            setChallengeKey((k) => k + 1);
         } finally {
             setLoading(false);
         }
@@ -281,7 +331,7 @@ export default function ContactoPage() {
                                 <div className="flex items-center gap-3">
                                     <div className="flex -space-x-2">
                                         <ConsultantAvatar initials="JC" color="#0047AB" />
-                                        <ConsultantAvatar initials="CP" color="#3B00B9" />
+                                        <ConsultantAvatar initials="AC" color="#3B00B9" />
                                         <ConsultantAvatar initials="RV" color="#22D3EE" />
                                         <div className="w-10 h-10 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[10px] font-black text-slate-600 shrink-0">
                                             +5
@@ -322,22 +372,29 @@ export default function ContactoPage() {
                                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                         className="flex flex-col items-center justify-center gap-6 py-16 text-center"
                                     >
-                                        <div className="w-20 h-20 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center relative overflow-hidden">
-                                            <div className="absolute inset-0 bg-red-500/20 animate-ping rounded-full" />
-                                            <ShieldAlert className="w-10 h-10 text-red-500 relative z-10" />
+                                        <div className="w-20 h-20 rounded-full bg-[#0047AB]/8 border border-[#0047AB]/15 flex items-center justify-center">
+                                            <ShieldAlert className="w-10 h-10 text-[#0047AB]" />
                                         </div>
-                                        <div>
-                                            <h3 className="text-2xl font-bold text-slate-900 mb-2">Conexión Denegada</h3>
-                                            <p className="text-slate-500 text-sm max-w-sm mx-auto leading-relaxed">
-                                                Nuestra Inteligencia Artificial y sistemas de seguridad han bloqueado esta solicitud por considerarla <span className="font-bold text-red-500">Comportamiento Inusual (Bot/SPAM)</span>.
+                                        <div className="max-w-md mx-auto">
+                                            <h3 className="text-2xl font-bold text-slate-900 mb-3">Verificación de seguridad no superada</h3>
+                                            <p className="text-slate-500 text-sm leading-relaxed">
+                                                Por tu seguridad y la nuestra, ATM valida cada solicitud entrante antes de
+                                                incorporarla a nuestros sistemas. Esta no superó dicha validación.
+                                            </p>
+                                            <p className="text-slate-500 text-sm leading-relaxed mt-3">
+                                                Si eres una persona real, escríbenos directamente a{" "}
+                                                <a href="mailto:contacto@atmchile.com" className="font-bold text-[#0047AB] underline underline-offset-2 hover:text-[#003380]">
+                                                    contacto@atmchile.com
+                                                </a>{" "}
+                                                y te atenderemos de inmediato.
                                             </p>
                                         </div>
                                         <button
                                             type="button"
-                                            onClick={() => { setIsSpamBlocked(false); setForm({ nombre: "", empresa: "", email: "", tamano: "", mensaje: "", _honey: "" }); }}
-                                            className="px-6 py-2.5 rounded-lg bg-slate-100 font-bold text-slate-600 hover:bg-slate-200 transition-all text-sm mt-4"
+                                            onClick={() => { setIsSpamBlocked(false); resetForm(); }}
+                                            className="px-6 py-2.5 rounded-lg bg-slate-100 font-bold text-slate-600 hover:bg-slate-200 transition-all text-sm mt-2"
                                         >
-                                            Entendido. Intentar Nuevamente
+                                            Volver al formulario
                                         </button>
                                     </m.div>
                                 ) : submitted ? (
@@ -360,7 +417,7 @@ export default function ContactoPage() {
                                             </p>
                                         </div>
                                         <button
-                                            onClick={() => { setSubmitted(false); setForm({ nombre: "", empresa: "", email: "", tamano: "", mensaje: "", _honey: "" }); }}
+                                            onClick={() => { setSubmitted(false); resetForm(); }}
                                             className="inline-flex items-center gap-2 text-sm font-bold text-[#0047AB] hover:gap-3 transition-all"
                                         >
                                             Enviar otra consulta <ArrowRight className="w-4 h-4" />
@@ -400,16 +457,37 @@ export default function ContactoPage() {
                                             </div>
                                         </div>
 
-                                        {/* Trampa Honeypot: Oculta visualmente pero disponible para bots */}
-                                        <input 
-                                            type="text" 
-                                            name="_honey" 
-                                            value={form._honey} 
-                                            onChange={handleChange} 
-                                            style={{ display: 'none' }} 
-                                            tabIndex={-1} 
-                                            autoComplete="off" 
-                                        />
+                                        {/*
+                                          * Trampa Honeypot.
+                                          * NO usar `display:none`: los bots con navegador headless
+                                          * consultan la visibilidad y saltan esos campos —así burló
+                                          * la trampa el bot del 07-09-2026. Sacándolo del viewport
+                                          * el campo sigue siendo "visible" para el DOM y lo llenan,
+                                          * mientras que para el usuario y los lectores de pantalla
+                                          * no existe.
+                                          */}
+                                        <div
+                                            aria-hidden="true"
+                                            style={{
+                                                position: 'absolute',
+                                                left: '-9999px',
+                                                top: 'auto',
+                                                width: '1px',
+                                                height: '1px',
+                                                overflow: 'hidden',
+                                            }}
+                                        >
+                                            <label htmlFor="website">No completar este campo</label>
+                                            <input
+                                                id="website"
+                                                type="text"
+                                                name="website"
+                                                value={form.website}
+                                                onChange={handleChange}
+                                                tabIndex={-1}
+                                                autoComplete="off"
+                                            />
+                                        </div>
 
                                         <div className="grid md:grid-cols-2 gap-5">
                                             <div className="flex flex-col gap-2">
@@ -489,6 +567,19 @@ export default function ContactoPage() {
                                                 </div>
                                             </m.div>
                                         )}
+
+                                        {errorMessage && (
+                                            <div
+                                                role="alert"
+                                                className="flex items-start gap-3 p-4 rounded-xl bg-amber-50 border border-amber-200"
+                                            >
+                                                <ShieldAlert className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                                                <p className="text-sm text-amber-900 leading-relaxed">{errorMessage}</p>
+                                            </div>
+                                        )}
+
+                                        {/* CAPTCHA invisible: solo aparece si Cloudflare sospecha del visitante. */}
+                                        <TurnstileWidget onToken={setTurnstileToken} resetKey={challengeKey} />
 
                                         <m.button
                                             type="submit"
