@@ -1,6 +1,14 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { m, useMotionValue, useTransform, useSpring, useMotionValueEvent, MotionValue, useAnimationFrame } from "framer-motion";
+import { LazyMotion, m, useMotionValue, useTransform, useSpring, useMotionValueEvent, MotionValue, useAnimationFrame } from "framer-motion";
+
+/**
+ * `Providers` carga `domAnimation` (animación + hover/tap/focus) para todo el
+ * sitio, sin drag. El gesto `onPan` de este carrusel vive en el feature
+ * `drag`, que solo trae `domMax`. Se pide acá, de forma perezosa, para no
+ * sumarle ese peso a páginas que nunca muestran este carrusel.
+ */
+const loadDomMax = () => import("framer-motion").then((mod) => mod.domMax);
 import {
     TransbankSvg, MercadoPagoSvg, AnthropicSvg, AwsSvg, AzureSvg, GoogleCloudSvg,
     DockerSvg, KubernetesSvg, OpenAiSvg, GeminiSvg, NvidiaSvg, LangChainSvg,
@@ -97,9 +105,9 @@ const GlassCard = ({ tech, index, dragX, dim }: { tech: Tech; index: number; dra
     const blurObj = useTransform(offsetFromCenter, [-dim.maxDist, -dim.step, 0, dim.step, dim.maxDist], [10, 0, 0, 0, 10]);
     const filter = useTransform(blurObj, (val) => `blur(${val}px)`);
     const shadow = useTransform(offsetFromCenter, [-dim.step, 0, dim.step], [
-        "0 20px 50px rgba(0,0,0,0.15), 0 0 0px rgba(23, 107, 222,0)",
-        "0 20px 50px rgba(0,0,0,0.15), 0 0 60px rgba(23, 107, 222,0.3)",
-        "0 20px 50px rgba(0,0,0,0.15), 0 0 0px rgba(23, 107, 222,0)",
+        "0 20px 50px rgba(0,0,0,0.15), 0 0 0px rgba(23,107,222,0)",
+        "0 20px 50px rgba(0,0,0,0.15), 0 0 60px rgba(23,107,222,0.3)",
+        "0 20px 50px rgba(0,0,0,0.15), 0 0 0px rgba(23,107,222,0)",
     ]);
 
     // Heavily organic springs
@@ -236,28 +244,30 @@ export const PartnersEcosystem = () => {
                 }}
             >
                 {dim && (
-                    <m.div
-                        onPanStart={() => { isDraggingRef.current = true; }}
-                        onPan={(e, info) => {
-                            dragX.set(dragX.get() + info.delta.x);
-                        }}
-                        onPanEnd={() => { isDraggingRef.current = false; }}
-                        className="flex cursor-grab active:cursor-grabbing w-max items-center select-none"
-                        style={{
-                            x: dragX,
-                            gap: dim.gap,
-                        }}
-                    >
-                        {loopedTech.map((tech, i) => (
-                            <GlassCard 
-                                key={`${tech.name}-${i}`} 
-                                tech={tech} 
-                                index={i} 
-                                dragX={dragX} 
-                                dim={dim} 
-                            />
-                        ))}
-                    </m.div>
+                    <LazyMotion features={loadDomMax}>
+                        <m.div
+                            onPanStart={() => { isDraggingRef.current = true; }}
+                            onPan={(e, info) => {
+                                dragX.set(dragX.get() + info.delta.x);
+                            }}
+                            onPanEnd={() => { isDraggingRef.current = false; }}
+                            className="flex cursor-grab active:cursor-grabbing w-max items-center select-none"
+                            style={{
+                                x: dragX,
+                                gap: dim.gap,
+                            }}
+                        >
+                            {loopedTech.map((tech, i) => (
+                                <GlassCard
+                                    key={`${tech.name}-${i}`}
+                                    tech={tech}
+                                    index={i}
+                                    dragX={dragX}
+                                    dim={dim}
+                                />
+                            ))}
+                        </m.div>
+                    </LazyMotion>
                 )}
             </div>
 

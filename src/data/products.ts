@@ -52,8 +52,8 @@ export const DEVELOPED_PRODUCTS: readonly DevelopedProduct[] = [
         Icon: Target,
         demo: {
             youtubeId: "VpQqVi9f71s",
-            poster: "/images/products/atm-crm-demo-poster.jpg",
-            posterAlt: "Demo del CRM de ATM: tablero de leads con scoring automático",
+            poster: "/images/products/atm-agent-demo-poster.jpg",
+            posterAlt: "Demo de ATM Agent: tablero de leads con scoring automático",
         },
     },
     {

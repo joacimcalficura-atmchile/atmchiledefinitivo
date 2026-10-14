@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Play, X } from "lucide-react";
 
@@ -25,11 +25,30 @@ interface YouTubeFacadeProps {
  */
 export const YouTubeFacade = ({ videoId, title, poster, posterAlt, sizes = "100vw" }: YouTubeFacadeProps) => {
     const [isPlaying, setIsPlaying] = useState(false);
+    const [visible, setVisible] = useState(false);
+
+    // Crossfade con CSS puro: se evita `animate`/`AnimatePresence` de Framer
+    // Motion para no sumarle una dependencia más a un simple fade. `setTimeout`
+    // en vez de `requestAnimationFrame`: rAF se pausa en pestañas en segundo
+    // plano (no dispara hasta que la pestaña vuelve a primer plano), lo que
+    // dejaba la transición "congelada" para cualquier usuario con la pestaña
+    // sin foco.
+    useEffect(() => {
+        const id = setTimeout(() => setVisible(true), 20);
+        return () => clearTimeout(id);
+    }, [isPlaying]);
+
+    const swapTo = (playing: boolean) => {
+        setVisible(false);
+        setIsPlaying(playing);
+    };
+
+    const fade = `transition-opacity duration-300 ${visible ? "opacity-100" : "opacity-0"}`;
 
     return (
         <div className="relative aspect-video w-full overflow-hidden bg-slate-950">
             {isPlaying ? (
-                <React.Fragment>
+                <div className={`absolute inset-0 ${fade}`}>
                     <iframe
                         className="absolute inset-0 h-full w-full"
                         /*
@@ -48,19 +67,19 @@ export const YouTubeFacade = ({ videoId, title, poster, posterAlt, sizes = "100v
                     {/* Salida garantizada: desmontar el iframe detiene la reproducción. */}
                     <button
                         type="button"
-                        onClick={() => setIsPlaying(false)}
+                        onClick={() => swapTo(false)}
                         aria-label="Detener video y volver a la portada"
                         className="absolute right-3 top-3 z-10 flex size-9 items-center justify-center rounded-full border border-white/20 bg-slate-950/70 text-white backdrop-blur-sm transition-colors hover:bg-[#176BDE]"
                     >
                         <X size={16} />
                     </button>
-                </React.Fragment>
+                </div>
             ) : (
                 <button
                     type="button"
-                    onClick={() => setIsPlaying(true)}
+                    onClick={() => swapTo(true)}
                     aria-label={`Reproducir video: ${title}`}
-                    className="group/play absolute inset-0 h-full w-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#16F3E8] focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+                    className={`group/play absolute inset-0 h-full w-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#16F3E8] focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${fade}`}
                 >
                     <Image
                         src={poster}
@@ -71,7 +90,7 @@ export const YouTubeFacade = ({ videoId, title, poster, posterAlt, sizes = "100v
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
 
-                    <span className="absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-[#176BDE] shadow-[0_8px_30px_rgba(23,107,222,0.45)] transition-transform duration-300 group-hover/play:scale-110 md:size-20">
+                    <span className="absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-[#176BDE] shadow-[0_8px_30px_rgba(23,107,222,0.45)] transition-transform duration-300 group-hover/play:scale-110 md:size-20 motion-safe:animate-pulse">
                         <Play size={26} className="translate-x-0.5 fill-white text-white" />
                     </span>
 
