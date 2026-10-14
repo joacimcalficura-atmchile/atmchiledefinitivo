@@ -9,6 +9,7 @@ const ContentSecurityPolicy = `
   img-src 'self' blob: data: https:;
   font-src 'self' data:;
   connect-src 'self' https: wss: https://prod.spline.design https://va.vercel-scripts.com;
+  frame-src 'self' https://www.youtube-nocookie.com https://vercel.live;
   frame-ancestors 'self' https://vercel.com;
 `;
 

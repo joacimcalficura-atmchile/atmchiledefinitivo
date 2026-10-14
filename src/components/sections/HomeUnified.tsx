@@ -11,7 +11,14 @@ const PartnersEcosystem = dynamic(() => import("./PartnersEcosystem").then(mod =
 const AdmissionAgent = dynamic(() => import("./AdmissionAgent").then(mod => mod.AdmissionAgent), {
     loading: () => <div className="h-[800px] w-full animate-pulse bg-slate-900" />
 });
+const DevelopedProducts = dynamic(() => import("./DevelopedProducts").then(mod => mod.DevelopedProducts), {
+    loading: () => <div className="h-[900px] w-full animate-pulse bg-slate-950" />
+});
+const StrategicAllies = dynamic(() => import("./StrategicAllies").then(mod => mod.StrategicAllies), {
+    loading: () => <div className="h-96 w-full animate-pulse bg-[#FAFAFA]" />
+});
 import { usePerformanceOptimization } from "@/hooks/usePerformanceOptimization";
+import { getFeaturedArticles } from "@/data/insights";
 
 
 // Premium Easing Curves
@@ -118,7 +125,7 @@ export const HomeUnified = () => {
                             </div>
                             <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight mb-8">
                                 Software a Medida: <br/>
-                                <span className="text-[#176BDE] glow-text drop-shadow-[0_0_15px_rgba(23, 107, 222,0.5)]">Hub Tecnológico Latam</span>
+                                <span className="text-[#176BDE] glow-text drop-shadow-[0_0_15px_rgba(23,107,222,0.5)]">Hub Tecnológico Latam</span>
                             </h1>
                             <p className="text-lg text-blue-200/80 leading-relaxed mb-10 max-w-xl">
                                 No solo implementamos tecnología. Somos el partner estratégico de alta fidelidad que transforma operaciones complejas en Chile y el mundo a través de ingeniería de software premium.
@@ -129,7 +136,7 @@ export const HomeUnified = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 1, delay: 0.3, ease: smoothEase }}
                             >
-                                <Link href="/servicios" className="neon-button text-white px-8 py-4 rounded-xl text-lg font-bold shadow-xl shadow-primary/20 hover:scale-[1.02] transition-transform text-center flex items-center justify-center bg-[#176BDE] hover:bg-[#009bcf]">
+                                <Link href="/servicios" className="neon-button text-white px-8 py-4 rounded-xl text-lg font-bold shadow-xl shadow-primary/20 hover:scale-[1.02] transition-transform text-center flex items-center justify-center bg-[#176BDE] hover:bg-[#0E4FA5]">
                                     Potenciar Operación 360
                                 </Link>
                                 <a href="#club100" className="bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-white/10 transition-colors text-center flex items-center justify-center">
@@ -186,8 +193,9 @@ export const HomeUnified = () => {
                         transition={{ duration: 0.8, ease: smoothEase }}
                         className="text-center mb-20"
                     >
-                        <h2 className="text-sm font-bold text-primary tracking-[0.2em] uppercase mb-4">Ecosistema de Soluciones</h2>
-                        <h3 className="text-4xl lg:text-5xl font-black text-slate-900 leading-tight">Nuestros Servicios Estratégicos</h3>
+                        {/* El eyebrow es decorativo: va como <p>, para que el h2 sea el título real. */}
+                        <p className="text-sm font-bold text-primary tracking-[0.2em] uppercase mb-4">Ecosistema de Soluciones</p>
+                        <h2 className="text-4xl lg:text-5xl font-black text-slate-900 leading-tight">Nuestros Servicios Estratégicos</h2>
                     </m.div>
 
                     <m.div 
@@ -201,12 +209,12 @@ export const HomeUnified = () => {
                         <m.div
                             variants={cardVariant}
                             whileHover={{ y: -8, scale: 1.02 }}
-                            className="service-card group relative p-8 rounded-2xl border border-slate-100/50 hover:border-[#176BDE]/30 bg-white shadow-xl hover:shadow-[0_0_30px_rgba(23, 107, 222,0.15)] transition-all duration-300 depth-3d flex flex-col h-full"
+                            className="service-card group relative p-8 rounded-2xl border border-slate-100/50 hover:border-[#176BDE]/30 bg-white shadow-xl hover:shadow-[0_0_30px_rgba(23,107,222,0.15)] transition-all duration-300 depth-3d flex flex-col h-full"
                         >
-                            <div className="absolute top-4 right-4 text-white text-[10px] font-bold px-2 py-1 rounded bg-[#176BDE] shadow-[0_0_10px_rgba(23, 107, 222,0.5)] uppercase tracking-wider z-20">Most Requested</div>
+                            <div className="absolute top-4 right-4 text-white text-[10px] font-bold px-2 py-1 rounded bg-[#176BDE] shadow-[0_0_10px_rgba(23,107,222,0.5)] uppercase tracking-wider z-20">Most Requested</div>
                             
                             {/* High-Fidelity Photorealistic Image */}
-                            <div className="aspect-video w-full rounded-xl bg-[#02121d] border border-white/5 group-hover:border-[#176BDE]/40 group-hover:shadow-[0_0_15px_rgba(23, 107, 222,0.2)] transition-all duration-300 mb-6 overflow-hidden relative z-10">
+                            <div className="aspect-video w-full rounded-xl bg-[#02121d] border border-white/5 group-hover:border-[#176BDE]/40 group-hover:shadow-[0_0_15px_rgba(23,107,222,0.2)] transition-all duration-300 mb-6 overflow-hidden relative z-10">
                                <Image src="/images/talento_senior.png" alt="Desarrollador Senior Chileno en vscode" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
                                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-xl" />
                             </div>
@@ -228,10 +236,10 @@ export const HomeUnified = () => {
                         <m.div
                             variants={cardVariant}
                             whileHover={{ y: -8, scale: 1.02 }}
-                            className="service-card group p-8 rounded-2xl border border-slate-100/50 hover:border-[#176BDE]/30 bg-white shadow-xl hover:shadow-[0_0_30px_rgba(23, 107, 222,0.15)] transition-all duration-300 depth-3d flex flex-col h-full"
+                            className="service-card group p-8 rounded-2xl border border-slate-100/50 hover:border-[#176BDE]/30 bg-white shadow-xl hover:shadow-[0_0_30px_rgba(23,107,222,0.15)] transition-all duration-300 depth-3d flex flex-col h-full"
                         >
                             {/* High-Fidelity Photorealistic Image */}
-                            <div className="aspect-video w-full rounded-xl bg-[#02121d] border border-white/5 group-hover:border-[#176BDE]/40 group-hover:shadow-[0_0_15px_rgba(23, 107, 222,0.2)] transition-all duration-300 mb-6 overflow-hidden relative z-10">
+                            <div className="aspect-video w-full rounded-xl bg-[#02121d] border border-white/5 group-hover:border-[#176BDE]/40 group-hover:shadow-[0_0_15px_rgba(23,107,222,0.2)] transition-all duration-300 mb-6 overflow-hidden relative z-10">
                                <Image src="/images/ia_generativa.png" alt="Analista de IA Chilena" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
                                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-xl" />
                             </div>
@@ -253,10 +261,10 @@ export const HomeUnified = () => {
                         <m.div
                             variants={cardVariant}
                             whileHover={{ y: -8, scale: 1.02 }}
-                            className="service-card group p-8 rounded-2xl border border-slate-100/50 hover:border-[#176BDE]/30 bg-white shadow-xl hover:shadow-[0_0_30px_rgba(23, 107, 222,0.15)] transition-all duration-300 depth-3d flex flex-col h-full"
+                            className="service-card group p-8 rounded-2xl border border-slate-100/50 hover:border-[#176BDE]/30 bg-white shadow-xl hover:shadow-[0_0_30px_rgba(23,107,222,0.15)] transition-all duration-300 depth-3d flex flex-col h-full"
                         >
                             {/* High-Fidelity Photorealistic Image */}
-                            <div className="aspect-video w-full rounded-xl bg-[#02121d] border border-white/5 group-hover:border-[#176BDE]/40 group-hover:shadow-[0_0_15px_rgba(23, 107, 222,0.2)] transition-all duration-300 mb-6 overflow-hidden relative z-10">
+                            <div className="aspect-video w-full rounded-xl bg-[#02121d] border border-white/5 group-hover:border-[#176BDE]/40 group-hover:shadow-[0_0_15px_rgba(23,107,222,0.2)] transition-all duration-300 mb-6 overflow-hidden relative z-10">
                                <Image src="/images/ciberseguridad_soc.png" alt="Analista de Ciberseguridad SOC Chile" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
                                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-xl" />
                             </div>
@@ -279,63 +287,49 @@ export const HomeUnified = () => {
 
 
 
-            {/* Insights Section Preview (Profepyme) */}
+            {/* Productos propios (CRM + ERP) — lee de `src/data/products` */}
+            <DevelopedProducts />
+
+            {/* Insights Preview — lee del registro único de `src/data/insights` */}
             <section className="py-24 bg-slate-50 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-80 h-80 bg-[#176BDE]/5 blur-[120px] rounded-full pointer-events-none" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
                         <div className="max-w-2xl">
-                            <h2 className="text-sm font-bold text-[#176BDE] tracking-[0.2em] uppercase mb-4">Insights de Vanguardia</h2>
-                            <h3 className="text-3xl md:text-4xl font-black text-slate-900 leading-tight">
-                                Recursos para liderar la <br className="hidden md:block" />
-                                <span className="text-[#176BDE]">Transformación Digital</span>
-                            </h3>
+                            <p className="text-sm font-bold text-[#176BDE] tracking-[0.2em] uppercase mb-4">Insights</p>
+                            <h2 className="text-3xl md:text-4xl font-black text-slate-900 leading-tight">
+                                Los plazos que ya están <br className="hidden md:block" />
+                                <span className="text-[#176BDE]">corriendo en Chile</span>
+                            </h2>
                         </div>
                         <Link href="/insights" className="group inline-flex items-center gap-2 text-slate-600 font-bold hover:text-[#176BDE] transition-colors">
-                            Ver todos los recursos
+                            Ver todos los análisis
                             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-8">
-                        {[
-                            {
-                                title: "IA en la Operación Real: Agentes Autónomos",
-                                category: "Inteligencia Artificial",
-                                img: "/images/insights/ia-agentes.png",
-                                desc: "Cómo la industria chilena está migrando hacia agentes que ejecutan flujos de trabajo sin intervención."
-                            },
-                            {
-                                title: "OpenAI o1: El fin de las alucinaciones",
-                                category: "Criptografía & Software",
-                                img: "/images/insights/openai-o1.png",
-                                desc: "El impacto del razonamiento profundo en el desarrollo de software a medida de alta complejidad."
-                            },
-                            {
-                                title: "GEO: El nuevo estándar del SEO",
-                                category: "Marketing Tech",
-                                img: "/images/asistente-futurista.jpg",
-                                desc: "Cómo posicionar su marca en la era de las respuestas sintetizadas por IA."
-                            }
-                        ].map((post, idx) => (
-                            <m.div 
-                                key={idx}
+                        {getFeaturedArticles().map((post) => (
+                            <m.div
+                                key={post.slug}
                                 whileHover={{ y: -8 }}
                                 className="group bg-white rounded-2xl border border-slate-100 p-2 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
                             >
-                                <div className="aspect-[16/10] relative rounded-xl overflow-hidden mb-6">
-                                    <Image src={post.img} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100" />
-                                    <div className="absolute top-4 left-4">
-                                        <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-black text-[#176BDE] uppercase tracking-wider">{post.category}</span>
+                                <Link href={`/insights/${post.slug}`} className="flex flex-col h-full">
+                                    <div className="aspect-[16/10] relative rounded-xl overflow-hidden mb-6">
+                                        <Image src={post.imageUrl} alt="" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100" />
+                                        <div className="absolute top-4 left-4">
+                                            <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-black text-[#176BDE] uppercase tracking-wider">{post.category}</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="px-4 pb-6">
-                                    <h4 className="text-lg font-bold text-slate-900 mb-3 group-hover:text-[#176BDE] transition-colors">{post.title}</h4>
-                                    <p className="text-slate-500 text-sm leading-relaxed mb-6">{post.desc}</p>
-                                    <Link href="/insights" className="text-xs font-black text-[#176BDE] uppercase tracking-widest flex items-center gap-2">
-                                        Leer Artículo <ArrowRight size={12} />
-                                    </Link>
-                                </div>
+                                    <div className="px-4 pb-6 flex flex-col flex-grow">
+                                        <h3 className="text-lg font-bold text-slate-900 mb-3 group-hover:text-[#176BDE] transition-colors">{post.cardTitle}</h3>
+                                        <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">{post.cardDesc}</p>
+                                        <span className="text-xs font-black text-[#176BDE] uppercase tracking-widest flex items-center gap-2">
+                                            Leer análisis <ArrowRight size={12} />
+                                        </span>
+                                    </div>
+                                </Link>
                             </m.div>
                         ))}
                     </div>
@@ -345,9 +339,12 @@ export const HomeUnified = () => {
             {/* Providers Carousel */}
             <PartnersEcosystem />
 
+            {/* Aliados Estratégicos — lee de `src/data/allies` */}
+            <StrategicAllies />
+
 
             {/* Premium Section: Club 100 (Círculo Privado) */}
-            <section id="club100" className="py-20 md:py-32 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #176BDE 0%, #0086C3 60%, #005F8E 100%)" }}>
+            <section id="club100" className="py-20 md:py-32 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #176BDE 0%, #176BDE 60%, #0A2E6B 100%)" }}>
                 {/* Glows decorativos */}
                 <div className="absolute top-0 left-0 w-[45%] h-full bg-gradient-to-r from-white/10 to-transparent pointer-events-none" />
                 <div className="absolute bottom-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-[100px] pointer-events-none" />
@@ -401,7 +398,7 @@ export const HomeUnified = () => {
                                 onClick={() => document.getElementById('admision-form')?.scrollIntoView({ behavior: 'smooth' })}
                                 whileHover={{ scale: 1.03, backgroundColor: 'rgba(255,255,255,0.98)' }}
                                 whileTap={{ scale: 0.97 }}
-                                className="group relative flex items-center justify-center gap-3 px-8 md:px-10 py-4 md:py-5 bg-white text-[#005F8E] rounded-2xl font-black text-base md:text-lg tracking-widest uppercase overflow-hidden transition-all duration-300 shadow-[0_8px_40px_rgba(0,0,0,0.15)] w-full sm:w-auto"
+                                className="group relative flex items-center justify-center gap-3 px-8 md:px-10 py-4 md:py-5 bg-white text-[#0A2E6B] rounded-2xl font-black text-base md:text-lg tracking-widest uppercase overflow-hidden transition-all duration-300 shadow-[0_8px_40px_rgba(0,0,0,0.15)] w-full sm:w-auto"
                             >
                                 <span className="relative z-10">Solicitar Admisión</span>
                                 <ArrowRight size={20} className="relative z-10 group-hover:translate-x-1 transition-transform" />
@@ -424,8 +421,8 @@ export const HomeUnified = () => {
                                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                                     className="absolute -top-6 -right-4 md:-top-8 md:-right-8 z-20 size-16 md:size-20 bg-white rounded-full flex flex-col items-center justify-center shadow-xl border-4 border-white/50"
                                 >
-                                    <span className="font-black text-[#005F8E] text-lg md:text-2xl leading-none">100</span>
-                                    <span className="font-bold text-[#0086C3] text-[8px] md:text-[10px] uppercase tracking-wider">Plazas</span>
+                                    <span className="font-black text-[#0A2E6B] text-lg md:text-2xl leading-none">100</span>
+                                    <span className="font-bold text-[#176BDE] text-[8px] md:text-[10px] uppercase tracking-wider">Plazas</span>
                                 </m.div>
 
                                 {/* Glass VIP card */}
