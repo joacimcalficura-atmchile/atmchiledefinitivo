@@ -277,7 +277,7 @@ function PillarCard({ pillar, onOpen, side }: PillarCardProps) {
             whileHover={{ y: -5, scale: 1.02, transition: { type: "spring", stiffness: 400, damping: 22 } }}
             whileTap={{ scale: 0.98 }}
             onClick={() => onOpen(pillar)}
-            className="group w-full text-left bg-white/75 backdrop-blur-2xl border border-white/90 shadow-[0_12px_40px_rgba(0,0,0,0.06)] hover:shadow-2xl hover:shadow-[#0047AB]/8 hover:border-[#0047AB]/25 rounded-[2rem] p-6 lg:p-8 transition-all duration-500 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0047AB]"
+            className="group w-full text-left bg-white/75 backdrop-blur-2xl border border-white/90 shadow-[0_12px_40px_rgba(0,0,0,0.06)] hover:shadow-2xl hover:shadow-[#176BDE]/8 hover:border-[#176BDE]/25 rounded-[2rem] p-6 lg:p-8 transition-all duration-500 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#176BDE]"
         >
             <div className="flex items-start gap-3 mb-2.5">
                 <div
@@ -300,7 +300,7 @@ function PillarCard({ pillar, onOpen, side }: PillarCardProps) {
                     {pillar.badge}
                 </span>
                 <span
-                    className="flex-shrink-0 flex items-center gap-1 text-[11px] font-bold text-[#0047AB] group-hover:gap-1.5 transition-all"
+                    className="flex-shrink-0 flex items-center gap-1 text-[11px] font-bold text-[#176BDE] group-hover:gap-1.5 transition-all"
                     aria-hidden="true"
                 >
                     Leer más
@@ -382,7 +382,7 @@ function CarouselColumn({ pillars, onOpen, side }: CarouselColumnProps) {
                             aria-selected={i === idx}
                             aria-label={p.title}
                             onClick={() => { setIdx(i); clearIntervalRef(); setPaused(false); }}
-                            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-1 focus-visible:ring-[#0047AB] ${i === idx ? "w-5 bg-[#0047AB]" : "bg-slate-300"}`}
+                            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-1 focus-visible:ring-[#176BDE] ${i === idx ? "w-5 bg-[#176BDE]" : "bg-slate-300"}`}
                         />
                     ))}
                 </div>
@@ -484,7 +484,7 @@ function TechnicalModal({ pillar, onClose }: TechnicalModalProps) {
                     animate="show"
                     exit="exit"
                     onClick={onClose}
-                    className="absolute inset-0 bg-[#001A40]/40 backdrop-blur-md"
+                    className="absolute inset-0 bg-[#0A2E6B]/40 backdrop-blur-md"
                 />
 
                 <m.div
@@ -529,7 +529,7 @@ function TechnicalModal({ pillar, onClose }: TechnicalModalProps) {
                             <div className="grid gap-12">
                                 {mdata.sections.map((section, sidx) => (
                                     <div key={sidx} className="group">
-                                        <h3 className="flex items-center gap-3 text-sm font-black uppercase tracking-widest text-[#0047AB] mb-4">
+                                        <h3 className="flex items-center gap-3 text-sm font-black uppercase tracking-widest text-[#176BDE] mb-4">
                                             <span className="w-1.5 h-1.5 rounded-full bg-[#176BDE]" />
                                             {section.heading}
                                         </h3>
@@ -597,7 +597,12 @@ export default function SeguridadPage() {
                             variants={cardVariants}
                             initial="hidden"
                             animate="show"
-                            className="lg:col-span-3 lg:order-2 flex flex-col items-center justify-center relative rounded-[3rem] overflow-hidden bg-[#001A40] aspect-square md:aspect-video lg:aspect-auto self-stretch lg:h-[650px] shadow-2xl group"
+                            /*
+                             * Sin `aspect-*` en móvil a propósito: la tarjeta de vidrio mide ~444px
+                             * y un cuadrado de 343px la recortaba arriba y abajo (el panel es
+                             * `overflow-hidden`). Desde `md` el contenido ya cabe en 16:9.
+                             */
+                            className="lg:col-span-3 lg:order-2 flex flex-col items-center justify-center relative rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-[#0A2E6B] md:aspect-video lg:aspect-auto self-stretch lg:h-[650px] shadow-2xl group"
                         >
                             <Image
                                 src="/images/executive-security.png"
@@ -609,14 +614,14 @@ export default function SeguridadPage() {
                             />
 
                             <div
-                                className="absolute inset-0 bg-gradient-to-t from-[#001A40]/70 via-[#001A40]/20 to-transparent z-10 pointer-events-none"
+                                className="absolute inset-0 bg-gradient-to-t from-[#0A2E6B]/70 via-[#0A2E6B]/20 to-transparent z-10 pointer-events-none"
                                 aria-hidden="true"
                             />
 
                             {/* Floating glass card */}
                             <div className="relative z-20 m-5 lg:m-7 bg-white/85 backdrop-blur-2xl border border-white/90 shadow-2xl rounded-[2rem] p-7 md:p-9 text-center">
-                                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0047AB]/5 border border-[#0047AB]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#0047AB] mb-5">
-                                    <ShieldCheck size={14} className="text-[#22D3EE]" />
+                                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#176BDE]/5 border border-[#176BDE]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#176BDE] mb-5">
+                                    <ShieldCheck size={14} className="text-[#16F3E8]" />
                                     Innovación y Escalabilidad
                                 </span>
 
