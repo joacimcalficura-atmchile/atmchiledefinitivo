@@ -31,7 +31,7 @@ export default async function Image() {
                     backgroundColor: '#0F1215', // Onyx
                     backgroundSize: '100px 100px',
                     backgroundImage:
-                        'radial-gradient(circle at 25px 25px, rgba(23, 107, 222, 0.12) 2%, transparent 0%), radial-gradient(circle at 75px 75px, rgba(22, 243, 232, 0.08) 2%, transparent 0%)',
+                        'radial-gradient(circle at 25px 25px, rgba(23,107,222, 0.12) 2%, transparent 0%), radial-gradient(circle at 75px 75px, rgba(22, 243, 232, 0.08) 2%, transparent 0%)',
                     fontFamily: 'sans-serif',
                     position: 'relative',
                 }}
@@ -44,7 +44,7 @@ export default async function Image() {
                         height: '620px',
                         borderRadius: '50%',
                         background:
-                            'radial-gradient(circle, rgba(23, 107, 222, 0.35) 0%, rgba(22, 243, 232, 0.10) 45%, transparent 70%)',
+                            'radial-gradient(circle, rgba(23,107,222, 0.35) 0%, rgba(22, 243, 232, 0.10) 45%, transparent 70%)',
                         display: 'flex',
                     }}
                 />
@@ -66,7 +66,7 @@ export default async function Image() {
                         padding: '14px 34px',
                         borderRadius: '999px',
                         border: '1px solid rgba(22, 243, 232, 0.35)',
-                        background: 'rgba(23, 107, 222, 0.10)',
+                        background: 'rgba(23,107,222, 0.10)',
                     }}
                 >
                     <span

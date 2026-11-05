@@ -36,7 +36,7 @@ export const LogisticsArchitecture = ({ onClose }: LogisticsArchitectureProps) =
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                     <div>
                         <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-                            Arquitectura <span className="text-[#0047AB]">Logística WMS & TMS</span>
+                            Arquitectura <span className="text-[#176BDE]">Logística WMS & TMS</span>
                         </h2>
                         <p className="text-slate-600 text-lg max-w-2xl font-medium">
                             Explore el flujo operativo desde el ingreso al almacén hasta la entrega al cliente final, optimizado por inteligencia artificial.
@@ -47,7 +47,7 @@ export const LogisticsArchitecture = ({ onClose }: LogisticsArchitectureProps) =
                         <button
                             onClick={onClose}
                             aria-label="Cerrar"
-                            className="flex items-center justify-center w-10 h-10 rounded-full bg-[#0047AB] hover:bg-[#003380] text-white shadow-lg shadow-[#0047AB]/30 transition-all hover:scale-105 active:scale-95 border border-[#0047AB]/80"
+                            className="flex items-center justify-center w-10 h-10 rounded-full bg-[#176BDE] hover:bg-[#0E4FA5] text-white shadow-lg shadow-[#176BDE]/30 transition-all hover:scale-105 active:scale-95 border border-[#176BDE]/80"
                         >
                             <X size={18} />
                         </button>
@@ -58,7 +58,7 @@ export const LogisticsArchitecture = ({ onClose }: LogisticsArchitectureProps) =
 
                     {/* COLUMNA IZQUIERDA: DIAGRAMA INTERACTIVO */}
                     <div className="lg:col-span-7 flex flex-col gap-5 relative">
-                        <div className="absolute left-8 top-10 bottom-10 w-1 bg-gradient-to-b from-[#0047AB]/20 via-slate-200 to-[#0047AB]/20 rounded-full -z-10"></div>
+                        <div className="absolute left-8 top-10 bottom-10 w-1 bg-gradient-to-b from-[#176BDE]/20 via-slate-200 to-[#176BDE]/20 rounded-full -z-10"></div>
 
                         {flowData.map((node) => {
                             const isActive = activeNode.id === node.id;
@@ -70,7 +70,7 @@ export const LogisticsArchitecture = ({ onClose }: LogisticsArchitectureProps) =
                                     className={`
                     relative z-10 flex items-center p-5 rounded-2xl cursor-pointer transition-all duration-500
                     ${isActive
-                                            ? 'bg-white border-[#0047AB] shadow-[0_10px_30px_rgba(23, 107, 222,0.12)] scale-[1.02]'
+                                            ? 'bg-white border-[#176BDE] shadow-[0_10px_30px_rgba(23,107,222,0.12)] scale-[1.02]'
                                             : 'bg-white/50 border-transparent hover:border-slate-200 hover:bg-white/80 shadow-sm'
                                         }
                     border backdrop-blur-xl
@@ -78,17 +78,17 @@ export const LogisticsArchitecture = ({ onClose }: LogisticsArchitectureProps) =
                                 >
                                     <div className={`
                     p-3 rounded-xl mr-5 transition-colors duration-500
-                    ${isActive ? 'bg-[#0047AB] text-white shadow-lg shadow-[#0047AB]/30' : 'bg-slate-100 text-slate-500'}
+                    ${isActive ? 'bg-[#176BDE] text-white shadow-lg shadow-[#176BDE]/30' : 'bg-slate-100 text-slate-500'}
                   `}>
                                         {node.icon}
                                     </div>
 
-                                    <h3 className={`text-lg font-bold tracking-tight transition-colors duration-500 ${isActive ? 'text-[#0047AB]' : 'text-slate-700'}`}>
+                                    <h3 className={`text-lg font-bold tracking-tight transition-colors duration-500 ${isActive ? 'text-[#176BDE]' : 'text-slate-700'}`}>
                                         {node.title}
                                     </h3>
 
                                     {isActive && (
-                                        <m.div layoutId="active-indicator-logistics" className="absolute -right-3 w-6 h-6 bg-[#F8FAFC] flex items-center justify-center rounded-full border border-[#0047AB]/20 shadow-sm text-[#0047AB]">
+                                        <m.div layoutId="active-indicator-logistics" className="absolute -right-3 w-6 h-6 bg-[#F8FAFC] flex items-center justify-center rounded-full border border-[#176BDE]/20 shadow-sm text-[#176BDE]">
                                             <ArrowRight className="w-4 h-4" />
                                         </m.div>
                                     )}
@@ -101,8 +101,8 @@ export const LogisticsArchitecture = ({ onClose }: LogisticsArchitectureProps) =
                     <div className="lg:col-span-5 relative">
                         <div className="sticky top-32 w-full p-8 bg-white/80 backdrop-blur-2xl border border-white shadow-[0_20px_50px_rgba(0,0,0,0.05)] rounded-[2rem] min-h-[420px] flex flex-col">
 
-                            <div className="text-[10px] font-bold tracking-[0.2em] text-[#0047AB] uppercase mb-6 flex items-center gap-2">
-                                <div className="w-2 h-2 rounded-full bg-[#22D3EE] animate-pulse" />
+                            <div className="text-[10px] font-bold tracking-[0.2em] text-[#176BDE] uppercase mb-6 flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full bg-[#16F3E8] animate-pulse" />
                                 Flujo Operativo
                             </div>
 
@@ -115,7 +115,7 @@ export const LogisticsArchitecture = ({ onClose }: LogisticsArchitectureProps) =
                                     transition={{ duration: 0.3 }}
                                     className="flex flex-col h-full"
                                 >
-                                    <div className="flex items-center gap-4 mb-6 text-[#0047AB]">
+                                    <div className="flex items-center gap-4 mb-6 text-[#176BDE]">
                                         {activeNode.icon}
                                         <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">{activeNode.title}</h3>
                                     </div>
@@ -133,7 +133,7 @@ export const LogisticsArchitecture = ({ onClose }: LogisticsArchitectureProps) =
                                         </div>
                                         <div>
                                             <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Salidas (Outputs)</h4>
-                                            <p className="text-sm font-semibold text-[#0047AB] bg-[#0047AB]/5 p-3 rounded-lg border border-[#0047AB]/10 shadow-sm">
+                                            <p className="text-sm font-semibold text-[#176BDE] bg-[#176BDE]/5 p-3 rounded-lg border border-[#176BDE]/10 shadow-sm">
                                                 {activeNode.outputs}
                                             </p>
                                         </div>

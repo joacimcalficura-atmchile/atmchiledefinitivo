@@ -8,6 +8,7 @@ import { SITE } from "@/data/site";
 import { ArticleBody } from "@/components/insights/ArticleBody";
 import { ArticleFooter } from "@/components/insights/ArticleFooter";
 import { ArticleIcon } from "@/components/insights/ArticleIcon";
+import { ArticleSidebar, type TocItem } from "@/components/insights/ArticleSidebar";
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -63,6 +64,14 @@ export default async function ArticlePage({ params }: PageProps) {
     const related = getRelatedArticles(slug);
     const url = `${SITE.url}/insights/${article.slug}`;
 
+    // El id `section-${idx}` debe coincidir exactamente con el que genera
+    // ArticleBody para el mismo bloque, de ahí que ambos deriven del índice
+    // posicional dentro de `article.body` en vez de un slug del texto.
+    const toc = article.body.reduce<TocItem[]>((acc, block, idx) => {
+        if (block.kind === "heading") acc.push({ id: `section-${idx}`, text: block.text });
+        return acc;
+    }, []);
+
     // Schema.org Article: es lo que permite a buscadores y motores generativos
     // atribuir el contenido con fecha y autor verificables.
     const jsonLd = {
@@ -105,7 +114,7 @@ export default async function ArticlePage({ params }: PageProps) {
                 className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px]"
             />
 
-            <article className="relative z-10 mx-auto max-w-3xl px-4 pb-32 pt-10 sm:px-6 lg:px-8">
+            <div className="relative z-10 mx-auto max-w-6xl px-4 pb-32 pt-10 sm:px-6 lg:px-8">
                 <Link
                     href="/insights"
                     className="group mb-10 inline-flex items-center gap-2 text-sm font-bold text-slate-500 transition-colors hover:text-[#8FC0FF]"
@@ -114,94 +123,105 @@ export default async function ArticlePage({ params }: PageProps) {
                     Volver a Insights
                 </Link>
 
-                <header>
-                    <div className="mb-6 flex flex-wrap items-center gap-3">
-                        <span className="inline-flex items-center gap-2 rounded-full border border-[#176BDE]/20 bg-[#176BDE]/10 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-[#8FC0FF]">
-                            <ArticleIcon icon={article.icon} className="h-3.5 w-3.5" />
-                            {article.category}
-                        </span>
-                        <span className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500">
-                            <Clock className="h-3.5 w-3.5" />
-                            {article.readTime} de lectura
-                        </span>
-                        <time
-                            dateTime={article.publishedAt}
-                            className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500"
-                        >
-                            <CalendarDays className="h-3.5 w-3.5" />
-                            {formatDate(article.publishedAt)}
-                        </time>
-                    </div>
-
-                    <h1 className="mb-6 text-3xl font-black leading-[1.12] tracking-tight text-white md:text-5xl">
-                        {article.title}
-                    </h1>
-
-                    <p className="mb-10 text-lg leading-relaxed text-slate-400 md:text-xl">
-                        {article.excerpt}
-                    </p>
-
-                    <div className="relative mb-12 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/[0.07]">
-                        <Image
-                            src={article.imageUrl}
-                            alt={article.title}
-                            fill
-                            priority
-                            sizes="(max-width: 768px) 100vw, 768px"
-                            className="object-cover opacity-70"
-                        />
-                        <div
-                            aria-hidden="true"
-                            className="absolute inset-0 bg-gradient-to-t from-[#010912] via-transparent to-transparent"
-                        />
-                    </div>
-                </header>
-
-                {/* Resumen ejecutivo: para quien decide y no va a leer 11 minutos */}
-                <section
-                    aria-labelledby="resumen"
-                    className="mb-12 rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8"
-                >
-                    <h2
-                        id="resumen"
-                        className="mb-5 text-[11px] font-black uppercase tracking-[0.2em] text-[#8FC0FF]"
-                    >
-                        Resumen ejecutivo
-                    </h2>
-                    <ul className="space-y-3">
-                        {article.tldr.map((point) => (
-                            <li key={point} className="flex gap-3.5">
-                                <span
-                                    aria-hidden="true"
-                                    className="mt-[0.55rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[#176BDE]"
-                                />
-                                <span className="text-[15px] leading-relaxed text-slate-300">
-                                    {point}
+                {/*
+                 * `max-w-3xl` en el `<article>` es ancho de lectura, no ancho de
+                 * pantalla: a partir de `lg` el sobrante se lo queda el índice
+                 * lateral (`ArticleSidebar`), en vez de quedar como margen vacío.
+                 */}
+                <div className="lg:grid lg:grid-cols-[1fr_300px] lg:items-start lg:gap-14 xl:grid-cols-[1fr_340px] xl:gap-20">
+                    <article className="max-w-3xl">
+                        <header>
+                            <div className="mb-6 flex flex-wrap items-center gap-3">
+                                <span className="inline-flex items-center gap-2 rounded-full border border-[#176BDE]/20 bg-[#176BDE]/10 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-[#8FC0FF]">
+                                    <ArticleIcon icon={article.icon} className="h-3.5 w-3.5" />
+                                    {article.category}
                                 </span>
-                            </li>
-                        ))}
-                    </ul>
-                </section>
-
-                {article.keyFacts && (
-                    <dl className="mb-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.06] md:grid-cols-4">
-                        {article.keyFacts.map((fact) => (
-                            <div key={fact.label} className="bg-[#02121d] p-5">
-                                <dt className="mb-1.5 text-[10px] font-bold uppercase tracking-widest text-slate-500">
-                                    {fact.label}
-                                </dt>
-                                <dd className="text-base font-black leading-tight text-white">
-                                    {fact.value}
-                                </dd>
+                                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500">
+                                    <Clock className="h-3.5 w-3.5" />
+                                    {article.readTime} de lectura
+                                </span>
+                                <time
+                                    dateTime={article.publishedAt}
+                                    className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500"
+                                >
+                                    <CalendarDays className="h-3.5 w-3.5" />
+                                    {formatDate(article.publishedAt)}
+                                </time>
                             </div>
-                        ))}
-                    </dl>
-                )}
 
-                <ArticleBody blocks={article.body} />
+                            <h1 className="mb-6 text-3xl font-black leading-[1.12] tracking-tight text-white md:text-5xl">
+                                {article.title}
+                            </h1>
 
-                <ArticleFooter article={article} related={related} />
-            </article>
+                            <p className="mb-10 text-lg leading-relaxed text-slate-400 md:text-xl">
+                                {article.excerpt}
+                            </p>
+
+                            <div className="relative mb-12 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/[0.07]">
+                                <Image
+                                    src={article.imageUrl}
+                                    alt={article.title}
+                                    fill
+                                    priority
+                                    sizes="(max-width: 768px) 100vw, 768px"
+                                    className="object-cover opacity-70"
+                                />
+                                <div
+                                    aria-hidden="true"
+                                    className="absolute inset-0 bg-gradient-to-t from-[#010912] via-transparent to-transparent"
+                                />
+                            </div>
+                        </header>
+
+                        {/* Resumen ejecutivo: para quien decide y no va a leer 11 minutos */}
+                        <section
+                            aria-labelledby="resumen"
+                            className="mb-12 rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8"
+                        >
+                            <h2
+                                id="resumen"
+                                className="mb-5 text-[11px] font-black uppercase tracking-[0.2em] text-[#8FC0FF]"
+                            >
+                                Resumen ejecutivo
+                            </h2>
+                            <ul className="space-y-3">
+                                {article.tldr.map((point) => (
+                                    <li key={point} className="flex gap-3.5">
+                                        <span
+                                            aria-hidden="true"
+                                            className="mt-[0.55rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[#176BDE]"
+                                        />
+                                        <span className="text-[15px] leading-relaxed text-slate-300">
+                                            {point}
+                                        </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </section>
+
+                        {article.keyFacts && (
+                            <dl className="mb-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.06] md:grid-cols-4">
+                                {article.keyFacts.map((fact) => (
+                                    <div key={fact.label} className="bg-[#02121d] p-5">
+                                        <dt className="mb-1.5 text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                                            {fact.label}
+                                        </dt>
+                                        <dd className="text-base font-black leading-tight text-white">
+                                            {fact.value}
+                                        </dd>
+                                    </div>
+                                ))}
+                            </dl>
+                        )}
+
+                        <ArticleBody blocks={article.body} />
+
+                        <ArticleFooter article={article} related={related} />
+                    </article>
+
+                    <ArticleSidebar toc={toc} article={article} />
+                </div>
+            </div>
 
             {/* <script> plano para que el marcado viaje en el HTML servido. */}
             <script

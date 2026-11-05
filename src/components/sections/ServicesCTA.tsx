@@ -15,7 +15,7 @@ export const ServicesCTA = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: smoothEase }}
-            className="mt-24 bg-[#003366] rounded-[2.5rem] p-12 md:p-20 relative overflow-hidden"
+            className="mt-24 bg-[#0A2E6B] rounded-[2.5rem] p-12 md:p-20 relative overflow-hidden"
         >
             {/* Decoración de fondo */}
             <div className="absolute top-0 right-0 w-1/3 h-full bg-white/5 skew-x-[-15deg] translate-x-20 pointer-events-none" />
@@ -41,7 +41,7 @@ export const ServicesCTA = () => {
                                 onClick={() => setShowOptions(true)}
                                 whileHover={{ scale: 1.03, boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
                                 whileTap={{ scale: 0.97 }}
-                                className="bg-white text-[#003366] font-black px-12 py-5 rounded-2xl shadow-2xl text-lg flex items-center justify-center gap-3 transition-colors hover:bg-slate-50"
+                                className="bg-white text-[#0A2E6B] font-black px-12 py-5 rounded-2xl shadow-2xl text-lg flex items-center justify-center gap-3 transition-colors hover:bg-slate-50"
                             >
                                 Agendar Consultoría
                                 <ArrowRight className="w-5 h-5 text-accent" />

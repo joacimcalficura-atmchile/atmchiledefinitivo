@@ -22,6 +22,9 @@ export const STRATEGIC_ALLIES: readonly Ally[] = [
     { id: "transbank", name: "Transbank", logo: "/logos/transbank.png", fit: "contain", href: "https://www.transbank.cl" },
     { id: "flow", name: "Flow", logo: "/logos/flow.svg", fit: "contain", href: "https://www.flow.cl" },
     { id: "mercadolibre", name: "Mercado Libre", logo: "/logos/mercadolibre.svg", fit: "contain", href: "https://www.mercadolibre.cl" },
-    { id: "eficaz-ingenieria", name: "Eficaz Ingeniería", logo: "/logos/eficaz-ingenieria.png", fit: "contain", href: "https://eficazconstruye.cl" },
+    { id: "facturax", name: "FacturaX", logo: "/logos/facturax.svg", fit: "contain", href: "https://www.factura-x.com" },
+    // Sin `href`: eficazconstruye.cl dejó de resolver (DNS caído). El logo se
+    // mantiene, pero no enlazamos a un sitio roto. Restaurar cuando vuelva.
+    { id: "eficaz-ingenieria", name: "Eficaz Ingeniería", logo: "/logos/eficaz-ingenieria.png", fit: "contain" },
     { id: "tupana", name: "Tupana", logo: "/logos/tupana.svg", fit: "contain", href: "https://www.tupana.ai" },
 ] as const;

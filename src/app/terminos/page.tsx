@@ -15,7 +15,7 @@ export default function TerminosPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="mb-16 text-center"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#22D3EE]/5 border border-[#22D3EE]/10 text-[#0047AB] text-xs font-bold uppercase tracking-widest mb-6">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#16F3E8]/5 border border-[#16F3E8]/10 text-[#176BDE] text-xs font-bold uppercase tracking-widest mb-6">
                         <Gavel size={14} />
                         Marco Legal Estratégico
                     </div>

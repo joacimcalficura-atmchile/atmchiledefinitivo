@@ -37,7 +37,7 @@ export const EcommerceArchitecture = ({ onClose }: EcommerceArchitectureProps) =
                 <div className="mb-16 flex flex-col md:flex-row justify-between items-start gap-6">
                     <div>
                         <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-                            Arquitectura E-commerce <span className="text-[#0047AB]">& OMS</span>
+                            Arquitectura E-commerce <span className="text-[#176BDE]">& OMS</span>
                         </h2>
                         <p className="text-slate-600 text-lg max-w-2xl font-medium">
                             Pase el cursor sobre los nodos del sistema para explorar el flujo de datos, entradas y salidas de nuestra solución de gestión de pedidos omnicanal.
@@ -47,7 +47,7 @@ export const EcommerceArchitecture = ({ onClose }: EcommerceArchitectureProps) =
                         <button
                             onClick={onClose}
                             aria-label="Cerrar"
-                            className="flex items-center justify-center w-10 h-10 rounded-full bg-[#0047AB] hover:bg-[#003380] text-white shadow-lg shadow-[#0047AB]/30 transition-all hover:scale-105 active:scale-95 border border-[#0047AB]/80"
+                            className="flex items-center justify-center w-10 h-10 rounded-full bg-[#176BDE] hover:bg-[#0E4FA5] text-white shadow-lg shadow-[#176BDE]/30 transition-all hover:scale-105 active:scale-95 border border-[#176BDE]/80"
                         >
                             <X className="w-5 h-5" />
                         </button>
@@ -71,7 +71,7 @@ export const EcommerceArchitecture = ({ onClose }: EcommerceArchitectureProps) =
                                     className={`
                     relative z-10 flex items-center p-5 rounded-2xl cursor-pointer transition-all duration-500
                     ${isActive
-                                            ? 'bg-white/80 border-[#0047AB] shadow-[0_10px_40px_rgba(23, 107, 222,0.15)] scale-[1.02]'
+                                            ? 'bg-white/80 border-[#176BDE] shadow-[0_10px_40px_rgba(23,107,222,0.15)] scale-[1.02]'
                                             : 'bg-white/40 border-white/60 hover:bg-white/60 shadow-sm hover:shadow-md'
                                         }
                     border backdrop-blur-xl
@@ -80,19 +80,19 @@ export const EcommerceArchitecture = ({ onClose }: EcommerceArchitectureProps) =
                                     {/* Icon Container */}
                                     <div className={`
                     p-3 rounded-xl mr-5 transition-colors duration-500
-                    ${isActive ? 'bg-[#0047AB] text-white shadow-lg shadow-[#0047AB]/30' : 'bg-slate-100 text-slate-500'}
+                    ${isActive ? 'bg-[#176BDE] text-white shadow-lg shadow-[#176BDE]/30' : 'bg-slate-100 text-slate-500'}
                   `}>
                                         {node.icon}
                                     </div>
 
                                     {/* Node Title */}
-                                    <h3 className={`text-xl font-bold tracking-tight transition-colors duration-500 ${isActive ? 'text-[#0047AB]' : 'text-slate-700'}`}>
+                                    <h3 className={`text-xl font-bold tracking-tight transition-colors duration-500 ${isActive ? 'text-[#176BDE]' : 'text-slate-700'}`}>
                                         {node.title}
                                     </h3>
 
                                     {/* Indicador Activo */}
                                     {isActive && (
-                                        <m.div layoutId="active-indicator" className="absolute -right-3 w-6 h-6 bg-[#F8FAFC] flex items-center justify-center rounded-full border border-[#0047AB]/20 shadow-sm text-[#0047AB]">
+                                        <m.div layoutId="active-indicator" className="absolute -right-3 w-6 h-6 bg-[#F8FAFC] flex items-center justify-center rounded-full border border-[#176BDE]/20 shadow-sm text-[#176BDE]">
                                             <ArrowRight className="w-4 h-4" />
                                         </m.div>
                                     )}
@@ -105,8 +105,8 @@ export const EcommerceArchitecture = ({ onClose }: EcommerceArchitectureProps) =
                     <div className="lg:col-span-5 relative">
                         <div className="sticky top-32 w-full p-8 bg-white/70 backdrop-blur-2xl border border-white/80 shadow-[0_20px_50px_rgba(0,0,0,0.05)] rounded-[2rem] min-h-[400px] flex flex-col">
 
-                            <div className="text-[10px] font-bold tracking-[0.2em] text-[#0047AB] uppercase mb-6 flex items-center gap-2">
-                                <div className="w-2 h-2 rounded-full bg-[#22D3EE] animate-pulse" />
+                            <div className="text-[10px] font-bold tracking-[0.2em] text-[#176BDE] uppercase mb-6 flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full bg-[#16F3E8] animate-pulse" />
                                 Telemetría de Nodo
                             </div>
 
@@ -119,7 +119,7 @@ export const EcommerceArchitecture = ({ onClose }: EcommerceArchitectureProps) =
                                     transition={{ duration: 0.3 }}
                                     className="flex flex-col h-full"
                                 >
-                                    <div className="flex items-center gap-4 mb-6 text-[#0047AB]">
+                                    <div className="flex items-center gap-4 mb-6 text-[#176BDE]">
                                         {activeNode.icon}
                                         <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">{activeNode.title}</h3>
                                     </div>
@@ -140,7 +140,7 @@ export const EcommerceArchitecture = ({ onClose }: EcommerceArchitectureProps) =
 
                                         <div>
                                             <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Salidas (Outputs)</h4>
-                                            <p className="text-sm font-semibold text-[#0047AB] bg-[#0047AB]/5 p-3 rounded-lg border border-[#0047AB]/10 shadow-sm">
+                                            <p className="text-sm font-semibold text-[#176BDE] bg-[#176BDE]/5 p-3 rounded-lg border border-[#176BDE]/10 shadow-sm">
                                                 {activeNode.outputs}
                                             </p>
                                         </div>

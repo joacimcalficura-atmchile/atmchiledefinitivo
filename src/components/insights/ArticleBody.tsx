@@ -61,7 +61,8 @@ export const ArticleBody = ({ blocks }: { blocks: readonly ArticleBlock[] }) => 
                     return (
                         <h2
                             key={idx}
-                            className="mt-14 mb-5 text-2xl font-black leading-tight tracking-tight text-white md:text-3xl"
+                            id={`section-${idx}`}
+                            className="mt-14 mb-5 scroll-mt-28 text-2xl font-black leading-tight tracking-tight text-white md:text-3xl"
                         >
                             {block.text}
                         </h2>

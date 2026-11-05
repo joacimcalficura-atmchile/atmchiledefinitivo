@@ -192,16 +192,16 @@ export default function TalentoPage() {
                         >
                             {/* Fondo holográfico */}
                             <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center" aria-hidden="true">
-                                <div className="w-[800px] h-[800px] bg-gradient-to-tr from-[#0047AB]/5 to-[#22D3EE]/5 rounded-full blur-[100px]" />
+                                <div className="w-[800px] h-[800px] bg-gradient-to-tr from-[#176BDE]/5 to-[#16F3E8]/5 rounded-full blur-[100px]" />
                             </div>
                                 <m.div
-                                    className="absolute top-[5%] left-[-8%] w-[25vw] h-[25vw] rounded-full bg-[#0047AB]/4 blur-[100px] pointer-events-none"
+                                    className="absolute top-[5%] left-[-8%] w-[25vw] h-[25vw] rounded-full bg-[#176BDE]/4 blur-[100px] pointer-events-none"
                                 animate={{ x: [0, 25, 0], y: [0, -18, 0] }}
                                 transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
                                 aria-hidden="true"
                             />
                                 <m.div
-                                    className="absolute bottom-[5%] right-[-8%] w-[20vw] h-[20vw] rounded-full bg-[#22D3EE]/4 blur-[100px] pointer-events-none"
+                                    className="absolute bottom-[5%] right-[-8%] w-[20vw] h-[20vw] rounded-full bg-[#16F3E8]/4 blur-[100px] pointer-events-none"
                                 animate={{ x: [0, -25, 0], y: [0, 18, 0] }}
                                 transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
                                 aria-hidden="true"
@@ -215,8 +215,8 @@ export default function TalentoPage() {
                                     animate="show"
                                     className="flex justify-center mb-8"
                                 >
-                                    <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-[#0047AB]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#0047AB] shadow-sm">
-                                        <Target size={14} className="text-[#22D3EE]" />
+                                    <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-[#176BDE]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#176BDE] shadow-sm">
+                                        <Target size={14} className="text-[#16F3E8]" />
                                         Propósito &amp; Visión
                                     </span>
                                 </m.div>
@@ -235,7 +235,7 @@ export default function TalentoPage() {
                                     >
                                         Acompañar a las empresas
                                         <br />
-                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0047AB] to-[#22D3EE]">
+                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#176BDE] to-[#16F3E8]">
                                             en su crecimiento y modernización.
                                         </span>
                                     </h1>
@@ -253,11 +253,11 @@ export default function TalentoPage() {
                                     initial={{ opacity: 0, y: 40, scale: 0.96 }}
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     transition={{ delay: 0.3, duration: 0.8, type: "spring", stiffness: 90, damping: 20 }}
-                                    className="relative bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_20px_80px_rgba(23, 107, 222,0.08)] rounded-[2.5rem] p-10 md:p-14 text-center overflow-hidden"
+                                    className="relative bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_20px_80px_rgba(23,107,222,0.08)] rounded-[2.5rem] p-10 md:p-14 text-center overflow-hidden"
                                 >
                                     {/* Borde luminoso superior */}
                                     <div
-                                        className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-px bg-gradient-to-r from-transparent via-[#0047AB]/30 to-transparent pointer-events-none"
+                                        className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-px bg-gradient-to-r from-transparent via-[#176BDE]/30 to-transparent pointer-events-none"
                                         aria-hidden="true"
                                     />
                                     {/* Brillo interno */}
@@ -266,8 +266,8 @@ export default function TalentoPage() {
                                         aria-hidden="true"
                                     />
 
-                                    <span className="relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0047AB]/5 border border-[#0047AB]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#0047AB] mb-6">
-                                        <Heart size={14} className="text-[#22D3EE]" />
+                                    <span className="relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#176BDE]/5 border border-[#176BDE]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#176BDE] mb-6">
+                                        <Heart size={14} className="text-[#16F3E8]" />
                                         Propuesta de Valor
                                     </span>
 
@@ -296,7 +296,7 @@ export default function TalentoPage() {
                                                 transition={{ delay: 0.5 + idx * 0.12, type: "spring", stiffness: 100 }}
                                                 className="flex flex-col items-center"
                                             >
-                                                <div className="p-4 rounded-2xl bg-gradient-to-br from-[#0047AB]/10 to-[#22D3EE]/5 text-[#0047AB] mb-4 border border-[#0047AB]/10">
+                                                <div className="p-4 rounded-2xl bg-gradient-to-br from-[#176BDE]/10 to-[#16F3E8]/5 text-[#176BDE] mb-4 border border-[#176BDE]/10">
                                                     {item.icon}
                                                 </div>
                                                 <h3 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
@@ -316,7 +316,7 @@ export default function TalentoPage() {
                                     <Link
                                         id="cta-talento-primary"
                                         href="/servicios"
-                                        className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#0047AB] text-white rounded-2xl font-bold text-base overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_10px_40px_rgba(23, 107, 222,0.3)] active:scale-[0.98]"
+                                        className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#176BDE] text-white rounded-2xl font-bold text-base overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_10px_40px_rgba(23,107,222,0.3)] active:scale-[0.98]"
                                     >
                                         <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" aria-hidden="true" />
                                         Ver Nuestros Servicios
@@ -350,8 +350,8 @@ export default function TalentoPage() {
                                     viewport={{ once: true, margin: "-80px" }}
                                     className="text-center mb-14"
                                 >
-                                    <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-[#0047AB]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#0047AB] shadow-sm mb-6">
-                                        <Users size={14} className="text-[#22D3EE]" />
+                                    <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-[#176BDE]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#176BDE] shadow-sm mb-6">
+                                        <Users size={14} className="text-[#16F3E8]" />
                                         El Equipo
                                     </span>
                                     <h2
@@ -359,7 +359,7 @@ export default function TalentoPage() {
                                         className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4"
                                     >
                                         Equipo Senior de{" "}
-                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0047AB] to-[#22D3EE]">
+                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#176BDE] to-[#16F3E8]">
                                             Alto Nivel
                                         </span>
                                     </h2>
@@ -381,20 +381,20 @@ export default function TalentoPage() {
                                             key={member.role}
                                             variants={cardVariant}
                                             whileHover={{ y: -6, scale: 1.02, transition: { type: "spring", stiffness: 400, damping: 25 } }}
-                                            className="group relative flex flex-col p-8 bg-white/70 backdrop-blur-xl border border-white/80 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(23, 107, 222,0.1)] transition-all duration-500 overflow-hidden cursor-default"
+                                            className="group relative flex flex-col p-8 bg-white/70 backdrop-blur-xl border border-white/80 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(23,107,222,0.1)] transition-all duration-500 overflow-hidden cursor-default"
                                         >
                                             <div className="relative z-10">
-                                                <div className="w-12 h-12 rounded-2xl bg-[#0047AB]/5 text-[#0047AB] flex items-center justify-center mb-6 group-hover:bg-[#0047AB] group-hover:text-white transition-colors duration-500">
+                                                <div className="w-12 h-12 rounded-2xl bg-[#176BDE]/5 text-[#176BDE] flex items-center justify-center mb-6 group-hover:bg-[#176BDE] group-hover:text-white transition-colors duration-500">
                                                     {member.icon}
                                                 </div>
-                                                <span className="text-[10px] font-black uppercase tracking-widest text-[#22D3EE] mb-2 block">
+                                                <span className="text-[10px] font-black uppercase tracking-widest text-[#16F3E8] mb-2 block">
                                                     {member.tag}
                                                 </span>
                                                 <h3 className="text-xl font-bold text-slate-900 mb-3 leading-tight">{member.role}</h3>
                                                 <p className="text-slate-600 text-sm leading-relaxed">{member.desc}</p>
                                             </div>
                                             {/* Glow decorativo */}
-                                            <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#0047AB]/5 rounded-full blur-3xl group-hover:bg-[#22D3EE]/10 transition-colors duration-700" />
+                                            <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#176BDE]/5 rounded-full blur-3xl group-hover:bg-[#16F3E8]/10 transition-colors duration-700" />
                                         </m.div>
                                     ))}
                                 </m.div>
@@ -413,7 +413,7 @@ export default function TalentoPage() {
                                         scale: [1, 1.1, 1]
                                     }}
                                     transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                                    className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,#0047AB_0%,transparent_50%),radial-gradient(circle_at_80%_70%,#0047AB_0%,transparent_50%)]"
+                                    className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,#176BDE_0%,transparent_50%),radial-gradient(circle_at_80%_70%,#176BDE_0%,transparent_50%)]"
                                 />
                                 <div className="absolute inset-0 noise-bg opacity-20 mix-blend-overlay" />
                             </div>
@@ -426,12 +426,12 @@ export default function TalentoPage() {
                                     viewport={{ once: true }}
                                     className="text-center mb-16"
                                 >
-                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-[0.3em] text-[#22D3EE] mb-4">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE] animate-pulse" />
+                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-[0.3em] text-[#16F3E8] mb-4">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-[#16F3E8] animate-pulse" />
                                         ATM Global Command Center
                                     </div>
                                     <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-6">
-                                        Sercanía Real, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#22D3EE] to-[#0047AB]">Control Total.</span>
+                                        Sercanía Real, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#16F3E8] to-[#176BDE]">Control Total.</span>
                                     </h2>
                                     <p className="text-slate-400 text-lg max-w-2xl mx-auto font-medium">
                                         No somos solo software. Somos un equipo senior operando 24/7 para garantizar que su infraestructura escale sin fricciones.
@@ -442,9 +442,9 @@ export default function TalentoPage() {
                                     {/* Panel Lateral: Métricas Live */}
                                     <div className="lg:col-span-4 flex flex-col gap-4">
                                         {[
-                                            { label: "SLA Uptime", value: "99.99%", detail: "Disponibilidad Garantizada", icon: <ShieldCheck className="w-5 h-5" />, color: "#22D3EE" },
+                                            { label: "SLA Uptime", value: "99.99%", detail: "Disponibilidad Garantizada", icon: <ShieldCheck className="w-5 h-5" />, color: "#16F3E8" },
                                             { label: "Response Time", value: "24 hrs", detail: "Soporte Senior Focalizado", icon: <Zap className="w-5 h-5" />, color: "#FACC15" },
-                                            { label: "Active Nodes", value: "2.4k+", detail: "Monitoreo Distribuido", icon: <BrainCircuit className="w-5 h-5" />, color: "#0047AB" },
+                                            { label: "Active Nodes", value: "2.4k+", detail: "Monitoreo Distribuido", icon: <BrainCircuit className="w-5 h-5" />, color: "#176BDE" },
                                         ].map((metric, i) => (
                                             <m.div 
                                                 key={i}
@@ -485,7 +485,7 @@ export default function TalentoPage() {
                                         </div>
 
                                         <div className="absolute top-6 right-6 z-20">
-                                            <span className="px-3 py-1 rounded-md bg-[#22D3EE]/10 border border-[#22D3EE]/20 text-[9px] font-black text-[#22D3EE] uppercase tracking-[0.2em] backdrop-blur-md">
+                                            <span className="px-3 py-1 rounded-md bg-[#16F3E8]/10 border border-[#16F3E8]/20 text-[9px] font-black text-[#16F3E8] uppercase tracking-[0.2em] backdrop-blur-md">
                                                 Verified Operations Center
                                             </span>
                                         </div>
@@ -509,7 +509,7 @@ export default function TalentoPage() {
                                                     <Link 
                                                         href="https://www.linkedin.com/in/joacim-elias-calficura-marillanca-077bbb234/"
                                                         target="_blank"
-                                                        className="group/avatar relative w-12 h-12 rounded-full border-2 border-[#020B12] bg-[#0047AB] overflow-hidden hover:z-30 transition-all hover:scale-110"
+                                                        className="group/avatar relative w-12 h-12 rounded-full border-2 border-[#020B12] bg-[#176BDE] overflow-hidden hover:z-30 transition-all hover:scale-110"
                                                         title="Joacim Calficura - CEO"
                                                     >
                                                         <div className="w-full h-full bg-brand-cobalt flex items-center justify-center text-white font-black text-xs">JC</div>
@@ -542,7 +542,7 @@ export default function TalentoPage() {
                         >
                             {/* Fondo sutil */}
                             <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-[#0047AB]/4 to-[#22D3EE]/3 rounded-full blur-[100px]" />
+                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-[#176BDE]/4 to-[#16F3E8]/3 rounded-full blur-[100px]" />
                             </div>
 
                             <div className="relative z-10 max-w-5xl mx-auto">
@@ -553,8 +553,8 @@ export default function TalentoPage() {
                                     viewport={{ once: true, margin: "-100px" }}
                                     className="text-center mb-14"
                                 >
-                                    <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-[#0047AB]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#0047AB] shadow-sm mb-6">
-                                        <Settings size={14} className="text-[#22D3EE]" />
+                                    <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-[#176BDE]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#176BDE] shadow-sm mb-6">
+                                        <Settings size={14} className="text-[#16F3E8]" />
                                         Metodología — Fases
                                     </span>
                                     <h2
@@ -562,7 +562,7 @@ export default function TalentoPage() {
                                         className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4"
                                     >
                                         Nuestro proceso,{" "}
-                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0047AB] to-[#22D3EE]">
+                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#176BDE] to-[#16F3E8]">
                                             paso a paso.
                                         </span>
                                     </h2>
@@ -592,8 +592,8 @@ export default function TalentoPage() {
                                             className={`
                                                 relative flex items-center gap-2.5 px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 border
                                                 ${activeTab === phase.id
-                                                    ? "bg-[#0047AB] text-white border-[#0047AB] shadow-[0_8px_24px_rgba(23, 107, 222,0.25)]"
-                                                    : "bg-white text-slate-700 border-slate-200 hover:border-[#0047AB]/30 hover:text-[#0047AB] hover:shadow-md"
+                                                    ? "bg-[#176BDE] text-white border-[#176BDE] shadow-[0_8px_24px_rgba(23,107,222,0.25)]"
+                                                    : "bg-white text-slate-700 border-slate-200 hover:border-[#176BDE]/30 hover:text-[#176BDE] hover:shadow-md"
                                                 }
                                             `}
                                         >
@@ -625,17 +625,17 @@ export default function TalentoPage() {
                                                         initial="enter"
                                                         animate="center"
                                                         exit="exit"
-                                                        className="bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_20px_60px_rgba(23, 107, 222,0.08)] rounded-[2rem] p-10 md:p-12"
+                                                        className="bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_20px_60px_rgba(23,107,222,0.08)] rounded-[2rem] p-10 md:p-12"
                                                     >
                                                         <div className="flex flex-col md:flex-row gap-10 md:gap-16">
                                                             {/* Objetivo */}
                                                             <div className="flex-1">
                                                                 <div className="flex items-center gap-3 mb-5">
-                                                                    <div className="p-3 rounded-xl bg-[#0047AB]/8 text-[#0047AB] border border-[#0047AB]/10">
+                                                                    <div className="p-3 rounded-xl bg-[#176BDE]/8 text-[#176BDE] border border-[#176BDE]/10">
                                                                         {phase.icon}
                                                                     </div>
                                                                     <div>
-                                                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#22D3EE]">
+                                                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#16F3E8]">
                                                                             Fase {phase.number}
                                                                         </span>
                                                                         <h3 className="text-xl font-bold text-slate-900 leading-tight">
@@ -657,7 +657,7 @@ export default function TalentoPage() {
                                                                 <ul className="space-y-3">
                                                                     {phase.deliverables.map((d, i) => (
                                                                         <li key={i} className="flex items-start gap-3">
-                                                                            <CheckCircle2 className="w-4 h-4 text-[#22D3EE] flex-shrink-0 mt-0.5" />
+                                                                            <CheckCircle2 className="w-4 h-4 text-[#16F3E8] flex-shrink-0 mt-0.5" />
                                                                             <span className="text-slate-700 text-sm leading-relaxed">{d}</span>
                                                                         </li>
                                                                     ))}
@@ -684,7 +684,7 @@ export default function TalentoPage() {
                                             aria-label={`Ir a Fase ${phase.number}`}
                                             onClick={() => setActiveTab(phase.id)}
                                             className={`h-1.5 rounded-full transition-all duration-300 ${activeTab === phase.id
-                                                ? "w-8 bg-[#0047AB]"
+                                                ? "w-8 bg-[#176BDE]"
                                                 : "w-2 bg-slate-200 hover:bg-slate-300"
                                                 }`}
                                         />
@@ -709,8 +709,8 @@ export default function TalentoPage() {
                                     viewport={{ once: true, margin: "-80px" }}
                                     className="text-center mb-18"
                                 >
-                                    <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-[#0047AB]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#0047AB] shadow-sm mb-6">
-                                        <BarChart3 size={14} className="text-[#22D3EE]" />
+                                    <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-[#176BDE]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#176BDE] shadow-sm mb-6">
+                                        <BarChart3 size={14} className="text-[#16F3E8]" />
                                         Aporte a su Empresa
                                     </span>
                                     <h2
@@ -718,7 +718,7 @@ export default function TalentoPage() {
                                         className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4"
                                     >
                                         Lo que{" "}
-                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0047AB] to-[#22D3EE]">
+                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#176BDE] to-[#16F3E8]">
                                             usted obtiene.
                                         </span>
                                     </h2>
@@ -741,18 +741,18 @@ export default function TalentoPage() {
                                                 damping: 18,
                                             }}
                                             whileHover={{ scale: 1.015, transition: { type: "spring", stiffness: 300, damping: 25 } }}
-                                            className={`group flex flex-col md:flex-row items-center gap-8 p-10 bg-white/70 backdrop-blur-xl border border-white/80 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(23, 107, 222,0.09)] transition-all duration-500 overflow-hidden ${aporte.direction === "right" ? "md:flex-row-reverse" : ""
+                                            className={`group flex flex-col md:flex-row items-center gap-8 p-10 bg-white/70 backdrop-blur-xl border border-white/80 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(23,107,222,0.09)] transition-all duration-500 overflow-hidden ${aporte.direction === "right" ? "md:flex-row-reverse" : ""
                                                 }`}
                                         >
                                             {/* Ícono */}
-                                            <div className="flex-shrink-0 p-6 rounded-2xl bg-gradient-to-br from-[#0047AB]/8 to-[#22D3EE]/6 text-[#0047AB] border border-[#0047AB]/10 shadow-sm group-hover:bg-[#0047AB]/12 transition-colors duration-500">
+                                            <div className="flex-shrink-0 p-6 rounded-2xl bg-gradient-to-br from-[#176BDE]/8 to-[#16F3E8]/6 text-[#176BDE] border border-[#176BDE]/10 shadow-sm group-hover:bg-[#176BDE]/12 transition-colors duration-500">
                                                 {aporte.icon}
                                             </div>
 
                                             {/* Texto */}
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-3 mb-3">
-                                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#22D3EE]">
+                                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#16F3E8]">
                                                         Aporte 0{idx + 1}
                                                     </span>
                                                     <div className="flex-1 h-px bg-slate-100" />
@@ -778,20 +778,20 @@ export default function TalentoPage() {
                             className="relative py-24 px-6 overflow-hidden"
                         >
                             <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center" aria-hidden="true">
-                                <div className="w-[500px] h-[500px] bg-gradient-to-tr from-[#0047AB]/6 to-[#22D3EE]/6 rounded-full blur-[100px]" />
+                                <div className="w-[500px] h-[500px] bg-gradient-to-tr from-[#176BDE]/6 to-[#16F3E8]/6 rounded-full blur-[100px]" />
                             </div>
                             <m.div
                                 initial={{ opacity: 0, y: 40, scale: 0.97 }}
                                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                                 viewport={{ once: true, margin: "-100px" }}
                                 transition={{ duration: 0.9, type: "spring", stiffness: 80, damping: 18 }}
-                                className="relative z-10 max-w-3xl mx-auto bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_24px_80px_rgba(23, 107, 222,0.1)] rounded-[2.5rem] p-12 md:p-16 text-center overflow-hidden"
+                                className="relative z-10 max-w-3xl mx-auto bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_24px_80px_rgba(23,107,222,0.1)] rounded-[2.5rem] p-12 md:p-16 text-center overflow-hidden"
                             >
                                 {/* Borde luminoso */}
-                                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[55%] h-px bg-gradient-to-r from-transparent via-[#0047AB]/30 to-transparent" aria-hidden="true" />
+                                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[55%] h-px bg-gradient-to-r from-transparent via-[#176BDE]/30 to-transparent" aria-hidden="true" />
 
                                 <div className="flex justify-center mb-6">
-                                    <div className="p-4 rounded-2xl bg-[#0047AB]/8 text-[#0047AB] border border-[#0047AB]/10">
+                                    <div className="p-4 rounded-2xl bg-[#176BDE]/8 text-[#176BDE] border border-[#176BDE]/10">
                                         <ShieldCheck className="w-10 h-10" />
                                     </div>
                                 </div>
@@ -799,7 +799,7 @@ export default function TalentoPage() {
                                 <h2 id="cta-final-heading" className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
                                     ¿Listo para transformar
                                     <br />
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0047AB] to-[#22D3EE]">
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#176BDE] to-[#16F3E8]">
                                         tu organización?
                                     </span>
                                 </h2>
@@ -811,7 +811,7 @@ export default function TalentoPage() {
                                     <Link
                                         id="cta-footer-servicios"
                                         href="/servicios"
-                                        className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#0047AB] text-white rounded-2xl font-bold text-base overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_10px_40px_rgba(23, 107, 222,0.3)] active:scale-[0.98]"
+                                        className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#176BDE] text-white rounded-2xl font-bold text-base overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_10px_40px_rgba(23,107,222,0.3)] active:scale-[0.98]"
                                     >
                                         <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" aria-hidden="true" />
                                         Nuestros Servicios

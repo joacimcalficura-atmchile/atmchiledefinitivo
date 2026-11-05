@@ -67,11 +67,11 @@ export const ArchitectureModal = ({
                     WebkitBackdropFilter: "saturate(180%) blur(48px)",
                     border: "1.5px solid rgba(255,255,255,0.95)",
                     boxShadow: [
-                        "0 60px 140px -20px rgba(23, 107, 222,0.20)",
+                        "0 60px 140px -20px rgba(23,107,222,0.20)",
                         "0 32px 64px -8px rgba(0,0,0,0.10)",
-                        "0 0 0 1px rgba(23, 107, 222,0.06)",
+                        "0 0 0 1px rgba(23,107,222,0.06)",
                         "inset 0 1px 0 rgba(255,255,255,1)",
-                        "inset 0 -1px 0 rgba(23, 107, 222,0.04)",
+                        "inset 0 -1px 0 rgba(23,107,222,0.04)",
                     ].join(","),
                 }}
             >
@@ -83,14 +83,14 @@ export const ArchitectureModal = ({
                 {/* Glow ambiental azul sutil */}
                 <div
                     className="absolute -inset-1 rounded-[2.5rem] pointer-events-none -z-10 opacity-40"
-                    style={{ background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(23, 107, 222,0.12), transparent)" }}
+                    style={{ background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(23,107,222,0.12), transparent)" }}
                 />
 
                 {/* Botón cerrar — azul cobalto */}
                 <button
                     onClick={onClose}
                     aria-label="Cerrar"
-                    className="absolute top-5 right-5 z-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#0047AB] hover:bg-[#003380] text-white transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#0047AB]/30 border border-[#0047AB]/80"
+                    className="absolute top-5 right-5 z-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#176BDE] hover:bg-[#0E4FA5] text-white transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#176BDE]/30 border border-[#176BDE]/80"
                 >
                     <X size={18} />
                 </button>

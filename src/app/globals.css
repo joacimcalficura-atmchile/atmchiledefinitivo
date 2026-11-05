@@ -5,6 +5,11 @@
   /* slate-50 */
   --foreground: #0f172a;
   /* slate-900 */
+
+  /* Glass: se definen aquí (no dentro de @theme) para poder alternarlos por
+     esquema de color. @theme no admite anidarse dentro de @media. */
+  --glass-bg: rgba(255, 255, 255, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.2);
 }
 
 @theme {
@@ -19,6 +24,15 @@
   --color-atm-sapphire: #176BDE;
   --color-atm-alabaster: #E8E8E8;
 
+  /* Rampa derivada de Sapphire Sky. No son colores nuevos de marca: son los
+     tonos necesarios para estados (hover/active) y para alcanzar contraste
+     legible sobre fondo oscuro, donde #176BDE puro queda bajo el mínimo AA.
+     Cualquier azul del sitio debe salir de aquí, no de un hex suelto. */
+  --color-atm-sapphire-900: #0A2E6B;  /* profundidad / fondos */
+  --color-atm-sapphire-700: #0E4FA5;  /* hover y estados activos */
+  --color-atm-sapphire-300: #4D9BFF;  /* texto e íconos sobre oscuro */
+  --color-atm-sapphire-200: #8FC0FF;  /* texto secundario sobre oscuro */
+
   /* Roles semánticos anclados a la marca */
   --color-primary: #0F1215;        /* Onyx  */
   --color-brand-light: #E8E8E8;    /* Alabaster Grey */
@@ -27,8 +41,8 @@
   --color-accent: #16F3E8;         /* Neon Ice */
   --color-brand-slate: #3F3D44;    /* Graphite */
   --color-brand-cobalt: #176BDE;   /* Sapphire Sky */
-  --color-brand-glass-bg: rgba(255, 255, 255, 0.4);
-  --color-brand-glass-border: rgba(255, 255, 255, 0.2);
+  --color-brand-glass-bg: var(--glass-bg);
+  --color-brand-glass-border: var(--glass-border);
 
   /* Tipografía oficial (Brandbook) */
   --font-sans: var(--font-roboto), Arial, Helvetica, sans-serif;
@@ -41,11 +55,9 @@
     /* slate-950 */
     --foreground: #f8fafc;
     /* slate-50 */
-  }
 
-  @theme {
-    --color-brand-glass-bg: rgba(30, 41, 59, 0.4);
-    --color-brand-glass-border: rgba(51, 65, 85, 0.2);
+    --glass-bg: rgba(30, 41, 59, 0.4);
+    --glass-border: rgba(51, 65, 85, 0.2);
   }
 }
 

@@ -4,7 +4,13 @@ import dns from 'dns';
 import { LeadSchema } from '@/types/security';
 import { inspectLead, normalizeEmail, validatePersonName, verifyTurnstile } from '@/lib/anti-spam';
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMhGRRHLx8UylQSoCITSLqc_r8PZGm3cwYX5yYQ_aWwgJ2yk1XIbiPS4KY0njfHeMJqg/exec';
+/**
+ * Endpoint de escritura de la planilla de leads. Va en variable de entorno, no
+ * en el código: la URL de un Apps Script desplegado "para cualquiera" es en
+ * sí misma la credencial —quien la conoce puede escribir en la planilla— y
+ * estaba quedando en cada clon del repositorio y en el historial de git.
+ */
+const APPS_SCRIPT_URL = process.env.LEADS_WEBHOOK_URL;
 
 // Identificador secreto para delimitar datos de usuario y prevenir inyecciones
 const PROMPT_DELIMITER = "###_ATM_SECURE_DATA_###";
@@ -169,6 +175,13 @@ export async function POST(req: Request) {
         }
 
         // 9. SECURE FORWARDING
+        if (!APPS_SCRIPT_URL) {
+            // Falla cerrada y ruidosa: un lead legítimo que se pierde en silencio
+            // por una variable sin configurar es peor que un error visible.
+            console.error(`[CRITICAL] LEADS_WEBHOOK_URL sin configurar. ID: ${securityId}`);
+            throw new Error("Lead sink not configured");
+        }
+
         const sheetResponse = await fetch(APPS_SCRIPT_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain' },

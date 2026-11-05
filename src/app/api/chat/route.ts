@@ -4,7 +4,8 @@ import type { ToolSet } from "ai";
 import { NextResponse } from "next/server";
 import { ChatSchema } from "@/types/security";
 
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMhGRRHLx8UylQSoCITSLqc_r8PZGm3cwYX5yYQ_aWwgJ2yk1XIbiPS4KY0njfHeMJqg/exec";
+/** Misma variable que usa `/api/submit-lead`: un solo sumidero de leads. */
+const APPS_SCRIPT_URL = process.env.LEADS_WEBHOOK_URL;
 
 const SYSTEM_PROMPT = `[ROL E IDENTIDAD]
 Eres el Agente de Inteligencia Artificial de Élite de "ATM Chile". Tu perfil combina la maestría de un Arquitecto de Software Senior y la visión estratégica de un Consultor Enterprise.
@@ -43,6 +44,11 @@ async function saveLead(markerText: string, securityId: string) {
         return; // Lead incompleto: no guardamos parcial.
     }
     if (!nombre || !correo) return;
+
+    if (!APPS_SCRIPT_URL) {
+        console.error(`[CRITICAL] LEADS_WEBHOOK_URL sin configurar. ID: ${securityId}`);
+        return;
+    }
 
     try {
         await fetch(APPS_SCRIPT_URL, {

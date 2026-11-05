@@ -1,5 +1,6 @@
-"use client";
-import React, { useState, useEffect } from "react";
+// Módulo de datos compartido: sin `"use client"`, para que también pueda
+// consumirse desde componentes de servidor (p. ej. el JSON-LD del layout).
+import type React from "react";
 import { ShoppingCart, Database, Building2, Truck, Cpu, Box, ShieldCheck, Users, BrainCircuit } from "lucide-react";
 
 export interface Solution {

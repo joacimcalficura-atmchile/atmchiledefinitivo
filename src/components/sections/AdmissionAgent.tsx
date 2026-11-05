@@ -186,7 +186,7 @@ export const AdmissionAgent = () => {
                 {/* Header del Formulario */}
                 <div className="flex items-center justify-between mb-12">
                     <div className="flex items-center gap-3">
-                        <div className="p-2 md:p-2.5 rounded-xl bg-[#176BDE]/10 text-[#176BDE] shadow-[0_0_20px_rgba(23, 107, 222,0.1)] border border-[#176BDE]/30">
+                        <div className="p-2 md:p-2.5 rounded-xl bg-[#176BDE]/10 text-[#176BDE] shadow-[0_0_20px_rgba(23,107,222,0.1)] border border-[#176BDE]/30">
                             <Lock size={18} className="md:w-5 md:h-5" />
                         </div>
                         <div>
@@ -496,7 +496,7 @@ export const AdmissionAgent = () => {
                                                             onClick={() => handleInputChange('wantAudit', opt)}
                                                             className={`p-5 rounded-2xl text-left font-black tracking-widest uppercase transition-all border-2 text-xs md:text-sm ${
                                                                 formData.wantAudit === opt 
-                                                                ? 'bg-[#176BDE] border-[#176BDE] text-[#010912] shadow-[0_0_30px_rgba(23, 107, 222,0.3)]' 
+                                                                ? 'bg-[#176BDE] border-[#176BDE] text-[#010912] shadow-[0_0_30px_rgba(23,107,222,0.3)]' 
                                                                 : 'bg-black/40 border-white/10 text-slate-400 hover:border-[#176BDE]/40 hover:text-white'
                                                             }`}
                                                         >
@@ -513,7 +513,7 @@ export const AdmissionAgent = () => {
                                                 <m.div 
                                                     initial={{ scale: 0.8, opacity: 0 }}
                                                     animate={{ scale: 1, opacity: 1 }}
-                                                    className="inline-block p-8 rounded-full bg-[#176BDE]/10 text-[#176BDE] mb-10 border border-[#176BDE]/20 shadow-[0_0_50px_rgba(23, 107, 222,0.1)]"
+                                                    className="inline-block p-8 rounded-full bg-[#176BDE]/10 text-[#176BDE] mb-10 border border-[#176BDE]/20 shadow-[0_0_50px_rgba(23,107,222,0.1)]"
                                                 >
                                                     <CheckCircle size={84} />
                                                 </m.div>
@@ -574,7 +574,7 @@ export const AdmissionAgent = () => {
                                 disabled={!isStepValid()}
                                 className={`group flex items-center gap-3 px-8 md:px-12 py-4 md:py-5 rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-[0.3em] transition-all duration-500 relative overflow-hidden ${
                                     isStepValid() 
-                                    ? 'bg-[#176BDE] text-[#010912] shadow-[0_0_40px_rgba(23, 107, 222,0.3)] hover:scale-105 hover:bg-white active:scale-95' 
+                                    ? 'bg-[#176BDE] text-[#010912] shadow-[0_0_40px_rgba(23,107,222,0.3)] hover:scale-105 hover:bg-white active:scale-95' 
                                     : 'bg-white/5 text-white/20 border border-white/5 cursor-not-allowed'
                                 }`}
                             >

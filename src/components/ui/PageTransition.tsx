@@ -1,21 +1,14 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import { useTransitionContext } from "@/context/TransitionContext";
-import dynamic from "next/dynamic";
-
-const Spline = dynamic(() => import('@splinetool/react-spline'), {
-    ssr: false,
-});
 
 export const PageTransition = () => {
     const { isTransitioning } = useTransitionContext();
-    const [isMounted, setIsMounted] = useState(false);
 
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    if (!isMounted || !isTransitioning) return null;
+    // `isTransitioning` arranca en false, así que el servidor y el primer render
+    // del cliente coinciden sin necesidad de un flag de montaje: el guard previo
+    // provocaba un setState dentro de un efecto (render en cascada) sin aportar
+    // protección real contra desajustes de hidratación.
+    if (!isTransitioning) return null;
 
     return (
         <div 
