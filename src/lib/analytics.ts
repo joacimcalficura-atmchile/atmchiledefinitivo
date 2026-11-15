@@ -1,4 +1,5 @@
 import { track } from "@vercel/analytics";
+import { hasConsent } from "@/lib/consent";
 
 /**
  * Eventos de conversión del sitio. Hasta ahora solo se medían páginas vistas,
@@ -14,6 +15,8 @@ type ConversionEvent =
     | { name: "chat_start"; props?: undefined };
 
 export function trackConversion(event: ConversionEvent): void {
+    // Sin consentimiento de analítica no se envía nada (Ley 21.719).
+    if (!hasConsent("analytics")) return;
     try {
         track(event.name, event.props);
     } catch {

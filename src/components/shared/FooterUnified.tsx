@@ -4,6 +4,7 @@ import React from "react";
 import { m } from "framer-motion";
 import Link from "next/link";
 import { BrandPattern } from "@/components/ui/BrandPattern";
+import { openConsentPreferences } from "@/lib/consent";
 import { 
   Mail, 
   MapPin, 
@@ -18,7 +19,7 @@ import {
 
 const socialLinks = [
   { icon: Linkedin, href: "https://www.linkedin.com/company/atm-future-solution-spa/", label: "LinkedIn" },
-  { icon: Instagram, href: "https://www.instagram.com/atm_chile/", label: "Instagram" },
+  { icon: Instagram, href: "https://www.instagram.com/atmchile_com/", label: "Instagram" },
 ];
 
 const footerLinks = [
@@ -108,6 +109,18 @@ export const FooterUnified = () => {
                     </Link>
                   </li>
                 ))}
+                {column.title === "Legal" && (
+                  <li>
+                    <button
+                      type="button"
+                      onClick={openConsentPreferences}
+                      className="group flex items-center text-slate-600 hover:text-brand-cobalt text-sm transition-colors"
+                    >
+                      <ArrowRight size={14} className="mr-0 opacity-0 -translate-x-2 group-hover:mr-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                      Preferencias de cookies
+                    </button>
+                  </li>
+                )}
               </ul>
             </div>
           ))}
