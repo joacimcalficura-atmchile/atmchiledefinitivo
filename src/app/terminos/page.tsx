@@ -1,16 +1,29 @@
 import Link from "next/link";
 import { SITE } from "@/data/site";
 import { ControllerCard, LegalDocument, type LegalSection } from "@/components/legal/LegalDocument";
+import { LEGAL_EFFECTIVE_DATE } from "@/components/legal/legal-meta";
 
-const ul = "list-disc space-y-2 pl-5 marker:text-slate-400";
+/*
+ * Texto definitivo entregado por ATM (redactado con su asesoría legal).
+ * No editar el contenido sin su validación.
+ */
+
+const domain = SITE.url.replace("https://", "");
 
 const sections: LegalSection[] = [
     {
         id: "titular",
-        title: "Titular del sitio",
+        title: "Titular",
         body: (
             <>
-                <p>El sitio web {SITE.url.replace("https://", "")} es operado por:</p>
+                <p>
+                    El dominio web{" "}
+                    <a href={SITE.url} className="font-semibold text-[#176BDE] underline underline-offset-2">
+                        {domain}
+                    </a>{" "}
+                    es operado y es de propiedad exclusiva de {SITE.legalName}, RUT {SITE.rut}, con domicilio comercial
+                    en {SITE.address}.
+                </p>
                 <ControllerCard />
             </>
         ),
@@ -20,28 +33,20 @@ const sections: LegalSection[] = [
         title: "Objeto y aceptación",
         body: (
             <p>
-                Estos Términos y Condiciones regulan el acceso y uso de este sitio web. Al navegar en él y seleccionar
-                una opción en el aviso de ingreso, declaras haberlos leído y aceptado, junto con la{" "}
-                <Link href="/privacidad" className="font-semibold text-[#176BDE] underline underline-offset-2">
-                    Política de Privacidad y Seguridad
-                </Link>
-                . Si no estás de acuerdo, te pedimos no utilizar el sitio.
+                El ingreso a esta plataforma y la aceptación expresa mediante el aviso de ingreso (clic afirmativo)
+                confieren la calidad de usuario y suponen la total conformidad con el presente instrumento legal.
             </p>
         ),
     },
     {
         id: "uso",
-        title: "Uso del sitio",
+        title: "Uso permitido y prohibido",
         body: (
-            <>
-                <p>Te comprometes a usar el sitio de forma lícita y de buena fe. En particular, no está permitido:</p>
-                <ul className={ul}>
-                    <li>Intentar acceder sin autorización a sistemas, cuentas o datos de {SITE.name} o de terceros.</li>
-                    <li>Introducir código malicioso o realizar acciones que afecten la disponibilidad o seguridad del sitio.</li>
-                    <li>Enviar información falsa o suplantar la identidad de otra persona u organización.</li>
-                    <li>Extraer contenidos de forma masiva o automatizada sin autorización previa.</li>
-                </ul>
-            </>
+            <p>
+                El sitio está destinado a la información, contacto y evaluación comercial B2B. Queda estrictamente
+                prohibido su uso para fines ilícitos, ingeniería inversa, alteración de servidores, extracción masiva de
+                datos (web scraping) o cualquier acción que vulnere la integridad de la infraestructura de ATM Chile.
+            </p>
         ),
     },
     {
@@ -49,64 +54,63 @@ const sections: LegalSection[] = [
         title: "Propiedad intelectual",
         body: (
             <p>
-                Los textos, diseños, logotipos, marcas, gráficas y demás contenidos del sitio pertenecen a {SITE.legalName}
-                {" "}o a sus respectivos titulares, y están protegidos por la legislación de propiedad intelectual e
-                industrial. Su reproducción, distribución o modificación requiere autorización previa y por escrito.
-                Las marcas de terceros que aparecen en el sitio identifican a clientes, aliados o tecnologías con las que
-                trabajamos y pertenecen a sus titulares.
+                Toda la arquitectura, código subyacente, diseños, textos descriptivos, modelos comerciales y el slogan
+                &quot;A tu medida&quot; constituyen creaciones intelectuales exclusivas de ATM Chile y se encuentran
+                amparados bajo la Ley 17.336 de Propiedad Intelectual. Queda estrictamente prohibida su copia,
+                distribución o reproducción no autorizada.
             </p>
         ),
     },
     {
-        id: "servicios",
-        title: "Información sobre servicios",
+        id: "servicios-leasing",
+        title: "Información sobre servicios y leasing",
         body: (
-            <>
-                <p>
-                    La información publicada sobre nuestros servicios, incluido el leasing de software, es referencial y
-                    no constituye una oferta vinculante. Las condiciones de cada proyecto (alcance, plazos, precio,
-                    niveles de servicio, propiedad intelectual de los desarrollos y garantías) se establecen en la
-                    propuesta y en el contrato que se suscriba con cada cliente.
-                </p>
-                <p>
-                    Salvo pacto en contrario, {SITE.legalName} conserva la titularidad de sus marcos de trabajo,
-                    componentes reutilizables y metodologías propias.
-                </p>
-            </>
+            <p>
+                Toda la información dispuesta sobre desarrollo de software a medida, integración ERP, ciberseguridad y
+                el modelo de negocio denominado &quot;leasing de software&quot;, es de carácter puramente referencial,
+                publicitario y no vinculante. Las condiciones definitivas, los montos de las cuotas, la adquisición de
+                la licencia perpetua y los porcentajes de retribución por comercialización a terceros se regulan,
+                perfeccionan y ejecutan única y exclusivamente según lo estipulado en el respectivo contrato de
+                confidencialidad y servicios que se suscriba de mutuo acuerdo con cada cliente.
+            </p>
         ),
     },
     {
         id: "enlaces",
-        title: "Enlaces a sitios de terceros",
+        title: "Enlaces a terceros",
         body: (
             <p>
-                El sitio puede contener enlaces a sitios de terceros, como redes sociales o aliados. No somos
-                responsables de sus contenidos ni de sus políticas de privacidad, que te recomendamos revisar.
+                El portal puede contener vínculos a plataformas externas (ej. herramientas de Meta o pasarelas). ATM
+                Chile no asume responsabilidad alguna por el contenido, seguridad o políticas de privacidad aplicadas en
+                dichos dominios de terceros.
             </p>
         ),
     },
     {
         id: "responsabilidad",
-        title: "Disponibilidad y responsabilidad",
+        title: "Disponibilidad, limitación de responsabilidad e indemnidad",
         body: (
             <p>
-                Procuramos mantener el sitio disponible y su información actualizada, pero no garantizamos la ausencia
-                de interrupciones o errores. En la máxima medida permitida por la ley, {SITE.legalName} no responde por
-                daños derivados del uso del sitio o de la imposibilidad de acceder a él. Esta limitación no afecta los
-                derechos que la ley reconoce a los consumidores.
+                El Service Level Agreement (SLA) de disponibilidad del 99,597 % es una métrica de infraestructura que
+                aplica de forma exclusiva a los servicios de software final ya contratados. Este sitio web informativo
+                se provee &quot;tal cual&quot;. En consecuencia, ATM Chile no se hace responsable por caídas de red,
+                eventos de fuerza mayor tecnológica (tales como desconexiones de ISP, fallos de infraestructura de
+                alojamiento externa o ciberataques) que impidan temporalmente el acceso. Asimismo, el usuario se obliga
+                a mantener indemne a ATM Chile ante cualquier reclamo, demanda o sanción impulsada por terceros que
+                derive directamente del uso indebido del sitio por parte del usuario.
             </p>
         ),
     },
     {
-        id: "datos-personales",
-        title: "Protección de datos personales",
+        id: "datos",
+        title: "Protección de datos",
         body: (
             <p>
-                El tratamiento de los datos personales que entregues a través del sitio se rige por nuestra{" "}
+                Todo dato personal recopilado en el portal se gestiona en estricto rigor con nuestra{" "}
                 <Link href="/privacidad" className="font-semibold text-[#176BDE] underline underline-offset-2">
                     Política de Privacidad y Seguridad
                 </Link>
-                , conforme a la Ley N° 19.628, modificada por la Ley N° 21.719.
+                , sujeta a los tribunales y regulaciones de la República de Chile.
             </p>
         ),
     },
@@ -115,8 +119,9 @@ const sections: LegalSection[] = [
         title: "Modificaciones",
         body: (
             <p>
-                Podemos modificar estos Términos para reflejar cambios legales o en nuestros servicios. Cada nueva
-                versión se publicará en esta página con su número y fecha de vigencia.
+                ATM Chile se reserva el derecho de modificar estos términos de manera unilateral para adaptarlos a
+                novedades legislativas o tecnológicas. Toda modificación será oponible desde el momento de su
+                publicación.
             </p>
         ),
     },
@@ -125,9 +130,11 @@ const sections: LegalSection[] = [
         title: "Ley aplicable y jurisdicción",
         body: (
             <p>
-                Estos Términos se rigen por las leyes de la República de Chile. Las partes procurarán resolver de buena
-                fe cualquier controversia. De no lograrse un acuerdo, esta se someterá a los tribunales ordinarios de
-                justicia de la ciudad de Santiago.
+                El presente instrumento se rige íntegramente por las leyes de la República de Chile. Para todos los
+                efectos legales, toda controversia derivada de este documento será sometida a la competencia de los
+                Tribunales Ordinarios de Justicia de la ciudad y comuna de Santiago, o bien, resuelta mediante arbitraje
+                conforme a las reglas del Centro de Arbitraje y Mediación (CAM) de Santiago, si las partes así lo
+                acuerdan por escrito.
             </p>
         ),
     },
@@ -139,12 +146,12 @@ export default function TerminosPage() {
             eyebrow="Documento legal"
             title="Términos y Condiciones de Uso"
             version="1.0"
-            effectiveDate="15 de noviembre de 2026"
+            effectiveDate={LEGAL_EFFECTIVE_DATE}
             summary={
                 <p>
-                    Estos términos establecen las reglas de uso del sitio web de {SITE.name} y el alcance de la
-                    información que publicamos. Las condiciones de cada servicio contratado se rigen por su propuesta y
-                    contrato específicos.
+                    Establece el marco jurídico para el uso del sitio corporativo de ATM Chile, resguardando los activos
+                    de propiedad intelectual, delimitando las responsabilidades por infraestructura y aclarando la
+                    naturaleza referencial del modelo comercial de &quot;leasing&quot;.
                 </p>
             }
             sections={sections}

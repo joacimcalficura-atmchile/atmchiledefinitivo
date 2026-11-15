@@ -8,7 +8,7 @@
 
 export const SITE = {
     name: "ATM Chile",
-    legalName: "ATM Future Solution SpA",
+    legalName: "ATM Future Solutions SpA",
     url: "https://www.atmchile.com",
     locale: "es_CL",
     tagline: "A tu medida",
@@ -19,11 +19,11 @@ export const SITE = {
     whatsapp: "56935708665",
     whatsappDisplay: "+56 9 3570 8665",
     region: "Región Metropolitana, Chile",
-    address: "Santa Magdalena 75, Providencia, Santiago, Chile",
-    /** RUT de la razón social. Vacío = no se muestra (no inventar). */
-    rut: "",
+    address: "Santa Magdalena 75, Of. 304, Providencia, Región Metropolitana, Santiago",
+    /** RUT de la razón social. */
+    rut: "78.340.292-0",
     /** Canal para ejercer derechos de protección de datos. */
-    privacyEmail: "contacto@atmchile.com",
+    privacyEmail: "joacim.calficura@atmchile.cl",
 } as const;
 
 export interface SocialLink {

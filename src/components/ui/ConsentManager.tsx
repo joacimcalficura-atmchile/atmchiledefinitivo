@@ -23,6 +23,14 @@ const btn =
     "inline-flex h-11 items-center justify-center rounded-lg px-5 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#176BDE]";
 const btnDark = `${btn} bg-[#0F1215] text-white hover:bg-[#2A2D33]`;
 const btnBlue = `${btn} bg-[#176BDE] text-white hover:bg-[#0E4FA5]`;
+const btnOutline = `${btn} border border-[#0F1215] text-[#0F1215] hover:bg-slate-100`;
+
+/** Textos oficiales del aviso de ingreso (entregados por ATM). */
+const CATEGORIES = [
+    { title: "Esenciales", description: "Necesarias para que el sitio funcione." },
+    { title: "Analíticas", description: "Miden el tráfico web de forma anónima." },
+    { title: "Marketing", description: "Personalizan publicidad B2B." },
+] as const;
 
 export function ConsentManager() {
     const pathname = usePathname();
@@ -71,9 +79,8 @@ export function ConsentManager() {
 
     const acceptance = (
         <>
-            Al seleccionar una opción declaras haber leído y aceptado los{" "}
-            <Link href="/terminos" className={link}>Términos y Condiciones</Link> y la{" "}
-            <Link href="/privacidad" className={link}>Política de Privacidad y Seguridad</Link>.
+            Al continuar, aceptas nuestros <Link href="/terminos" className={link}>Términos</Link> y{" "}
+            <Link href="/privacidad" className={link}>Política de Privacidad</Link>.
         </>
     );
 
@@ -87,14 +94,14 @@ export function ConsentManager() {
             >
                 <div className="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-4 md:flex-row md:items-center md:gap-6">
                     <p className="text-[13px] leading-5 text-slate-700 md:flex-1">
-                        Usamos cookies esenciales y, con tu autorización, de analítica y marketing. {acceptance}
+                        {acceptance} Utilizamos cookies para mejorar tu experiencia.
                     </p>
                     <div className="grid shrink-0 grid-cols-2 gap-2 md:flex">
-                        <button type="button" onClick={() => decide({ analytics: false, marketing: false })} className={btnDark}>
-                            Rechazar opcionales
-                        </button>
                         <button type="button" onClick={() => decide({ analytics: true, marketing: true })} className={btnBlue}>
                             Aceptar todas
+                        </button>
+                        <button type="button" onClick={() => decide({ analytics: false, marketing: false })} className={btnDark}>
+                            Rechazar opcionales
                         </button>
                         <button
                             type="button"
@@ -118,7 +125,7 @@ export function ConsentManager() {
                 aria-modal="true"
                 aria-labelledby="consent-title"
                 aria-describedby="consent-desc"
-                className="w-full max-w-[540px] overflow-hidden rounded-t-2xl outline-none bg-white shadow-[0_24px_80px_rgba(15,18,21,0.35)] sm:rounded-2xl"
+                className="w-full max-w-[560px] overflow-hidden rounded-t-2xl outline-none bg-white shadow-[0_24px_80px_rgba(15,18,21,0.35)] sm:rounded-2xl"
             >
                 <div className="flex items-center justify-between bg-[#0F1215] px-6 py-4">
                     <Image
@@ -136,70 +143,68 @@ export function ConsentManager() {
 
                 <div className="max-h-[72vh] overflow-y-auto px-6 pb-6 pt-5">
                     <h2 id="consent-title" className="text-lg font-bold tracking-tight text-[#0F1215]">
-                        {customize ? "Preferencias de cookies" : "Antes de continuar"}
+                        Privacidad y Configuración de Cookies
                     </h2>
                     <p id="consent-desc" className="mt-2 text-sm leading-6 text-slate-600">
-                        Este sitio utiliza cookies esenciales para su funcionamiento y, solo con tu autorización, cookies
-                        de analítica y marketing. Tratamos tus datos conforme a la Ley N° 19.628 y la Ley N° 21.719.{" "}
-                        {acceptance}
+                        {acceptance} Utilizamos cookies para mejorar tu experiencia:
                     </p>
+                    {!customize && (
+                        <ul className="mt-3 space-y-1.5 text-sm leading-6 text-slate-600">
+                            {CATEGORIES.map((c) => (
+                                <li key={c.title} className="flex gap-2">
+                                    <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#176BDE]" />
+                                    <span>
+                                        <strong className="font-semibold text-[#0F1215]">{c.title}:</strong> {c.description}
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
 
                     {customize && (
                         <div className="mt-5 divide-y divide-slate-200 rounded-xl border border-slate-200">
                             <PreferenceRow
-                                title="Esenciales"
-                                description="Funcionamiento del sitio, registro de tu elección y protección de formularios."
+                                title={CATEGORIES[0].title}
+                                description={CATEGORIES[0].description}
                                 checked
                                 disabled
                             />
                             <PreferenceRow
-                                title="Analítica"
-                                description="Medición de visitas y de contactos generados."
+                                title={CATEGORIES[1].title}
+                                description={CATEGORIES[1].description}
                                 checked={analytics}
                                 onChange={setAnalytics}
                             />
                             <PreferenceRow
-                                title="Marketing"
-                                description="Medición de campañas publicitarias en redes sociales."
+                                title={CATEGORIES[2].title}
+                                description={CATEGORIES[2].description}
                                 checked={marketing}
                                 onChange={setMarketing}
                             />
                         </div>
                     )}
 
-                    <div className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                        <button
-                            type="button"
-                            onClick={() => decide({ analytics: false, marketing: false })}
-                            className={btnDark}
-                        >
-                            Rechazar opcionales
-                        </button>
+                    <div className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-3">
                         <button type="button" onClick={() => decide({ analytics: true, marketing: true })} className={btnBlue}>
                             Aceptar todas
                         </button>
-                    </div>
-
-                    <div className="mt-4 flex items-center justify-between gap-4 text-sm">
+                        <button type="button" onClick={() => decide({ analytics: false, marketing: false })} className={btnDark}>
+                            Rechazar opcionales
+                        </button>
                         {customize ? (
-                            <button
-                                type="button"
-                                onClick={() => decide({ analytics, marketing })}
-                                className="font-semibold text-[#0F1215] underline underline-offset-2 hover:text-[#176BDE]"
-                            >
-                                Guardar mi selección
+                            <button type="button" onClick={() => decide({ analytics, marketing })} className={btnOutline}>
+                                Guardar selección
                             </button>
                         ) : (
-                            <button
-                                type="button"
-                                onClick={() => setCustomize(true)}
-                                className="font-semibold text-[#0F1215] underline underline-offset-2 hover:text-[#176BDE]"
-                            >
-                                Configurar preferencias
+                            <button type="button" onClick={() => setCustomize(true)} className={btnOutline}>
+                                Configurar
                             </button>
                         )}
-                        <span className="text-right text-xs text-slate-500">Responsable: {SITE.legalName}</span>
                     </div>
+
+                    <p className="mt-4 text-center text-xs text-slate-500">
+                        Responsable: {SITE.legalName} · RUT {SITE.rut}
+                    </p>
                 </div>
             </div>
         </div>
