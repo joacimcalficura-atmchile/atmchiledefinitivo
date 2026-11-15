@@ -63,10 +63,25 @@ const nextConfig: NextConfig = {
     // Consola limpia en producción: se conservan error/warn para observabilidad en el servidor
     removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
   },
+  images: {
+    // AVIF primero (≈20-30 % más liviano que WebP); los hero son PNG de 1-2 MB.
+    formats: ['image/avif', 'image/webp'],
+  },
   async redirects() {
     return [
       {
         source: '/profepyme',
+        destination: '/insights',
+        permanent: true,
+      },
+      // URLs de la web anterior que Google aún tiene indexadas.
+      {
+        source: '/services/:path*',
+        destination: '/servicios',
+        permanent: true,
+      },
+      {
+        source: '/feed',
         destination: '/insights',
         permanent: true,
       },

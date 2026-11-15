@@ -9,7 +9,7 @@
 export const SITE = {
     name: "ATM Chile",
     legalName: "ATM Future Solution SpA",
-    url: "https://atmchile.com",
+    url: "https://www.atmchile.com",
     locale: "es_CL",
     tagline: "A tu medida",
     description:

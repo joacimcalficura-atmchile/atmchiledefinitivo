@@ -582,6 +582,10 @@ export default function SeguridadPage() {
                 <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 -skew-x-12 transform origin-top translate-x-20 pointer-events-none" />
                 <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-blue-50/30 blur-[120px] pointer-events-none" />
 
+                {/* La página no tenía H1. El diseño no muestra un título visible, así
+                    que queda solo para buscadores y lectores de pantalla. */}
+                <h1 className="sr-only">Ciberseguridad para empresas en Chile: Ley Marco N°21.663 y NCh-ISO 27001</h1>
+
                 <m.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}

@@ -19,6 +19,7 @@ import {
 import dynamic from "next/dynamic";
 import { TurnstileWidget } from "@/components/ui/TurnstileWidget";
 import { validatePersonName } from "@/lib/anti-spam";
+import { trackConversion } from "@/lib/analytics";
 
 // Three.js + react-three-fiber (~430 KB) fuera del bundle inicial: este bloque
 // vive bajo el pliegue, así que se carga en cliente cuando hace falta.
@@ -125,6 +126,7 @@ export const AdmissionAgent = () => {
                  throw new Error('No pudimos procesar tu solicitud en este momento. Escríbenos a contacto@atmchile.com y te atenderemos de inmediato.');
              }
 
+             trackConversion({ name: "lead_submit", props: { form: "club100" } });
              setStep(9);
          } catch (error: unknown) {
              console.error('Error submitting form:', error);

@@ -28,22 +28,20 @@ export const TransitionLink = ({
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     // Skip interception for external links
     if (target === "_blank" || href.startsWith("http")) return;
+    // Ctrl/Cmd/Shift + clic o clic medio: que el navegador abra la pestaña nueva.
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
 
-    // 1. Prevent instant navigation
     e.preventDefault();
 
-    // 2. Activate cinematic overlay
+    // Antes se esperaban 800 ms fijos (pensados para una animación de Spline
+    // que ya no existe) antes de navegar, más 400 ms de overlay: 1,2 s de
+    // espera en cada clic del menú. Ahora se navega de inmediato y el overlay
+    // solo cubre el cambio de página.
     setIsTransitioning(true);
-
-    // 3. Wait 800ms for Spline to spin, then push route
+    router.push(href);
     setTimeout(() => {
-      router.push(href);
-
-      // 4. Wait 400ms for new page to hydrate, then fade out
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 400);
-    }, 800);
+      setIsTransitioning(false);
+    }, 350);
   };
 
   return (

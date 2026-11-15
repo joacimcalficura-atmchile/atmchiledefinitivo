@@ -74,8 +74,12 @@ export const HomeUnified = () => {
     const [currentImageIdx, setCurrentImageIdx] = useState(0);
     const { containerRef, isVisible, shouldLoad, isMobile } = usePerformanceOptimization({ threshold: 0.1 });
 
+    // false hasta la primera rotación del carrusel del hero (ver `initial` abajo).
+    const [heroHasRotated, setHeroHasRotated] = useState(false);
+
     useEffect(() => {
         const interval = setInterval(() => {
+            setHeroHasRotated(true);
             setCurrentImageIdx((prev) => (prev + 1) % HERO_IMAGES.length);
         }, 7000);
         return () => clearInterval(interval);
@@ -90,7 +94,10 @@ export const HomeUnified = () => {
                     <AnimatePresence mode="wait">
                         <m.div
                             key={currentImageIdx}
-                            initial={{ opacity: 0, scale: 1.05 }}
+                            // La primera imagen se pinta visible desde el HTML del servidor:
+                            // con opacity 0 + fundido de 2 s, el LCP móvil llegaba a ~7 s.
+                            // El fundido queda para las rotaciones siguientes.
+                            initial={heroHasRotated ? { opacity: 0, scale: 1.05 } : false}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 2, ease: "easeInOut" }}
@@ -114,8 +121,10 @@ export const HomeUnified = () => {
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <m.div
-                            initial={{ opacity: 0, x: -40 }}
-                            animate={{ opacity: 1, x: 0 }}
+                            // Sin opacity 0 inicial: el H1 es candidato a LCP y un texto
+                            // invisible no cuenta como pintado. Se conserva el deslizamiento.
+                            initial={{ x: -40 }}
+                            animate={{ x: 0 }}
                             transition={{ duration: 1.2, ease: smoothEase }}
                             className="max-w-2xl"
                         >

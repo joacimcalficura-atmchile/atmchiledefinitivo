@@ -74,6 +74,7 @@ const ModernMessage = ({ msg, isLoading }: { msg?: MessageContent; isLoading?: b
 // ============================================================================
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
+import { trackConversion } from "@/lib/analytics";
 
 // ... (ModernMessage se mantiene igual)
 
@@ -105,6 +106,7 @@ export const FloatingChatWidget = () => {
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
+    if (messages.length === 0) trackConversion({ name: "chat_start" });
     sendMessage({ text: input });
     setInput("");
   };

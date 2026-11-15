@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/talento" },
   title: "Talento Senior On-Demand | Células de Desarrollo en Chile",
   description: "Ingeniería de software de élite integrada a su flujo de trabajo. Equipos ágiles senior bajo estándares Audit-Ready y Clean Code para escalar su negocio.",
   keywords: ["talento it chile", "desarrolladores senior on-demand", "células ágiles chile", "ingeniería de software senior", "ATM Chile talento"],
