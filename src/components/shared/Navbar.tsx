@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { m, AnimatePresence, LayoutGroup } from "framer-motion";
-import { Home, Zap, Shield, Users, BookOpen, Mail } from "lucide-react";
+import { Home, Zap, Wallet, Shield, Users, BookOpen, Mail } from "lucide-react";
 import { TransitionLink } from "@/components/navigation/TransitionLink";
 
 const navItems = [
   { name: "Inicio",    href: "/",          icon: <Home     size={18} /> },
   { name: "Servicios", href: "/servicios", icon: <Zap      size={18} /> },
+  { name: "Leasing",   href: "/leasing-de-software", icon: <Wallet size={18} /> },
   { name: "Seguridad", href: "/seguridad", icon: <Shield   size={18} /> },
   { name: "Talento",   href: "/talento",   icon: <Users    size={18} /> },
   { name: "Insights",  href: "/insights",  icon: <BookOpen size={18} /> },
@@ -34,7 +35,7 @@ export const Navbar = () => {
   return (
     <nav
       aria-label="Navegación principal"
-      className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] flex gap-1 p-2 bg-white/70 backdrop-blur-2xl border border-white/20 rounded-full shadow-2xl"
+      className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] flex gap-0.5 p-1.5 sm:gap-1 sm:p-2 bg-white/70 backdrop-blur-2xl border border-white/20 rounded-full shadow-2xl"
     >
       <LayoutGroup>
         {navItems.map((item, index) => {
@@ -58,7 +59,7 @@ export const Navbar = () => {
 
               <m.div
                 layout
-                className={`relative z-10 flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold transition-colors duration-300 ${
+                className={`relative z-10 flex items-center gap-2 rounded-full px-2.5 py-2 sm:px-3 text-sm font-semibold transition-colors duration-300 ${
                   isActive
                     ? "text-[#176BDE]"
                     : "text-slate-500 hover:text-slate-800"
@@ -81,7 +82,7 @@ export const Navbar = () => {
                       animate={{ opacity: 1, width: "auto" }}
                       exit={{ opacity: 0, width: 0 }}
                       transition={{ type: "spring", stiffness: 500, damping: 35 }}
-                      className="overflow-hidden whitespace-nowrap text-[11px] uppercase tracking-widest"
+                      className="hidden overflow-hidden whitespace-nowrap text-[11px] uppercase tracking-widest sm:inline"
                     >
                       {item.name}
                     </m.span>
