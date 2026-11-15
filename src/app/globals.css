@@ -191,3 +191,7 @@ body {
 @utility sci-fi-glowing-ring {
   animation: sci-fi-glowing-ring 2s infinite ease-in-out;
 }
+/* Con Lenis activo el scroll suave lo maneja JS: el `scroll-behavior: smooth` nativo lo haría tironear. */
+html.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}

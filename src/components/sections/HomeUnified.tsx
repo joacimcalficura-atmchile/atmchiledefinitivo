@@ -20,6 +20,7 @@ const StrategicAllies = dynamic(() => import("./StrategicAllies").then(mod => mo
 import { usePerformanceOptimization } from "@/hooks/usePerformanceOptimization";
 import { getFeaturedArticles } from "@/data/insights";
 import { BrandPattern } from "@/components/ui/BrandPattern";
+import { SectionRail, type RailSection } from "@/components/ui/SectionRail";
 
 
 // Premium Easing Curves
@@ -73,6 +74,20 @@ const HERO_IMAGES = [
     "/images/hero/hero-ferreteria.webp"
 ];
 
+// Navegador lateral (rayitas a la izquierda): una entrada por sección, en el orden de la página.
+const RAIL_SECTIONS: RailSection[] = [
+    { id: "inicio", title: "Inicio", summary: "Partner tecnológico 360° para empresas chilenas: software a medida, IA y ciberseguridad." },
+    { id: "aliados", title: "Empresas que confían", summary: "Organizaciones que ya integran sus procesos con ATM." },
+    { id: "reels", title: "Lo último en video", summary: "Casos reales, cursos y tecnología contada en menos de un minuto." },
+    { id: "productos", title: "Productos propios", summary: "CRM y ERP desarrollados por ATM, listos para operar." },
+    { id: "leasing", title: "Leasing de software", summary: "Tu sistema a medida, pagado en cuotas." },
+    { id: "insights", title: "Insights", summary: "Los plazos normativos que ya están corriendo en Chile." },
+    { id: "ecosistema", title: "Ecosistema 360", summary: "Integración con las plataformas y estándares globales." },
+    { id: "servicios", title: "Servicios estratégicos", summary: "Talento senior, IA generativa y ciberseguridad 360." },
+    { id: "club100", title: "Club 100", summary: "Alianza restringida a 100 empresas, con ingeniería de élite y soporte prioritario." },
+    { id: "admision-form", title: "Portal de Admisión", summary: "Postula tu empresa y cuéntanos tu proyecto." },
+];
+
 interface HomeUnifiedProps {
     /** Sección de reels de Instagram (Server Component con ISR), inyectada desde `app/page.tsx`. */
     readonly reels?: React.ReactNode;
@@ -95,8 +110,9 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
 
     return (
         <React.Fragment>
+            <SectionRail sections={RAIL_SECTIONS} />
             {/* Hero Section */}
-            <section className="relative pt-20 pb-32 overflow-hidden">
+            <section id="inicio" className="relative pt-20 pb-32 overflow-hidden">
                 {/* Dynamic Background Carousel */}
                 <div className="absolute inset-0 z-0 bg-slate-950">
                     <AnimatePresence mode="wait">
@@ -220,7 +236,7 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
             <DevelopedProducts />
 
             {/* Leasing de software: diferenciador, enlaza a /leasing-de-software */}
-            <section className="relative isolate overflow-hidden bg-[#0F1215] py-20 md:py-24">
+            <section id="leasing" className="relative isolate overflow-hidden bg-[#0F1215] py-20 md:py-24">
                 <BrandPattern tone="onDark" opacity={0.08} className="-z-10" />
                 <div className="mx-auto flex max-w-6xl flex-col items-start gap-10 px-4 sm:px-6 lg:px-8 md:flex-row md:items-center md:justify-between">
                     <div className="max-w-2xl">
@@ -244,7 +260,7 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
             </section>
 
             {/* Insights Preview — lee del registro único de `src/data/insights` */}
-            <section className="py-24 bg-slate-50 relative overflow-hidden">
+            <section id="insights" className="py-24 bg-slate-50 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-80 h-80 bg-[#176BDE]/5 blur-[120px] rounded-full pointer-events-none" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
@@ -294,7 +310,7 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
 
 
             {/* Services Section */}
-            <section className="py-32 bg-white relative">
+            <section id="servicios" className="py-32 bg-white relative">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <m.div
                         initial={{ opacity: 0, y: 30 }}
