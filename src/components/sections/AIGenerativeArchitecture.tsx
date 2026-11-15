@@ -151,17 +151,17 @@ const ComparisonCard = ({ item }: { item: ComparisonItem }) => (
             className="relative p-4 rounded-xl border"
             style={{
                 background:
-                    "linear-gradient(135deg, rgba(23, 107, 222,0.04) 0%, rgba(34,211,238,0.04) 100%)",
+                    "linear-gradient(135deg, rgba(23, 107, 222,0.04) 0%, rgba(22, 243, 232,0.04) 100%)",
                 borderColor: "rgba(23, 107, 222,0.12)",
             }}
         >
             <div className="absolute top-3 right-3">
-                <span className="text-[9px] font-bold tracking-[0.15em] uppercase text-[#0047AB] bg-[#0047AB]/8 px-2 py-0.5 rounded-full border border-[#0047AB]/10">
+                <span className="text-[9px] font-bold tracking-[0.15em] uppercase text-[#176BDE] bg-[#176BDE]/8 px-2 py-0.5 rounded-full border border-[#176BDE]/10">
                     ATM IA Generativa
                 </span>
             </div>
             <div className="flex items-start gap-2.5 mt-4">
-                <Sparkles className="w-4 h-4 text-[#0047AB] mt-0.5 shrink-0" />
+                <Sparkles className="w-4 h-4 text-[#176BDE] mt-0.5 shrink-0" />
                 <p className="text-sm text-slate-800 leading-relaxed font-medium">
                     {item.atm}
                 </p>
@@ -197,13 +197,13 @@ export const AIGenerativeArchitecture = ({
                 {/* ── Header ──────────────────────────── */}
                 <div className="mb-16 flex flex-col md:flex-row justify-between items-start gap-6">
                     <div className="max-w-2xl">
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0047AB]/5 text-[#0047AB] text-xs font-black uppercase tracking-[0.2em] border border-[#0047AB]/10 mb-5">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#176BDE]/5 text-[#176BDE] text-xs font-black uppercase tracking-[0.2em] border border-[#176BDE]/10 mb-5">
                             <BrainCircuit className="w-3.5 h-3.5" />
                             IA Generativa Estratégica
                         </div>
                         <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
                             No es un chatbot.{" "}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0047AB] to-[#22D3EE]">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#176BDE] to-[#16F3E8]">
                                 Es su equipo digital.
                             </span>
                         </h2>
@@ -238,7 +238,7 @@ export const AIGenerativeArchitecture = ({
                                         relative text-left w-full p-5 rounded-2xl border transition-all duration-500 backdrop-blur-xl
                                         ${
                                             isActive
-                                                ? "bg-white/90 border-[#0047AB]/20 shadow-[0_12px_48px_rgba(23, 107, 222,0.12)]"
+                                                ? "bg-white/90 border-[#176BDE]/20 shadow-[0_12px_48px_rgba(23, 107, 222,0.12)]"
                                                 : "bg-white/50 border-white/60 hover:bg-white/70 shadow-sm hover:shadow-md"
                                         }
                                     `}
@@ -249,7 +249,7 @@ export const AIGenerativeArchitecture = ({
                                                 p-3 rounded-xl transition-all duration-500
                                                 ${
                                                     isActive
-                                                        ? "bg-[#0047AB] text-white shadow-lg shadow-[#0047AB]/30"
+                                                        ? "bg-[#176BDE] text-white shadow-lg shadow-[#176BDE]/30"
                                                         : "bg-slate-100 text-slate-500"
                                                 }
                                             `}
@@ -260,7 +260,7 @@ export const AIGenerativeArchitecture = ({
                                             <h3
                                                 className={`text-base font-bold tracking-tight transition-colors duration-500 ${
                                                     isActive
-                                                        ? "text-[#0047AB]"
+                                                        ? "text-[#176BDE]"
                                                         : "text-slate-700"
                                                 }`}
                                             >
@@ -273,7 +273,7 @@ export const AIGenerativeArchitecture = ({
                                         <ChevronRight
                                             className={`w-4 h-4 shrink-0 transition-all duration-300 ${
                                                 isActive
-                                                    ? "text-[#0047AB] translate-x-0.5"
+                                                    ? "text-[#176BDE] translate-x-0.5"
                                                     : "text-slate-300"
                                             }`}
                                         />
@@ -283,7 +283,7 @@ export const AIGenerativeArchitecture = ({
                                     {isActive && (
                                         <m.div
                                             layoutId="ai-active-tab"
-                                            className="absolute left-0 top-4 bottom-4 w-[3px] rounded-full bg-gradient-to-b from-[#0047AB] to-[#22D3EE]"
+                                            className="absolute left-0 top-4 bottom-4 w-[3px] rounded-full bg-gradient-to-b from-[#176BDE] to-[#16F3E8]"
                                             transition={{
                                                 type: "spring",
                                                 stiffness: 350,
@@ -303,13 +303,13 @@ export const AIGenerativeArchitecture = ({
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
                                 transition={{ duration: 0.3 }}
-                                className="mt-2 p-5 rounded-2xl border border-[#0047AB]/10"
+                                className="mt-2 p-5 rounded-2xl border border-[#176BDE]/10"
                                 style={{
                                     background:
-                                        "linear-gradient(135deg, rgba(23, 107, 222,0.03) 0%, rgba(34,211,238,0.03) 100%)",
+                                        "linear-gradient(135deg, rgba(23, 107, 222,0.03) 0%, rgba(22, 243, 232,0.03) 100%)",
                                 }}
                             >
-                                <div className="text-[10px] font-bold tracking-[0.2em] text-[#0047AB] uppercase mb-2">
+                                <div className="text-[10px] font-bold tracking-[0.2em] text-[#176BDE] uppercase mb-2">
                                     Impacto Medido
                                 </div>
                                 <div className="flex items-end gap-3">
@@ -358,14 +358,14 @@ export const AIGenerativeArchitecture = ({
 
                                 {/* Header */}
                                 <div className="flex items-center gap-4 mb-6">
-                                    <div className="p-3 rounded-xl bg-[#0047AB] text-white shadow-lg shadow-[#0047AB]/25">
+                                    <div className="p-3 rounded-xl bg-[#176BDE] text-white shadow-lg shadow-[#176BDE]/25">
                                         {activeSolution.icon}
                                     </div>
                                     <div>
                                         <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">
                                             {activeSolution.title}
                                         </h3>
-                                        <p className="text-sm text-[#0047AB] font-semibold">
+                                        <p className="text-sm text-[#176BDE] font-semibold">
                                             {activeSolution.subtitle}
                                         </p>
                                     </div>
@@ -398,7 +398,7 @@ export const AIGenerativeArchitecture = ({
                                                     }}
                                                     className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50/60 border border-slate-100"
                                                 >
-                                                    <div className="w-1.5 h-1.5 rounded-full bg-[#22D3EE] mt-1.5 shrink-0" />
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-[#16F3E8] mt-1.5 shrink-0" />
                                                     <span className="text-sm text-slate-700 font-medium leading-snug">
                                                         {feat}
                                                     </span>
@@ -480,7 +480,7 @@ export const AIGenerativeArchitecture = ({
                             "0 20px 60px -12px rgba(23, 107, 222,0.08), inset 0 1px 0 rgba(255,255,255,1)",
                     }}
                 >
-                    <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-[#0047AB] mb-8">
+                    <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-[#176BDE] mb-8">
                         Flujo de Integración — De la consulta a la conversión
                     </h3>
 
@@ -491,28 +491,28 @@ export const AIGenerativeArchitecture = ({
                                 title: "Cliente llega",
                                 desc: "Web, WhatsApp, redes sociales o email. Un solo punto de contacto inteligente.",
                                 Icon: Users,
-                                color: "#0047AB",
+                                color: "#176BDE",
                             },
                             {
                                 step: "02",
                                 title: "IA personalizada responde",
                                 desc: "Con el tono de su marca, razonando sobre el perfil del cliente en tiempo real.",
                                 Icon: BrainCircuit,
-                                color: "#0047AB",
+                                color: "#176BDE",
                             },
                             {
                                 step: "03",
                                 title: "CRM califica al lead",
                                 desc: "Scoring automático, segmentación y asignación inteligente al vendedor correcto.",
                                 Icon: BarChart3,
-                                color: "#0047AB",
+                                color: "#176BDE",
                             },
                             {
                                 step: "04",
                                 title: "Conversión medida",
                                 desc: "Dashboards en tiempo real, métricas de conversión y optimización continua con IA.",
                                 Icon: Target,
-                                color: "#22D3EE",
+                                color: "#16F3E8",
                             },
                         ].map((item, i) => (
                             <m.div

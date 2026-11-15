@@ -51,11 +51,11 @@ interface SecurityPillar {
 const PILLARS: SecurityPillar[] = [
     {
         id: "nch-iso-27001",
-        title: "Certificación NCh-ISO 27001",
+        title: "NCh-ISO 27001 · en proceso de certificación",
         shortDesc: "Sistema de Gestión de Seguridad de la Información. Auditorías continuas y gestión robusta de riesgos bajo norma chilena e internacional.",
         icon: <BadgeCheck className="w-5 h-5" />,
         badge: "SGSI · AUDITORÍA · RIESGOS",
-        color: "#3B00B9",
+        color: "#176BDE",
         modal: {
             tag: "NCh-ISO 27001:2022",
             headline: "Sistema de Gestión de Seguridad de la Información",
@@ -164,14 +164,14 @@ const PILLARS: SecurityPillar[] = [
     {
         id: "bcp-drp",
         title: "Continuidad de Negocio (BCP/DRP)",
-        shortDesc: "Planes de recuperación ante desastres, redundancia de servidores y arquitecturas resilientes con SLA de 99.9% de uptime garantizado.",
+        shortDesc: "Planes de recuperación ante desastres, redundancia de servidores y arquitecturas resilientes con un SLA de disponibilidad del 98,99 %.",
         icon: <RefreshCw className="w-5 h-5" />,
         badge: "BCP · RTO<4H · RPO<1H",
         color: "#D97706",
         modal: {
             tag: "ISO 22301 · BCP / DRP",
             headline: "Continuidad Operacional y Recuperación ante Desastres Garantizada",
-            intro: "La continuidad del negocio de nuestros clientes es no negociable. Nuestra arquitectura cloud-native está diseñada para garantizar disponibilidad del 99.9% con planes de recuperación probados y documentados bajo ISO 22301.",
+            intro: "La continuidad del negocio de nuestros clientes es no negociable. Nuestra arquitectura cloud-native está diseñada para garantizar una disponibilidad del 98,99 % (SLA) con planes de recuperación probados y documentados bajo ISO 22301.",
             sections: [
                 {
                     heading: "Arquitectura de Alta Disponibilidad",
@@ -444,7 +444,7 @@ function MobileSecurityCarousel({ pillars, onOpen }: { pillars: SecurityPillar[]
                         onClick={() => { setIdx(i); setPaused(true); }}
                         className={`transition-all duration-700 rounded-full h-1.5 ${
                             i === idx 
-                                ? "w-10 bg-[#3B00B9] shadow-[0_0_12px_rgba(59,0,185,0.4)]" 
+                                ? "w-10 bg-[#176BDE] shadow-[0_0_12px_rgba(23, 107, 222,0.4)]" 
                                 : "w-1.5 bg-slate-200 hover:bg-slate-300"
                         }`}
                         aria-label={`Ir a pilar ${i + 1}`}
@@ -549,7 +549,7 @@ function TechnicalModal({ pillar, onClose }: TechnicalModalProps) {
                         </div>
                         <Link
                             href="/contacto"
-                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-[#3B00B9] text-white rounded-2xl font-bold text-sm hover:scale-[1.02] hover:shadow-xl transition-all"
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-[#176BDE] text-white rounded-2xl font-bold text-sm hover:scale-[1.02] hover:shadow-xl transition-all"
                         >
                             {mdata.cta}
                             <ArrowRight size={16} />
@@ -639,7 +639,7 @@ export default function SeguridadPage() {
                                     <Link
                                         id="cta-auditoria-seguridad"
                                         href="/servicios"
-                                        className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#3B00B9] text-white rounded-2xl font-bold text-sm overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(59,0,185,0.3)] active:scale-[0.98]"
+                                        className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#176BDE] text-white rounded-2xl font-bold text-sm overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(23, 107, 222,0.3)] active:scale-[0.98]"
                                         prefetch={true}
                                     >
                                         <span

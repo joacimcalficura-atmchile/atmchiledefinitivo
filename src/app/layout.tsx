@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/shared/Navbar";
 import { Providers } from "@/components/providers/Providers";
 import { FloatingChatWidget } from "@/components/ui/FloatingChatWidget";
+import { FloatingWhatsApp } from "@/components/ui/FloatingWhatsApp";
 import { Analytics } from "@vercel/analytics/react";
 import { SITE, SOCIAL_LINKS } from "@/data/site";
 
@@ -74,6 +75,7 @@ const jsonLd = {
       url: SITE.url,
       image: `${SITE.url}/logos/ATM_logo.png`,
       email: SITE.email,
+      telephone: `+${SITE.whatsapp}`,
       parentOrganization: { "@id": `${SITE.url}/#organization` },
       address: {
         "@type": "PostalAddress",
@@ -130,6 +132,7 @@ export default function RootLayout({
           </main>
 
           <FloatingChatWidget />
+          <FloatingWhatsApp />
         </Providers>
         <script
           type="application/ld+json"

@@ -17,7 +17,7 @@ export default function PrivacidadPage() {
                 >
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-cobalt/5 border border-brand-cobalt/10 text-brand-cobalt text-xs font-bold uppercase tracking-widest mb-6">
                         <Lock size={14} />
-                        Transparencia & Seguridad ISO 27001
+                        Transparencia & Seguridad · ISO 27001 en proceso
                     </div>
                     <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-6">
                         Política de <span className="text-brand-cobalt">Privacidad</span>

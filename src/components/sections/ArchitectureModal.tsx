@@ -90,7 +90,7 @@ export const ArchitectureModal = ({
                 <button
                     onClick={onClose}
                     aria-label="Cerrar"
-                    className="absolute top-5 right-5 z-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#0047AB] hover:bg-[#003380] text-white transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#0047AB]/30 border border-[#0047AB]/80"
+                    className="absolute top-5 right-5 z-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#176BDE] hover:bg-[#0E4FA5] text-white transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#176BDE]/30 border border-[#176BDE]/80"
                 >
                     <X size={18} />
                 </button>

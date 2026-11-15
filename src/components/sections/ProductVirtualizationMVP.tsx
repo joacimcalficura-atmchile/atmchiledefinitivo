@@ -84,13 +84,13 @@ export const ProductVirtualizationMVP = ({ onClose }: ProductVirtualizationMVPPr
                 {/* Cabecera ------------------------------------------------------- */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                     <div>
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0047AB]/5 border border-[#0047AB]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#0047AB] mb-4">
-                            <Zap size={14} className="text-[#22D3EE]" />
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#176BDE]/5 border border-[#176BDE]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#176BDE] mb-4">
+                            <Zap size={14} className="text-[#16F3E8]" />
                             Demo Comercial B2B
                         </div>
                         <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
                             Catálogo{" "}
-                            <span className="text-[#0047AB]">Interactivo 3D</span>
+                            <span className="text-[#176BDE]">Interactivo 3D</span>
                         </h2>
                         <p className="text-slate-600 text-lg max-w-2xl font-medium">
                             Empodere a su fuerza de ventas. Configure, visualice y cotice
@@ -102,7 +102,7 @@ export const ProductVirtualizationMVP = ({ onClose }: ProductVirtualizationMVPPr
                     {onClose && (
                         <button
                             onClick={onClose}
-                            className="flex items-center gap-2 px-5 py-2.5 bg-white/60 hover:bg-white text-slate-600 hover:text-[#0047AB] rounded-full border border-slate-200 transition-all font-semibold shadow-sm hover:shadow-md"
+                            className="flex items-center gap-2 px-5 py-2.5 bg-white/60 hover:bg-white text-slate-600 hover:text-[#176BDE] rounded-full border border-slate-200 transition-all font-semibold shadow-sm hover:shadow-md"
                         >
                             <X size={18} /> Cerrar Demo
                         </button>
@@ -141,7 +141,7 @@ export const ProductVirtualizationMVP = ({ onClose }: ProductVirtualizationMVPPr
                                     {/* Botón AR — visible en iOS/Android compatibles */}
                                     <button
                                         slot="ar-button"
-                                        className="absolute bottom-4 right-4 bg-white/80 backdrop-blur-md text-[#0047AB] font-bold px-4 py-2 rounded-xl shadow-lg border border-white hover:bg-white transition-all text-xs uppercase tracking-widest"
+                                        className="absolute bottom-4 right-4 bg-white/80 backdrop-blur-md text-[#176BDE] font-bold px-4 py-2 rounded-xl shadow-lg border border-white hover:bg-white transition-all text-xs uppercase tracking-widest"
                                     >
                                         Ver en mi espacio (AR)
                                     </button>
@@ -175,7 +175,7 @@ export const ProductVirtualizationMVP = ({ onClose }: ProductVirtualizationMVPPr
                                     initial={{ opacity: 0, y: -6 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.3 }}
-                                    className="text-2xl font-black text-[#0047AB]"
+                                    className="text-2xl font-black text-[#176BDE]"
                                 >
                                     {currentPrice}{" "}
                                     <span className="text-sm text-slate-400 font-medium">
@@ -198,7 +198,7 @@ export const ProductVirtualizationMVP = ({ onClose }: ProductVirtualizationMVPPr
                                                 key={mat}
                                                 onClick={() => setActiveMaterial(mat)}
                                                 className={`py-3 px-4 rounded-xl text-sm font-semibold transition-all border ${activeMaterial === mat
-                                                    ? "bg-[#0047AB]/5 border-[#0047AB] text-[#0047AB] shadow-sm"
+                                                    ? "bg-[#176BDE]/5 border-[#176BDE] text-[#176BDE] shadow-sm"
                                                     : "bg-white border-slate-200 text-slate-600 hover:border-slate-300"
                                                     }`}
                                             >
@@ -219,7 +219,7 @@ export const ProductVirtualizationMVP = ({ onClose }: ProductVirtualizationMVPPr
                                                 key={cap}
                                                 onClick={() => setActiveCapacidad(cap)}
                                                 className={`py-3 px-4 rounded-xl text-sm font-semibold transition-all border ${activeCapacidad === cap
-                                                    ? "bg-[#0047AB]/5 border-[#0047AB] text-[#0047AB] shadow-sm"
+                                                    ? "bg-[#176BDE]/5 border-[#176BDE] text-[#176BDE] shadow-sm"
                                                     : "bg-white border-slate-200 text-slate-600 hover:border-slate-300"
                                                     }`}
                                             >
@@ -239,7 +239,7 @@ export const ProductVirtualizationMVP = ({ onClose }: ProductVirtualizationMVPPr
                                 className="mt-8 p-5 bg-slate-50 rounded-xl border border-slate-100"
                             >
                                 <p className="text-xs text-slate-500 mb-2 font-medium flex items-center gap-2">
-                                    <CheckCircle2 size={14} className="text-[#22D3EE]" />
+                                    <CheckCircle2 size={14} className="text-[#16F3E8]" />
                                     Configuración validada
                                 </p>
                                 <p className="text-sm text-slate-700 font-semibold">
@@ -249,10 +249,10 @@ export const ProductVirtualizationMVP = ({ onClose }: ProductVirtualizationMVPPr
 
                             {/* CTAs ----------------------------------------------- */}
                             <div className="mt-8 space-y-3">
-                                <button className="w-full py-4 bg-[#0047AB] hover:bg-[#003380] text-white rounded-xl font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 active:scale-[0.98]">
+                                <button className="w-full py-4 bg-[#176BDE] hover:bg-[#0E4FA5] text-white rounded-xl font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 active:scale-[0.98]">
                                     <FileText size={18} /> Generar Cotización PDF
                                 </button>
-                                <button className="w-full py-4 bg-white hover:bg-slate-50 text-[#0047AB] border border-[#0047AB]/20 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 active:scale-[0.98]">
+                                <button className="w-full py-4 bg-white hover:bg-slate-50 text-[#176BDE] border border-[#176BDE]/20 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 active:scale-[0.98]">
                                     <Share2 size={18} /> Compartir Enlace 3D al Cliente
                                 </button>
                             </div>

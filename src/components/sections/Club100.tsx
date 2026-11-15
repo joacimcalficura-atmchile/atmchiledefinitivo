@@ -75,7 +75,7 @@ export const Club100 = () => {
                                 { icon: <ShieldCheck size={20} />, text: "Soporte de Arquitectos Cloud 24/7." }
                             ].map((item, i) => (
                                 <li key={i} className="flex items-center gap-4 text-slate-800 font-semibold">
-                                    <div className="p-2 rounded-lg bg-slate-100 text-[#0047AB]">
+                                    <div className="p-2 rounded-lg bg-slate-100 text-[#176BDE]">
                                         {item.icon}
                                     </div>
                                     {item.text}

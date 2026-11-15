@@ -392,7 +392,7 @@ export const AdmissionAgent = () => {
                                                             onClick={() => handleInputChange('legalStatus', opt)}
                                                             className={`p-4 md:p-5 rounded-2xl text-left font-bold transition-all border-2 text-sm md:text-base ${
                                                                 formData.legalStatus === opt 
-                                                                ? 'bg-brand-cyan border-brand-cyan text-slate-950 shadow-[0_0_20px_rgba(34,211,238,0.4)]' 
+                                                                ? 'bg-brand-cyan border-brand-cyan text-slate-950 shadow-[0_0_20px_rgba(22, 243, 232,0.4)]' 
                                                                 : 'bg-black/40 border-white/20 text-slate-300 hover:border-brand-cyan/40 hover:text-white'
                                                             }`}
                                                         >
@@ -440,7 +440,7 @@ export const AdmissionAgent = () => {
                                                             onClick={() => handleInputChange('whatsappStatus', opt)}
                                                             className={`p-4 md:p-5 rounded-2xl text-left font-bold transition-all border-2 text-sm md:text-base ${
                                                                 formData.whatsappStatus === opt 
-                                                                ? 'bg-brand-cyan border-brand-cyan text-slate-950 shadow-[0_0_20px_rgba(34,211,238,0.4)]' 
+                                                                ? 'bg-brand-cyan border-brand-cyan text-slate-950 shadow-[0_0_20px_rgba(22, 243, 232,0.4)]' 
                                                                 : 'bg-black/40 border-white/20 text-slate-300 hover:border-brand-cyan/40 hover:text-white'
                                                             }`}
                                                         >
@@ -468,7 +468,7 @@ export const AdmissionAgent = () => {
                                                             onClick={() => handleInputChange('painPoint', opt)}
                                                             className={`p-4 md:p-5 rounded-2xl text-left font-bold transition-all border-2 text-sm md:text-base ${
                                                                 formData.painPoint === opt 
-                                                                ? 'bg-brand-cyan border-brand-cyan text-slate-950 shadow-[0_0_20px_rgba(34,211,238,0.4)]' 
+                                                                ? 'bg-brand-cyan border-brand-cyan text-slate-950 shadow-[0_0_20px_rgba(22, 243, 232,0.4)]' 
                                                                 : 'bg-black/40 border-white/20 text-slate-300 hover:border-brand-cyan/40 hover:text-white'
                                                             }`}
                                                         >

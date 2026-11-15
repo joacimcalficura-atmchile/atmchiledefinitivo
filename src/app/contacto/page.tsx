@@ -57,6 +57,7 @@ import dynamic from "next/dynamic";
 import { TurnstileWidget } from "@/components/ui/TurnstileWidget";
 import { validatePersonName } from "@/lib/anti-spam";
 import { trackConversion } from "@/lib/analytics";
+import { SITE } from "@/data/site";
 
 // Three.js fuera del bundle inicial de /contacto (ver AdmissionAgent).
 const FloatingCubes = dynamic(
@@ -89,8 +90,9 @@ export default function ContactoPage() {
     };
 
     // Configuración de contactos reales
-    const WHATSAPP_MANAGER = "56942781028"; 
-    const WHATSAPP_CEO     = "56942781028"; 
+    // Un solo número oficial (SITE.whatsapp): antes la web y Instagram mostraban números distintos.
+    const WHATSAPP_MANAGER = SITE.whatsapp;
+    const WHATSAPP_CEO     = SITE.whatsapp;
     const MANAGER_EMAIL    = "alberto.castillo@atmchile.cl";
     const CEO_EMAIL        = "joacim.calficura@atmchile.cl";
     const LOCATION_TEXT    = "Santa Magdalena 75, Providencia, Santiago de Chile";
@@ -188,7 +190,7 @@ export default function ContactoPage() {
     };
 
     return (
-        <div className="relative min-h-screen bg-[#F8FAFC] selection:bg-[#0047AB] selection:text-white overflow-hidden">
+        <div className="relative min-h-screen bg-[#F8FAFC] selection:bg-[#176BDE] selection:text-white overflow-hidden">
             
             {/* Fondo 3D Antigravedad (Versión Light) */}
             <div className="absolute inset-0 z-0 opacity-40">
@@ -210,13 +212,13 @@ export default function ContactoPage() {
                     transition={{ duration: 0.8, ease: smoothEase }}
                     className="mb-16"
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0047AB]/5 text-[#0047AB] text-xs font-black uppercase tracking-[0.2em] border border-[#0047AB]/10 mb-6">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE] animate-pulse" />
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#176BDE]/5 text-[#176BDE] text-xs font-black uppercase tracking-[0.2em] border border-[#176BDE]/10 mb-6">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#16F3E8] animate-pulse" />
                         B2B Enterprise
                     </div>
                     <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-tight mb-5">
                         ¿Listo para{" "}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0047AB] to-[#22D3EE]">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#176BDE] to-[#16F3E8]">
                             escalar?
                         </span>
                     </h1>
@@ -241,15 +243,15 @@ export default function ContactoPage() {
                             style={{ background: "rgba(255,255,255,0.80)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)" }}
                         >
                             <h3 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
-                                <MessageSquare className="w-5 h-5 text-[#0047AB]" />
+                                <MessageSquare className="w-5 h-5 text-[#176BDE]" />
                                 Información de contacto
                             </h3>
                             <ul className="space-y-6">
                                 {/* Responsable de Operaciones */}
                                 <li className="group">
                                     <div className="flex items-start gap-4 p-2 -m-2 rounded-xl">
-                                        <div className="w-10 h-10 rounded-xl bg-[#0047AB]/8 border border-[#0047AB]/10 flex items-center justify-center shrink-0">
-                                            <Users className="w-5 h-5 text-[#0047AB]" />
+                                        <div className="w-10 h-10 rounded-xl bg-[#176BDE]/8 border border-[#176BDE]/10 flex items-center justify-center shrink-0">
+                                            <Users className="w-5 h-5 text-[#176BDE]" />
                                         </div>
                                         <div className="flex-grow">
                                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Gerente de Proyectos (Operativo)</p>
@@ -273,8 +275,8 @@ export default function ContactoPage() {
                                 {/* Joacim Calficura */}
                                 <li className="group">
                                     <div className="flex items-start gap-4 p-2 -m-2 rounded-xl">
-                                        <div className="w-10 h-10 rounded-xl bg-[#0047AB]/8 border border-[#0047AB]/10 flex items-center justify-center shrink-0">
-                                            <CheckCircle2 className="w-5 h-5 text-[#0047AB]" />
+                                        <div className="w-10 h-10 rounded-xl bg-[#176BDE]/8 border border-[#176BDE]/10 flex items-center justify-center shrink-0">
+                                            <CheckCircle2 className="w-5 h-5 text-[#176BDE]" />
                                         </div>
                                         <div className="flex-grow">
                                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Founder & CEO (Strategic Contact)</p>
@@ -298,7 +300,7 @@ export default function ContactoPage() {
                                 {/* Ubicación */}
                                 <li className="group border-t border-slate-100 pt-6">
                                     <div className="flex items-start gap-4">
-                                        <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0 group-hover:bg-[#0047AB] group-hover:text-white transition-all">
+                                        <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0 group-hover:bg-[#176BDE] group-hover:text-white transition-all">
                                             <MapPin className="w-5 h-5" />
                                         </div>
                                         <div>
@@ -312,19 +314,19 @@ export default function ContactoPage() {
 
                         {/* Card Asesoría Directa */}
                         <div
-                            className="p-8 rounded-2xl border border-[#0047AB]/10 overflow-hidden relative"
+                            className="p-8 rounded-2xl border border-[#176BDE]/10 overflow-hidden relative"
                             style={{
-                                background: "linear-gradient(135deg, rgba(23, 107, 222,0.06) 0%, rgba(34,211,238,0.04) 100%)",
+                                background: "linear-gradient(135deg, rgba(23, 107, 222,0.06) 0%, rgba(22, 243, 232,0.04) 100%)",
                                 backdropFilter: "blur(12px)",
                                 WebkitBackdropFilter: "blur(12px)",
                             }}
                         >
                             {/* Glow fondo */}
                             <div className="absolute top-0 right-0 w-32 h-32 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none"
-                                 style={{ background: "radial-gradient(circle, rgba(34,211,238,0.12), transparent)" }} />
+                                 style={{ background: "radial-gradient(circle, rgba(22, 243, 232,0.12), transparent)" }} />
 
                             <div className="relative">
-                                <Building2 className="w-6 h-6 text-[#0047AB] mb-4" />
+                                <Building2 className="w-6 h-6 text-[#176BDE] mb-4" />
                                 <h4 className="font-bold text-slate-900 text-lg mb-2">Asesoría Directa</h4>
                                 <p className="text-sm text-slate-500 leading-relaxed mb-6">
                                     Recibe una respuesta en menos de 24 horas hábiles por parte de nuestros especialistas senior.
@@ -333,9 +335,9 @@ export default function ContactoPage() {
                                 {/* Avatares del equipo */}
                                 <div className="flex items-center gap-3">
                                     <div className="flex -space-x-2">
-                                        <ConsultantAvatar initials="JC" color="#0047AB" />
-                                        <ConsultantAvatar initials="AC" color="#3B00B9" />
-                                        <ConsultantAvatar initials="RV" color="#22D3EE" />
+                                        <ConsultantAvatar initials="JC" color="#176BDE" />
+                                        <ConsultantAvatar initials="AC" color="#176BDE" />
+                                        <ConsultantAvatar initials="RV" color="#16F3E8" />
                                         <div className="w-10 h-10 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[10px] font-black text-slate-600 shrink-0">
                                             +5
                                         </div>
@@ -375,8 +377,8 @@ export default function ContactoPage() {
                                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                         className="flex flex-col items-center justify-center gap-6 py-16 text-center"
                                     >
-                                        <div className="w-20 h-20 rounded-full bg-[#0047AB]/8 border border-[#0047AB]/15 flex items-center justify-center">
-                                            <ShieldAlert className="w-10 h-10 text-[#0047AB]" />
+                                        <div className="w-20 h-20 rounded-full bg-[#176BDE]/8 border border-[#176BDE]/15 flex items-center justify-center">
+                                            <ShieldAlert className="w-10 h-10 text-[#176BDE]" />
                                         </div>
                                         <div className="max-w-md mx-auto">
                                             <h3 className="text-2xl font-bold text-slate-900 mb-3">Verificación de seguridad no superada</h3>
@@ -386,7 +388,7 @@ export default function ContactoPage() {
                                             </p>
                                             <p className="text-slate-500 text-sm leading-relaxed mt-3">
                                                 Si eres una persona real, escríbenos directamente a{" "}
-                                                <a href="mailto:contacto@atmchile.com" className="font-bold text-[#0047AB] underline underline-offset-2 hover:text-[#003380]">
+                                                <a href="mailto:contacto@atmchile.com" className="font-bold text-[#176BDE] underline underline-offset-2 hover:text-[#0E4FA5]">
                                                     contacto@atmchile.com
                                                 </a>{" "}
                                                 y te atenderemos de inmediato.
@@ -410,8 +412,8 @@ export default function ContactoPage() {
                                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                         className="flex flex-col items-center justify-center gap-6 py-16 text-center"
                                     >
-                                        <div className="w-20 h-20 rounded-full bg-[#0047AB]/10 border border-[#0047AB]/20 flex items-center justify-center">
-                                            <CheckCircle2 className="w-10 h-10 text-[#0047AB]" />
+                                        <div className="w-20 h-20 rounded-full bg-[#176BDE]/10 border border-[#176BDE]/20 flex items-center justify-center">
+                                            <CheckCircle2 className="w-10 h-10 text-[#176BDE]" />
                                         </div>
                                         <div>
                                             <h3 className="text-2xl font-bold text-slate-900 mb-2">¡Solicitud enviada!</h3>
@@ -421,7 +423,7 @@ export default function ContactoPage() {
                                         </div>
                                         <button
                                             onClick={() => { setSubmitted(false); resetForm(); }}
-                                            className="inline-flex items-center gap-2 text-sm font-bold text-[#0047AB] hover:gap-3 transition-all"
+                                            className="inline-flex items-center gap-2 text-sm font-bold text-[#176BDE] hover:gap-3 transition-all"
                                         >
                                             Enviar otra consulta <ArrowRight className="w-4 h-4" />
                                         </button>
@@ -445,7 +447,7 @@ export default function ContactoPage() {
                                                     <button
                                                         type="button"
                                                         onClick={() => setIsWhatsAppMode(false)}
-                                                        className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${!isWhatsAppMode ? 'bg-white text-[#0047AB] shadow-sm' : 'text-slate-400'}`}
+                                                        className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${!isWhatsAppMode ? 'bg-white text-[#176BDE] shadow-sm' : 'text-slate-400'}`}
                                                     >
                                                         Email
                                                     </button>
@@ -502,7 +504,7 @@ export default function ContactoPage() {
                                                     onChange={handleChange}
                                                     required
                                                     placeholder="Ej: Juan Pérez"
-                                                    className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#0047AB]/30 focus:border-[#0047AB] transition-all"
+                                                    className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#176BDE]/30 focus:border-[#176BDE] transition-all"
                                                 />
                                             </div>
                                             <div className="flex flex-col gap-2">
@@ -514,7 +516,7 @@ export default function ContactoPage() {
                                                     onChange={handleChange}
                                                     required
                                                     placeholder="Nombre de tu organización"
-                                                    className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#0047AB]/30 focus:border-[#0047AB] transition-all"
+                                                    className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#176BDE]/30 focus:border-[#176BDE] transition-all"
                                                 />
                                             </div>
                                         </div>
@@ -528,7 +530,7 @@ export default function ContactoPage() {
                                                 onChange={handleChange}
                                                 required
                                                 placeholder="tu@empresa.com"
-                                                className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#0047AB]/30 focus:border-[#0047AB] transition-all"
+                                                className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#176BDE]/30 focus:border-[#176BDE] transition-all"
                                             />
                                         </div>
 
@@ -546,7 +548,7 @@ export default function ContactoPage() {
                                                         value={form.tamano}
                                                         onChange={handleChange}
                                                         required={!isWhatsAppMode}
-                                                        className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#0047AB]/30 focus:border-[#0047AB] transition-all appearance-none cursor-pointer"
+                                                        className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#176BDE]/30 focus:border-[#176BDE] transition-all appearance-none cursor-pointer"
                                                     >
                                                         <option value="" disabled>Selecciona una opción</option>
                                                         <option value="startup">Startup (1-10 empleados)</option>
@@ -565,7 +567,7 @@ export default function ContactoPage() {
                                                         required={!isWhatsAppMode}
                                                         rows={4}
                                                         placeholder="Cuéntanos sobre tu proyecto, necesidades o desafíos tecnológicos..."
-                                                        className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#0047AB]/30 focus:border-[#0047AB] transition-all resize-none"
+                                                        className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#176BDE]/30 focus:border-[#176BDE] transition-all resize-none"
                                                     />
                                                 </div>
                                             </m.div>
@@ -594,7 +596,7 @@ export default function ContactoPage() {
                                             style={{ 
                                                 background: isWhatsAppMode 
                                                     ? "linear-gradient(135deg, #25D366 0%, #128C7E 100%)" 
-                                                    : "linear-gradient(135deg, #0047AB 0%, #0369A1 100%)",
+                                                    : "linear-gradient(135deg, #176BDE 0%, #0369A1 100%)",
                                                 boxShadow: isWhatsAppMode 
                                                     ? "0 8px 24px -4px rgba(37,211,102,0.35)" 
                                                     : "0 8px 24px -4px rgba(23, 107, 222,0.35)" 
@@ -619,7 +621,7 @@ export default function ContactoPage() {
 
                                         <p className="text-center text-xs text-slate-400 leading-relaxed">
                                             Al enviar este formulario, aceptas nuestras{" "}
-                                            <a href="#" className="text-[#0047AB] underline underline-offset-2 hover:text-[#003380]">
+                                            <a href="#" className="text-[#176BDE] underline underline-offset-2 hover:text-[#0E4FA5]">
                                                 Políticas de Privacidad
                                             </a>
                                             .

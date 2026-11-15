@@ -38,8 +38,8 @@ export const DigitalTwinsArchitecture = ({ onClose }: DigitalTwinsArchitecturePr
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                     <div>
                         <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4 flex items-center gap-4">
-                            Arquitectura <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0047AB] to-[#22D3EE]">3D & XR</span>
-                            <Sparkles className="w-8 h-8 text-[#22D3EE] animate-pulse" />
+                            Arquitectura <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#176BDE] to-[#16F3E8]">3D & XR</span>
+                            <Sparkles className="w-8 h-8 text-[#16F3E8] animate-pulse" />
                         </h2>
                         <p className="text-slate-600 text-lg max-w-2xl font-medium">
                             Transformamos conceptos físicos en experiencias inmersivas. Desde la creación del asset en bruto hasta la simulación interactiva en motores de próxima generación.
@@ -49,7 +49,7 @@ export const DigitalTwinsArchitecture = ({ onClose }: DigitalTwinsArchitecturePr
                     {onClose && (
                         <button
                             onClick={onClose}
-                            className="flex items-center gap-2 px-5 py-2.5 bg-white/60 hover:bg-white text-slate-600 hover:text-[#0047AB] rounded-full border border-slate-200 transition-all font-semibold shadow-sm hover:shadow-md"
+                            className="flex items-center gap-2 px-5 py-2.5 bg-white/60 hover:bg-white text-slate-600 hover:text-[#176BDE] rounded-full border border-slate-200 transition-all font-semibold shadow-sm hover:shadow-md"
                         >
                             <X size={18} /> Cerrar Pipeline
                         </button>
@@ -61,7 +61,7 @@ export const DigitalTwinsArchitecture = ({ onClose }: DigitalTwinsArchitecturePr
                     {/* COLUMNA IZQUIERDA: PIPELINE CREATIVO */}
                     <div className="lg:col-span-7 flex flex-col gap-5 relative">
                         {/* Línea de conexión con gradiente "creativo" */}
-                        <div className="absolute left-8 top-10 bottom-10 w-1 bg-gradient-to-b from-[#22D3EE]/30 via-[#0047AB]/20 to-[#22D3EE]/30 rounded-full -z-10"></div>
+                        <div className="absolute left-8 top-10 bottom-10 w-1 bg-gradient-to-b from-[#16F3E8]/30 via-[#176BDE]/20 to-[#16F3E8]/30 rounded-full -z-10"></div>
 
                         {flowData.map((node) => {
                             const isActive = activeNode.id === node.id;
@@ -73,25 +73,25 @@ export const DigitalTwinsArchitecture = ({ onClose }: DigitalTwinsArchitecturePr
                                     className={`
                     relative z-10 flex items-center p-5 rounded-2xl cursor-pointer transition-all duration-500
                     ${isActive
-                                            ? 'bg-white border-[#22D3EE]/50 shadow-[0_10px_40px_rgba(34,211,238,0.15)] scale-[1.02]'
-                                            : 'bg-white/50 border-transparent hover:border-[#22D3EE]/30 hover:bg-white/80 shadow-sm'
+                                            ? 'bg-white border-[#16F3E8]/50 shadow-[0_10px_40px_rgba(22, 243, 232,0.15)] scale-[1.02]'
+                                            : 'bg-white/50 border-transparent hover:border-[#16F3E8]/30 hover:bg-white/80 shadow-sm'
                                         }
                     border backdrop-blur-xl
                   `}
                                 >
                                     <div className={`
                     p-3 rounded-xl mr-5 transition-colors duration-500
-                    ${isActive ? 'bg-gradient-to-br from-[#0047AB] to-[#22D3EE] text-white shadow-lg shadow-[#22D3EE]/30' : 'bg-slate-100 text-slate-500'}
+                    ${isActive ? 'bg-gradient-to-br from-[#176BDE] to-[#16F3E8] text-white shadow-lg shadow-[#16F3E8]/30' : 'bg-slate-100 text-slate-500'}
                   `}>
                                         {node.icon}
                                     </div>
 
-                                    <h3 className={`text-lg font-bold tracking-tight transition-colors duration-500 ${isActive ? 'text-[#0047AB]' : 'text-slate-700'}`}>
+                                    <h3 className={`text-lg font-bold tracking-tight transition-colors duration-500 ${isActive ? 'text-[#176BDE]' : 'text-slate-700'}`}>
                                         {node.title}
                                     </h3>
 
                                     {isActive && (
-                                        <m.div layoutId="active-indicator-3d" className="absolute -right-3 w-6 h-6 bg-[#F8FAFC] flex items-center justify-center rounded-full border border-[#22D3EE]/40 shadow-sm text-[#22D3EE]">
+                                        <m.div layoutId="active-indicator-3d" className="absolute -right-3 w-6 h-6 bg-[#F8FAFC] flex items-center justify-center rounded-full border border-[#16F3E8]/40 shadow-sm text-[#16F3E8]">
                                             <ArrowRight className="w-4 h-4" />
                                         </m.div>
                                     )}
@@ -102,13 +102,13 @@ export const DigitalTwinsArchitecture = ({ onClose }: DigitalTwinsArchitecturePr
 
                     {/* COLUMNA DERECHA: PANEL EJECUTIVO CREATIVO */}
                     <div className="lg:col-span-5 relative">
-                        <div className="sticky top-32 w-full p-8 bg-white/80 backdrop-blur-2xl border border-white shadow-[0_20px_50px_rgba(34,211,238,0.05)] rounded-[2rem] min-h-[420px] flex flex-col overflow-hidden">
+                        <div className="sticky top-32 w-full p-8 bg-white/80 backdrop-blur-2xl border border-white shadow-[0_20px_50px_rgba(22, 243, 232,0.05)] rounded-[2rem] min-h-[420px] flex flex-col overflow-hidden">
 
                             {/* Reflejo de luz sutil en el cristal */}
-                            <div className="absolute top-[-50px] right-[-50px] w-32 h-32 bg-[#22D3EE]/20 blur-3xl rounded-full pointer-events-none" />
+                            <div className="absolute top-[-50px] right-[-50px] w-32 h-32 bg-[#16F3E8]/20 blur-3xl rounded-full pointer-events-none" />
 
-                            <div className="text-[10px] font-bold tracking-[0.2em] text-[#0047AB] uppercase mb-6 flex items-center gap-2">
-                                <div className="w-2 h-2 rounded-full bg-[#22D3EE] animate-pulse" />
+                            <div className="text-[10px] font-bold tracking-[0.2em] text-[#176BDE] uppercase mb-6 flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full bg-[#16F3E8] animate-pulse" />
                                 Pipeline de Producción
                             </div>
 
@@ -121,7 +121,7 @@ export const DigitalTwinsArchitecture = ({ onClose }: DigitalTwinsArchitecturePr
                                     transition={{ duration: 0.3 }}
                                     className="flex flex-col h-full relative z-10"
                                 >
-                                    <div className="flex items-center gap-4 mb-6 text-[#0047AB]">
+                                    <div className="flex items-center gap-4 mb-6 text-[#176BDE]">
                                         {activeNode.icon}
                                         <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">{activeNode.title}</h3>
                                     </div>
@@ -139,7 +139,7 @@ export const DigitalTwinsArchitecture = ({ onClose }: DigitalTwinsArchitecturePr
                                         </div>
                                         <div>
                                             <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Entregables (Outputs)</h4>
-                                            <p className="text-sm font-semibold text-[#0047AB] bg-gradient-to-r from-[#0047AB]/5 to-[#22D3EE]/5 p-3 rounded-lg border border-[#0047AB]/10 shadow-sm">
+                                            <p className="text-sm font-semibold text-[#176BDE] bg-gradient-to-r from-[#176BDE]/5 to-[#16F3E8]/5 p-3 rounded-lg border border-[#176BDE]/10 shadow-sm">
                                                 {activeNode.outputs}
                                             </p>
                                         </div>
