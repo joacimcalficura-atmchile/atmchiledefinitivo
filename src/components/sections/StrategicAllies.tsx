@@ -26,7 +26,7 @@ const cardVariant: Variants = {
  * conserve sus colores originales y su contraste.
  */
 export const StrategicAllies = () => (
-    <section className="relative isolate w-full overflow-hidden bg-[#0F1215] py-20 md:py-28">
+    <section id="aliados" className="relative isolate w-full overflow-hidden bg-[#0F1215] py-20 md:py-28">
         <BrandPattern tone="onDark" opacity={0.08} className="-z-10" />
         {/* Halo zafiro sutil detrás de los logos */}
         <div
