@@ -41,7 +41,7 @@ export const SOCIAL_LINKS: readonly SocialLink[] = [
     },
     {
         icon: "instagram",
-        href: "https://www.instagram.com/atm_chile/",
+        href: "https://www.instagram.com/atmchile_com/",
         label: "Instagram",
     },
     { icon: "mail", href: `mailto:${SITE.email}`, label: "Correo electrónico" },

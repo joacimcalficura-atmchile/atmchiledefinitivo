@@ -2,7 +2,8 @@
 
 import React from "react";
 import { m } from "framer-motion";
-import { ShieldCheck, Lock, Eye, FileText, ChevronRight } from "lucide-react";
+import { ShieldCheck, Lock, Eye, FileText, ChevronRight, Cookie, Scale, Globe } from "lucide-react";
+import { openConsentPreferences } from "@/lib/consent";
 import Link from "next/link";
 
 export default function PrivacidadPage() {
@@ -51,18 +52,39 @@ export default function PrivacidadPage() {
                             icon: <Lock className="text-brand-cobalt" />
                         },
                         {
+                            id: "datos-sitio",
+                            title: "Datos que recogemos en este sitio",
+                            content: "Cuando nos escribes por el formulario de contacto, WhatsApp o el chat, tratamos tu nombre, correo, teléfono, empresa y el mensaje que envías, con la única finalidad de responder tu consulta y preparar una propuesta comercial. Usamos proveedores de infraestructura (alojamiento web, correo y hojas de cálculo en la nube) que actúan por encargo de ATM Chile. No vendemos ni cedemos tus datos a terceros para sus propios fines.",
+                            icon: <Globe className="text-brand-cobalt" />
+                        },
+                        {
+                            id: "cookies",
+                            title: "Cookies y tecnologías de medición",
+                            content: "Usamos cookies esenciales para que el sitio funcione, recordar tu elección y proteger los formularios. Las cookies de analítica (medición anónima de visitas y contactos) y de marketing (píxeles publicitarios, como el de Meta) solo se activan si las aceptas en el aviso de entrada. Puedes cambiar o retirar tu consentimiento en cualquier momento.",
+                            icon: <Cookie className="text-brand-cyan" />,
+                            action: true
+                        },
+                        {
+                            id: "derechos",
                             title: "Derechos del Titular",
-                            content: "Nuestros clientes mantienen la propiedad total sobre sus datos y pueden solicitar la eliminación, corrección o portabilidad de los mismos en cualquier momento a través de nuestros canales oficiales de soporte senior.",
+                            content: "Conforme a la Ley 19.628, modificada por la Ley 21.719, puedes solicitar el acceso, rectificación, supresión, oposición, portabilidad y bloqueo de tus datos personales, y retirar tu consentimiento cuando quieras. Escríbenos desde la página de contacto y responderemos dentro de los plazos legales. También puedes reclamar ante la Agencia de Protección de Datos Personales.",
                             icon: <FileText className="text-brand-cyan" />
+                        },
+                        {
+                            id: "compliance",
+                            title: "Cumplimiento normativo",
+                            content: "Alineamos nuestra gestión con la Ley 21.719 de protección de datos personales, la Ley 21.663 Marco de Ciberseguridad y la norma NCh-ISO 27001, cuya certificación se encuentra en proceso. Conservamos los datos solo el tiempo necesario para la finalidad informada o el que exija la ley.",
+                            icon: <Scale className="text-brand-cobalt" />
                         }
                     ].map((section, i) => (
                         <m.div
                             key={section.title}
+                            id={"id" in section ? section.id : undefined}
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.1 }}
-                            className="p-8 bg-white border border-slate-200 rounded-[2rem] shadow-sm hover:shadow-md transition-all group"
+                            className="scroll-mt-32 p-8 bg-white border border-slate-200 rounded-[2rem] shadow-sm hover:shadow-md transition-all group"
                         >
                             <div className="flex gap-6">
                                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 group-hover:bg-brand-cobalt/5 group-hover:border-brand-cobalt/10 transition-colors">
@@ -71,6 +93,15 @@ export default function PrivacidadPage() {
                                 <div>
                                     <h3 className="text-xl font-bold text-slate-900 mb-3">{section.title}</h3>
                                     <p className="text-slate-600 leading-relaxed text-sm">{section.content}</p>
+                                    {"action" in section && section.action && (
+                                        <button
+                                            type="button"
+                                            onClick={openConsentPreferences}
+                                            className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-brand-cobalt hover:underline"
+                                        >
+                                            Cambiar mis preferencias de cookies <ChevronRight size={14} />
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </m.div>
@@ -84,7 +115,7 @@ export default function PrivacidadPage() {
                     className="mt-16 pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-6"
                 >
                     <p className="text-xs text-slate-400 font-medium">
-                        Última actualización: 15 de Marzo, 2026
+                        Última actualización: 15 de noviembre de 2026
                     </p>
                     <div className="flex gap-4">
                         <Link href="/contacto" className="text-sm font-bold text-brand-cobalt hover:underline flex items-center gap-1">

@@ -5,7 +5,8 @@ import { Navbar } from "@/components/shared/Navbar";
 import { Providers } from "@/components/providers/Providers";
 import { FloatingChatWidget } from "@/components/ui/FloatingChatWidget";
 import { FloatingWhatsApp } from "@/components/ui/FloatingWhatsApp";
-import { Analytics } from "@vercel/analytics/react";
+import { ConsentedAnalytics } from "@/components/ui/ConsentedAnalytics";
+import { ConsentManager } from "@/components/ui/ConsentManager";
 import { SITE, SOCIAL_LINKS } from "@/data/site";
 
 // Tipografía oficial ATM Brandbook: Roboto (ExtraLight/Medium/Black) para textos,
@@ -138,7 +139,8 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
         />
-        <Analytics />
+        <ConsentedAnalytics />
+        <ConsentManager />
       </body>
     </html>
   );
