@@ -71,7 +71,12 @@ const HERO_IMAGES = [
     "/images/hero/hero-finanzas.png"
 ];
 
-export const HomeUnified = () => {
+interface HomeUnifiedProps {
+    /** Sección de reels de Instagram (Server Component con ISR), inyectada desde `app/page.tsx`. */
+    readonly reels?: React.ReactNode;
+}
+
+export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
     const [currentImageIdx, setCurrentImageIdx] = useState(0);
     const { containerRef, isVisible, shouldLoad, isMobile } = usePerformanceOptimization({ threshold: 0.1 });
 
@@ -378,6 +383,9 @@ export const HomeUnified = () => {
             {/* Providers Carousel */}
             <PartnersEcosystem />
 
+
+            {/* Últimos reels de Instagram — feed automático vía API de Meta */}
+            {reels}
 
 
             {/* Premium Section: Club 100 (Círculo Privado) */}
