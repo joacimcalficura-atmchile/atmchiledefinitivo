@@ -64,11 +64,13 @@ const floatAnimation: Variants = {
     }
 };
 
+// Escenas de negocios chilenos (logística, finanzas, agro, construcción, comercio de barrio).
 const HERO_IMAGES = [
-    "/images/hero/hero-logistica.png",
-    "/images/hero/hero-realestate.png",
-    "/images/hero/hero-agente.png",
-    "/images/hero/hero-finanzas.png"
+    "/images/hero/hero-bodega.webp",
+    "/images/hero/hero-oficina.webp",
+    "/images/hero/hero-vina.webp",
+    "/images/hero/hero-obra.webp",
+    "/images/hero/hero-ferreteria.webp"
 ];
 
 interface HomeUnifiedProps {
@@ -111,7 +113,7 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
                         >
                             <Image
                                 src={HERO_IMAGES[currentImageIdx]}
-                                alt="ATM Business Impact Chilean Professional"
+                                alt=""
                                 fill
                                 priority
                                 className="object-cover"
