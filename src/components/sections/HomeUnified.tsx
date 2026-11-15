@@ -64,12 +64,13 @@ const floatAnimation: Variants = {
     }
 };
 
-// Escenas de negocios chilenos (logística, finanzas, agro, construcción).
+// Escenas de negocios chilenos (logística, finanzas, agro, construcción, comercio de barrio).
 const HERO_IMAGES = [
     "/images/hero/hero-bodega.webp",
     "/images/hero/hero-oficina.webp",
     "/images/hero/hero-vina.webp",
-    "/images/hero/hero-obra.webp"
+    "/images/hero/hero-obra.webp",
+    "/images/hero/hero-ferreteria.webp"
 ];
 
 interface HomeUnifiedProps {
