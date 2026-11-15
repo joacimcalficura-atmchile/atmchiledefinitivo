@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Ciberseguridad 360 | NCh-ISO 27001 & Ley Marco Chile | ATM Chile",
+    // El template del layout raíz ya agrega «| ATM Chile».
+    title: "Ciberseguridad 360 | NCh-ISO 27001 & Ley Marco Chile",
     description:
         "Centro de Mando de Ciberseguridad de ATM Chile. Cumplimiento de la Ley N°21.663 (Ley Marco de Ciberseguridad), certificación NCh-ISO 27001, arquitectura Zero Trust, OWASP Top 10 y pipeline DevSecOps/SAST/DAST para empresas chilenas.",
     keywords: [
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     creator: "ATM Chile",
     publisher: "ATM Chile",
     alternates: {
-        canonical: "https://www.atmchile.com/seguridad",
+        canonical: "/seguridad",
     },
     openGraph: {
         type: "website",

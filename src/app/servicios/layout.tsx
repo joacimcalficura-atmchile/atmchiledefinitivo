@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/servicios" },
   title: "Servicios de Software a Medida | Ingeniería B2B Chile",
   description: "Ecosistemas tecnológicos de alto impacto: Desarrollo ágil, arquitecturas escalables y soluciones cloud diseñadas para la transformación digital en Chile.",
   keywords: ["software a medida chile", "desarrollo ágil b2b", "arquitectura cloud", "transformación digital", "ATM Chile servicios"],

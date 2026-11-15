@@ -10,3 +10,7 @@ export default function Home() {
   );
 }
 
+// Canónica propia de la home: el layout raíz ya no declara una global.
+export const metadata = {
+  alternates: { canonical: "/" },
+};
