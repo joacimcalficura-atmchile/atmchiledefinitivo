@@ -442,7 +442,7 @@ export default function TalentoPage() {
                                     {/* Panel Lateral: Métricas Live */}
                                     <div className="lg:col-span-4 flex flex-col gap-4">
                                         {[
-                                            { label: "SLA Uptime", value: "98,99 %", detail: "Disponibilidad Garantizada", icon: <ShieldCheck className="w-5 h-5" />, color: "#16F3E8" },
+                                            { label: "SLA Uptime", value: "99,597 %", detail: "Disponibilidad Garantizada", icon: <ShieldCheck className="w-5 h-5" />, color: "#16F3E8" },
                                             { label: "Response Time", value: "24 hrs", detail: "Soporte Senior Focalizado", icon: <Zap className="w-5 h-5" />, color: "#FACC15" },
                                             { label: "Active Nodes", value: "2.4k+", detail: "Monitoreo Distribuido", icon: <BrainCircuit className="w-5 h-5" />, color: "#176BDE" },
                                         ].map((metric, i) => (

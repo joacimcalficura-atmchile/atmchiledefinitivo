@@ -164,14 +164,14 @@ const PILLARS: SecurityPillar[] = [
     {
         id: "bcp-drp",
         title: "Continuidad de Negocio (BCP/DRP)",
-        shortDesc: "Planes de recuperación ante desastres, redundancia de servidores y arquitecturas resilientes con un SLA de disponibilidad del 98,99 %.",
+        shortDesc: "Planes de recuperación ante desastres, redundancia de servidores y arquitecturas resilientes con un SLA de disponibilidad del 99,597 %.",
         icon: <RefreshCw className="w-5 h-5" />,
         badge: "BCP · RTO<4H · RPO<1H",
         color: "#D97706",
         modal: {
             tag: "ISO 22301 · BCP / DRP",
             headline: "Continuidad Operacional y Recuperación ante Desastres Garantizada",
-            intro: "La continuidad del negocio de nuestros clientes es no negociable. Nuestra arquitectura cloud-native está diseñada para garantizar una disponibilidad del 98,99 % (SLA) con planes de recuperación probados y documentados bajo ISO 22301.",
+            intro: "La continuidad del negocio de nuestros clientes es no negociable. Nuestra arquitectura cloud-native está diseñada para garantizar una disponibilidad del 99,597 % (SLA) con planes de recuperación probados y documentados bajo ISO 22301.",
             sections: [
                 {
                     heading: "Arquitectura de Alta Disponibilidad",
