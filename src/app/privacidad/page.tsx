@@ -1,129 +1,237 @@
-"use client";
-
-import React from "react";
-import { m } from "framer-motion";
-import { ShieldCheck, Lock, Eye, FileText, ChevronRight, Cookie, Scale, Globe } from "lucide-react";
-import { openConsentPreferences } from "@/lib/consent";
 import Link from "next/link";
+import { SITE } from "@/data/site";
+import { ControllerCard, LegalDocument, type LegalSection } from "@/components/legal/LegalDocument";
+import { CookiePreferencesButton } from "@/components/legal/CookiePreferencesButton";
+
+const ul = "list-disc space-y-2 pl-5 marker:text-slate-400";
+
+const sections: LegalSection[] = [
+    {
+        id: "responsable",
+        title: "Responsable del tratamiento",
+        body: (
+            <>
+                <p>
+                    El responsable del tratamiento de los datos personales recogidos a través de este sitio web es:
+                </p>
+                <ControllerCard />
+            </>
+        ),
+    },
+    {
+        id: "datos",
+        title: "Datos personales que tratamos",
+        body: (
+            <>
+                <p>Tratamos únicamente los datos que nos entregas o que se generan al usar el sitio:</p>
+                <ul className={ul}>
+                    <li>
+                        <strong>Datos de contacto:</strong> nombre, correo electrónico, teléfono, empresa y cargo, cuando
+                        completas el formulario de contacto o nos escribes por WhatsApp o por el asistente del sitio.
+                    </li>
+                    <li>
+                        <strong>Contenido de tu consulta:</strong> la información sobre tu proyecto o necesidad que decidas
+                        compartir.
+                    </li>
+                    <li>
+                        <strong>Datos de navegación:</strong> páginas visitadas, tipo de dispositivo y origen de la visita,
+                        solo si autorizas las cookies de analítica o marketing.
+                    </li>
+                </ul>
+                <p>No solicitamos datos sensibles a través de este sitio. Te pedimos no incluirlos en tus mensajes.</p>
+            </>
+        ),
+    },
+    {
+        id: "finalidades",
+        title: "Finalidades y base de licitud",
+        body: (
+            <ul className={ul}>
+                <li>
+                    <strong>Responder tus consultas y preparar propuestas comerciales</strong>, sobre la base de las
+                    medidas precontractuales que solicitas.
+                </li>
+                <li>
+                    <strong>Medir el uso del sitio y la efectividad de nuestras campañas</strong>, sobre la base de tu
+                    consentimiento, que puedes retirar en cualquier momento.
+                </li>
+                <li>
+                    <strong>Proteger el sitio y prevenir el fraude o el envío automatizado de formularios</strong>, sobre
+                    la base de nuestro interés legítimo en la seguridad de la información.
+                </li>
+                <li>
+                    <strong>Cumplir obligaciones legales</strong> que nos resulten aplicables.
+                </li>
+            </ul>
+        ),
+    },
+    {
+        id: "destinatarios",
+        title: "Destinatarios y encargados del tratamiento",
+        body: (
+            <>
+                <p>
+                    No vendemos ni cedemos tus datos personales a terceros para sus propios fines. Para operar el sitio
+                    contamos con proveedores que tratan datos por cuenta de {SITE.legalName}, bajo instrucciones y
+                    obligaciones de confidencialidad: servicios de alojamiento web, correo electrónico, hojas de cálculo
+                    en la nube y medición de audiencias.
+                </p>
+                <p>
+                    Algunos de estos proveedores pueden almacenar información en servidores ubicados fuera de Chile. En
+                    esos casos exigimos garantías adecuadas de protección conforme a la normativa vigente.
+                </p>
+            </>
+        ),
+    },
+    {
+        id: "conservacion",
+        title: "Plazo de conservación",
+        body: (
+            <p>
+                Conservamos los datos de contacto mientras sea necesario para atender tu consulta y gestionar la
+                eventual relación comercial, y luego durante los plazos que exija la ley. Los datos de navegación se
+                conservan de forma agregada. Cumplidos estos plazos, los datos se eliminan o se anonimizan.
+            </p>
+        ),
+    },
+    {
+        id: "cookies",
+        title: "Cookies y tecnologías similares",
+        body: (
+            <>
+                <p>
+                    Al ingresar al sitio te pedimos elegir qué cookies autorizas. Las cookies no esenciales permanecen
+                    desactivadas hasta que las aceptes.
+                </p>
+                <div className="overflow-x-auto rounded-xl border border-slate-200">
+                    <table className="w-full min-w-[520px] text-left text-sm">
+                        <thead className="bg-slate-50 text-slate-800">
+                            <tr>
+                                <th scope="col" className="px-4 py-3 font-semibold">Categoría</th>
+                                <th scope="col" className="px-4 py-3 font-semibold">Finalidad</th>
+                                <th scope="col" className="px-4 py-3 font-semibold">Base</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-200">
+                            <tr>
+                                <td className="px-4 py-3 font-medium text-slate-800">Esenciales</td>
+                                <td className="px-4 py-3">Funcionamiento del sitio, registro de tu elección y protección de formularios.</td>
+                                <td className="px-4 py-3">Necesarias</td>
+                            </tr>
+                            <tr>
+                                <td className="px-4 py-3 font-medium text-slate-800">Analítica</td>
+                                <td className="px-4 py-3">Medición de visitas y de contactos generados (Vercel Web Analytics).</td>
+                                <td className="px-4 py-3">Consentimiento</td>
+                            </tr>
+                            <tr>
+                                <td className="px-4 py-3 font-medium text-slate-800">Marketing</td>
+                                <td className="px-4 py-3">Medición de campañas publicitarias en redes sociales (por ejemplo, Meta).</td>
+                                <td className="px-4 py-3">Consentimiento</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>Puedes cambiar o retirar tu consentimiento en cualquier momento:</p>
+                <CookiePreferencesButton />
+            </>
+        ),
+    },
+    {
+        id: "seguridad",
+        title: "Seguridad de la información",
+        body: (
+            <p>
+                Aplicamos medidas técnicas y organizativas para proteger tus datos frente a accesos no autorizados,
+                pérdida o alteración: cifrado de las comunicaciones (HTTPS/TLS), control de acceso por roles, registro
+                de actividad y buenas prácticas de desarrollo seguro (OWASP). Nuestra gestión se alinea a la norma
+                NCh-ISO 27001, cuya certificación se encuentra en proceso.
+            </p>
+        ),
+    },
+    {
+        id: "confidencialidad",
+        title: "Confidencialidad de la información de clientes",
+        body: (
+            <p>
+                La información de negocio, bases de datos e infraestructura que nuestros clientes comparten en el marco
+                de un proyecto se rige por un acuerdo de confidencialidad (NDA) y por el contrato respectivo. No la
+                compartimos ni la exponemos a terceros fuera de lo pactado.
+            </p>
+        ),
+    },
+    {
+        id: "derechos",
+        title: "Tus derechos",
+        body: (
+            <>
+                <p>
+                    Conforme a la Ley N° 19.628 sobre protección de la vida privada, modificada por la Ley N° 21.719,
+                    puedes ejercer en cualquier momento tus derechos de:
+                </p>
+                <ul className={ul}>
+                    <li><strong>Acceso</strong> a los datos que tratamos sobre ti.</li>
+                    <li><strong>Rectificación</strong> de datos inexactos o incompletos.</li>
+                    <li><strong>Supresión</strong> de tus datos cuando corresponda.</li>
+                    <li><strong>Oposición</strong> a determinados tratamientos.</li>
+                    <li><strong>Portabilidad</strong> de tus datos en un formato estructurado.</li>
+                    <li><strong>Bloqueo</strong> temporal del tratamiento.</li>
+                </ul>
+                <p>
+                    Para ejercerlos, escribe a{" "}
+                    <a href={`mailto:${SITE.privacyEmail}`} className="font-semibold text-[#176BDE] underline underline-offset-2">
+                        {SITE.privacyEmail}
+                    </a>{" "}
+                    indicando tu nombre, el derecho que deseas ejercer y un medio de contacto. Responderemos dentro de
+                    los plazos legales. Si consideras que no hemos atendido tu solicitud, puedes reclamar ante la
+                    Agencia de Protección de Datos Personales.
+                </p>
+            </>
+        ),
+    },
+    {
+        id: "menores",
+        title: "Menores de edad",
+        body: (
+            <p>
+                Este sitio está dirigido a empresas y profesionales. No recogemos de forma intencionada datos de
+                menores de edad.
+            </p>
+        ),
+    },
+    {
+        id: "cambios",
+        title: "Cambios a esta política",
+        body: (
+            <p>
+                Podemos actualizar esta política para reflejar cambios legales o en nuestros servicios. Publicaremos
+                cada nueva versión en esta página, indicando su número y fecha de vigencia, y te pediremos de nuevo tu
+                consentimiento cuando el cambio lo requiera.
+            </p>
+        ),
+    },
+];
 
 export default function PrivacidadPage() {
     return (
-        <div className="min-h-screen bg-[#F8FAFC] pt-32 pb-24 px-6">
-            <div className="max-w-4xl mx-auto">
-                {/* Header */}
-                <m.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mb-16 text-center"
-                >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-cobalt/5 border border-brand-cobalt/10 text-brand-cobalt text-xs font-bold uppercase tracking-widest mb-6">
-                        <Lock size={14} />
-                        Transparencia & Seguridad · ISO 27001 en proceso
-                    </div>
-                    <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-6">
-                        Política de <span className="text-brand-cobalt">Privacidad</span>
-                    </h1>
-                    <p className="text-lg text-slate-600 font-medium max-w-2xl mx-auto">
-                        En ATM Chile, la protección de su propiedad intelectual y datos estratégicos es nuestra máxima prioridad. Este documento detalla cómo salvaguardamos su información en nuestra relación 360.
-                    </p>
-                </m.div>
-
-                {/* Content */}
-                <m.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                    className="grid gap-8"
-                >
-                    {[
-                        {
-                            title: "Compromiso de Confidencialidad (NDA)",
-                            content: "Todo proyecto iniciado con ATM Chile está bajo un protocolo estricto de Acuerdo de Confidencialidad. No compartimos, vendemos ni exponemos la lógica de negocio, bases de datos o infraestructuras de nuestros clientes a terceros. Su 'receta secreta' está segura con nosotros.",
-                            icon: <ShieldCheck className="text-brand-cobalt" />
-                        },
-                        {
-                            title: "Recolección de Datos Estratégicos",
-                            content: "Recopilamos únicamente la información necesaria para la ejecución de servicios de consultoría, desarrollo de software y auditoría de ciberseguridad. Esto incluye datos corporativos, flujos de procesos e infraestructura técnica bajo su consentimiento explícito.",
-                            icon: <Eye className="text-brand-cyan" />
-                        },
-                        {
-                            title: "Seguridad de la Información",
-                            content: "Implementamos estándares de encriptación de grado militar (AES-256) para el almacenamiento de datos sensibles y seguimos las mejores prácticas de OWASP y marcos ISO 27001 en todos nuestros despliegues.",
-                            icon: <Lock className="text-brand-cobalt" />
-                        },
-                        {
-                            id: "datos-sitio",
-                            title: "Datos que recogemos en este sitio",
-                            content: "Cuando nos escribes por el formulario de contacto, WhatsApp o el chat, tratamos tu nombre, correo, teléfono, empresa y el mensaje que envías, con la única finalidad de responder tu consulta y preparar una propuesta comercial. Usamos proveedores de infraestructura (alojamiento web, correo y hojas de cálculo en la nube) que actúan por encargo de ATM Chile. No vendemos ni cedemos tus datos a terceros para sus propios fines.",
-                            icon: <Globe className="text-brand-cobalt" />
-                        },
-                        {
-                            id: "cookies",
-                            title: "Cookies y tecnologías de medición",
-                            content: "Usamos cookies esenciales para que el sitio funcione, recordar tu elección y proteger los formularios. Las cookies de analítica (medición anónima de visitas y contactos) y de marketing (píxeles publicitarios, como el de Meta) solo se activan si las aceptas en el aviso de entrada. Puedes cambiar o retirar tu consentimiento en cualquier momento.",
-                            icon: <Cookie className="text-brand-cyan" />,
-                            action: true
-                        },
-                        {
-                            id: "derechos",
-                            title: "Derechos del Titular",
-                            content: "Conforme a la Ley 19.628, modificada por la Ley 21.719, puedes solicitar el acceso, rectificación, supresión, oposición, portabilidad y bloqueo de tus datos personales, y retirar tu consentimiento cuando quieras. Escríbenos desde la página de contacto y responderemos dentro de los plazos legales. También puedes reclamar ante la Agencia de Protección de Datos Personales.",
-                            icon: <FileText className="text-brand-cyan" />
-                        },
-                        {
-                            id: "compliance",
-                            title: "Cumplimiento normativo",
-                            content: "Alineamos nuestra gestión con la Ley 21.719 de protección de datos personales, la Ley 21.663 Marco de Ciberseguridad y la norma NCh-ISO 27001, cuya certificación se encuentra en proceso. Conservamos los datos solo el tiempo necesario para la finalidad informada o el que exija la ley.",
-                            icon: <Scale className="text-brand-cobalt" />
-                        }
-                    ].map((section, i) => (
-                        <m.div
-                            key={section.title}
-                            id={"id" in section ? section.id : undefined}
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1 }}
-                            className="scroll-mt-32 p-8 bg-white border border-slate-200 rounded-[2rem] shadow-sm hover:shadow-md transition-all group"
-                        >
-                            <div className="flex gap-6">
-                                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 group-hover:bg-brand-cobalt/5 group-hover:border-brand-cobalt/10 transition-colors">
-                                    {section.icon}
-                                </div>
-                                <div>
-                                    <h3 className="text-xl font-bold text-slate-900 mb-3">{section.title}</h3>
-                                    <p className="text-slate-600 leading-relaxed text-sm">{section.content}</p>
-                                    {"action" in section && section.action && (
-                                        <button
-                                            type="button"
-                                            onClick={openConsentPreferences}
-                                            className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-brand-cobalt hover:underline"
-                                        >
-                                            Cambiar mis preferencias de cookies <ChevronRight size={14} />
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
-                        </m.div>
-                    ))}
-                </m.div>
-
-                {/* Footer Legal */}
-                <m.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    className="mt-16 pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-6"
-                >
-                    <p className="text-xs text-slate-400 font-medium">
-                        Última actualización: 15 de noviembre de 2026
-                    </p>
-                    <div className="flex gap-4">
-                        <Link href="/contacto" className="text-sm font-bold text-brand-cobalt hover:underline flex items-center gap-1">
-                            Consultas Legales <ChevronRight size={14} />
-                        </Link>
-                    </div>
-                </m.div>
-            </div>
-        </div>
+        <LegalDocument
+            eyebrow="Documento legal"
+            title="Política de Privacidad y Seguridad"
+            version="1.0"
+            effectiveDate="15 de noviembre de 2026"
+            summary={
+                <p>
+                    En {SITE.legalName} protegemos los datos personales de quienes visitan nuestro sitio y de nuestros
+                    clientes. Esta política explica qué datos tratamos, para qué, con quién los compartimos y cómo
+                    puedes ejercer tus derechos, conforme a la legislación chilena de protección de datos personales.
+                    Al usar este sitio declaras conocerla, junto con los{" "}
+                    <Link href="/terminos" className="font-semibold text-[#176BDE] underline underline-offset-2">
+                        Términos y Condiciones
+                    </Link>
+                    .
+                </p>
+            }
+            sections={sections}
+            related={{ href: "/terminos", label: "Términos y Condiciones" }}
+        />
     );
 }

@@ -1,98 +1,154 @@
-"use client";
-
-import React from "react";
-import { m } from "framer-motion";
-import { FileText, Shield, Gavel, Handshake, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { SITE } from "@/data/site";
+import { ControllerCard, LegalDocument, type LegalSection } from "@/components/legal/LegalDocument";
+
+const ul = "list-disc space-y-2 pl-5 marker:text-slate-400";
+
+const sections: LegalSection[] = [
+    {
+        id: "titular",
+        title: "Titular del sitio",
+        body: (
+            <>
+                <p>El sitio web {SITE.url.replace("https://", "")} es operado por:</p>
+                <ControllerCard />
+            </>
+        ),
+    },
+    {
+        id: "objeto",
+        title: "Objeto y aceptación",
+        body: (
+            <p>
+                Estos Términos y Condiciones regulan el acceso y uso de este sitio web. Al navegar en él y seleccionar
+                una opción en el aviso de ingreso, declaras haberlos leído y aceptado, junto con la{" "}
+                <Link href="/privacidad" className="font-semibold text-[#176BDE] underline underline-offset-2">
+                    Política de Privacidad y Seguridad
+                </Link>
+                . Si no estás de acuerdo, te pedimos no utilizar el sitio.
+            </p>
+        ),
+    },
+    {
+        id: "uso",
+        title: "Uso del sitio",
+        body: (
+            <>
+                <p>Te comprometes a usar el sitio de forma lícita y de buena fe. En particular, no está permitido:</p>
+                <ul className={ul}>
+                    <li>Intentar acceder sin autorización a sistemas, cuentas o datos de {SITE.name} o de terceros.</li>
+                    <li>Introducir código malicioso o realizar acciones que afecten la disponibilidad o seguridad del sitio.</li>
+                    <li>Enviar información falsa o suplantar la identidad de otra persona u organización.</li>
+                    <li>Extraer contenidos de forma masiva o automatizada sin autorización previa.</li>
+                </ul>
+            </>
+        ),
+    },
+    {
+        id: "propiedad-intelectual",
+        title: "Propiedad intelectual",
+        body: (
+            <p>
+                Los textos, diseños, logotipos, marcas, gráficas y demás contenidos del sitio pertenecen a {SITE.legalName}
+                {" "}o a sus respectivos titulares, y están protegidos por la legislación de propiedad intelectual e
+                industrial. Su reproducción, distribución o modificación requiere autorización previa y por escrito.
+                Las marcas de terceros que aparecen en el sitio identifican a clientes, aliados o tecnologías con las que
+                trabajamos y pertenecen a sus titulares.
+            </p>
+        ),
+    },
+    {
+        id: "servicios",
+        title: "Información sobre servicios",
+        body: (
+            <>
+                <p>
+                    La información publicada sobre nuestros servicios, incluido el leasing de software, es referencial y
+                    no constituye una oferta vinculante. Las condiciones de cada proyecto (alcance, plazos, precio,
+                    niveles de servicio, propiedad intelectual de los desarrollos y garantías) se establecen en la
+                    propuesta y en el contrato que se suscriba con cada cliente.
+                </p>
+                <p>
+                    Salvo pacto en contrario, {SITE.legalName} conserva la titularidad de sus marcos de trabajo,
+                    componentes reutilizables y metodologías propias.
+                </p>
+            </>
+        ),
+    },
+    {
+        id: "enlaces",
+        title: "Enlaces a sitios de terceros",
+        body: (
+            <p>
+                El sitio puede contener enlaces a sitios de terceros, como redes sociales o aliados. No somos
+                responsables de sus contenidos ni de sus políticas de privacidad, que te recomendamos revisar.
+            </p>
+        ),
+    },
+    {
+        id: "responsabilidad",
+        title: "Disponibilidad y responsabilidad",
+        body: (
+            <p>
+                Procuramos mantener el sitio disponible y su información actualizada, pero no garantizamos la ausencia
+                de interrupciones o errores. En la máxima medida permitida por la ley, {SITE.legalName} no responde por
+                daños derivados del uso del sitio o de la imposibilidad de acceder a él. Esta limitación no afecta los
+                derechos que la ley reconoce a los consumidores.
+            </p>
+        ),
+    },
+    {
+        id: "datos-personales",
+        title: "Protección de datos personales",
+        body: (
+            <p>
+                El tratamiento de los datos personales que entregues a través del sitio se rige por nuestra{" "}
+                <Link href="/privacidad" className="font-semibold text-[#176BDE] underline underline-offset-2">
+                    Política de Privacidad y Seguridad
+                </Link>
+                , conforme a la Ley N° 19.628, modificada por la Ley N° 21.719.
+            </p>
+        ),
+    },
+    {
+        id: "modificaciones",
+        title: "Modificaciones",
+        body: (
+            <p>
+                Podemos modificar estos Términos para reflejar cambios legales o en nuestros servicios. Cada nueva
+                versión se publicará en esta página con su número y fecha de vigencia.
+            </p>
+        ),
+    },
+    {
+        id: "ley-aplicable",
+        title: "Ley aplicable y jurisdicción",
+        body: (
+            <p>
+                Estos Términos se rigen por las leyes de la República de Chile. Las partes procurarán resolver de buena
+                fe cualquier controversia. De no lograrse un acuerdo, esta se someterá a los tribunales ordinarios de
+                justicia de la ciudad de Santiago.
+            </p>
+        ),
+    },
+];
 
 export default function TerminosPage() {
     return (
-        <div className="min-h-screen bg-[#F8FAFC] pt-32 pb-24 px-6">
-            <div className="max-w-4xl mx-auto">
-                {/* Header */}
-                <m.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mb-16 text-center"
-                >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#16F3E8]/5 border border-[#16F3E8]/10 text-[#176BDE] text-xs font-bold uppercase tracking-widest mb-6">
-                        <Gavel size={14} />
-                        Marco Legal Estratégico
-                    </div>
-                    <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-6">
-                        Términos de <span className="text-brand-cobalt">Servicio</span>
-                    </h1>
-                    <p className="text-lg text-slate-600 font-medium max-w-2xl mx-auto">
-                        Al colaborar con ATM Chile, usted accede a un ecosistema de excelencia técnica regido por los más altos estándares corporativos y de cumplimiento.
-                    </p>
-                </m.div>
-
-                {/* Content */}
-                <m.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                    className="grid gap-8"
-                >
-                    {[
-                        {
-                            title: "Prestación de Servicios 360",
-                            content: "ATM Chile se compromete a entregar servicios de consultoría, arquitectura y desarrollo tecnológico bajo el principio de 'Audit-Ready'. Todo entregable debe cumplir con criterios técnicos senior antes de su paso a producción.",
-                            icon: <Handshake className="text-brand-cobalt" />
-                        },
-                        {
-                            title: "Propiedad Intelectual",
-                            content: "Salvo acuerdo explícito en contrario, los desarrollos personalizados realizados para el cliente son de propiedad exclusiva del cliente una vez finalizada la relación contractual y liquidados los haberes correspondientes. ATM Chile retiene la propiedad de sus marcos de trabajo base y metodologías propietarias.",
-                            icon: <FileText className="text-brand-cyan" />
-                        },
-                        {
-                            title: "Responsabilidad y Garantía",
-                            content: "Ofrecemos una garantía de soporte sobre el código entregado, asegurando la resolución de fallos críticos en los términos acordados en el SLA (Service Level Agreement). Nuestra responsabilidad está limitada al valor del servicio contratado, enfocándonos siempre en la continuidad operativa.",
-                            icon: <Shield className="text-brand-cobalt" />
-                        },
-                        {
-                            title: "Cumplimiento y Jurisdicción",
-                            content: "Nuestros términos se rigen por las leyes vigentes de la República de Chile. Cualquier discrepancia técnica será resuelta preferentemente mediante paneles de expertos senior antes de recurrir a instancias legales ordinarias.",
-                            icon: <Gavel className="text-brand-cyan" />
-                        }
-                    ].map((section, i) => (
-                        <m.div
-                            key={section.title}
-                            initial={{ opacity: 0, x: 20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1 }}
-                            className="p-8 bg-white border border-slate-200 rounded-[2rem] shadow-sm hover:shadow-md transition-all group"
-                        >
-                            <div className="flex gap-6">
-                                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 group-hover:bg-brand-cobalt/5 group-hover:border-brand-cobalt/10 transition-colors">
-                                    {section.icon}
-                                </div>
-                                <div>
-                                    <h3 className="text-xl font-bold text-slate-900 mb-3">{section.title}</h3>
-                                    <p className="text-slate-600 leading-relaxed text-sm">{section.content}</p>
-                                </div>
-                            </div>
-                        </m.div>
-                    ))}
-                </m.div>
-
-                {/* Footer Legal */}
-                <m.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    className="mt-16 pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-6"
-                >
-                    <p className="text-xs text-slate-400 font-medium">
-                        Documento oficial para Partners ATM Chile
-                    </p>
-                    <div className="flex gap-4">
-                        <Link href="/contacto" className="text-sm font-bold text-brand-cobalt hover:underline flex items-center gap-1">
-                            Sesión Estratégica <ChevronRight size={14} />
-                        </Link>
-                    </div>
-                </m.div>
-            </div>
-        </div>
+        <LegalDocument
+            eyebrow="Documento legal"
+            title="Términos y Condiciones de Uso"
+            version="1.0"
+            effectiveDate="15 de noviembre de 2026"
+            summary={
+                <p>
+                    Estos términos establecen las reglas de uso del sitio web de {SITE.name} y el alcance de la
+                    información que publicamos. Las condiciones de cada servicio contratado se rigen por su propuesta y
+                    contrato específicos.
+                </p>
+            }
+            sections={sections}
+            related={{ href: "/privacidad", label: "Política de Privacidad y Seguridad" }}
+        />
     );
 }
