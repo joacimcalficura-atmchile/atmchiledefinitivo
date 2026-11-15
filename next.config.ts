@@ -8,6 +8,7 @@ const ContentSecurityPolicy = `
   style-src 'self' 'unsafe-inline';
   img-src 'self' blob: data: https:;
   font-src 'self' data:;
+  media-src 'self' https://*.cdninstagram.com https://*.fbcdn.net;
   connect-src 'self' https: wss: https://prod.spline.design https://va.vercel-scripts.com;
   frame-src 'self' https://www.youtube-nocookie.com https://vercel.live;
   frame-ancestors 'self' https://vercel.com;

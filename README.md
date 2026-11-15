@@ -20,6 +20,10 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Feed de reels de Instagram
+
+La home muestra los últimos reels de @atmchile_com vía la API de Meta. Configuración y token: [docs/instagram-reels.md](docs/instagram-reels.md).
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
