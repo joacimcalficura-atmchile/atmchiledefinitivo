@@ -49,7 +49,7 @@ export const StrategicAllies = () => (
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true, margin: "-60px" }}
-                className="flex flex-wrap items-center justify-center gap-5 md:gap-6"
+                className="mx-auto flex max-w-[700px] flex-wrap items-center justify-center gap-5 md:gap-6"
             >
                 {STRATEGIC_ALLIES.map((ally) => {
                     const card = (
