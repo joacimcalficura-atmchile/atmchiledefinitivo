@@ -195,6 +195,9 @@ export const HomeUnified = () => {
                 </div>
             </section>
 
+            {/* Aliados Estratégicos antes de los servicios, para dar credibilidad — lee de `src/data/allies` */}
+            <StrategicAllies />
+
             {/* Services Section */}
             <section className="py-32 bg-white relative">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -375,8 +378,6 @@ export const HomeUnified = () => {
             {/* Providers Carousel */}
             <PartnersEcosystem />
 
-            {/* Aliados Estratégicos — lee de `src/data/allies` */}
-            <StrategicAllies />
 
 
             {/* Premium Section: Club 100 (Círculo Privado) */}
