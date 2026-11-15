@@ -211,6 +211,88 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
             {/* Aliados Estratégicos antes de los servicios, para dar credibilidad — lee de `src/data/allies` */}
             <StrategicAllies />
 
+            {/* Últimos reels de Instagram — feed automático vía API de Meta */}
+            {reels}
+
+
+
+            {/* Productos propios (CRM + ERP) — lee de `src/data/products` */}
+            <DevelopedProducts />
+
+            {/* Leasing de software: diferenciador, enlaza a /leasing-de-software */}
+            <section className="relative isolate overflow-hidden bg-[#0F1215] py-20 md:py-24">
+                <BrandPattern tone="onDark" opacity={0.08} className="-z-10" />
+                <div className="mx-auto flex max-w-6xl flex-col items-start gap-10 px-4 sm:px-6 lg:px-8 md:flex-row md:items-center md:justify-between">
+                    <div className="max-w-2xl">
+                        <span className="inline-block rounded-full border border-[#176BDE]/40 bg-[#176BDE]/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#8FC0FF]">
+                            Leasing de software
+                        </span>
+                        <h2 className="mt-5 text-3xl font-black leading-tight tracking-tight text-white md:text-5xl">
+                            Tu sistema a medida, <span className="text-[#6AA5F5]">pagado en cuotas</span>
+                        </h2>
+                        <p className="mt-5 text-lg leading-relaxed text-slate-300">
+                            Desarrollamos el software o ERP que tu rubro necesita. Lo pagas en cuotas, terminas con licencia perpetua de uso y, mientras pagas, recibes un porcentaje cada vez que el sistema se vende a otras empresas.
+                        </p>
+                    </div>
+                    <Link
+                        href="/leasing-de-software"
+                        className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-[#176BDE] px-7 py-4 font-bold text-white transition-colors hover:bg-[#0E4FA5]"
+                    >
+                        Ver cómo funciona <ArrowRight className="h-5 w-5" aria-hidden />
+                    </Link>
+                </div>
+            </section>
+
+            {/* Insights Preview — lee del registro único de `src/data/insights` */}
+            <section className="py-24 bg-slate-50 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-80 h-80 bg-[#176BDE]/5 blur-[120px] rounded-full pointer-events-none" />
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
+                        <div className="max-w-2xl">
+                            <p className="text-sm font-bold text-[#176BDE] tracking-[0.2em] uppercase mb-4">Insights</p>
+                            <h2 className="text-3xl md:text-4xl font-black text-slate-900 leading-tight">
+                                Los plazos que ya están <br className="hidden md:block" />
+                                <span className="text-[#176BDE]">corriendo en Chile</span>
+                            </h2>
+                        </div>
+                        <Link href="/insights" className="group inline-flex items-center gap-2 text-slate-600 font-bold hover:text-[#176BDE] transition-colors">
+                            Ver todos los análisis
+                            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {getFeaturedArticles().map((post) => (
+                            <m.div
+                                key={post.slug}
+                                whileHover={{ y: -8 }}
+                                className="group bg-white rounded-2xl border border-slate-100 p-2 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
+                            >
+                                <Link href={`/insights/${post.slug}`} className="flex flex-col h-full">
+                                    <div className="aspect-[16/10] relative rounded-xl overflow-hidden mb-6">
+                                        <Image src={post.imageUrl} alt="" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100" />
+                                        <div className="absolute top-4 left-4">
+                                            <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-black text-[#176BDE] uppercase tracking-wider">{post.category}</span>
+                                        </div>
+                                    </div>
+                                    <div className="px-4 pb-6 flex flex-col flex-grow">
+                                        <h3 className="text-lg font-bold text-slate-900 mb-3 group-hover:text-[#176BDE] transition-colors">{post.cardTitle}</h3>
+                                        <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">{post.cardDesc}</p>
+                                        <span className="text-xs font-black text-[#176BDE] uppercase tracking-widest flex items-center gap-2">
+                                            Leer análisis <ArrowRight size={12} />
+                                        </span>
+                                    </div>
+                                </Link>
+                            </m.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Providers Carousel */}
+            <PartnersEcosystem />
+
+
             {/* Services Section */}
             <section className="py-32 bg-white relative">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -312,88 +394,6 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
                     </m.div>
                 </div>
             </section>
-
-
-
-            {/* Productos propios (CRM + ERP) — lee de `src/data/products` */}
-            <DevelopedProducts />
-
-            {/* Leasing de software: diferenciador, enlaza a /leasing-de-software */}
-            <section className="relative isolate overflow-hidden bg-[#0F1215] py-20 md:py-24">
-                <BrandPattern tone="onDark" opacity={0.08} className="-z-10" />
-                <div className="mx-auto flex max-w-6xl flex-col items-start gap-10 px-4 sm:px-6 lg:px-8 md:flex-row md:items-center md:justify-between">
-                    <div className="max-w-2xl">
-                        <span className="inline-block rounded-full border border-[#176BDE]/40 bg-[#176BDE]/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#8FC0FF]">
-                            Leasing de software
-                        </span>
-                        <h2 className="mt-5 text-3xl font-black leading-tight tracking-tight text-white md:text-5xl">
-                            Tu sistema a medida, <span className="text-[#6AA5F5]">pagado en cuotas</span>
-                        </h2>
-                        <p className="mt-5 text-lg leading-relaxed text-slate-300">
-                            Desarrollamos el software o ERP que tu rubro necesita. Lo pagas en cuotas, terminas con licencia perpetua de uso y, mientras pagas, recibes un porcentaje cada vez que el sistema se vende a otras empresas.
-                        </p>
-                    </div>
-                    <Link
-                        href="/leasing-de-software"
-                        className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-[#176BDE] px-7 py-4 font-bold text-white transition-colors hover:bg-[#0E4FA5]"
-                    >
-                        Ver cómo funciona <ArrowRight className="h-5 w-5" aria-hidden />
-                    </Link>
-                </div>
-            </section>
-
-            {/* Insights Preview — lee del registro único de `src/data/insights` */}
-            <section className="py-24 bg-slate-50 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-80 h-80 bg-[#176BDE]/5 blur-[120px] rounded-full pointer-events-none" />
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
-                        <div className="max-w-2xl">
-                            <p className="text-sm font-bold text-[#176BDE] tracking-[0.2em] uppercase mb-4">Insights</p>
-                            <h2 className="text-3xl md:text-4xl font-black text-slate-900 leading-tight">
-                                Los plazos que ya están <br className="hidden md:block" />
-                                <span className="text-[#176BDE]">corriendo en Chile</span>
-                            </h2>
-                        </div>
-                        <Link href="/insights" className="group inline-flex items-center gap-2 text-slate-600 font-bold hover:text-[#176BDE] transition-colors">
-                            Ver todos los análisis
-                            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                    </div>
-
-                    <div className="grid md:grid-cols-3 gap-8">
-                        {getFeaturedArticles().map((post) => (
-                            <m.div
-                                key={post.slug}
-                                whileHover={{ y: -8 }}
-                                className="group bg-white rounded-2xl border border-slate-100 p-2 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
-                            >
-                                <Link href={`/insights/${post.slug}`} className="flex flex-col h-full">
-                                    <div className="aspect-[16/10] relative rounded-xl overflow-hidden mb-6">
-                                        <Image src={post.imageUrl} alt="" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100" />
-                                        <div className="absolute top-4 left-4">
-                                            <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-black text-[#176BDE] uppercase tracking-wider">{post.category}</span>
-                                        </div>
-                                    </div>
-                                    <div className="px-4 pb-6 flex flex-col flex-grow">
-                                        <h3 className="text-lg font-bold text-slate-900 mb-3 group-hover:text-[#176BDE] transition-colors">{post.cardTitle}</h3>
-                                        <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">{post.cardDesc}</p>
-                                        <span className="text-xs font-black text-[#176BDE] uppercase tracking-widest flex items-center gap-2">
-                                            Leer análisis <ArrowRight size={12} />
-                                        </span>
-                                    </div>
-                                </Link>
-                            </m.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Providers Carousel */}
-            <PartnersEcosystem />
-
-
-            {/* Últimos reels de Instagram — feed automático vía API de Meta */}
-            {reels}
 
 
             {/* Premium Section: Club 100 (Círculo Privado) */}
