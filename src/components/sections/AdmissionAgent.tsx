@@ -20,6 +20,7 @@ import dynamic from "next/dynamic";
 import { TurnstileWidget } from "@/components/ui/TurnstileWidget";
 import { validatePersonName } from "@/lib/anti-spam";
 import { trackConversion } from "@/lib/analytics";
+import { origenActual } from "@/lib/attribution";
 
 // Three.js + react-three-fiber (~430 KB) fuera del bundle inicial: este bloque
 // vive bajo el pliegue, así que se carga en cliente cuando hace falta.
@@ -99,7 +100,8 @@ export const AdmissionAgent = () => {
                  auditoria: formData.wantAudit.trim(),
                  _honey: formData.website,   // Trampa: si viene con valor, es un bot
                  _ts: mountedAt.current,     // Para medir el tiempo de llenado
-                 turnstileToken              // Prueba de Cloudflare (si está configurado)
+                 turnstileToken,              // Prueba de Cloudflare (si está configurado)
+                 _origen: origenActual()     // Página y, con consentimiento, UTM (para el CRM)
              };
  
              // Enviar al nuevo backend protegido por IA

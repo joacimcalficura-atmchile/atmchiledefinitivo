@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Lightbulb, Code2, CalendarCheck, KeyRound, Users, TrendingDown, Building2, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { FooterUnified } from "@/components/shared/FooterUnified";
+import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
 import { BrandPattern } from "@/components/ui/BrandPattern";
 import { SITE } from "@/data/site";
 
@@ -114,7 +115,7 @@ const serviceJsonLd = {
 };
 
 const whatsappHref = `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(
-    "Hola ATM, quiero saber más sobre el leasing de software."
+    "Hola ATM, les escribo desde atmchile.com/leasing-de-software. Quiero saber más sobre el leasing de software."
 )}`;
 
 export default function LeasingPage() {
@@ -154,14 +155,13 @@ export default function LeasingPage() {
                         >
                             Agenda un diagnóstico <ArrowRight className="h-5 w-5" aria-hidden />
                         </Link>
-                        <a
+                        <WhatsAppLink
                             href={whatsappHref}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            boton="leasing-hero"
                             className="inline-flex items-center justify-center rounded-xl border-2 border-white/20 bg-white/5 px-8 py-4 text-lg font-bold text-white transition-colors hover:bg-white/10"
                         >
                             Conversemos por WhatsApp
-                        </a>
+                        </WhatsAppLink>
                     </div>
                 </div>
             </section>
@@ -275,14 +275,13 @@ export default function LeasingPage() {
                         >
                             Agenda un diagnóstico
                         </Link>
-                        <a
+                        <WhatsAppLink
                             href={whatsappHref}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            boton="leasing-cierre"
                             className="inline-flex items-center justify-center rounded-xl border-2 border-white/40 px-8 py-4 text-lg font-bold text-white transition-colors hover:bg-white/10"
                         >
                             WhatsApp {SITE.whatsappDisplay}
-                        </a>
+                        </WhatsAppLink>
                     </div>
                 </div>
             </section>

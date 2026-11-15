@@ -3,6 +3,7 @@ import { streamText, convertToModelMessages, type StreamTextTransform } from "ai
 import type { ToolSet } from "ai";
 import { NextResponse } from "next/server";
 import { ChatSchema } from "@/types/security";
+import { enviarAlCrm } from "@/lib/crm";
 
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMhGRRHLx8UylQSoCITSLqc_r8PZGm3cwYX5yYQ_aWwgJ2yk1XIbiPS4KY0njfHeMJqg/exec";
 
@@ -44,6 +45,16 @@ async function saveLead(markerText: string, securityId: string) {
     }
     if (!nombre || !correo) return;
 
+    // El CRM recibe el mismo lead (fuente Web) en paralelo con la planilla.
+    const crm = enviarAlCrm({
+        tipo: "lead",
+        formulario: "chat_ia",
+        nombre: nombre.slice(0, 120),
+        correo: correo.slice(0, 200),
+        telefono: telefono ? telefono.slice(0, 40) : undefined,
+        extra: desafio ? { desafio: desafio.slice(0, 500) } : undefined,
+    }, securityId);
+
     try {
         await fetch(APPS_SCRIPT_URL, {
             method: "POST",
@@ -61,6 +72,7 @@ async function saveLead(markerText: string, securityId: string) {
     } catch (err) {
         console.error(`[ERROR] Save Lead failed. ID: ${securityId}`, err);
     }
+    await crm;
 }
 
 /**
