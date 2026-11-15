@@ -56,6 +56,7 @@ const GmailIcon = ({ className }: { className?: string }) => (
 import dynamic from "next/dynamic";
 import { TurnstileWidget } from "@/components/ui/TurnstileWidget";
 import { validatePersonName } from "@/lib/anti-spam";
+import { trackConversion } from "@/lib/analytics";
 
 // Three.js fuera del bundle inicial de /contacto (ver AdmissionAgent).
 const FloatingCubes = dynamic(
@@ -158,6 +159,7 @@ export default function ContactoPage() {
               }
              
              setSubmitted(true);
+             trackConversion({ name: "lead_submit", props: { form: isWhatsAppMode ? "whatsapp" : "contacto" } });
             
             // 2. Lógica Dual: Redirección según canal con Copywriting especializado
             if (isWhatsAppMode) {
@@ -167,6 +169,7 @@ export default function ContactoPage() {
                     ? `Estimado Joacim, es un honor saludarle. Mi nombre es ${form.nombre} de la empresa ${form.empresa}. Me pongo en contacto directo con usted para conversar sobre una oportunidad estratégica de alto nivel. (Proviene de atmchile.com).`
                     : `Hola Alberto, ¿cómo estás? Mi nombre es ${form.nombre} de ${form.empresa}. Te escribo para solicitar la evaluación de un nuevo proyecto. Dejé mis datos en atmchile.com y me gustaría conversar sobre detalles técnicos.`;
 
+                trackConversion({ name: "whatsapp_open", props: { contact: targetContact } });
                 window.open(`https://wa.me/${targetPhone}?text=${encodeURIComponent(message)}`, '_blank');
                 setSubmitted(true);
             }
