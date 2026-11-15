@@ -12,7 +12,7 @@ import type { NextRequest } from 'next/server';
  */
 const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minuto
-const MAX_REQUESTS = 50; // peticiones por minuto por IP (navegación general)
+const MAX_REQUESTS = 50; // peticiones por minuto por IP (API en general)
 const MAX_TRACKED_IPS = 10_000; // techo de memoria
 
 /**
@@ -98,10 +98,13 @@ export function proxy(request: NextRequest) {
 export default proxy;
 
 export const config = {
-    matcher: [
-        /*
-         * Protegemos TODO, incluyendo API, excepto estáticos
-         */
-        '/((?!_next/static|_next/image|favicon.ico).*)',
-    ],
+    /*
+     * Solo la API. Antes el matcher cubría todo el sitio, y el límite de 50
+     * peticiones por minuto contaba también las precargas (RSC prefetch) que
+     * Next hace de cada enlace visible: una sola visita a la home generaba ~26
+     * peticiones y la segunda o tercera página navegada devolvía 429, también
+     * a Googlebot. Las páginas son estáticas y las protege el CDN de Vercel;
+     * lo que vale la pena limitar son los endpoints que ejecutan lógica.
+     */
+    matcher: ['/api/:path*'],
 };
