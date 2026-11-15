@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { m, Variants, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { BadgeCheck, Users, Bot, LineChart, ShieldCheck, Cloud, Box, Check, ArrowRight, Lock, BookOpen } from "lucide-react";
+import { BadgeCheck, Users, Bot, LineChart, ShieldCheck, Cloud, Box, Check, ArrowRight, Lock, BookOpen, Wallet } from "lucide-react";
 const PartnersEcosystem = dynamic(() => import("./PartnersEcosystem").then(mod => mod.PartnersEcosystem), {
     loading: () => <div className="h-64 w-full animate-pulse bg-slate-50" />
 });
@@ -123,8 +123,6 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
                         </m.div>
                     </AnimatePresence>
                 </div>
-                {/* Patrón de marca sobre la foto, bajo el texto */}
-                <BrandPattern tone="onDark" opacity={0.07} className="z-[1]" />
                 
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -136,9 +134,9 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
                             transition={{ duration: 1.2, ease: smoothEase }}
                             className="max-w-2xl"
                         >
-                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-accent border border-white/5 text-[10px] font-black tracking-widest uppercase mb-6">
-                                <BadgeCheck size={16} />
-                                <span>ATM Chile | Partner Tecnológico Estratégico 360</span>
+                            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-[#0F1215]/50 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#16F3E8] backdrop-blur-md">
+                                <BadgeCheck size={16} aria-hidden />
+                                <span>Partner tecnológico 360°</span>
                             </div>
                             <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight mb-8">
                                 Software a Medida: <br/>
@@ -153,11 +151,19 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 1, delay: 0.3, ease: smoothEase }}
                             >
-                                <Link href="/servicios" className="neon-button text-white px-8 py-4 rounded-xl text-lg font-bold shadow-xl shadow-primary/20 hover:scale-[1.02] transition-transform text-center flex items-center justify-center bg-[#176BDE] hover:bg-[#0E4FA5]">
+                                <Link
+                                    href="/servicios"
+                                    className="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-[#176BDE] px-7 py-4 text-base font-bold text-white shadow-[0_10px_30px_rgba(23,107,222,0.45)] ring-1 ring-inset ring-white/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1A78F5] hover:shadow-[0_14px_40px_rgba(23,107,222,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#16F3E8]"
+                                >
                                     Potenciar Operación 360
+                                    <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden />
                                 </Link>
-                                <Link href="/leasing-de-software" className="bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-white/10 transition-colors text-center flex items-center justify-center">
+                                <Link
+                                    href="/leasing-de-software"
+                                    className="group inline-flex items-center justify-center gap-2.5 rounded-xl border border-white/25 bg-white/10 px-7 py-4 text-base font-bold text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#16F3E8]"
+                                >
                                     Software en cuotas: leasing
+                                    <Wallet className="h-5 w-5 text-[#8FC0FF]" aria-hidden />
                                 </Link>
                             </m.div>
                         </m.div>
