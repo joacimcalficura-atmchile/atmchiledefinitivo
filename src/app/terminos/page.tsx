@@ -1,98 +1,161 @@
-"use client";
-
-import React from "react";
-import { m } from "framer-motion";
-import { FileText, Shield, Gavel, Handshake, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { SITE } from "@/data/site";
+import { ControllerCard, LegalDocument, type LegalSection } from "@/components/legal/LegalDocument";
+import { LEGAL_EFFECTIVE_DATE } from "@/components/legal/legal-meta";
+
+/*
+ * Texto definitivo entregado por ATM (redactado con su asesoría legal).
+ * No editar el contenido sin su validación.
+ */
+
+const domain = SITE.url.replace("https://", "");
+
+const sections: LegalSection[] = [
+    {
+        id: "titular",
+        title: "Titular",
+        body: (
+            <>
+                <p>
+                    El dominio web{" "}
+                    <a href={SITE.url} className="font-semibold text-[#176BDE] underline underline-offset-2">
+                        {domain}
+                    </a>{" "}
+                    es operado y es de propiedad exclusiva de {SITE.legalName}, RUT {SITE.rut}, con domicilio comercial
+                    en {SITE.address}.
+                </p>
+                <ControllerCard />
+            </>
+        ),
+    },
+    {
+        id: "objeto",
+        title: "Objeto y aceptación",
+        body: (
+            <p>
+                El ingreso a esta plataforma y la aceptación expresa mediante el aviso de ingreso (clic afirmativo)
+                confieren la calidad de usuario y suponen la total conformidad con el presente instrumento legal.
+            </p>
+        ),
+    },
+    {
+        id: "uso",
+        title: "Uso permitido y prohibido",
+        body: (
+            <p>
+                El sitio está destinado a la información, contacto y evaluación comercial B2B. Queda estrictamente
+                prohibido su uso para fines ilícitos, ingeniería inversa, alteración de servidores, extracción masiva de
+                datos (web scraping) o cualquier acción que vulnere la integridad de la infraestructura de ATM Chile.
+            </p>
+        ),
+    },
+    {
+        id: "propiedad-intelectual",
+        title: "Propiedad intelectual",
+        body: (
+            <p>
+                Toda la arquitectura, código subyacente, diseños, textos descriptivos, modelos comerciales y el slogan
+                &quot;A tu medida&quot; constituyen creaciones intelectuales exclusivas de ATM Chile y se encuentran
+                amparados bajo la Ley 17.336 de Propiedad Intelectual. Queda estrictamente prohibida su copia,
+                distribución o reproducción no autorizada.
+            </p>
+        ),
+    },
+    {
+        id: "servicios-leasing",
+        title: "Información sobre servicios y leasing",
+        body: (
+            <p>
+                Toda la información dispuesta sobre desarrollo de software a medida, integración ERP, ciberseguridad y
+                el modelo de negocio denominado &quot;leasing de software&quot;, es de carácter puramente referencial,
+                publicitario y no vinculante. Las condiciones definitivas, los montos de las cuotas, la adquisición de
+                la licencia perpetua y los porcentajes de retribución por comercialización a terceros se regulan,
+                perfeccionan y ejecutan única y exclusivamente según lo estipulado en el respectivo contrato de
+                confidencialidad y servicios que se suscriba de mutuo acuerdo con cada cliente.
+            </p>
+        ),
+    },
+    {
+        id: "enlaces",
+        title: "Enlaces a terceros",
+        body: (
+            <p>
+                El portal puede contener vínculos a plataformas externas (ej. herramientas de Meta o pasarelas). ATM
+                Chile no asume responsabilidad alguna por el contenido, seguridad o políticas de privacidad aplicadas en
+                dichos dominios de terceros.
+            </p>
+        ),
+    },
+    {
+        id: "responsabilidad",
+        title: "Disponibilidad, limitación de responsabilidad e indemnidad",
+        body: (
+            <p>
+                El Service Level Agreement (SLA) de disponibilidad del 99,597 % es una métrica de infraestructura que
+                aplica de forma exclusiva a los servicios de software final ya contratados. Este sitio web informativo
+                se provee &quot;tal cual&quot;. En consecuencia, ATM Chile no se hace responsable por caídas de red,
+                eventos de fuerza mayor tecnológica (tales como desconexiones de ISP, fallos de infraestructura de
+                alojamiento externa o ciberataques) que impidan temporalmente el acceso. Asimismo, el usuario se obliga
+                a mantener indemne a ATM Chile ante cualquier reclamo, demanda o sanción impulsada por terceros que
+                derive directamente del uso indebido del sitio por parte del usuario.
+            </p>
+        ),
+    },
+    {
+        id: "datos",
+        title: "Protección de datos",
+        body: (
+            <p>
+                Todo dato personal recopilado en el portal se gestiona en estricto rigor con nuestra{" "}
+                <Link href="/privacidad" className="font-semibold text-[#176BDE] underline underline-offset-2">
+                    Política de Privacidad y Seguridad
+                </Link>
+                , sujeta a los tribunales y regulaciones de la República de Chile.
+            </p>
+        ),
+    },
+    {
+        id: "modificaciones",
+        title: "Modificaciones",
+        body: (
+            <p>
+                ATM Chile se reserva el derecho de modificar estos términos de manera unilateral para adaptarlos a
+                novedades legislativas o tecnológicas. Toda modificación será oponible desde el momento de su
+                publicación.
+            </p>
+        ),
+    },
+    {
+        id: "ley-aplicable",
+        title: "Ley aplicable y jurisdicción",
+        body: (
+            <p>
+                El presente instrumento se rige íntegramente por las leyes de la República de Chile. Para todos los
+                efectos legales, toda controversia derivada de este documento será sometida a la competencia de los
+                Tribunales Ordinarios de Justicia de la ciudad y comuna de Santiago, o bien, resuelta mediante arbitraje
+                conforme a las reglas del Centro de Arbitraje y Mediación (CAM) de Santiago, si las partes así lo
+                acuerdan por escrito.
+            </p>
+        ),
+    },
+];
 
 export default function TerminosPage() {
     return (
-        <div className="min-h-screen bg-[#F8FAFC] pt-32 pb-24 px-6">
-            <div className="max-w-4xl mx-auto">
-                {/* Header */}
-                <m.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mb-16 text-center"
-                >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#16F3E8]/5 border border-[#16F3E8]/10 text-[#176BDE] text-xs font-bold uppercase tracking-widest mb-6">
-                        <Gavel size={14} />
-                        Marco Legal Estratégico
-                    </div>
-                    <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-6">
-                        Términos de <span className="text-brand-cobalt">Servicio</span>
-                    </h1>
-                    <p className="text-lg text-slate-600 font-medium max-w-2xl mx-auto">
-                        Al colaborar con ATM Chile, usted accede a un ecosistema de excelencia técnica regido por los más altos estándares corporativos y de cumplimiento.
-                    </p>
-                </m.div>
-
-                {/* Content */}
-                <m.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                    className="grid gap-8"
-                >
-                    {[
-                        {
-                            title: "Prestación de Servicios 360",
-                            content: "ATM Chile se compromete a entregar servicios de consultoría, arquitectura y desarrollo tecnológico bajo el principio de 'Audit-Ready'. Todo entregable debe cumplir con criterios técnicos senior antes de su paso a producción.",
-                            icon: <Handshake className="text-brand-cobalt" />
-                        },
-                        {
-                            title: "Propiedad Intelectual",
-                            content: "Salvo acuerdo explícito en contrario, los desarrollos personalizados realizados para el cliente son de propiedad exclusiva del cliente una vez finalizada la relación contractual y liquidados los haberes correspondientes. ATM Chile retiene la propiedad de sus marcos de trabajo base y metodologías propietarias.",
-                            icon: <FileText className="text-brand-cyan" />
-                        },
-                        {
-                            title: "Responsabilidad y Garantía",
-                            content: "Ofrecemos una garantía de soporte sobre el código entregado, asegurando la resolución de fallos críticos en los términos acordados en el SLA (Service Level Agreement). Nuestra responsabilidad está limitada al valor del servicio contratado, enfocándonos siempre en la continuidad operativa.",
-                            icon: <Shield className="text-brand-cobalt" />
-                        },
-                        {
-                            title: "Cumplimiento y Jurisdicción",
-                            content: "Nuestros términos se rigen por las leyes vigentes de la República de Chile. Cualquier discrepancia técnica será resuelta preferentemente mediante paneles de expertos senior antes de recurrir a instancias legales ordinarias.",
-                            icon: <Gavel className="text-brand-cyan" />
-                        }
-                    ].map((section, i) => (
-                        <m.div
-                            key={section.title}
-                            initial={{ opacity: 0, x: 20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1 }}
-                            className="p-8 bg-white border border-slate-200 rounded-[2rem] shadow-sm hover:shadow-md transition-all group"
-                        >
-                            <div className="flex gap-6">
-                                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 group-hover:bg-brand-cobalt/5 group-hover:border-brand-cobalt/10 transition-colors">
-                                    {section.icon}
-                                </div>
-                                <div>
-                                    <h3 className="text-xl font-bold text-slate-900 mb-3">{section.title}</h3>
-                                    <p className="text-slate-600 leading-relaxed text-sm">{section.content}</p>
-                                </div>
-                            </div>
-                        </m.div>
-                    ))}
-                </m.div>
-
-                {/* Footer Legal */}
-                <m.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    className="mt-16 pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-6"
-                >
-                    <p className="text-xs text-slate-400 font-medium">
-                        Documento oficial para Partners ATM Chile
-                    </p>
-                    <div className="flex gap-4">
-                        <Link href="/contacto" className="text-sm font-bold text-brand-cobalt hover:underline flex items-center gap-1">
-                            Sesión Estratégica <ChevronRight size={14} />
-                        </Link>
-                    </div>
-                </m.div>
-            </div>
-        </div>
+        <LegalDocument
+            eyebrow="Documento legal"
+            title="Términos y Condiciones de Uso"
+            version="1.0"
+            effectiveDate={LEGAL_EFFECTIVE_DATE}
+            summary={
+                <p>
+                    Establece el marco jurídico para el uso del sitio corporativo de ATM Chile, resguardando los activos
+                    de propiedad intelectual, delimitando las responsabilidades por infraestructura y aclarando la
+                    naturaleza referencial del modelo comercial de &quot;leasing&quot;.
+                </p>
+            }
+            sections={sections}
+            related={{ href: "/privacidad", label: "Política de Privacidad y Seguridad" }}
+        />
     );
 }

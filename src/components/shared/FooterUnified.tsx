@@ -46,7 +46,7 @@ const footerLinks = [
     links: [
       { name: "Privacidad", href: "/privacidad" },
       { name: "Términos", href: "/terminos" },
-      { name: "Compliance", href: "/privacidad#compliance" },
+      { name: "Compliance", href: "/privacidad#seguridad" },
     ],
   },
 ];
