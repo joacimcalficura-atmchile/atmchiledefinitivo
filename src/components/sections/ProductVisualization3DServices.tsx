@@ -114,13 +114,13 @@ export const ProductVisualization3DServices = ({ onClose }: ProductVisualization
                 {/* Cabecera */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                     <div>
-                        <div className="inline-flex items-center gap-2 text-[10px] font-black tracking-[0.25em] text-[#0047AB] uppercase mb-3">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE] animate-pulse" />
+                        <div className="inline-flex items-center gap-2 text-[10px] font-black tracking-[0.25em] text-[#176BDE] uppercase mb-3">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#16F3E8] animate-pulse" />
                             Portafolio de Servicios
                         </div>
                         <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
                             Virtualización{" "}
-                            <span className="text-[#0047AB]">& Producción 3D</span>
+                            <span className="text-[#176BDE]">& Producción 3D</span>
                         </h2>
                         <p className="text-slate-600 text-lg max-w-2xl font-medium">
                             Explore nuestros flujos de trabajo y entregables por categoría de servicio. Seleccione un área para conocer el proceso detallado.
@@ -143,24 +143,24 @@ export const ProductVisualization3DServices = ({ onClose }: ProductVisualization
                                         className={`
                                             relative z-10 flex items-center p-5 rounded-2xl cursor-pointer transition-all duration-400 border backdrop-blur-xl
                                             ${isActive
-                                                ? "bg-white border-[#0047AB] shadow-[0_10px_30px_rgba(23, 107, 222,0.12)] scale-[1.02]"
+                                                ? "bg-white border-[#176BDE] shadow-[0_10px_30px_rgba(23, 107, 222,0.12)] scale-[1.02]"
                                                 : "bg-white/50 border-transparent hover:border-slate-200 hover:bg-white/80 shadow-sm"
                                             }
                                         `}
                                     >
-                                        <div className={`p-3 rounded-xl mr-5 transition-colors duration-400 ${isActive ? "bg-[#0047AB] text-white shadow-lg shadow-[#0047AB]/30" : "bg-slate-100 text-slate-500"}`}>
+                                        <div className={`p-3 rounded-xl mr-5 transition-colors duration-400 ${isActive ? "bg-[#176BDE] text-white shadow-lg shadow-[#176BDE]/30" : "bg-slate-100 text-slate-500"}`}>
                                             {cat.icon}
                                         </div>
                                         <div className="flex-1">
-                                            <div className={`text-[10px] font-black tracking-[0.2em] uppercase mb-0.5 ${isActive ? "text-[#22D3EE]" : "text-slate-400"}`}>
+                                            <div className={`text-[10px] font-black tracking-[0.2em] uppercase mb-0.5 ${isActive ? "text-[#16F3E8]" : "text-slate-400"}`}>
                                                 Categoría {cat.category}
                                             </div>
-                                            <h3 className={`text-base font-bold tracking-tight transition-colors duration-400 ${isActive ? "text-[#0047AB]" : "text-slate-700"}`}>
+                                            <h3 className={`text-base font-bold tracking-tight transition-colors duration-400 ${isActive ? "text-[#176BDE]" : "text-slate-700"}`}>
                                                 {cat.title}
                                             </h3>
                                         </div>
                                         {isActive && (
-                                            <m.div layoutId="active-indicator-3d" className="w-6 h-6 bg-[#F8FAFC] flex items-center justify-center rounded-full border border-[#0047AB]/20 shadow-sm text-[#0047AB]">
+                                            <m.div layoutId="active-indicator-3d" className="w-6 h-6 bg-[#F8FAFC] flex items-center justify-center rounded-full border border-[#176BDE]/20 shadow-sm text-[#176BDE]">
                                                 <ArrowRight className="w-4 h-4" />
                                             </m.div>
                                         )}
@@ -185,12 +185,12 @@ export const ProductVisualization3DServices = ({ onClose }: ProductVisualization
                                                             className={`
                                                                 text-left px-4 py-3 rounded-xl border text-sm font-medium transition-all duration-200 flex items-center gap-3
                                                                 ${isServiceActive
-                                                                    ? "bg-[#0047AB]/5 border-[#0047AB]/20 text-[#0047AB]"
+                                                                    ? "bg-[#176BDE]/5 border-[#176BDE]/20 text-[#176BDE]"
                                                                     : "bg-white/60 border-slate-100 text-slate-600 hover:bg-white hover:border-slate-200"
                                                                 }
                                                             `}
                                                         >
-                                                            <ChevronRight className={`w-4 h-4 shrink-0 transition-transform ${isServiceActive ? "rotate-90 text-[#0047AB]" : "text-slate-300"}`} />
+                                                            <ChevronRight className={`w-4 h-4 shrink-0 transition-transform ${isServiceActive ? "rotate-90 text-[#176BDE]" : "text-slate-300"}`} />
                                                             {svc.name}
                                                         </button>
                                                     );
@@ -218,8 +218,8 @@ export const ProductVisualization3DServices = ({ onClose }: ProductVisualization
                                         transition={{ duration: 0.28 }}
                                         className="flex flex-col h-full"
                                     >
-                                        <div className="text-[10px] font-bold tracking-[0.2em] text-[#0047AB] uppercase mb-4 flex items-center gap-2">
-                                            <span className="w-2 h-2 rounded-full bg-[#22D3EE] animate-pulse" />
+                                        <div className="text-[10px] font-bold tracking-[0.2em] text-[#176BDE] uppercase mb-4 flex items-center gap-2">
+                                            <span className="w-2 h-2 rounded-full bg-[#16F3E8] animate-pulse" />
                                             Flujo de Trabajo
                                         </div>
                                         <h3 className="text-xl font-extrabold text-slate-900 tracking-tight mb-5">
@@ -232,7 +232,7 @@ export const ProductVisualization3DServices = ({ onClose }: ProductVisualization
                                             <div className="flex flex-wrap gap-2">
                                                 {activeService.workflow.split("→").map((step, i, arr) => (
                                                     <React.Fragment key={i}>
-                                                        <span className={`text-xs font-semibold px-3 py-1.5 rounded-full ${i === 0 ? "bg-[#0047AB] text-white" : i === arr.length - 1 ? "bg-[#22D3EE]/10 text-[#0047AB] border border-[#22D3EE]/30" : "bg-slate-100 text-slate-600"}`}>
+                                                        <span className={`text-xs font-semibold px-3 py-1.5 rounded-full ${i === 0 ? "bg-[#176BDE] text-white" : i === arr.length - 1 ? "bg-[#16F3E8]/10 text-[#176BDE] border border-[#16F3E8]/30" : "bg-slate-100 text-slate-600"}`}>
                                                             {step.trim()}
                                                         </span>
                                                         {i < arr.length - 1 && <span className="text-slate-300 text-xs self-center">›</span>}
@@ -243,7 +243,7 @@ export const ProductVisualization3DServices = ({ onClose }: ProductVisualization
 
                                         <div className="flex-grow bg-slate-50/70 p-6 rounded-xl border border-slate-100">
                                             <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">Entregables</p>
-                                            <p className="text-sm font-semibold text-[#0047AB] leading-relaxed">
+                                            <p className="text-sm font-semibold text-[#176BDE] leading-relaxed">
                                                 {activeService.deliverables}
                                             </p>
                                         </div>
@@ -258,12 +258,12 @@ export const ProductVisualization3DServices = ({ onClose }: ProductVisualization
                                         transition={{ duration: 0.28 }}
                                         className="flex flex-col h-full"
                                     >
-                                        <div className="text-[10px] font-bold tracking-[0.2em] text-[#0047AB] uppercase mb-4 flex items-center gap-2">
-                                            <span className="w-2 h-2 rounded-full bg-[#22D3EE] animate-pulse" />
+                                        <div className="text-[10px] font-bold tracking-[0.2em] text-[#176BDE] uppercase mb-4 flex items-center gap-2">
+                                            <span className="w-2 h-2 rounded-full bg-[#16F3E8] animate-pulse" />
                                             Categoría {activeCategory.category} — Resumen
                                         </div>
 
-                                        <div className="flex items-center gap-4 mb-5 text-[#0047AB]">
+                                        <div className="flex items-center gap-4 mb-5 text-[#176BDE]">
                                             {activeCategory.icon}
                                             <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">{activeCategory.title}</h3>
                                         </div>
@@ -274,8 +274,8 @@ export const ProductVisualization3DServices = ({ onClose }: ProductVisualization
                                             <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Servicios incluidos</p>
                                             {activeCategory.services.map((svc, i) => (
                                                 <div key={i} className="flex items-start gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                                                    <div className="w-5 h-5 rounded-full bg-[#0047AB]/10 border border-[#0047AB]/20 flex items-center justify-center shrink-0 mt-0.5">
-                                                        <span className="text-[9px] font-black text-[#0047AB]">{i + 1}</span>
+                                                    <div className="w-5 h-5 rounded-full bg-[#176BDE]/10 border border-[#176BDE]/20 flex items-center justify-center shrink-0 mt-0.5">
+                                                        <span className="text-[9px] font-black text-[#176BDE]">{i + 1}</span>
                                                     </div>
                                                     <p className="text-sm font-semibold text-slate-700">{svc.name}</p>
                                                 </div>
@@ -292,8 +292,8 @@ export const ProductVisualization3DServices = ({ onClose }: ProductVisualization
                 </div>
 
                 {/* Condiciones Operativas */}
-                <div className="mt-12 p-8 rounded-2xl border border-[#0047AB]/10 bg-gradient-to-br from-[#0047AB]/5 to-[#22D3EE]/5">
-                    <div className="text-[10px] font-black tracking-[0.25em] text-[#0047AB] uppercase mb-4 flex items-center gap-2">
+                <div className="mt-12 p-8 rounded-2xl border border-[#176BDE]/10 bg-gradient-to-br from-[#176BDE]/5 to-[#16F3E8]/5">
+                    <div className="text-[10px] font-black tracking-[0.25em] text-[#176BDE] uppercase mb-4 flex items-center gap-2">
                         <Brain className="w-4 h-4" />
                         Condiciones Operativas y Validación
                     </div>

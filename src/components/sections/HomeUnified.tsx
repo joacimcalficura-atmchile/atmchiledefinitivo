@@ -19,6 +19,7 @@ const StrategicAllies = dynamic(() => import("./StrategicAllies").then(mod => mo
 });
 import { usePerformanceOptimization } from "@/hooks/usePerformanceOptimization";
 import { getFeaturedArticles } from "@/data/insights";
+import { BrandPattern } from "@/components/ui/BrandPattern";
 
 
 // Premium Easing Curves
@@ -117,6 +118,8 @@ export const HomeUnified = () => {
                         </m.div>
                     </AnimatePresence>
                 </div>
+                {/* Patrón de marca sobre la foto, bajo el texto */}
+                <BrandPattern tone="onDark" opacity={0.07} className="z-[1]" />
                 
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -134,7 +137,7 @@ export const HomeUnified = () => {
                             </div>
                             <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight mb-8">
                                 Software a Medida: <br/>
-                                <span className="text-[#176BDE] glow-text drop-shadow-[0_0_15px_rgba(23,107,222,0.5)]">Hub Tecnológico Latam</span>
+                                <span className="text-[#6AA5F5]">Hub Tecnológico Latam</span>
                             </h1>
                             <p className="text-lg text-blue-200/80 leading-relaxed mb-10 max-w-xl">
                                 No solo implementamos tecnología. Somos el partner estratégico de alta fidelidad que transforma operaciones complejas en Chile y el mundo a través de ingeniería de software premium.
@@ -148,9 +151,9 @@ export const HomeUnified = () => {
                                 <Link href="/servicios" className="neon-button text-white px-8 py-4 rounded-xl text-lg font-bold shadow-xl shadow-primary/20 hover:scale-[1.02] transition-transform text-center flex items-center justify-center bg-[#176BDE] hover:bg-[#0E4FA5]">
                                     Potenciar Operación 360
                                 </Link>
-                                <a href="#club100" className="bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-white/10 transition-colors text-center flex items-center justify-center">
-                                    Descubrir el Club 100
-                                </a>
+                                <Link href="/leasing-de-software" className="bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-white/10 transition-colors text-center flex items-center justify-center">
+                                    Software en cuotas: leasing
+                                </Link>
                             </m.div>
                         </m.div>
                         <m.div
@@ -358,6 +361,7 @@ export const HomeUnified = () => {
                 <div className="absolute top-0 left-0 w-[45%] h-full bg-gradient-to-r from-white/10 to-transparent pointer-events-none" />
                 <div className="absolute bottom-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-[100px] pointer-events-none" />
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-[150px] pointer-events-none" />
+                <BrandPattern tone="onDark" opacity={0.1} />
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">

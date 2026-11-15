@@ -36,8 +36,8 @@ const Fragment = ({ position, rotation, scale, color, light, isVisible }: any) =
             >
                 <boxGeometry args={[1, 1, 1]} />
                 <meshStandardMaterial
-                    color={hovered ? (light ? "#0047AB" : "#22D3EE") : color}
-                    emissive={hovered ? (light ? "#0047AB" : "#22D3EE") : (light ? "#0047AB" : "#0047AB")}
+                    color={hovered ? (light ? "#176BDE" : "#16F3E8") : color}
+                    emissive={hovered ? (light ? "#176BDE" : "#16F3E8") : (light ? "#176BDE" : "#176BDE")}
                     emissiveIntensity={hovered ? 2.5 : 0.4}
                     roughness={light ? 0.2 : 0}
                     metalness={1}
@@ -65,8 +65,8 @@ const FragmentsCloud = ({ count = 40, light = false, isVisible = true }) => {
                 rotation: [rX, rY, rZ] as [number, number, number],
                 scale: [s, s, s] as [number, number, number],
                 color: light 
-                    ? (i % 2 === 0 ? "#0047AB" : "#00A3FF") 
-                    : (i % 3 === 0 ? "#00A3FF" : i % 3 === 1 ? "#22D3EE" : "#0047AB")
+                    ? (i % 2 === 0 ? "#176BDE" : "#176BDE") 
+                    : (i % 3 === 0 ? "#176BDE" : i % 3 === 1 ? "#16F3E8" : "#176BDE")
             });
         }
         return temp;
@@ -119,9 +119,9 @@ export const FloatingCubes = ({ count = 40, light = false }) => {
                 
                 {/* Iluminación Dinámica según el tema */}
                 <ambientLight intensity={light ? 0.8 : 0.7} />
-                <spotLight position={[15, 15, 10]} angle={0.15} penumbra={1} intensity={light ? 150 : 2} color={light ? "#0047AB" : "#22D3EE"} castShadow />
-                <pointLight position={[10, 10, 10]} intensity={light ? 100 : 3} color={light ? "#00A3FF" : "#00A3FF"} />
-                <pointLight position={[-10, -10, -10]} intensity={light ? 50 : 1.5} color="#0047AB" />
+                <spotLight position={[15, 15, 10]} angle={0.15} penumbra={1} intensity={light ? 150 : 2} color={light ? "#176BDE" : "#16F3E8"} castShadow />
+                <pointLight position={[10, 10, 10]} intensity={light ? 100 : 3} color={light ? "#176BDE" : "#176BDE"} />
+                <pointLight position={[-10, -10, -10]} intensity={light ? 50 : 1.5} color="#176BDE" />
                 
                 <Suspense fallback={null}>
                     <FragmentsCloud count={optimizedCount} light={light} isVisible={isVisible} />
@@ -136,7 +136,7 @@ export const FloatingCubes = ({ count = 40, light = false }) => {
                         <Lightformer intensity={2} position={[0, 5, -9]} scale={[10, 10, 1]} />
                         <Lightformer intensity={1.5} rotation-y={Math.PI / 2} position={[-5, 1, -1]} scale={[20, 0.5, 1]} />
                         <Lightformer intensity={1.5} rotation-y={-Math.PI / 2} position={[10, 1, 0]} scale={[20, 1, 1]} />
-                        <Lightformer form="ring" color="#22D3EE" intensity={4} position={[-5, 2, -2]} scale={2} />
+                        <Lightformer form="ring" color="#16F3E8" intensity={4} position={[-5, 2, -2]} scale={2} />
                     </Environment>
                     {!light && !isMobile && ( // Further optimize mobile by removing shadows
                         <ContactShadows 
@@ -145,7 +145,7 @@ export const FloatingCubes = ({ count = 40, light = false }) => {
                             blur={2.5} 
                             opacity={0.3} 
                             far={20} 
-                            color="#00A3FF" 
+                            color="#176BDE" 
                         />
                     )}
                 </Suspense>

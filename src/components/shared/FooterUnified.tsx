@@ -3,6 +3,7 @@
 import React from "react";
 import { m } from "framer-motion";
 import Link from "next/link";
+import { BrandPattern } from "@/components/ui/BrandPattern";
 import { 
   Mail, 
   MapPin, 
@@ -24,6 +25,7 @@ const footerLinks = [
   {
     title: "Soluciones",
     links: [
+      { name: "Leasing de software", href: "/leasing-de-software" },
       { name: "Talento Senior", href: "/talento" },
       { name: "IA & Automatización", href: "/servicios" },
       { name: "Ciberseguridad", href: "/seguridad" },
@@ -35,7 +37,6 @@ const footerLinks = [
     links: [
       { name: "Sobre ATM", href: "/#ecosistema" },
       { name: "Club 100", href: "/#club100" },
-      { name: "Casos de Éxito", href: "/servicios#casos" },
       { name: "Contacto", href: "/contacto" },
     ],
   },
@@ -53,7 +54,8 @@ export const FooterUnified = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-white border-t border-slate-200 overflow-hidden">
+    <footer className="relative isolate bg-white border-t border-slate-200 overflow-hidden">
+      <BrandPattern tone="onLight" opacity={0.04} className="-z-10" />
       {/* Elementos decorativos de fondo */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10">
         <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] bg-brand-cobalt/10 blur-[150px] rounded-full" />

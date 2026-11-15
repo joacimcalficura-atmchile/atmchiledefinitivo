@@ -4,7 +4,7 @@ export const metadata: Metadata = {
     // El template del layout raíz ya agrega «| ATM Chile».
     title: "Ciberseguridad 360 | NCh-ISO 27001 & Ley Marco Chile",
     description:
-        "Centro de Mando de Ciberseguridad de ATM Chile. Cumplimiento de la Ley N°21.663 (Ley Marco de Ciberseguridad), certificación NCh-ISO 27001, arquitectura Zero Trust, OWASP Top 10 y pipeline DevSecOps/SAST/DAST para empresas chilenas.",
+        "Centro de Mando de Ciberseguridad de ATM Chile. Cumplimiento de la Ley N°21.663 (Ley Marco de Ciberseguridad), SGSI alineado a NCh-ISO 27001 (en proceso de certificación), arquitectura Zero Trust, OWASP Top 10 y pipeline DevSecOps/SAST/DAST para empresas chilenas.",
     keywords: [
         "ciberseguridad chile",
         "ISO 27001 chile",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Ciberseguridad 360 — ATM Chile",
         description:
-            "Seguridad total bajo estándares NCh-ISO 27001, Ley Marco N°21.663 y OWASP Top 10. Arquitectura Zero Trust y DevSecOps para empresas chilenas.",
+            "Seguridad alineada a NCh-ISO 27001 (en proceso de certificación), Ley Marco N°21.663 y OWASP Top 10. Arquitectura Zero Trust y DevSecOps para empresas chilenas.",
         images: ["https://www.atmchile.com/images/executive-security.png"],
         creator: "@atmchile",
     },
@@ -109,7 +109,7 @@ export default function SeguridadLayout({
                             "@type": "OfferCatalog",
                             name: "Pilares de Seguridad",
                             itemListElement: [
-                                { "@type": "Offer", name: "Certificación NCh-ISO 27001" },
+                                { "@type": "Offer", name: "SGSI alineado a NCh-ISO 27001 (en proceso de certificación)" },
                                 { "@type": "Offer", name: "Cumplimiento Ley Marco N°21.663" },
                                 { "@type": "Offer", name: "Arquitectura Zero Trust & AES-256" },
                                 { "@type": "Offer", name: "Sanitización OWASP Top 10" },

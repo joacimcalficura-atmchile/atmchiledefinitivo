@@ -69,16 +69,16 @@ export const HeroDashboard = () => {
         >
             {/* Fondo holográfico sutil */}
             <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center" aria-hidden="true">
-                <div className="w-[800px] h-[800px] bg-gradient-to-tr from-[#0047AB]/5 to-[#22D3EE]/5 rounded-full blur-[140px]" />
+                <div className="w-[800px] h-[800px] bg-gradient-to-tr from-[#176BDE]/5 to-[#16F3E8]/5 rounded-full blur-[140px]" />
             </div>
             <m.div
-                className="absolute top-[10%] left-[-5%] w-[30vw] h-[30vw] rounded-full bg-[#0047AB]/4 blur-[120px] pointer-events-none"
+                className="absolute top-[10%] left-[-5%] w-[30vw] h-[30vw] rounded-full bg-[#176BDE]/4 blur-[120px] pointer-events-none"
                 animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
                 transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
                 aria-hidden="true"
             />
             <m.div
-                className="absolute bottom-[10%] right-[-5%] w-[25vw] h-[25vw] rounded-full bg-[#22D3EE]/4 blur-[120px] pointer-events-none"
+                className="absolute bottom-[10%] right-[-5%] w-[25vw] h-[25vw] rounded-full bg-[#16F3E8]/4 blur-[120px] pointer-events-none"
                 animate={{ x: [0, -30, 0], y: [0, 20, 0] }}
                 transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
                 aria-hidden="true"
@@ -106,10 +106,10 @@ export const HeroDashboard = () => {
                                 damping: 18
                             }}
                             whileHover={{ y: -4, scale: 1.02, transition: { type: "spring", stiffness: 400, damping: 25 } }}
-                            className="group bg-white/60 backdrop-blur-xl border border-white/80 shadow-sm hover:shadow-xl hover:shadow-[#0047AB]/5 rounded-3xl p-6 transition-colors duration-300 cursor-default"
+                            className="group bg-white/60 backdrop-blur-xl border border-white/80 shadow-sm hover:shadow-xl hover:shadow-[#176BDE]/5 rounded-3xl p-6 transition-colors duration-300 cursor-default"
                         >
                             <div className="flex items-center gap-3 mb-3">
-                                <div className="p-2 bg-[#0047AB]/5 text-[#0047AB] rounded-xl group-hover:bg-[#0047AB] group-hover:text-white transition-colors duration-300 flex-shrink-0">
+                                <div className="p-2 bg-[#176BDE]/5 text-[#176BDE] rounded-xl group-hover:bg-[#176BDE] group-hover:text-white transition-colors duration-300 flex-shrink-0">
                                     {service.icon}
                                 </div>
                                 <h3 className="font-bold text-slate-900 text-base leading-tight">{service.title}</h3>
@@ -119,7 +119,7 @@ export const HeroDashboard = () => {
                                 <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400 truncate pr-2">
                                     Stack: {service.tech}
                                 </span>
-                                <div className="w-1.5 h-1.5 rounded-full bg-[#0047AB]/30 group-hover:bg-[#22D3EE] flex-shrink-0 transition-colors duration-300" />
+                                <div className="w-1.5 h-1.5 rounded-full bg-[#176BDE]/30 group-hover:bg-[#16F3E8] flex-shrink-0 transition-colors duration-300" />
                             </div>
                         </m.div>
                     ))}
@@ -142,13 +142,13 @@ export const HeroDashboard = () => {
                     />
                     {/* Borde luminoso superior */}
                     <div
-                        className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-px bg-gradient-to-r from-transparent via-[#0047AB]/30 to-transparent pointer-events-none"
+                        className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-px bg-gradient-to-r from-transparent via-[#176BDE]/30 to-transparent pointer-events-none"
                         aria-hidden="true"
                     />
 
                     {/* Badge */}
-                    <span className="relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#0047AB]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#0047AB] shadow-sm mb-8">
-                        <ShieldCheck size={14} className="text-[#22D3EE]" />
+                    <span className="relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#176BDE]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#176BDE] shadow-sm mb-8">
+                        <ShieldCheck size={14} className="text-[#16F3E8]" />
                         Innovación y Escalabilidad
                     </span>
 
@@ -163,7 +163,7 @@ export const HeroDashboard = () => {
                     <h1 className="relative z-10 text-3xl md:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight text-slate-900 leading-[1.05] mb-6">
                         Capacidades de partner
                         <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0047AB] to-[#22D3EE]">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#176BDE] to-[#16F3E8]">
                             Visión Tecnológica 360°
                         </span>
                     </h1>
@@ -178,7 +178,7 @@ export const HeroDashboard = () => {
                         <Link
                             id="cta-auditoria-hero"
                             href="/talento"
-                            className="group relative inline-flex items-center justify-center gap-2 px-7 py-4 bg-[#0047AB] text-white rounded-2xl font-bold text-base overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_10px_40px_rgba(0,0,0,0.3)] active:scale-[0.98]"
+                            className="group relative inline-flex items-center justify-center gap-2 px-7 py-4 bg-[#176BDE] text-white rounded-2xl font-bold text-base overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_10px_40px_rgba(0,0,0,0.3)] active:scale-[0.98]"
                             prefetch={true}
                         >
                             <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" aria-hidden="true" />
@@ -213,10 +213,10 @@ export const HeroDashboard = () => {
                                 damping: 18
                             }}
                             whileHover={{ y: -4, scale: 1.02, transition: { type: "spring", stiffness: 400, damping: 25 } }}
-                            className="group bg-white/60 backdrop-blur-xl border border-white/80 shadow-sm hover:shadow-xl hover:shadow-[#0047AB]/5 rounded-3xl p-6 transition-colors duration-300 cursor-default"
+                            className="group bg-white/60 backdrop-blur-xl border border-white/80 shadow-sm hover:shadow-xl hover:shadow-[#176BDE]/5 rounded-3xl p-6 transition-colors duration-300 cursor-default"
                         >
                             <div className="flex items-center gap-3 mb-3">
-                                <div className="p-2 bg-[#0047AB]/5 text-[#0047AB] rounded-xl group-hover:bg-[#0047AB] group-hover:text-white transition-colors duration-300 flex-shrink-0">
+                                <div className="p-2 bg-[#176BDE]/5 text-[#176BDE] rounded-xl group-hover:bg-[#176BDE] group-hover:text-white transition-colors duration-300 flex-shrink-0">
                                     {service.icon}
                                 </div>
                                 <h3 className="font-bold text-slate-900 text-base leading-tight">{service.title}</h3>
@@ -226,7 +226,7 @@ export const HeroDashboard = () => {
                                 <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400 truncate pr-2">
                                     Stack: {service.tech}
                                 </span>
-                                <div className="w-1.5 h-1.5 rounded-full bg-[#0047AB]/30 group-hover:bg-[#22D3EE] flex-shrink-0 transition-colors duration-300" />
+                                <div className="w-1.5 h-1.5 rounded-full bg-[#176BDE]/30 group-hover:bg-[#16F3E8] flex-shrink-0 transition-colors duration-300" />
                             </div>
                         </m.div>
                     ))}

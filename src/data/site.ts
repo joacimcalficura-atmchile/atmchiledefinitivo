@@ -15,6 +15,9 @@ export const SITE = {
     description:
         "Desarrollo de software a medida, ciberseguridad avanzada y transformación digital en Chile. Partner tecnológico estratégico 360 para procesos críticos.",
     email: "contacto@atmchile.com",
+    /** Número oficial de WhatsApp (formato wa.me, sin «+»). Único en todo el sitio. */
+    whatsapp: "56935708665",
+    whatsappDisplay: "+56 9 3570 8665",
     region: "Región Metropolitana, Chile",
 } as const;
 
