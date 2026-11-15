@@ -57,6 +57,7 @@ import dynamic from "next/dynamic";
 import { TurnstileWidget } from "@/components/ui/TurnstileWidget";
 import { validatePersonName } from "@/lib/anti-spam";
 import { trackConversion } from "@/lib/analytics";
+import { origenActual } from "@/lib/attribution";
 import { SITE } from "@/data/site";
 
 // Three.js fuera del bundle inicial de /contacto (ver AdmissionAgent).
@@ -133,7 +134,8 @@ export default function ContactoPage() {
                   hojaDestino: isWhatsAppMode ? "leeads_wsp" : "Leeads_atm",
                   _honey: form.website,      // Trampa: si viene con valor, es un bot
                   _ts: mountedAt.current,    // Para medir el tiempo de llenado
-                  turnstileToken             // Prueba de Cloudflare (si está configurado)
+                  turnstileToken,             // Prueba de Cloudflare (si está configurado)
+                  _origen: origenActual()     // Página y, con consentimiento, UTM (para el CRM)
               };
               
               // Envío a nuestro endpoint protegido con Gemini AI

@@ -3,6 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import dns from 'dns';
 import { LeadSchema } from '@/types/security';
 import { inspectLead, normalizeEmail, validatePersonName, verifyTurnstile } from '@/lib/anti-spam';
+import { OrigenSchema, crmConfigurado, enviarAlCrm, leadDesdeFormulario } from '@/lib/crm';
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMhGRRHLx8UylQSoCITSLqc_r8PZGm3cwYX5yYQ_aWwgJ2yk1XIbiPS4KY0njfHeMJqg/exec';
 
@@ -55,7 +56,7 @@ export async function POST(req: Request) {
 
     try {
         const body = await req.json();
-        const { _honey, _ts, turnstileToken, ...rest } = body;
+        const { _honey, _ts, turnstileToken, _origen, ...rest } = body;
 
         // 1. HONEYPOT TRAP (Silent deterrent)
         if (_honey) return reject(securityId, 'honeypot');
@@ -168,14 +169,31 @@ export async function POST(req: Request) {
             }
         }
 
-        // 9. SECURE FORWARDING
-        const sheetResponse = await fetch(APPS_SCRIPT_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify(payload)
-        });
+        // 9. SECURE FORWARDING — planilla + correo (Apps Script) y CRM, en
+        //    paralelo. Basta con que uno de los dos lo reciba para no perder
+        //    el lead; si el CRM aún no está configurado, manda la planilla.
+        const origen = OrigenSchema.safeParse(_origen ?? {});
+        const [sheetResult, crmOk] = await Promise.all([
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain' },
+                body: JSON.stringify(payload)
+            }).then((r) => r.ok, (err) => {
+                console.error(`[CRITICAL] Apps Script. ID: ${securityId}`, err);
+                return false;
+            }),
+            enviarAlCrm(
+                leadDesdeFormulario(payload as Record<string, unknown>, origen.success ? origen.data : undefined),
+                securityId
+            ),
+        ]);
 
-        if (!sheetResponse.ok) throw new Error("Upstream service failure");
+        if (!sheetResult) {
+            if (!crmOk) throw new Error("Upstream service failure");
+            console.error(`[CRITICAL] Planilla caída; el lead quedó solo en el CRM. ID: ${securityId}`);
+        } else if (!crmOk && crmConfigurado()) {
+            console.error(`[CRM] Lead solo en la planilla. ID: ${securityId}`);
+        }
 
         return NextResponse.json({
             success: true,
