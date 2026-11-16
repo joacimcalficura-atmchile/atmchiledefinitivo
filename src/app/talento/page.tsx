@@ -1,17 +1,15 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { m, AnimatePresence, LazyMotion, domAnimation, type Variants } from "framer-motion";
+import React from "react";
+import { m, type Variants } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import {
     Users,
     Target,
-    Heart,
     Settings,
-    BarChart3,
     Lightbulb,
     ArrowRight,
-    Zap,
+    ArrowDown,
     CheckCircle2,
     TrendingUp,
     Compass,
@@ -19,816 +17,401 @@ import {
     Rocket,
     Flag,
     BrainCircuit,
-    ShieldCheck,
-    Mail,
+    Linkedin,
 } from "lucide-react";
+import { BrandPattern } from "@/components/ui/BrandPattern";
+import { ServicesCTA } from "@/components/sections/ServicesCTA";
 
 // ─────────────────────────────────────────────────────────
-// DATA — Extraída fielmente de las imágenes de referencia
+// CONTENIDO
 // ─────────────────────────────────────────────────────────
 
-interface TeamMember {
-    role: string;
-    desc: string;
-    icon: React.ReactNode;
-    tag: string;
-}
-
-const teamMembers: TeamMember[] = [
+const teamMembers = [
     {
-        role: "Liderazgo Tecnológico",
-        desc: "Somos un equipo senior con experiencia real en liderazgo tecnológico, conectando visión estratégica y ejecución práctica.",
-        icon: <BrainCircuit className="w-6 h-6" />,
-        tag: "CTO / Tech Lead / Arquitecto",
+        role: "Liderazgo tecnológico",
+        desc: "Experiencia real en liderazgo tecnológico, conectando visión estratégica y ejecución práctica.",
+        Icon: BrainCircuit,
+        tags: ["CTO", "Tech Lead", "Arquitecto"],
     },
     {
-        role: "Liderazgo Operacional",
-        desc: "Integramos cada iniciativa con el negocio, procesos y tecnología para garantizar resultados medibles y sostenibles.",
-        icon: <Settings className="w-6 h-6" />,
-        tag: "COO / PMO / Ops Manager",
+        role: "Liderazgo operacional",
+        desc: "Integramos cada iniciativa con el negocio, los procesos y la tecnología para lograr resultados medibles y sostenibles.",
+        Icon: Settings,
+        tags: ["COO", "PMO", "Ops Manager"],
     },
     {
-        role: "Liderazgo Comercial",
-        desc: "No solo diseñamos la transformación: la implementamos con foco en el cliente y con métricas de éxito claras.",
-        icon: <TrendingUp className="w-6 h-6" />,
-        tag: "CEO / CSO / Account Lead",
+        role: "Liderazgo comercial",
+        desc: "No solo diseñamos la transformación: la implementamos con foco en el cliente y métricas de éxito claras.",
+        Icon: TrendingUp,
+        tags: ["CEO", "CSO", "Account Lead"],
     },
     {
-        role: "Gestión del Cambio",
-        desc: "Acompañamos a los equipos desde el inicio, integrándolos al proceso y fortaleciendo capacidades clave para sostener la transformación.",
-        icon: <Users className="w-6 h-6" />,
-        tag: "Change Manager / Coach",
+        role: "Gestión del cambio",
+        desc: "Acompañamos a los equipos desde el inicio, integrándolos al proceso y fortaleciendo las capacidades clave.",
+        Icon: Users,
+        tags: ["Change Manager", "Coach"],
     },
 ];
 
-interface Phase {
-    id: number;
-    number: string;
-    title: string;
-    objective: string;
-    deliverables: string[];
-    icon: React.ReactNode;
-}
-
-const phases: Phase[] = [
+const phases = [
     {
-        id: 0,
         number: "01",
-        title: "Escuchar y Comprender",
-        objective: "Conocer el negocio del cliente, el estado actual y entender los desafíos de la empresa.",
+        title: "Escuchar y comprender",
+        objective: "Conocer tu negocio, su estado actual y los desafíos de la empresa.",
         deliverables: ["Resumen ejecutivo", "Entrevistas clave", "Mapeo preliminar"],
-        icon: <Compass className="w-5 h-5" />,
+        Icon: Compass,
     },
     {
-        id: 1,
         number: "02",
         title: "Planificar",
         objective: "Diseñar una hoja de ruta pragmática y priorizada que equilibre impacto y esfuerzo.",
-        deliverables: ["Hoja de ruta con foco TPP", "Priorización por impacto y esfuerzo", "Indicadores de éxito"],
-        icon: <Map className="w-5 h-5" />,
+        deliverables: ["Hoja de ruta tecnología, procesos y personas", "Priorización por impacto y esfuerzo", "Indicadores de éxito"],
+        Icon: Map,
     },
     {
-        id: 2,
         number: "03",
-        title: "Ejecutar y Acompañar",
-        objective: "Poner en marcha las acciones del plan, con un acompañamiento cercano y práctico.",
-        deliverables: [
-            "Intervenciones por pilar",
-            "Implementación de herramientas / rediseño de procesos / gestión del cambio",
-            "Soporte en terreno",
-        ],
-        icon: <Rocket className="w-5 h-5" />,
+        title: "Ejecutar y acompañar",
+        objective: "Poner en marcha el plan con un acompañamiento cercano y práctico.",
+        deliverables: ["Intervenciones por pilar", "Herramientas, rediseño de procesos y gestión del cambio", "Soporte en terreno"],
+        Icon: Rocket,
     },
     {
-        id: 3,
         number: "04",
-        title: "Transferir y Consolidar",
-        objective: "Asegurar continuidad, empoderar a los equipos y dejar herramientas para el futuro.",
-        deliverables: ["Capacitación", "Documentación", "Cierre y roadmap siguiente"],
-        icon: <Flag className="w-5 h-5" />,
+        title: "Transferir y consolidar",
+        objective: "Asegurar la continuidad, empoderar a los equipos y dejar herramientas para el futuro.",
+        deliverables: ["Capacitación", "Documentación", "Cierre y siguiente hoja de ruta"],
+        Icon: Flag,
     },
 ];
 
-interface Aporte {
-    title: string;
-    desc: string;
-    icon: React.ReactNode;
-    direction: "left" | "right";
-}
-
-const aportes: Aporte[] = [
+const aportes = [
     {
         title: "Claridad estratégica",
         desc: "Te ayudamos a ordenar ideas, visualizar prioridades y tomar decisiones con foco en lo que genera mayor impacto.",
-        icon: <Lightbulb className="w-7 h-7" />,
-        direction: "left",
+        Icon: Lightbulb,
     },
     {
         title: "Transformación realista y sostenible",
-        desc: "Diseñamos soluciones desde tu realidad: integrando procesos, personas y tecnología de forma gradual, aplicable y alineada a tu madurez organizacional.",
-        icon: <TrendingUp className="w-7 h-7" />,
-        direction: "right",
+        desc: "Diseñamos soluciones desde tu realidad: procesos, personas y tecnología integrados de forma gradual y alineada a tu madurez organizacional.",
+        Icon: TrendingUp,
     },
     {
         title: "Fortalecimiento del equipo",
-        desc: "El cambio no es técnico, es humano. Trabajamos con tu equipo desde el inicio, integrándolo en el proceso y fortaleciendo capacidades clave para sostener la transformación.",
-        icon: <Users className="w-7 h-7" />,
-        direction: "left",
+        desc: "El cambio no es técnico, es humano. Trabajamos con tu equipo desde el inicio y fortalecemos las capacidades que sostienen la transformación.",
+        Icon: Users,
     },
 ];
 
-// ─────────────────────────────────────────────────────────
-// VARIANTS DE ANIMACIÓN
-// ─────────────────────────────────────────────────────────
+const HERO_FACTS = [
+    { value: "Senior", label: "liderazgo con experiencia real" },
+    { value: "4 fases", label: "del diagnóstico al traspaso" },
+    { value: "24 h", label: "tiempo de respuesta" },
+    { value: "99,597 %", label: "SLA de disponibilidad" },
+];
 
-const fadeUp: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
-};
+const LEADERS = [
+    { initials: "JC", name: "Joacim Calficura", role: "CEO", href: "https://www.linkedin.com/in/joacim-elias-calficura-marillanca-077bbb234/" },
+    { initials: "AC", name: "Alberto Castillo", role: "Project Manager" },
+];
 
-const staggerContainer: Variants = {
+// ─────────────────────────────────────────────────────────
+// ANIMACIÓN
+// ─────────────────────────────────────────────────────────
+const smoothEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+const stagger: Variants = {
     hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
+    show: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
 };
 
-const cardVariant: Variants = {
-    hidden: { opacity: 0, y: 24, scale: 0.96 },
-    show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 110, damping: 18 } },
+const rise: Variants = {
+    hidden: { opacity: 0, y: 24 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: smoothEase } },
 };
 
-const tabContentVariant: Variants = {
-    enter: { opacity: 0, y: 12 },
-    center: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
-    exit: { opacity: 0, y: -8, transition: { duration: 0.25, ease: "easeIn" } },
+const headerReveal = {
+    initial: { opacity: 0, y: 24 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-80px" },
+    transition: { duration: 0.8, ease: smoothEase },
 };
 
 // ─────────────────────────────────────────────────────────
-// PAGE COMPONENT
+// PÁGINA
 // ─────────────────────────────────────────────────────────
-
 export default function TalentoPage() {
-    const [activeTab, setActiveTab] = useState(0);
-
     return (
-        <div
-            className="relative min-h-screen bg-[#F8FAFC] overflow-x-hidden"
-            aria-label="ATM Chile – Talento & Transformación"
-        >
-            {/* ══════════════════════════════════════════════════
-              CONTENIDO PRINCIPAL
-            ══════════════════════════════════════════════════ */}
-            <m.div
-                initial={{ opacity: 0, scale: 0.98, filter: "blur(8px)" }}
-                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            >
-                        {/* ──────────────────────────────────────────────────────
-                    SECCIÓN 1: HERO — PROPÓSITO + PROPUESTA DE VALOR
-                    ────────────────────────────────────────────────── */}
-                        <section
-                            id="talento"
-                            aria-labelledby="talento-heading"
-                            className="relative pt-36 pb-28 px-6 overflow-hidden"
+        <div className="relative selection:bg-[#176BDE] selection:text-white">
+            {/* ── Hero: Onyx + patrón andino-circuito ── */}
+            {/* -mt-24 sube el fondo detrás del menú flotante (el <main> trae pt-24). */}
+            <section id="talento" aria-labelledby="talento-heading" className="relative isolate -mt-24 overflow-hidden bg-[#0F1215] pb-14 pt-36 md:pb-20 md:pt-48">
+                <BrandPattern tone="onDark" opacity={0.08} className="-z-10" />
+                <div aria-hidden="true" className="pointer-events-none absolute -right-40 -top-40 -z-10 h-[560px] w-[560px] rounded-full bg-[#176BDE]/25 blur-[150px]" />
+                <div aria-hidden="true" className="pointer-events-none absolute -bottom-48 -left-32 -z-10 h-[420px] w-[420px] rounded-full bg-[#16F3E8]/10 blur-[140px]" />
+                <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#16F3E8]/40 to-transparent" />
+
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+                        <m.div initial={{ x: -32 }} animate={{ x: 0 }} transition={{ duration: 1.1, ease: smoothEase }}>
+                            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#16F3E8] backdrop-blur-md">
+                                <Target size={16} aria-hidden />
+                                <span>Talento senior y transformación</span>
+                            </div>
+                            <h1 id="talento-heading" className="text-[2.4rem] font-black leading-[1.06] tracking-tight text-white sm:text-6xl lg:text-[4.1rem]">
+                                Acompañamos a tu empresa en su <span className="text-[#6AA5F5]">crecimiento y modernización</span>
+                            </h1>
+                            <p className="mt-7 max-w-xl text-lg leading-relaxed text-slate-300">
+                                Conectamos <strong className="font-bold text-white">tecnología</strong>, <strong className="font-bold text-white">procesos</strong> y{" "}
+                                <strong className="font-bold text-white">personas</strong> desde la estrategia del negocio, para una transformación eficiente y equipos alineados, competentes y empoderados.
+                            </p>
+                            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+                                <Link
+                                    id="cta-talento-primary"
+                                    href="/contacto"
+                                    className="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-[#176BDE] px-7 py-4 text-base font-bold text-white shadow-[0_10px_30px_rgba(23,107,222,0.45)] ring-1 ring-inset ring-white/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1A78F5] hover:shadow-[0_14px_40px_rgba(23,107,222,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#16F3E8]"
+                                >
+                                    Agenda una sesión estratégica
+                                    <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden />
+                                </Link>
+                                <a
+                                    id="cta-talento-metodologia"
+                                    href="#metodologia"
+                                    className="group inline-flex items-center justify-center gap-2.5 rounded-xl border border-white/25 bg-white/10 px-7 py-4 text-base font-bold text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#16F3E8]"
+                                >
+                                    Ver la metodología
+                                    <ArrowDown className="h-5 w-5 text-[#8FC0FF] transition-transform duration-300 group-hover:translate-y-0.5" aria-hidden />
+                                </a>
+                            </div>
+                        </m.div>
+
+                        {/* Foto del equipo con marco de marca */}
+                        <m.div
+                            initial={{ opacity: 0, y: 24 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1.1, delay: 0.1, ease: smoothEase }}
+                            className="relative"
                         >
-                            {/* Fondo holográfico */}
-                            <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center" aria-hidden="true">
-                                <div className="w-[800px] h-[800px] bg-gradient-to-tr from-[#176BDE]/5 to-[#16F3E8]/5 rounded-full blur-[100px]" />
-                            </div>
-                                <m.div
-                                    className="absolute top-[5%] left-[-8%] w-[25vw] h-[25vw] rounded-full bg-[#176BDE]/4 blur-[100px] pointer-events-none"
-                                animate={{ x: [0, 25, 0], y: [0, -18, 0] }}
-                                transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-                                aria-hidden="true"
-                            />
-                                <m.div
-                                    className="absolute bottom-[5%] right-[-8%] w-[20vw] h-[20vw] rounded-full bg-[#16F3E8]/4 blur-[100px] pointer-events-none"
-                                animate={{ x: [0, -25, 0], y: [0, 18, 0] }}
-                                transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-                                aria-hidden="true"
-                            />
-
-                            <div className="relative z-10 max-w-6xl mx-auto">
-                                {/* Badge */}
-                                <m.div
-                                    variants={fadeUp}
-                                    initial="hidden"
-                                    animate="show"
-                                    className="flex justify-center mb-8"
-                                >
-                                    <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-[#176BDE]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#176BDE] shadow-sm">
-                                        <Target size={14} className="text-[#16F3E8]" />
-                                        Propósito &amp; Visión
-                                    </span>
-                                </m.div>
-
-                                {/* Headline — Propósito */}
-                                <m.div
-                                    variants={fadeUp}
-                                    initial="hidden"
-                                    animate="show"
-                                    transition={{ delay: 0.1 }}
-                                    className="text-center mb-10"
-                                >
-                                    <h1
-                                        id="talento-heading"
-                                        className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.05] mb-6"
-                                    >
-                                        Acompañar a las empresas
-                                        <br />
-                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#176BDE] to-[#16F3E8]">
-                                            en su crecimiento y modernización.
-                                        </span>
-                                    </h1>
-                                    <p className="text-xl md:text-2xl text-slate-600 max-w-4xl mx-auto font-medium leading-relaxed">
-                                        Conectamos{" "}
-                                        <strong className="text-slate-900 font-black">Tecnología</strong>,{" "}
-                                        <strong className="text-slate-900 font-black">Procesos</strong> y{" "}
-                                        <strong className="text-slate-900 font-black">Personas</strong>{" "}
-                                        desde la estrategia del negocio, para una transformación eficiente, equipos alineados, competentes y empoderados.
-                                    </p>
-                                </m.div>
-
-                                {/* Propuesta de Valor — Tarjeta central destacada */}
-                                <m.div
-                                    initial={{ opacity: 0, y: 40, scale: 0.96 }}
-                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                    transition={{ delay: 0.3, duration: 0.8, type: "spring", stiffness: 90, damping: 20 }}
-                                    className="relative bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_20px_80px_rgba(23, 107, 222,0.08)] rounded-[2.5rem] p-10 md:p-14 text-center overflow-hidden"
-                                >
-                                    {/* Borde luminoso superior */}
-                                    <div
-                                        className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-px bg-gradient-to-r from-transparent via-[#176BDE]/30 to-transparent pointer-events-none"
-                                        aria-hidden="true"
-                                    />
-                                    {/* Brillo interno */}
-                                    <div
-                                        className="absolute inset-0 bg-gradient-to-b from-white/60 via-transparent to-transparent pointer-events-none"
-                                        aria-hidden="true"
-                                    />
-
-                                    <span className="relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#176BDE]/5 border border-[#176BDE]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#176BDE] mb-6">
-                                        <Heart size={14} className="text-[#16F3E8]" />
-                                        Propuesta de Valor
-                                    </span>
-
-                                    <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8">
-                                        {[
-                                            {
-                                                icon: <Lightbulb className="w-8 h-8" />,
-                                                title: "Claridad estratégica",
-                                                desc: "Te ayudamos a ordenar ideas, visualizar prioridades y tomar decisiones con foco en lo que genera mayor impacto.",
-                                            },
-                                            {
-                                                icon: <TrendingUp className="w-8 h-8" />,
-                                                title: "Transformación realista y sostenible",
-                                                desc: "Diseñamos soluciones desde tu realidad: integrando procesos, personas y tecnología de forma gradual y alineada a tu madurez organizacional.",
-                                            },
-                                            {
-                                                icon: <Users className="w-8 h-8" />,
-                                                title: "Fortalecimiento del equipo",
-                                                desc: "El cambio no es técnico, es humano. Trabajamos con tu equipo desde el inicio, integrándolo en el proceso y fortaleciendo capacidades clave.",
-                                            },
-                                        ].map((item, idx) => (
-                                            <m.div
-                                                key={idx}
-                                                initial={{ opacity: 0, y: 20 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{ delay: 0.5 + idx * 0.12, type: "spring", stiffness: 100 }}
-                                                className="flex flex-col items-center"
-                                            >
-                                                <div className="p-4 rounded-2xl bg-gradient-to-br from-[#176BDE]/10 to-[#16F3E8]/5 text-[#176BDE] mb-4 border border-[#176BDE]/10">
-                                                    {item.icon}
-                                                </div>
-                                                <h3 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
-                                                <p className="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
-                                            </m.div>
-                                        ))}
-                                    </div>
-                                </m.div>
-
-                                {/* CTAs */}
-                                <m.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.7 }}
-                                    className="flex flex-col sm:flex-row gap-4 justify-center mt-10"
-                                >
-                                    <Link
-                                        id="cta-talento-primary"
-                                        href="/servicios"
-                                        className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#176BDE] text-white rounded-2xl font-bold text-base overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_10px_40px_rgba(23, 107, 222,0.3)] active:scale-[0.98]"
-                                    >
-                                        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" aria-hidden="true" />
-                                        Ver Nuestros Servicios
-                                        <Zap size={18} className="group-hover:rotate-12 transition-transform" />
-                                    </Link>
-                                    <a
-                                        id="cta-talento-metodologia"
-                                        href="#metodologia"
-                                        className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 rounded-2xl font-bold text-base transition-all shadow-sm hover:shadow-md active:scale-[0.98]"
-                                    >
-                                        Ver Metodología
-                                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                                    </a>
-                                </m.div>
-                            </div>
-                        </section>
-
-                        {/* ──────────────────────────────────────────────────────
-                    SECCIÓN 2: EL EQUIPO — Grid de Roles Senior
-                    ────────────────────────────────────────────────── */}
-                        <section
-                            id="equipo"
-                            aria-labelledby="equipo-heading"
-                            className="relative py-24 px-6 bg-gradient-to-b from-[#F8FAFC] to-slate-50/80"
-                        >
-                            <div className="max-w-7xl mx-auto">
-                                <m.div
-                                    variants={fadeUp}
-                                    initial="hidden"
-                                    whileInView="show"
-                                    viewport={{ once: true, margin: "-80px" }}
-                                    className="text-center mb-14"
-                                >
-                                    <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-[#176BDE]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#176BDE] shadow-sm mb-6">
-                                        <Users size={14} className="text-[#16F3E8]" />
-                                        El Equipo
-                                    </span>
-                                    <h2
-                                        id="equipo-heading"
-                                        className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4"
-                                    >
-                                        Equipo Senior de{" "}
-                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#176BDE] to-[#16F3E8]">
-                                            Alto Nivel
-                                        </span>
-                                    </h2>
-                                    <p className="text-lg text-slate-600 max-w-3xl mx-auto font-medium">
-                                        Somos un equipo senior con experiencia real en liderazgo tecnológico, operacional y comercial. No solo diseñamos la transformación: la implementamos con foco en resultados medibles y sostenibles.
-                                    </p>
-                                </m.div>
-
-                                {/* Grid de Roles */}
-                                <m.div
-                                    variants={staggerContainer}
-                                    initial="hidden"
-                                    whileInView="show"
-                                    viewport={{ once: true, margin: "-100px" }}
-                                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-                                >
-                                    {teamMembers.map((member) => (
-                                        <m.div
-                                            key={member.role}
-                                            variants={cardVariant}
-                                            whileHover={{ y: -6, scale: 1.02, transition: { type: "spring", stiffness: 400, damping: 25 } }}
-                                            className="group relative flex flex-col p-8 bg-white/70 backdrop-blur-xl border border-white/80 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(23, 107, 222,0.1)] transition-all duration-500 overflow-hidden cursor-default"
-                                        >
-                                            <div className="relative z-10">
-                                                <div className="w-12 h-12 rounded-2xl bg-[#176BDE]/5 text-[#176BDE] flex items-center justify-center mb-6 group-hover:bg-[#176BDE] group-hover:text-white transition-colors duration-500">
-                                                    {member.icon}
-                                                </div>
-                                                <span className="text-[10px] font-black uppercase tracking-widest text-[#16F3E8] mb-2 block">
-                                                    {member.tag}
-                                                </span>
-                                                <h3 className="text-xl font-bold text-slate-900 mb-3 leading-tight">{member.role}</h3>
-                                                <p className="text-slate-600 text-sm leading-relaxed">{member.desc}</p>
-                                            </div>
-                                            {/* Glow decorativo */}
-                                            <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#176BDE]/5 rounded-full blur-3xl group-hover:bg-[#16F3E8]/10 transition-colors duration-700" />
-                                        </m.div>
-                                    ))}
-                                </m.div>
-                            </div>
-                        </section>
-
-                        {/* ──────────────────────────────────────────────────────
-                    SECCIÓN: DIGITAL OPERATIONS CENTER — Premium HQ Experience
-                    ────────────────────────────────────────────────── */}
-                        <section className="relative py-24 px-6 bg-[#020B12] overflow-hidden">
-                            {/* Mesh Gradient Animado (Fondo Ops Center - Optimizado) */}
-                            <div className="absolute inset-0 z-0 opacity-30">
-                                <m.div 
-                                    animate={{ 
-                                        opacity: [0.3, 0.5, 0.3],
-                                        scale: [1, 1.1, 1]
-                                    }}
-                                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                                    className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,#176BDE_0%,transparent_50%),radial-gradient(circle_at_80%_70%,#176BDE_0%,transparent_50%)]"
+                            <div aria-hidden="true" className="absolute -inset-px rounded-[2rem] bg-gradient-to-br from-[#176BDE]/70 via-white/10 to-[#16F3E8]/50" />
+                            <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-[#0F1215]">
+                                <Image
+                                    src="/images/equipo-real-4k.png"
+                                    alt="Equipo de ATM trabajando en la oficina"
+                                    fill
+                                    priority
+                                    sizes="(max-width: 1024px) 100vw, 46vw"
+                                    className="object-cover"
                                 />
-                                <div className="absolute inset-0 noise-bg opacity-20 mix-blend-overlay" />
+                                <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0F1215]/80 via-transparent to-transparent" />
                             </div>
-
-                            <div className="max-w-7xl mx-auto relative z-10">
-                                {/* Encabezado Ops Center */}
-                                <m.div 
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    className="text-center mb-16"
-                                >
-                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-[0.3em] text-[#16F3E8] mb-4">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-[#16F3E8] animate-pulse" />
-                                        ATM Global Command Center
-                                    </div>
-                                    <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-6">
-                                        Sercanía Real, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#16F3E8] to-[#176BDE]">Control Total.</span>
-                                    </h2>
-                                    <p className="text-slate-400 text-lg max-w-2xl mx-auto font-medium">
-                                        No somos solo software. Somos un equipo senior operando 24/7 para garantizar que su infraestructura escale sin fricciones.
-                                    </p>
-                                </m.div>
-
-                                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-                                    {/* Panel Lateral: Métricas Live */}
-                                    <div className="lg:col-span-4 flex flex-col gap-4">
-                                        {[
-                                            { label: "SLA Uptime", value: "99,597 %", detail: "Disponibilidad Garantizada", icon: <ShieldCheck className="w-5 h-5" />, color: "#16F3E8" },
-                                            { label: "Response Time", value: "24 hrs", detail: "Soporte Senior Focalizado", icon: <Zap className="w-5 h-5" />, color: "#FACC15" },
-                                            { label: "Active Nodes", value: "2.4k+", detail: "Monitoreo Distribuido", icon: <BrainCircuit className="w-5 h-5" />, color: "#176BDE" },
-                                        ].map((metric, i) => (
-                                            <m.div 
-                                                key={i}
-                                                initial={{ opacity: 0, x: -30 }}
-                                                whileInView={{ opacity: 1, x: 0 }}
-                                                viewport={{ once: true }}
-                                                transition={{ delay: i * 0.1 }}
-                                                className="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl hover:bg-white/10 transition-colors group"
-                                            >
-                                                <div className="flex items-center gap-4">
-                                                    <div className="p-3 rounded-2xl bg-white/5 text-white group-hover:scale-110 transition-transform" style={{ color: metric.color }}>
-                                                        {metric.icon}
-                                                    </div>
-                                                    <div>
-                                                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">{metric.label}</p>
-                                                        <p className="text-2xl font-black text-white">{metric.value}</p>
-                                                        <p className="text-xs text-slate-400">{metric.detail}</p>
-                                                    </div>
-                                                </div>
-                                            </m.div>
-                                        ))}
-                                    </div>
-
-                                    {/* Panel Central: Imagen Pro - High Resolution Focus */}
-                                    <m.div 
-                                        initial={{ opacity: 0, scale: 0.95 }}
-                                        whileInView={{ opacity: 1, scale: 1 }}
-                                        viewport={{ once: true }}
-                                        className="lg:col-span-8 relative rounded-[2.5rem] overflow-hidden border border-white/10 group shadow-2xl"
-                                    >
-                                        <div className="absolute inset-0 bg-gradient-to-t from-[#020B12] via-transparent to-transparent z-10" />
-                                        
-                                        {/* Frame Deco Apple Style */}
-                                        <div className="absolute top-6 left-6 z-20 flex gap-1.5">
-                                            <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                                            <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-                                            <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
-                                        </div>
-
-                                        <div className="absolute top-6 right-6 z-20">
-                                            <span className="px-3 py-1 rounded-md bg-[#16F3E8]/10 border border-[#16F3E8]/20 text-[9px] font-black text-[#16F3E8] uppercase tracking-[0.2em] backdrop-blur-md">
-                                                Verified Operations Center
-                                            </span>
-                                        </div>
-
-                                        <Image 
-                                            src="/images/equipo-real-4k.png"
-                                            alt="ATM operational team working at HQ"
-                                            width={1600}
-                                            height={900}
-                                            className="w-full h-full object-cover grayscale-[40%] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
-                                        />
-
-                                        {/* Info Box Floating */}
-                                        <div className="absolute bottom-6 left-6 right-6 z-20 p-6 rounded-3xl bg-black/60 backdrop-blur-2xl border border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-                                            <div className="text-center md:text-left">
-                                                <h4 className="text-white font-black text-lg mb-0.5">Liderazgo Estratégico Senior</h4>
-                                                <p className="text-slate-400 text-xs">Acompañamiento directo de nuestros fundadores en cada proyecto.</p>
-                                            </div>
-                                            <div className="flex items-center gap-4">
-                                                <div className="flex -space-x-3">
-                                                    <Link 
-                                                        href="https://www.linkedin.com/in/joacim-elias-calficura-marillanca-077bbb234/"
-                                                        target="_blank"
-                                                        className="group/avatar relative w-12 h-12 rounded-full border-2 border-[#020B12] bg-[#176BDE] overflow-hidden hover:z-30 transition-all hover:scale-110"
-                                                        title="Joacim Calficura - CEO"
-                                                    >
-                                                        <div className="w-full h-full bg-brand-cobalt flex items-center justify-center text-white font-black text-xs">JC</div>
-                                                    </Link>
-                                                    <div 
-                                                        className="group/avatar relative w-12 h-12 rounded-full border-2 border-[#020B12] bg-[#176BDE] overflow-hidden hover:z-30 transition-all hover:scale-110"
-                                                        title="Alberto Castillo - Project Manager"
-                                                    >
-                                                        <div className="w-full h-full bg-brand-cyan flex items-center justify-center text-white font-black text-xs">AC</div>
-                                                    </div>
-                                                </div>
-                                                <div className="h-8 w-px bg-white/10 hidden md:block" />
-                                                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest hidden md:block">
-                                                    Direct Management <br /> Influence
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </m.div>
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* ──────────────────────────────────────────────────────
-                    SECCIÓN 3: METODOLOGÍA — Tabs Interactivas
-                    ────────────────────────────────────────────────── */}
-                        <section
-                            id="metodologia"
-                            aria-labelledby="metodologia-heading"
-                            className="relative py-24 px-6 bg-[#F8FAFC]"
-                        >
-                            {/* Fondo sutil */}
-                            <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-[#176BDE]/4 to-[#16F3E8]/3 rounded-full blur-[100px]" />
-                            </div>
-
-                            <div className="relative z-10 max-w-5xl mx-auto">
-                                <m.div
-                                    variants={fadeUp}
-                                    initial="hidden"
-                                    whileInView="show"
-                                    viewport={{ once: true, margin: "-100px" }}
-                                    className="text-center mb-14"
-                                >
-                                    <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-[#176BDE]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#176BDE] shadow-sm mb-6">
-                                        <Settings size={14} className="text-[#16F3E8]" />
-                                        Metodología — Fases
-                                    </span>
-                                    <h2
-                                        id="metodologia-heading"
-                                        className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4"
-                                    >
-                                        Nuestro proceso,{" "}
-                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#176BDE] to-[#16F3E8]">
-                                            paso a paso.
+                            <div className="absolute -bottom-6 left-4 right-4 flex items-center gap-4 rounded-2xl border border-white/10 bg-[#0F1215]/85 p-4 shadow-2xl backdrop-blur-xl sm:left-6 sm:right-auto sm:p-5">
+                                <div className="flex -space-x-2">
+                                    {LEADERS.map((l) => (
+                                        <span key={l.initials} className="flex h-10 w-10 items-center justify-center rounded-full bg-[#176BDE] text-xs font-black text-white ring-2 ring-[#0F1215]">
+                                            {l.initials}
                                         </span>
-                                    </h2>
-                                    <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">
-                                        Haz clic en una fase para descubrir los objetivos y entregables de cada etapa de transformación.
-                                    </p>
-                                </m.div>
-
-                                {/* Botones de Tabs */}
-                                <m.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-100px" }}
-                                    transition={{ duration: 0.6, delay: 0.1 }}
-                                    className="flex flex-wrap justify-center gap-3 mb-10"
-                                    role="tablist"
-                                    aria-label="Fases de la metodología"
-                                >
-                                    {phases.map((phase) => (
-                                        <button
-                                            key={phase.id}
-                                            id={`tab-fase-${phase.id}`}
-                                            role="tab"
-                                            aria-selected={activeTab === phase.id}
-                                            aria-controls={`tabpanel-fase-${phase.id}`}
-                                            onClick={() => setActiveTab(phase.id)}
-                                            className={`
-                                                relative flex items-center gap-2.5 px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 border
-                                                ${activeTab === phase.id
-                                                    ? "bg-[#176BDE] text-white border-[#176BDE] shadow-[0_8px_24px_rgba(23, 107, 222,0.25)]"
-                                                    : "bg-white text-slate-700 border-slate-200 hover:border-[#176BDE]/30 hover:text-[#176BDE] hover:shadow-md"
-                                                }
-                                            `}
-                                        >
-                                            <span
-                                                className={`
-                                                    w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black
-                                                    ${activeTab === phase.id ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}
-                                                `}
-                                            >
-                                                {phase.number}
-                                            </span>
-                                            {phase.title}
-                                        </button>
-                                    ))}
-                                </m.div>
-
-                                {/* Panel de contenido animado */}
-                                <div className="relative min-h-[260px]">
-                                    <AnimatePresence mode="wait">
-                                        {phases.map(
-                                            (phase) =>
-                                                activeTab === phase.id && (
-                                                    <m.div
-                                                        key={phase.id}
-                                                        id={`tabpanel-fase-${phase.id}`}
-                                                        role="tabpanel"
-                                                        aria-labelledby={`tab-fase-${phase.id}`}
-                                                        variants={tabContentVariant}
-                                                        initial="enter"
-                                                        animate="center"
-                                                        exit="exit"
-                                                        className="bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_20px_60px_rgba(23, 107, 222,0.08)] rounded-[2rem] p-10 md:p-12"
-                                                    >
-                                                        <div className="flex flex-col md:flex-row gap-10 md:gap-16">
-                                                            {/* Objetivo */}
-                                                            <div className="flex-1">
-                                                                <div className="flex items-center gap-3 mb-5">
-                                                                    <div className="p-3 rounded-xl bg-[#176BDE]/8 text-[#176BDE] border border-[#176BDE]/10">
-                                                                        {phase.icon}
-                                                                    </div>
-                                                                    <div>
-                                                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#16F3E8]">
-                                                                            Fase {phase.number}
-                                                                        </span>
-                                                                        <h3 className="text-xl font-bold text-slate-900 leading-tight">
-                                                                            {phase.title}
-                                                                        </h3>
-                                                                    </div>
-                                                                </div>
-                                                                <p className="text-slate-700 font-medium leading-relaxed text-base">
-                                                                    <strong className="text-slate-900">Objetivo: </strong>
-                                                                    {phase.objective}
-                                                                </p>
-                                                            </div>
-
-                                                            {/* Entregables */}
-                                                            <div className="md:w-72 flex-shrink-0">
-                                                                <h4 className="text-xs font-black uppercase tracking-[0.18em] text-slate-400 mb-4">
-                                                                    Entregables
-                                                                </h4>
-                                                                <ul className="space-y-3">
-                                                                    {phase.deliverables.map((d, i) => (
-                                                                        <li key={i} className="flex items-start gap-3">
-                                                                            <CheckCircle2 className="w-4 h-4 text-[#16F3E8] flex-shrink-0 mt-0.5" />
-                                                                            <span className="text-slate-700 text-sm leading-relaxed">{d}</span>
-                                                                        </li>
-                                                                    ))}
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </m.div>
-                                                )
-                                        )}
-                                    </AnimatePresence>
-                                </div>
-
-                                {/* Indicador de progreso de fases */}
-                                <m.div
-                                    initial={{ opacity: 0 }}
-                                    whileInView={{ opacity: 1 }}
-                                    viewport={{ once: true, margin: "-100px" }}
-                                    transition={{ delay: 0.4 }}
-                                    className="flex items-center justify-center gap-2 mt-8"
-                                >
-                                    {phases.map((phase) => (
-                                        <button
-                                            key={phase.id}
-                                            aria-label={`Ir a Fase ${phase.number}`}
-                                            onClick={() => setActiveTab(phase.id)}
-                                            className={`h-1.5 rounded-full transition-all duration-300 ${activeTab === phase.id
-                                                ? "w-8 bg-[#176BDE]"
-                                                : "w-2 bg-slate-200 hover:bg-slate-300"
-                                                }`}
-                                        />
-                                    ))}
-                                </m.div>
-                            </div>
-                        </section>
-
-                        {/* ──────────────────────────────────────────────────────
-                    SECCIÓN 4: APORTE A SU EMPRESA — Scroll Animado
-                    ────────────────────────────────────────────────── */}
-                        <section
-                            id="aporte"
-                            aria-labelledby="aporte-heading"
-                            className="relative py-24 px-6 bg-gradient-to-b from-slate-50/80 to-[#F8FAFC]"
-                        >
-                            <div className="max-w-5xl mx-auto">
-                                <m.div
-                                    variants={fadeUp}
-                                    initial="hidden"
-                                    whileInView="show"
-                                    viewport={{ once: true, margin: "-80px" }}
-                                    className="text-center mb-18"
-                                >
-                                    <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-[#176BDE]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#176BDE] shadow-sm mb-6">
-                                        <BarChart3 size={14} className="text-[#16F3E8]" />
-                                        Aporte a su Empresa
-                                    </span>
-                                    <h2
-                                        id="aporte-heading"
-                                        className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4"
-                                    >
-                                        Lo que{" "}
-                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#176BDE] to-[#16F3E8]">
-                                            usted obtiene.
-                                        </span>
-                                    </h2>
-                                    <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">
-                                        Identificamos fortalezas y sinergias, proponemos soluciones realistas, optimizamos procesos, desarrollamos tecnología y preparamos a los equipos para liderar el cambio con resultados reales y sostenibles.
-                                    </p>
-                                </m.div>
-
-                                <div className="space-y-10 mt-14">
-                                    {aportes.map((aporte, idx) => (
-                                        <m.div
-                                            key={aporte.title}
-                                            initial={{ opacity: 0, x: aporte.direction === "left" ? -40 : 40 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            viewport={{ once: true, margin: "-100px" }}
-                                            transition={{
-                                                delay: idx * 0.1,
-                                                type: "spring",
-                                                stiffness: 80,
-                                                damping: 18,
-                                            }}
-                                            whileHover={{ scale: 1.015, transition: { type: "spring", stiffness: 300, damping: 25 } }}
-                                            className={`group flex flex-col md:flex-row items-center gap-8 p-10 bg-white/70 backdrop-blur-xl border border-white/80 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(23, 107, 222,0.09)] transition-all duration-500 overflow-hidden ${aporte.direction === "right" ? "md:flex-row-reverse" : ""
-                                                }`}
-                                        >
-                                            {/* Ícono */}
-                                            <div className="flex-shrink-0 p-6 rounded-2xl bg-gradient-to-br from-[#176BDE]/8 to-[#16F3E8]/6 text-[#176BDE] border border-[#176BDE]/10 shadow-sm group-hover:bg-[#176BDE]/12 transition-colors duration-500">
-                                                {aporte.icon}
-                                            </div>
-
-                                            {/* Texto */}
-                                            <div className="flex-1">
-                                                <div className="flex items-center gap-3 mb-3">
-                                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#16F3E8]">
-                                                        Aporte 0{idx + 1}
-                                                    </span>
-                                                    <div className="flex-1 h-px bg-slate-100" />
-                                                </div>
-                                                <h3 className="text-2xl font-extrabold text-slate-900 mb-3 tracking-tight">
-                                                    {aporte.title}
-                                                </h3>
-                                                <p className="text-slate-600 leading-relaxed text-base">
-                                                    {aporte.desc}
-                                                </p>
-                                            </div>
-                                        </m.div>
                                     ))}
                                 </div>
+                                <div>
+                                    <p className="text-sm font-bold text-white">Liderazgo directo</p>
+                                    <p className="text-xs text-slate-300">Los fundadores en cada proyecto</p>
+                                </div>
                             </div>
-                        </section>
+                        </m.div>
+                    </div>
 
-                        {/* ──────────────────────────────────────────────────────
-                    FOOTER CTA — Cierre Premium
-                    ────────────────────────────────────────────────── */}
-                        <section
-                            aria-labelledby="cta-final-heading"
-                            className="relative py-24 px-6 overflow-hidden"
-                        >
-                            <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center" aria-hidden="true">
-                                <div className="w-[500px] h-[500px] bg-gradient-to-tr from-[#176BDE]/6 to-[#16F3E8]/6 rounded-full blur-[100px]" />
-                            </div>
+                    {/* Datos clave */}
+                    <m.dl
+                        variants={stagger}
+                        initial="hidden"
+                        animate="show"
+                        className="mt-20 grid grid-cols-2 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-md md:grid-cols-4"
+                    >
+                        {HERO_FACTS.map((f, i) => (
                             <m.div
-                                initial={{ opacity: 0, y: 40, scale: 0.97 }}
-                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                                viewport={{ once: true, margin: "-100px" }}
-                                transition={{ duration: 0.9, type: "spring", stiffness: 80, damping: 18 }}
-                                className="relative z-10 max-w-3xl mx-auto bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_24px_80px_rgba(23, 107, 222,0.1)] rounded-[2.5rem] p-12 md:p-16 text-center overflow-hidden"
+                                key={f.label}
+                                variants={rise}
+                                className={`flex flex-col px-5 py-6 md:px-7 ${i % 2 === 1 ? "border-l border-white/10" : ""} ${i >= 2 ? "border-t border-white/10 md:border-t-0" : ""} ${i === 2 ? "md:border-l" : ""}`}
                             >
-                                {/* Borde luminoso */}
-                                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[55%] h-px bg-gradient-to-r from-transparent via-[#176BDE]/30 to-transparent" aria-hidden="true" />
-
-                                <div className="flex justify-center mb-6">
-                                    <div className="p-4 rounded-2xl bg-[#176BDE]/8 text-[#176BDE] border border-[#176BDE]/10">
-                                        <ShieldCheck className="w-10 h-10" />
-                                    </div>
-                                </div>
-
-                                <h2 id="cta-final-heading" className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-                                    ¿Listo para transformar
-                                    <br />
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#176BDE] to-[#16F3E8]">
-                                        tu organización?
-                                    </span>
-                                </h2>
-                                <p className="text-slate-600 font-medium text-lg leading-relaxed mb-10">
-                                    Agenda una sesión estratégica con nuestro equipo senior y descubre cómo la tecnología, los procesos y las personas pueden trabajar juntos para impulsar tu empresa.
-                                </p>
-
-                                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                    <Link
-                                        id="cta-footer-servicios"
-                                        href="/servicios"
-                                        className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#176BDE] text-white rounded-2xl font-bold text-base overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_10px_40px_rgba(23, 107, 222,0.3)] active:scale-[0.98]"
-                                    >
-                                        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" aria-hidden="true" />
-                                        Nuestros Servicios
-                                        <Zap size={18} className="group-hover:rotate-12 transition-transform" />
-                                    </Link>
-                                    <Link
-                                        id="cta-footer-contacto"
-                                        href="/contacto"
-                                        className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 rounded-2xl font-bold text-base transition-all shadow-sm hover:shadow-md active:scale-[0.98]"
-                                    >
-                                        Contactar Ahora
-                                        <Mail size={18} className="group-hover:translate-x-1 transition-transform" />
-                                    </Link>
-                                </div>
+                                <dt className="order-2 mt-1 text-xs font-medium uppercase tracking-[0.14em] text-slate-400">{f.label}</dt>
+                                <dd className="order-1 text-xl font-black tracking-tight text-white sm:text-2xl md:text-3xl">{f.value}</dd>
                             </m.div>
-                        </section>
+                        ))}
+                    </m.dl>
+                </div>
+            </section>
+
+            {/* ── Propuesta de valor: fondo claro con patrón ── */}
+            <section id="aporte" aria-labelledby="aporte-heading" className="relative isolate overflow-hidden bg-[#F5F7FB] py-20 md:py-28">
+                <BrandPattern tone="onLight" opacity={0.04} className="-z-10" />
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <m.div {...headerReveal} className="mb-12 flex flex-col justify-between gap-6 md:mb-16 md:flex-row md:items-end">
+                        <div className="max-w-2xl">
+                            <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-[#176BDE]">Propuesta de valor</p>
+                            <h2 id="aporte-heading" className="text-3xl font-black leading-tight tracking-tight text-slate-900 md:text-5xl">
+                                Lo que obtiene <span className="text-[#176BDE]">tu empresa</span>
+                            </h2>
+                        </div>
+                        <p className="max-w-md text-base leading-relaxed text-slate-600">
+                            Identificamos fortalezas, proponemos soluciones realistas y preparamos a tus equipos para liderar el cambio.
+                        </p>
                     </m.div>
+
+                    <m.ul variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="grid gap-5 md:grid-cols-3 lg:gap-6">
+                        {aportes.map((a, i) => (
+                            <m.li
+                                key={a.title}
+                                variants={rise}
+                                className="group relative flex flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_10px_40px_rgba(15,18,21,0.06)] transition-all duration-500 hover:-translate-y-1.5 hover:border-[#176BDE]/40 hover:shadow-[0_24px_60px_rgba(23,107,222,0.16)] sm:p-8"
+                            >
+                                <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 bg-gradient-to-r from-[#176BDE] to-[#16F3E8] transition-transform duration-500 group-hover:scale-x-100" />
+                                <div className="flex items-start justify-between">
+                                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#176BDE]/10 text-[#176BDE] transition-colors duration-300 group-hover:bg-[#176BDE] group-hover:text-white">
+                                        <a.Icon className="h-6 w-6" aria-hidden />
+                                    </span>
+                                    <span className="text-3xl font-black leading-none tracking-tight text-slate-200 transition-colors duration-300 group-hover:text-[#176BDE]/40">
+                                        0{i + 1}
+                                    </span>
+                                </div>
+                                <h3 className="mt-6 text-xl font-bold text-slate-900">{a.title}</h3>
+                                <p className="mt-3 text-[15px] leading-relaxed text-slate-600">{a.desc}</p>
+                            </m.li>
+                        ))}
+                    </m.ul>
+                </div>
+            </section>
+
+            {/* ── Equipo: Onyx con patrón ── */}
+            <section id="equipo" aria-labelledby="equipo-heading" className="relative isolate overflow-hidden bg-[#0F1215] py-20 md:py-28">
+                <BrandPattern tone="onDark" opacity={0.07} className="-z-10" />
+                <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[480px] w-[900px] max-w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#176BDE]/15 blur-[150px]" />
+                <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#176BDE]/70 to-transparent" />
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <m.div {...headerReveal} className="mb-12 max-w-3xl md:mb-16">
+                        <span className="inline-flex items-center gap-2 rounded-full border border-[#176BDE]/40 bg-[#176BDE]/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#8FC0FF]">
+                            El equipo
+                        </span>
+                        <h2 id="equipo-heading" className="mt-5 text-3xl font-black leading-tight tracking-tight text-white md:text-5xl">
+                            Equipo senior de <span className="text-[#6AA5F5]">alto nivel</span>
+                        </h2>
+                        <p className="mt-5 text-base leading-relaxed text-slate-300 md:text-lg">
+                            Experiencia real en liderazgo tecnológico, operacional y comercial. No solo diseñamos la transformación: la implementamos con foco en resultados medibles y sostenibles.
+                        </p>
+                    </m.div>
+
+                    <m.ul variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+                        {teamMembers.map((t) => (
+                            <m.li
+                                key={t.role}
+                                variants={rise}
+                                className="group relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-[#176BDE]/60 hover:bg-white/[0.07] md:p-7"
+                            >
+                                <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-gradient-to-r from-[#176BDE] to-[#16F3E8] transition-transform duration-500 group-hover:scale-x-100" />
+                                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#176BDE] text-white shadow-[0_8px_24px_rgba(23,107,222,0.45)]">
+                                    <t.Icon className="h-6 w-6" aria-hidden />
+                                </span>
+                                <h3 className="mt-6 text-xl font-bold text-white">{t.role}</h3>
+                                <p className="mt-2 flex-1 text-[15px] leading-relaxed text-slate-300">{t.desc}</p>
+                                <ul className="mt-6 flex flex-wrap gap-2" aria-label="Roles">
+                                    {t.tags.map((tag) => (
+                                        <li key={tag} className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-bold text-slate-200">
+                                            {tag}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </m.li>
+                        ))}
+                    </m.ul>
+
+                    {/* Liderazgo directo: bloque destacado con filete Neon Ice */}
+                    <m.div
+                        {...headerReveal}
+                        className="mt-10 flex flex-col gap-6 rounded-3xl border border-white/10 border-l-4 border-l-[#16F3E8] bg-white/[0.04] p-6 backdrop-blur-sm sm:p-8 md:flex-row md:items-center md:justify-between"
+                    >
+                        <div>
+                            <p className="text-xl font-black text-white md:text-2xl">Liderazgo estratégico senior</p>
+                            <p className="mt-2 max-w-xl leading-relaxed text-slate-300">Acompañamiento directo de nuestros fundadores en cada proyecto, sin intermediarios.</p>
+                        </div>
+                        <ul className="flex flex-col gap-3 sm:flex-row">
+                            {LEADERS.map((l) => {
+                                const inner = (
+                                    <>
+                                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#176BDE] text-xs font-black text-white">{l.initials}</span>
+                                        <span>
+                                            <span className="block text-sm font-bold text-white">{l.name}</span>
+                                            <span className="block text-xs text-slate-400">{l.role}</span>
+                                        </span>
+                                        {l.href && <Linkedin className="ml-auto h-4 w-4 text-[#8FC0FF]" aria-hidden />}
+                                    </>
+                                );
+                                const cls = "flex min-w-[220px] items-center gap-3 rounded-2xl border border-white/10 bg-[#0F1215]/60 px-4 py-3";
+                                return (
+                                    <li key={l.initials}>
+                                        {l.href ? (
+                                            <a href={l.href} target="_blank" rel="noopener noreferrer" className={`${cls} transition-colors hover:border-[#176BDE]/60`} aria-label={`${l.name} en LinkedIn`}>
+                                                {inner}
+                                            </a>
+                                        ) : (
+                                            <div className={cls}>{inner}</div>
+                                        )}
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </m.div>
+                </div>
+            </section>
+
+            {/* ── Metodología: cuatro fases siempre visibles ── */}
+            <section id="metodologia" aria-labelledby="metodologia-heading" className="relative isolate scroll-mt-24 overflow-hidden bg-white py-20 md:py-28">
+                <BrandPattern tone="onLight" opacity={0.035} className="-z-10" />
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <m.div {...headerReveal} className="mb-12 max-w-3xl md:mb-16">
+                        <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-[#176BDE]">Metodología</p>
+                        <h2 id="metodologia-heading" className="text-3xl font-black leading-tight tracking-tight text-slate-900 md:text-5xl">
+                            Nuestro proceso, <span className="text-[#176BDE]">paso a paso</span>
+                        </h2>
+                        <p className="mt-5 text-base leading-relaxed text-slate-600 md:text-lg">
+                            Cuatro fases con objetivos y entregables claros, desde el primer diagnóstico hasta dejar a tu equipo autónomo.
+                        </p>
+                    </m.div>
+
+                    <m.ol variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="relative grid gap-5 md:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+                        {/* Línea de tiempo en escritorio */}
+                        <span aria-hidden="true" className="absolute left-0 right-0 top-[3.25rem] hidden h-px bg-gradient-to-r from-[#176BDE]/0 via-[#176BDE]/40 to-[#16F3E8]/0 lg:block" />
+                        {phases.map((p) => (
+                            <m.li key={p.number} variants={rise} className="relative flex flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_10px_40px_rgba(15,18,21,0.05)] sm:p-7">
+                                <div className="flex items-center justify-between">
+                                    <span className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-[#0F1215] text-[#16F3E8]">
+                                        <p.Icon className="h-6 w-6" aria-hidden />
+                                    </span>
+                                    <span className="font-slab text-sm font-medium text-[#176BDE]">Fase {p.number}</span>
+                                </div>
+                                <h3 className="mt-6 text-xl font-bold text-slate-900">{p.title}</h3>
+                                <p className="mt-2 text-[15px] leading-relaxed text-slate-600">{p.objective}</p>
+                                <div className="mt-6 rounded-2xl border border-[#b8ccf0] border-l-4 border-l-[#176BDE] bg-[#f2f7ff] p-4">
+                                    <p className="text-[11px] font-black uppercase tracking-wider text-[#0E4FA5]">Entregables</p>
+                                    <ul className="mt-3 space-y-2">
+                                        {p.deliverables.map((d) => (
+                                            <li key={d} className="flex items-start gap-2 text-sm leading-snug text-slate-700">
+                                                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#176BDE]" aria-hidden />
+                                                {d}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </m.li>
+                        ))}
+                    </m.ol>
+                </div>
+            </section>
+
+            <ServicesCTA
+                page="talento"
+                title="¿Listo para transformar tu organización?"
+                text="Agenda una sesión estratégica con nuestro equipo senior y descubre cómo la tecnología, los procesos y las personas pueden trabajar juntos para impulsar tu empresa."
+                primaryLabel="Agenda una sesión estratégica"
+                whatsappMessage="Quiero conversar sobre talento y transformación para mi empresa."
+            />
         </div>
     );
 }
