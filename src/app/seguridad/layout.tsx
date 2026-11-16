@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FooterUnified } from "@/components/shared/FooterUnified";
 
 export const metadata: Metadata = {
     // El template del layout raíz ya agrega «| ATM Chile».
@@ -121,6 +122,7 @@ export default function SeguridadLayout({
                 }}
             />
             {children}
+            <FooterUnified />
         </>
     );
 }

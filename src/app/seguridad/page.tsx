@@ -1,25 +1,25 @@
 "use client";
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import { m, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { m, AnimatePresence, Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import {
     ShieldCheck,
     Lock,
-    ServerCrash,
     FileCode2,
     Terminal,
-    GraduationCap,
     ArrowRight,
-    Zap,
+    ArrowDown,
     X,
-    ExternalLink,
-    ChevronRight,
     BadgeCheck,
-    AlertTriangle,
     RefreshCw,
-    Database,
+    ScanSearch,
+    ListChecks,
+    ShieldHalf,
+    Activity,
 } from "lucide-react";
+import { BrandPattern } from "@/components/ui/BrandPattern";
+import { ServicesCTA } from "@/components/sections/ServicesCTA";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TYPES
@@ -35,7 +35,6 @@ interface SecurityPillar {
     shortDesc: string;
     icon: React.ReactNode;
     badge: string;
-    color: string;
     modal: {
         tag: string;
         headline: string;
@@ -55,7 +54,6 @@ const PILLARS: SecurityPillar[] = [
         shortDesc: "Sistema de Gestión de Seguridad de la Información. Auditorías continuas y gestión robusta de riesgos bajo norma chilena e internacional.",
         icon: <BadgeCheck className="w-5 h-5" />,
         badge: "SGSI · AUDITORÍA · RIESGOS",
-        color: "#176BDE",
         modal: {
             tag: "NCh-ISO 27001:2022",
             headline: "Sistema de Gestión de Seguridad de la Información",
@@ -83,7 +81,6 @@ const PILLARS: SecurityPillar[] = [
         shortDesc: "Cumplimiento de la nueva Ley N°21.663 chilena, infraestructura crítica y protección de datos personales (Ley N°19.628 actualizada).",
         icon: <ShieldCheck className="w-5 h-5" />,
         badge: "LEY 21.663 · CSIRT · DATOS",
-        color: "#7C3AED",
         modal: {
             tag: "Ley N°21.663 · Chile 2024",
             headline: "Cumplimiento Ley Marco de Ciberseguridad e Infraestructura Crítica",
@@ -111,7 +108,6 @@ const PILLARS: SecurityPillar[] = [
         shortDesc: "Arquitectura Zero Trust nativa. AES-256 en reposo y TLS 1.3 en tránsito. Control de accesos granular con principio de mínimo privilegio.",
         icon: <Lock className="w-5 h-5" />,
         badge: "AES-256 · TLS 1.3 · RBAC",
-        color: "#059669",
         modal: {
             tag: "Zero Trust Architecture",
             headline: "Encriptación de Nivel Militar y Control de Accesos Granular",
@@ -139,7 +135,6 @@ const PILLARS: SecurityPillar[] = [
         shortDesc: "Prevención estricta de Inyecciones SQL, XSS y mitigación del OWASP Top 10 desde el backend con validación esquemas Zod.",
         icon: <FileCode2 className="w-5 h-5" />,
         badge: "OWASP · ZOD · PARAMETERIZED",
-        color: "#DC2626",
         modal: {
             tag: "OWASP Top 10 — 2021/2025",
             headline: "Sanitización Total y Defensa en Capas contra Vulnerabilidades Web",
@@ -167,7 +162,6 @@ const PILLARS: SecurityPillar[] = [
         shortDesc: "Planes de recuperación ante desastres, redundancia de servidores y arquitecturas resilientes con un SLA de disponibilidad del 99,597 %.",
         icon: <RefreshCw className="w-5 h-5" />,
         badge: "BCP · RTO<4H · RPO<1H",
-        color: "#D97706",
         modal: {
             tag: "ISO 22301 · BCP / DRP",
             headline: "Continuidad Operacional y Recuperación ante Desastres Garantizada",
@@ -195,7 +189,6 @@ const PILLARS: SecurityPillar[] = [
         shortDesc: "Análisis de seguridad estático y dinámico continuo (SAST/DAST) integrado en el pipeline CI/CD antes de cada despliegue a producción.",
         icon: <Terminal className="w-5 h-5" />,
         badge: "SAST · DAST · CI/CD · SCA",
-        color: "#0891B2",
         modal: {
             tag: "DevSecOps Pipeline",
             headline: "Seguridad Integrada en Cada Commit — Shift-Left Security",
@@ -220,461 +213,385 @@ const PILLARS: SecurityPillar[] = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
-// FRAMER MOTION VARIANTS
+// ANIMACIÓN
 // ─────────────────────────────────────────────────────────────────────────────
-const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    show: {
-        opacity: 1,
-        y: 0,
-        transition: { type: "spring" as const, stiffness: 120, damping: 20 }
-    },
-    exit: {
-        opacity: 0,
-        y: -10,
-        transition: { duration: 0.2 }
-    }
+const smoothEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+const stagger: Variants = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
 };
 
-const backdropVariants = {
+const rise: Variants = {
+    hidden: { opacity: 0, y: 24 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: smoothEase } },
+};
+
+const backdropVariants: Variants = {
     hidden: { opacity: 0 },
     show: { opacity: 1, transition: { duration: 0.2 } },
-    exit:  { opacity: 0, transition: { duration: 0.2 } }
+    exit: { opacity: 0, transition: { duration: 0.2 } },
 };
 
-const modalVariants = {
-    hidden: { opacity: 0, scale: 0.92, y: 40 },
-    show: {
-        opacity: 1,
-        scale: 1,
-        y: 0,
-        transition: { type: "spring" as const, stiffness: 200, damping: 26 }
-    },
-    exit: {
-        opacity: 0,
-        scale: 0.94,
-        y: 20,
-        transition: { duration: 0.22 }
-    }
+const modalVariants: Variants = {
+    hidden: { opacity: 0, scale: 0.96, y: 40 },
+    show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 220, damping: 26 } },
+    exit: { opacity: 0, scale: 0.97, y: 20, transition: { duration: 0.2 } },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// PILLAR CARD — mini component
+// CONTENIDO DE LA PÁGINA
 // ─────────────────────────────────────────────────────────────────────────────
-interface PillarCardProps {
-    pillar: SecurityPillar;
-    onOpen: (pillar: SecurityPillar) => void;
-    side: "left" | "right";
-}
+const HERO_FACTS = [
+    { value: "Ley 21.663", label: "Ley Marco de Ciberseguridad" },
+    { value: "ISO 27001", label: "en proceso de certificación" },
+    { value: "99,597 %", label: "SLA de disponibilidad" },
+    { value: "RTO < 4 h", label: "recuperación ante desastres" },
+];
 
-function PillarCard({ pillar, onOpen, side }: PillarCardProps) {
+/** Método en cuatro pasos (mensaje de marca: evaluamos, diagnosticamos y solventamos). */
+const STEPS = [
+    { icon: ScanSearch, title: "Evaluamos", text: "Revisamos tu infraestructura, tus accesos y dónde viven tus datos críticos." },
+    { icon: ListChecks, title: "Diagnosticamos", text: "Priorizamos los riesgos frente a la Ley 21.663 y la NCh-ISO 27001, con un plan claro." },
+    { icon: ShieldHalf, title: "Protegemos", text: "Implementamos los controles: Zero Trust, cifrado, validación OWASP y respaldos." },
+    { icon: Activity, title: "Acompañamos", text: "Monitoreamos, probamos la recuperación y te reportamos de forma continua." },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// TARJETA DE PILAR
+// ─────────────────────────────────────────────────────────────────────────────
+function PillarCard({ pillar, index, onOpen }: { pillar: SecurityPillar; index: number; onOpen: (p: SecurityPillar) => void }) {
     return (
-        <m.button
-            id={`pillar-card-${pillar.id}`}
-            type="button"
-            aria-label={`Ver detalles: ${pillar.title}`}
-            variants={cardVariants}
-            whileHover={{ y: -5, scale: 1.02, transition: { type: "spring", stiffness: 400, damping: 22 } }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => onOpen(pillar)}
-            className="group w-full text-left bg-white/75 backdrop-blur-2xl border border-white/90 shadow-[0_12px_40px_rgba(0,0,0,0.06)] hover:shadow-2xl hover:shadow-[#176BDE]/8 hover:border-[#176BDE]/25 rounded-[2rem] p-6 lg:p-8 transition-all duration-500 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#176BDE]"
-        >
-            <div className="flex items-start gap-3 mb-2.5">
-                <div
-                    className="p-2.5 rounded-xl border shadow-sm flex-shrink-0 transition-colors duration-300 group-hover:border-transparent"
-                    style={{
-                        backgroundColor: `${pillar.color}10`,
-                        color: pillar.color,
-                        borderColor: `${pillar.color}25`
-                    }}
-                >
-                    {pillar.icon}
-                </div>
-                <h3 className="font-bold text-slate-900 text-sm leading-tight pt-1">{pillar.title}</h3>
-            </div>
-
-            <p className="text-slate-600 text-[13px] leading-relaxed mb-4">{pillar.shortDesc}</p>
-
-            <div className="pt-3 border-t border-slate-100 flex justify-between items-center gap-2">
-                <span className="px-2 py-0.5 text-[10px] text-slate-500 border border-slate-200 bg-transparent rounded-md uppercase tracking-widest font-semibold truncate">
-                    {pillar.badge}
+        <m.li variants={rise} className="h-full">
+            <button
+                id={`pillar-card-${pillar.id}`}
+                type="button"
+                onClick={() => onOpen(pillar)}
+                aria-haspopup="dialog"
+                className="group relative flex h-full w-full flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 text-left shadow-[0_10px_40px_rgba(15,18,21,0.06)] transition-all duration-500 hover:-translate-y-1.5 hover:border-[#176BDE]/40 hover:shadow-[0_24px_60px_rgba(23,107,222,0.16)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#176BDE] sm:p-7 md:p-8"
+            >
+                {/* Filete superior Sapphire → Neon Ice que se enciende al pasar */}
+                <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 bg-gradient-to-r from-[#176BDE] to-[#16F3E8] transition-transform duration-500 group-hover:scale-x-100" />
+                <span className="flex items-start justify-between">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#176BDE]/10 text-[#176BDE] transition-colors duration-300 group-hover:bg-[#176BDE] group-hover:text-white [&_svg]:h-6 [&_svg]:w-6">
+                        {pillar.icon}
+                    </span>
+                    <span className="text-3xl font-black leading-none tracking-tight text-slate-200 transition-colors duration-300 group-hover:text-[#176BDE]/40">
+                        {String(index + 1).padStart(2, "0")}
+                    </span>
                 </span>
-                <span
-                    className="flex-shrink-0 flex items-center gap-1 text-[11px] font-bold text-[#176BDE] group-hover:gap-1.5 transition-all"
-                    aria-hidden="true"
-                >
-                    Leer más
-                    <ChevronRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
+                <span className="mt-6 block text-lg font-bold leading-snug text-slate-900 transition-colors group-hover:text-[#176BDE] md:text-xl">
+                    {pillar.title}
                 </span>
-            </div>
-        </m.button>
-    );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// CAROUSEL — side column with auto-scroll + pause on hover
-// ─────────────────────────────────────────────────────────────────────────────
-interface CarouselColumnProps {
-    pillars: SecurityPillar[];
-    onOpen: (pillar: SecurityPillar) => void;
-    side: "left" | "right";
-}
-
-function CarouselColumn({ pillars, onOpen, side }: CarouselColumnProps) {
-    const [idx, setIdx] = useState(0);
-    const [paused, setPaused] = useState(false);
-    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-    const startInterval = useCallback(() => {
-        intervalRef.current = setInterval(() => {
-            setIdx((prev) => (prev + 1) % pillars.length);
-        }, 7000);
-    }, [pillars.length]);
-
-    const clearIntervalRef = useCallback(() => {
-        if (intervalRef.current) clearInterval(intervalRef.current);
-    }, []);
-
-    useEffect(() => {
-        if (!paused) startInterval();
-        return clearIntervalRef;
-    }, [paused, startInterval, clearIntervalRef]);
-
-    const handleMouseEnter = () => {
-        setPaused(true);
-        clearIntervalRef();
-    };
-
-    const handleMouseLeave = () => {
-        setPaused(false);
-    };
-
-    return (
-        <div
-            className={`hidden lg:flex lg:col-span-1 flex-col gap-3 justify-center ${side === "left" ? "lg:order-1" : "lg:order-3"}`}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            aria-label={`Pilares de seguridad — columna ${side === "left" ? "izquierda" : "derecha"}`}
-        >
-            <div className="flex flex-col gap-4">
-                <AnimatePresence mode="popLayout">
-                    {[0, 1].map((offset) => {
-                        const pillarIdx = (idx + offset) % pillars.length;
-                        return (
-                            <m.div
-                                key={`${side}-${pillars[pillarIdx].id}-${offset}`}
-                                variants={cardVariants}
-                                initial="hidden"
-                                animate="show"
-                                exit="exit"
-                            >
-                                <PillarCard pillar={pillars[pillarIdx]} onOpen={onOpen} side={side} />
-                            </m.div>
-                        );
-                    })}
-                </AnimatePresence>
-
-                <div className="flex justify-center gap-1.5 pt-1" role="tablist" aria-label="Indicadores de pilar">
-                    {pillars.map((p, i) => (
-                        <button
-                            key={p.id}
-                            role="tab"
-                            aria-selected={i === idx}
-                            aria-label={p.title}
-                            onClick={() => { setIdx(i); clearIntervalRef(); setPaused(false); }}
-                            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-1 focus-visible:ring-[#176BDE] ${i === idx ? "w-5 bg-[#176BDE]" : "bg-slate-300"}`}
-                        />
+                <span className="mt-3 block flex-1 text-[15px] leading-relaxed text-slate-600">{pillar.shortDesc}</span>
+                <span className="mt-6 flex flex-wrap gap-2">
+                    {pillar.badge.split(" · ").map((b) => (
+                        <span key={b} className="rounded-md border border-[#b8ccf0] bg-[#f2f7ff] px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-[#0E4FA5]">
+                            {b}
+                        </span>
                     ))}
-                </div>
-            </div>
-        </div>
+                </span>
+                <span className="mt-6 flex items-center gap-2 border-t border-slate-100 pt-5 text-sm font-bold text-[#176BDE]">
+                    Ver detalle técnico
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden />
+                </span>
+            </button>
+        </m.li>
     );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// MOBILE CAROUSEL — Premium Auto-Scrolling Strip
+// MODAL TÉCNICO
 // ─────────────────────────────────────────────────────────────────────────────
-function MobileSecurityCarousel({ pillars, onOpen }: { pillars: SecurityPillar[], onOpen: (p: SecurityPillar) => void }) {
-    const [idx, setIdx] = useState(0);
-    const [paused, setPaused] = useState(false);
-    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-    const startInterval = useCallback(() => {
-        intervalRef.current = setInterval(() => {
-            setIdx((prev) => (prev + 1) % pillars.length);
-        }, 7000);
-    }, [pillars.length]);
-
-    const stopInterval = useCallback(() => {
-        if (intervalRef.current) clearInterval(intervalRef.current);
-    }, []);
-
+function TechnicalModal({ pillar, onClose }: { pillar: SecurityPillar; onClose: () => void }) {
     useEffect(() => {
-        if (!paused) startInterval();
-        return stopInterval;
-    }, [paused, startInterval, stopInterval]);
-
-    return (
-        <div 
-            className="relative flex flex-col gap-8"
-            onTouchStart={() => setPaused(true)}
-            onTouchEnd={() => setPaused(false)}
-        >
-            <div className="relative overflow-hidden px-1">
-                <m.div
-                    animate={{ x: `-${idx * 100}%` }}
-                    transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
-                    className="flex"
-                >
-                    {pillars.map((pillar) => (
-                        <div 
-                            key={pillar.id} 
-                            className="flex-shrink-0 w-full px-1"
-                        >
-                            <PillarCard pillar={pillar} onOpen={onOpen} side="left" />
-                        </div>
-                    ))}
-                </m.div>
-            </div>
-
-            <div className="flex items-center justify-center gap-2">
-                {pillars.map((_, i) => (
-                    <button
-                        key={i}
-                        onClick={() => { setIdx(i); setPaused(true); }}
-                        className={`transition-all duration-700 rounded-full h-1.5 ${
-                            i === idx 
-                                ? "w-10 bg-[#176BDE] shadow-[0_0_12px_rgba(23, 107, 222,0.4)]" 
-                                : "w-1.5 bg-slate-200 hover:bg-slate-300"
-                        }`}
-                        aria-label={`Ir a pilar ${i + 1}`}
-                    />
-                ))}
-            </div>
-        </div>
-    );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// TECHNICAL MODAL
-// ─────────────────────────────────────────────────────────────────────────────
-interface TechnicalModalProps {
-    pillar: SecurityPillar | null;
-    onClose: () => void;
-}
-
-function TechnicalModal({ pillar, onClose }: TechnicalModalProps) {
-    useEffect(() => {
-        if (!pillar) return;
         const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
         window.addEventListener("keydown", handler);
-        return () => window.removeEventListener("keydown", handler);
-    }, [pillar, onClose]);
-
-    if (!pillar) return <AnimatePresence />;
+        const prev = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+        return () => {
+            window.removeEventListener("keydown", handler);
+            document.body.style.overflow = prev;
+        };
+    }, [onClose]);
 
     const mdata = pillar.modal;
 
     return (
-        <AnimatePresence>
-            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 cursor-default">
-                <m.div
-                    variants={backdropVariants}
-                    initial="hidden"
-                    animate="show"
-                    exit="exit"
-                    onClick={onClose}
-                    className="absolute inset-0 bg-[#0A2E6B]/40 backdrop-blur-md"
-                />
+        <div className="fixed inset-0 z-[10000] flex items-end justify-center sm:items-center sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-seguridad-titulo">
+            <m.div
+                variants={backdropVariants}
+                initial="hidden"
+                animate="show"
+                exit="exit"
+                onClick={onClose}
+                className="absolute inset-0 bg-[#0F1215]/70 backdrop-blur-md"
+            />
 
-                <m.div
-                    variants={modalVariants}
-                    initial="hidden"
-                    animate="show"
-                    exit="exit"
-                    className="relative w-full max-w-4xl max-h-[90vh] bg-white rounded-[2.5rem] shadow-2xl border border-white/50 overflow-hidden flex flex-col"
-                >
-                    <header className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                        <div className="flex items-center gap-4">
-                            <div
-                                className="p-2.5 rounded-2xl shadow-sm"
-                                style={{ backgroundColor: `${pillar.color}10`, color: pillar.color }}
-                            >
+            {/* En el teléfono sube como hoja inferior; en escritorio, centrado. */}
+            <m.div
+                variants={modalVariants}
+                initial="hidden"
+                animate="show"
+                exit="exit"
+                className="relative flex max-h-[92dvh] w-full max-w-4xl flex-col overflow-hidden rounded-t-[2rem] bg-white shadow-2xl sm:max-h-[88vh] sm:rounded-[2rem]"
+            >
+                <header className="relative isolate shrink-0 overflow-hidden bg-[#0F1215] px-5 pb-6 pt-5 sm:px-8 sm:py-7">
+                    <BrandPattern tone="onDark" opacity={0.08} className="-z-10" />
+                    <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 -z-10 h-56 w-56 rounded-full bg-[#176BDE]/30 blur-[90px]" />
+                    <div className="flex items-start justify-between gap-4">
+                        <div className="flex items-start gap-4">
+                            <span className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#176BDE] text-white sm:flex [&_svg]:h-6 [&_svg]:w-6">
                                 {pillar.icon}
-                            </div>
+                            </span>
                             <div>
-                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                    {mdata.tag}
-                                </span>
-                                <h2 className="text-xl font-bold text-slate-900 leading-none mt-1">
+                                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#16F3E8]">{mdata.tag}</span>
+                                <h2 id="modal-seguridad-titulo" className="mt-2 text-xl font-black leading-tight text-white sm:text-2xl">
                                     {mdata.headline}
                                 </h2>
                             </div>
                         </div>
                         <button
+                            type="button"
                             onClick={onClose}
-                            className="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors"
-                            aria-label="Cerrar modal"
+                            className="shrink-0 rounded-full border border-white/15 bg-white/5 p-2.5 text-white transition-colors hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#16F3E8]"
+                            aria-label="Cerrar"
                         >
                             <X size={20} />
                         </button>
-                    </header>
+                    </div>
+                </header>
 
-                    <div className="flex-1 overflow-y-auto px-8 py-8 custom-scrollbar">
-                        <div className="max-w-3xl mx-auto">
-                            <p className="text-lg text-slate-600 leading-relaxed font-medium mb-10 border-l-4 pl-6 border-[#176BDE]">
-                                {mdata.intro}
-                            </p>
-
-                            <div className="grid gap-12">
-                                {mdata.sections.map((section, sidx) => (
-                                    <div key={sidx} className="group">
-                                        <h3 className="flex items-center gap-3 text-sm font-black uppercase tracking-widest text-[#176BDE] mb-4">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-[#176BDE]" />
-                                            {section.heading}
-                                        </h3>
-                                        <div className="text-slate-600 text-sm leading-relaxed bg-slate-50/50 p-6 rounded-2xl border border-slate-100 group-hover:border-[#176BDE]/20 transition-colors">
-                                            {section.body}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+                <div className="flex-1 overflow-y-auto overscroll-contain px-5 py-6 sm:px-8 sm:py-8">
+                    <div className="mx-auto max-w-3xl">
+                        <p className="mb-8 border-l-4 border-[#176BDE] pl-4 text-base font-medium leading-relaxed text-slate-700 sm:pl-6 sm:text-lg">
+                            {mdata.intro}
+                        </p>
+                        <div className="grid gap-6 sm:gap-8">
+                            {mdata.sections.map((section) => (
+                                <section key={section.heading} className="rounded-2xl border border-[#b8ccf0] border-l-4 border-l-[#176BDE] bg-[#f2f7ff] p-5 sm:p-6">
+                                    <h3 className="text-sm font-black uppercase tracking-wider text-[#0E4FA5]">{section.heading}</h3>
+                                    <p className="mt-3 text-sm leading-relaxed text-slate-700 sm:text-[15px]">{section.body}</p>
+                                </section>
+                            ))}
                         </div>
                     </div>
+                </div>
 
-                    <footer className="px-8 py-6 border-t border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row justify-between items-center gap-4">
-                        <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest">
-                            <ShieldCheck size={14} className="text-[#059669]" />
-                            Cumplimiento Auditado
-                        </div>
-                        <Link
-                            href="/contacto"
-                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-[#176BDE] text-white rounded-2xl font-bold text-sm hover:scale-[1.02] hover:shadow-xl transition-all"
-                        >
-                            {mdata.cta}
-                            <ArrowRight size={16} />
-                        </Link>
-                    </footer>
-                </m.div>
-            </div>
-        </AnimatePresence>
+                <footer className="flex shrink-0 flex-col items-stretch gap-3 border-t border-slate-100 bg-slate-50 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-5">
+                    <span className="hidden items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-500 sm:flex">
+                        <ShieldCheck size={14} className="text-[#176BDE]" aria-hidden />
+                        Ciberseguridad 360 · ATM
+                    </span>
+                    <Link
+                        href="/contacto"
+                        className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#176BDE] px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-[#0E4FA5]"
+                    >
+                        {mdata.cta}
+                        <ArrowRight size={16} aria-hidden />
+                    </Link>
+                </footer>
+            </m.div>
+        </div>
     );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// MAIN PAGE COMPONENT
+// PÁGINA
 // ─────────────────────────────────────────────────────────────────────────────
 export default function SeguridadPage() {
     const [activePillar, setActivePillar] = useState<SecurityPillar | null>(null);
 
-    const leftPillars = PILLARS.slice(0, 3);
-    const rightPillars = PILLARS.slice(3, 6);
-
     return (
-        <>
-            <TechnicalModal
-                pillar={activePillar}
-                onClose={() => setActivePillar(null)}
-            />
+        <div className="relative selection:bg-[#176BDE] selection:text-white">
+            <AnimatePresence>
+                {activePillar && <TechnicalModal key={activePillar.id} pillar={activePillar} onClose={() => setActivePillar(null)} />}
+            </AnimatePresence>
 
-            <div className="min-h-screen bg-white relative overflow-hidden font-sans pt-20 lg:pt-28 pb-12">
-                {/* Background Decor */}
-                <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 -skew-x-12 transform origin-top translate-x-20 pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-blue-50/30 blur-[120px] pointer-events-none" />
+            {/* ── Hero: Onyx + patrón andino-circuito ── */}
+            {/* -mt-24 sube el fondo detrás del menú flotante (el <main> trae pt-24). */}
+            <section className="relative isolate -mt-24 overflow-hidden bg-[#0F1215] pb-14 pt-36 md:pb-20 md:pt-48">
+                <BrandPattern tone="onDark" opacity={0.08} className="-z-10" />
+                <div aria-hidden="true" className="pointer-events-none absolute -right-40 -top-40 -z-10 h-[560px] w-[560px] rounded-full bg-[#176BDE]/25 blur-[150px]" />
+                <div aria-hidden="true" className="pointer-events-none absolute -bottom-48 -left-32 -z-10 h-[420px] w-[420px] rounded-full bg-[#16F3E8]/10 blur-[140px]" />
+                <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#16F3E8]/40 to-transparent" />
 
-                {/* La página no tenía H1. El diseño no muestra un título visible, así
-                    que queda solo para buscadores y lectores de pantalla. */}
-                <h1 className="sr-only">Ciberseguridad para empresas en Chile: Ley Marco N°21.663 y NCh-ISO 27001</h1>
-
-                <m.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="relative max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-12"
-                >
-                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-10 items-center">
-
-                        {/* ── LEFT CAROUSEL ── */}
-                        <CarouselColumn pillars={leftPillars} onOpen={setActivePillar} side="left" />
-
-                        {/* ── CENTER PANEL (Hero Image + Info) ── */}
-                        <m.div
-                            variants={cardVariants}
-                            initial="hidden"
-                            animate="show"
-                            /*
-                             * Sin `aspect-*` en móvil a propósito: la tarjeta de vidrio mide ~444px
-                             * y un cuadrado de 343px la recortaba arriba y abajo (el panel es
-                             * `overflow-hidden`). Desde `md` el contenido ya cabe en 16:9.
-                             */
-                            className="lg:col-span-3 lg:order-2 flex flex-col items-center justify-center relative rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-[#0A2E6B] md:aspect-video lg:aspect-auto self-stretch lg:h-[650px] shadow-2xl group"
-                        >
-                            <Image
-                                src="/images/executive-security.png"
-                                alt="Senior Security Architect monitoring critical infrastructure"
-                                fill
-                                sizes="(max-width: 1024px) 100vw, 60vw"
-                                priority
-                                className="object-cover opacity-80 group-hover:scale-105 transition-transform duration-[5000ms] ease-out"
-                            />
-
-                            <div
-                                className="absolute inset-0 bg-gradient-to-t from-[#0A2E6B]/70 via-[#0A2E6B]/20 to-transparent z-10 pointer-events-none"
-                                aria-hidden="true"
-                            />
-
-                            {/* Floating glass card */}
-                            <div className="relative z-20 m-5 lg:m-7 bg-white/85 backdrop-blur-2xl border border-white/90 shadow-2xl rounded-[2rem] p-7 md:p-9 text-center">
-                                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#176BDE]/5 border border-[#176BDE]/10 text-xs font-bold uppercase tracking-[0.2em] text-[#176BDE] mb-5">
-                                    <ShieldCheck size={14} className="text-[#16F3E8]" />
-                                    Innovación y Escalabilidad
-                                </span>
-
-                                <p className="text-base md:text-lg text-slate-700 font-medium leading-relaxed mb-7">
-                                    Nuestro compromiso es con la seguridad total. Operamos bajo estándares globales y nos encontramos en vías de certificación{" "}
-                                    <strong className="text-slate-900 font-black">ISO 27001</strong>{" "}
-                                    para garantizar la protección absoluta de sus datos.
-                                </p>
-
-                                <div className="flex flex-col sm:flex-row gap-3 w-full justify-center">
-                                    <Link
-                                        id="cta-auditoria-seguridad"
-                                        href="/servicios"
-                                        className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#176BDE] text-white rounded-2xl font-bold text-sm overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(23, 107, 222,0.3)] active:scale-[0.98]"
-                                        prefetch={true}
-                                    >
-                                        <span
-                                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"
-                                            aria-hidden="true"
-                                        />
-                                        Potenciar Operación 360
-                                        <Zap size={16} className="group-hover:rotate-12 transition-transform" />
-                                    </Link>
-                                    <Link
-                                        id="cta-club100-seguridad"
-                                        href="/#club100"
-                                        className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 rounded-2xl font-bold text-sm transition-all shadow-sm hover:shadow-md active:scale-[0.98]"
-                                    >
-                                        Descubrir el Club 100
-                                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                                    </Link>
-                                </div>
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+                        <m.div initial={{ x: -32 }} animate={{ x: 0 }} transition={{ duration: 1.1, ease: smoothEase }}>
+                            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#16F3E8] backdrop-blur-md">
+                                <ShieldCheck size={16} aria-hidden />
+                                <span>Ciberseguridad 360</span>
+                            </div>
+                            <h1 className="text-[2.5rem] font-black leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-[4.25rem]">
+                                Seguridad que protege <span className="text-[#6AA5F5]">tu operación</span>
+                            </h1>
+                            <p className="mt-7 max-w-xl text-lg leading-relaxed text-slate-300">
+                                Operamos bajo estándares globales, cumplimos la Ley Marco de Ciberseguridad y estamos en proceso de certificación{" "}
+                                <strong className="font-bold text-white">NCh-ISO 27001</strong> para proteger los datos de tu empresa.
+                            </p>
+                            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+                                <Link
+                                    id="cta-auditoria-seguridad"
+                                    href="/contacto"
+                                    className="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-[#176BDE] px-7 py-4 text-base font-bold text-white shadow-[0_10px_30px_rgba(23,107,222,0.45)] ring-1 ring-inset ring-white/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1A78F5] hover:shadow-[0_14px_40px_rgba(23,107,222,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#16F3E8]"
+                                >
+                                    Agenda una evaluación
+                                    <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden />
+                                </Link>
+                                <a
+                                    href="#pilares"
+                                    className="group inline-flex items-center justify-center gap-2.5 rounded-xl border border-white/25 bg-white/10 px-7 py-4 text-base font-bold text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#16F3E8]"
+                                >
+                                    Ver los 6 pilares
+                                    <ArrowDown className="h-5 w-5 text-[#8FC0FF] transition-transform duration-300 group-hover:translate-y-0.5" aria-hidden />
+                                </a>
                             </div>
                         </m.div>
 
-                        {/* ── RIGHT CAROUSEL ── */}
-                        <CarouselColumn pillars={rightPillars} onOpen={setActivePillar} side="right" />
-
+                        {/* Foto con marco de marca y sello de certificación */}
+                        <m.div
+                            initial={{ opacity: 0, y: 24 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1.1, delay: 0.1, ease: smoothEase }}
+                            className="relative"
+                        >
+                            <div aria-hidden="true" className="absolute -inset-px rounded-[2rem] bg-gradient-to-br from-[#176BDE]/70 via-white/10 to-[#16F3E8]/50" />
+                            <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-[#0F1215]">
+                                <Image
+                                    src="/images/executive-security.png"
+                                    alt="Arquitecto de seguridad monitoreando infraestructura crítica"
+                                    fill
+                                    priority
+                                    sizes="(max-width: 1024px) 100vw, 46vw"
+                                    className="object-cover"
+                                />
+                                <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0F1215]/80 via-transparent to-transparent" />
+                            </div>
+                            <div className="absolute -bottom-6 left-4 right-4 flex items-center gap-4 rounded-2xl border border-white/10 bg-[#0F1215]/85 p-4 shadow-2xl backdrop-blur-xl sm:left-6 sm:right-auto sm:p-5">
+                                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#176BDE] text-white">
+                                    <BadgeCheck className="h-6 w-6" aria-hidden />
+                                </span>
+                                <div>
+                                    <p className="text-sm font-bold text-white">NCh-ISO 27001</p>
+                                    <p className="text-xs text-slate-300">SGSI en proceso de certificación</p>
+                                </div>
+                            </div>
+                        </m.div>
                     </div>
 
-                    {/* Mobile: Dynamic Auto-Scrolling Carousel (below central panel) */}
-                    <div className="lg:hidden w-full max-w-[1600px] mx-auto px-3 sm:px-4 mt-2 mb-6">
-                        <p className="text-center text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400 mb-6">
-                            Sistemas Críticos Protegidos
+                    {/* Datos clave */}
+                    <m.dl
+                        variants={stagger}
+                        initial="hidden"
+                        animate="show"
+                        className="mt-20 grid grid-cols-2 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-md md:grid-cols-4"
+                    >
+                        {HERO_FACTS.map((f, i) => (
+                            <m.div
+                                key={f.label}
+                                variants={rise}
+                                className={`flex flex-col px-5 py-6 md:px-7 ${i % 2 === 1 ? "border-l border-white/10" : ""} ${i >= 2 ? "border-t border-white/10 md:border-t-0" : ""} ${i === 2 ? "md:border-l" : ""}`}
+                            >
+                                <dt className="order-2 mt-1 text-xs font-medium uppercase tracking-[0.14em] text-slate-400">{f.label}</dt>
+                                <dd className="order-1 text-xl font-black tracking-tight text-white sm:text-2xl md:text-3xl">{f.value}</dd>
+                            </m.div>
+                        ))}
+                    </m.dl>
+                </div>
+            </section>
+
+            {/* ── Pilares: fondo claro con patrón ── */}
+            <section id="pilares" aria-labelledby="pilares-titulo" className="relative isolate scroll-mt-24 overflow-hidden bg-[#F5F7FB] py-20 md:py-28">
+                <BrandPattern tone="onLight" opacity={0.04} className="-z-10" />
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <m.div
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={{ duration: 0.8, ease: smoothEase }}
+                        className="mb-12 flex flex-col justify-between gap-6 md:mb-16 md:flex-row md:items-end"
+                    >
+                        <div className="max-w-2xl">
+                            <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-[#176BDE]">Sistemas críticos protegidos</p>
+                            <h2 id="pilares-titulo" className="text-3xl font-black leading-tight tracking-tight text-slate-900 md:text-5xl">
+                                Seis pilares, <span className="text-[#176BDE]">un solo estándar</span>
+                            </h2>
+                        </div>
+                        <p className="max-w-md text-base leading-relaxed text-slate-600">
+                            Normativa chilena y práctica técnica senior. Abre cada pilar para ver los controles que aplicamos.
                         </p>
-                        <MobileSecurityCarousel pillars={PILLARS} onOpen={setActivePillar} />
-                    </div>
-                </m.div>
-            </div>
-        </>
+                    </m.div>
+
+                    <m.ul
+                        variants={stagger}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ once: true, margin: "-60px" }}
+                        className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6"
+                    >
+                        {PILLARS.map((pillar, i) => (
+                            <PillarCard key={pillar.id} pillar={pillar} index={i} onOpen={setActivePillar} />
+                        ))}
+                    </m.ul>
+                </div>
+            </section>
+
+            {/* ── Método: Onyx con patrón ── */}
+            <section aria-labelledby="metodo-titulo" className="relative isolate overflow-hidden bg-[#0F1215] py-20 md:py-28">
+                <BrandPattern tone="onDark" opacity={0.07} className="-z-10" />
+                <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[480px] w-[900px] max-w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#176BDE]/15 blur-[150px]" />
+                <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#176BDE]/70 to-transparent" />
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <m.div
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={{ duration: 0.8, ease: smoothEase }}
+                        className="mb-12 max-w-3xl md:mb-16"
+                    >
+                        <span className="inline-flex items-center gap-2 rounded-full border border-[#176BDE]/40 bg-[#176BDE]/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#8FC0FF]">
+                            Cómo trabajamos
+                        </span>
+                        <h2 id="metodo-titulo" className="mt-5 text-3xl font-black leading-tight tracking-tight text-white md:text-5xl">
+                            Del diagnóstico a la <span className="text-[#6AA5F5]">protección continua</span>
+                        </h2>
+                    </m.div>
+
+                    <m.ol
+                        variants={stagger}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ once: true, margin: "-60px" }}
+                        className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6"
+                    >
+                        {STEPS.map((step, i) => (
+                            <m.li
+                                key={step.title}
+                                variants={rise}
+                                className="relative rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm md:p-7"
+                            >
+                                <div className="flex items-center justify-between">
+                                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#176BDE] text-white shadow-[0_8px_24px_rgba(23,107,222,0.45)]">
+                                        <step.icon className="h-6 w-6" aria-hidden />
+                                    </span>
+                                    <span className="font-slab text-sm font-medium text-[#16F3E8]">Paso {i + 1}</span>
+                                </div>
+                                <h3 className="mt-6 text-xl font-bold text-white">{step.title}</h3>
+                                <p className="mt-2 text-[15px] leading-relaxed text-slate-300">{step.text}</p>
+                            </m.li>
+                        ))}
+                    </m.ol>
+                </div>
+            </section>
+
+            <ServicesCTA
+                page="seguridad"
+                title="Protejamos tu operación desde hoy"
+                text="En una evaluación revisamos tus riesgos frente a la Ley 21.663 y te proponemos un plan de protección a la medida de tu empresa."
+                primaryLabel="Agenda una evaluación"
+                whatsappMessage="Quiero una evaluación de ciberseguridad."
+            />
+        </div>
     );
 }

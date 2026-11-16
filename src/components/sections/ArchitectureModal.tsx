@@ -50,7 +50,7 @@ export const ArchitectureModal = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[500] flex items-center justify-center p-4 md:p-8"
+            className="fixed inset-0 z-[10000] flex items-center justify-center p-4 md:p-8"
             style={{ backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", backgroundColor: "rgba(248,250,252,0.6)" }}
             onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
         >
