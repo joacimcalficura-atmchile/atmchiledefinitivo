@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FooterUnified } from "@/components/shared/FooterUnified";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/talento" },
@@ -17,5 +18,10 @@ export default function TalentoLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <FooterUnified />
+    </>
+  );
 }
