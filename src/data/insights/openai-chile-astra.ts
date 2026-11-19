@@ -12,7 +12,7 @@ export const openaiChileAstra: Article = {
         "Qué firmó Chile con OpenAI, qué es GPT-6 Astra y qué deben mirar las empresas antes de adoptarlo.",
     readTime: "8 min",
     publishedAt: "2026-11-19",
-    imageUrl: "/images/ia-core.jpg",
+    imageUrl: "/images/insights/openai-o1.png",
     featured: true,
     keywords: [
         "OpenAI Chile",
