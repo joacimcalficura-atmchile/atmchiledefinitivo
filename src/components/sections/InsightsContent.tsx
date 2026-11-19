@@ -143,6 +143,11 @@ export const InsightsContent = () => (
                                             <CalendarDays className="h-3 w-3" />
                                             {formatDate(article.publishedAt)}
                                         </time>
+                                        {article.updatedAt && article.updatedAt !== article.publishedAt && (
+                                            <span className="inline-flex items-center rounded-md bg-[#176BDE]/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-[#8FC0FF]">
+                                                Actualizado {formatDate(article.updatedAt)}
+                                            </span>
+                                        )}
                                     </div>
 
                                     <h2 className="mb-3.5 text-xl font-bold leading-tight text-white transition-colors group-hover:text-[#8FC0FF]">
