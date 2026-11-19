@@ -12,6 +12,18 @@ export const agentesProduccion: Article = {
         "Un agente que conversa es una demo; uno que ejecuta acciones es un sistema crítico. Los siete controles que marcan la diferencia.",
     readTime: "13 min",
     publishedAt: "2026-08-05",
+    updatedAt: "2026-11-19",
+    keywords: [
+        "agentes de IA",
+        "agentes IA producción",
+        "arquitectura agentes inteligencia artificial",
+        "uso del computador IA",
+        "GPT-6 Astra",
+    ],
+    updateNote:
+        "Agregamos el contexto de los modelos con «uso del computador», como GPT-6 Astra de OpenAI (septiembre de 2026), que convierten a los agentes en ejecutores de tareas completas y hacen todavía más necesarios los siete controles.",
+    answer:
+        "Un agente de IA pasa del piloto a producción cuando la ingeniería que lo rodea lo permite: permisos acotados, idempotencia, confirmación humana en lo irreversible, control de acceso en la búsqueda, evaluación antes de cada despliegue, límites de gasto y trazas completas. La calidad del modelo es necesaria, pero no suficiente.",
     imageUrl: "/images/insights/ia-agentes.png",
     featured: true,
     tldr: [
@@ -100,6 +112,10 @@ export const agentesProduccion: Article = {
         { kind: "heading", text: "Lo que sí cambia con el tiempo" },
         {
             kind: "paragraph",
+            text: "2026 trajo un salto concreto: modelos que usan el computador. GPT-6 Astra, que OpenAI lanzó el 3 de septiembre de 2026, puede operar navegadores y aplicaciones, llenar formularios y recorrer planillas por su cuenta. OpenAI lo restringió en tareas de ciberseguridad ofensiva por su nivel de capacidad. Para una empresa, esto significa que un agente ya no solo llama a las herramientas que le diseñamos: puede actuar sobre cualquier pantalla a la que tenga acceso, y por eso los permisos y las trazas pesan más que nunca.",
+        },
+        {
+            kind: "paragraph",
             text: "Las capacidades de los modelos avanzan rápido y seguirán haciéndolo, por lo que anclar una arquitectura a un proveedor o a una versión específica es una decisión que envejece mal. Lo que recomendamos es aislar el modelo detrás de una interfaz propia: que el sistema dependa de una capacidad («clasificar este caso», «redactar esta respuesta») y no de un proveedor concreto.",
         },
         {
@@ -113,7 +129,25 @@ export const agentesProduccion: Article = {
             text: "Pida ver la traza de una conversación que salió mal. Si el equipo puede mostrarla, con el contexto recuperado y las herramientas invocadas, el proyecto tiene bases de producción. Si la respuesta es que habría que reproducirlo a mano, lo que existe es una demo.",
         },
     ],
+    faq: [
+        {
+            q: "¿Qué diferencia a un chatbot de un agente de IA?",
+            a: "Un chatbot produce texto; un agente además ejecuta acciones con consecuencias, como emitir una nota de crédito o escribirle a un cliente. Desde ese momento es un sistema transaccional y debe tratarse con ese estándar de ingeniería.",
+        },
+        {
+            q: "¿Por qué fracasan los pilotos de agentes de IA?",
+            a: "Casi nunca por el modelo: fallan por permisos excesivos, acciones que se duplican, falta de evaluación antes de desplegar, costos sin límite y la imposibilidad de reconstruir qué hizo el agente.",
+        },
+        {
+            q: "¿Qué cambia con los modelos que usan el computador, como GPT-6 Astra?",
+            a: "El agente puede actuar en cualquier aplicación a la que tenga acceso, no solo en las herramientas diseñadas para él. Eso hace más críticos el mínimo privilegio, la confirmación humana en lo irreversible y el registro de cada acción.",
+        },
+    ],
     sources: [
+        {
+            label: "Fortune (3-sep-2026) — OpenAI launches GPT-6 Astra, its most powerful model yet, and touts its ability to use your computer",
+            url: "https://fortune.com/2026/09/03/openai-debuts-gpt-6-astra-computer-use-greg-brockman-says-start-of-agi/",
+        },
         {
             label: "OWASP Top 10 for Large Language Model Applications",
             url: "https://owasp.org/www-project-top-10-for-large-language-model-applications/",

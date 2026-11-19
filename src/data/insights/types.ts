@@ -28,7 +28,31 @@ export type ArticleBlock =
     | { kind: "list"; items: readonly string[] }
     | { kind: "numbered"; items: readonly { title: string; text: string }[] }
     | { kind: "callout"; tone: "alert" | "info"; title: string; text: string }
-    | { kind: "table"; headers: readonly string[]; rows: readonly (readonly string[])[] };
+    | { kind: "table"; headers: readonly string[]; rows: readonly (readonly string[])[] }
+    | { kind: "figure"; media: ArticleMedia }
+    /** Publicación oficial de Instagram; se carga solo cuando el lector la pide. */
+    | { kind: "instagram"; url: string; account: string; caption: string }
+    | { kind: "timeline"; items: readonly { date: string; title: string; text: string; current?: boolean }[] };
+
+/**
+ * Imagen de terceros (prensa, gobierno, empresa). Solo material oficial o con
+ * licencia, siempre con crédito y enlace a la fuente original.
+ */
+export interface ArticleMedia {
+    readonly src: string;
+    readonly alt: string;
+    readonly caption?: string;
+    readonly credit: string;
+    readonly creditUrl: string;
+    /** Proporción ancho/alto; por defecto 16/9. */
+    readonly ratio?: string;
+}
+
+/** Pregunta frecuente: alimenta el bloque visible y el JSON-LD FAQPage. */
+export interface ArticleFaq {
+    readonly q: string;
+    readonly a: string;
+}
 
 /** Referencia verificable. Todo dato duro del artículo debe ser rastreable a una de estas. */
 export interface ArticleSource {
@@ -65,6 +89,15 @@ export interface Article {
     readonly keyFacts?: readonly ArticleFact[];
     readonly body: readonly ArticleBlock[];
     readonly sources: readonly ArticleSource[];
+    /** Aviso de actualización destacado bajo el título (qué cambió y cuándo). */
+    readonly updateNote?: string;
+    /** Respuesta directa en 1-2 frases: la que un buscador o una IA puede citar tal cual. */
+    readonly answer?: string;
+    readonly faq?: readonly ArticleFaq[];
+    /** Términos de búsqueda principales (meta keywords y JSON-LD). */
+    readonly keywords?: readonly string[];
+    /** Imagen de portada de terceros con crédito; reemplaza a `imageUrl` en el hero. */
+    readonly cover?: ArticleMedia;
     /** Servicio de ATM con el que conecta el artículo (CTA contextual, no genérico). */
     readonly relatedService?: { readonly label: string; readonly href: string };
 }

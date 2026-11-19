@@ -12,6 +12,18 @@ export const geoBusquedaGenerativa: Article = {
         "Si la decisión de compra empieza con una pregunta a un asistente de IA, hay que estar entre las fuentes que cita.",
     readTime: "8 min",
     publishedAt: "2026-07-22",
+    updatedAt: "2026-11-19",
+    keywords: [
+        "GEO",
+        "Generative Engine Optimization",
+        "posicionamiento en IA",
+        "datos estructurados JSON-LD",
+        "SEO para ChatGPT",
+    ],
+    updateNote:
+        "Sumamos una respuesta corta y preguntas frecuentes con marcado FAQPage: las mismas prácticas que recomendamos, aplicadas a este artículo.",
+    answer:
+        "GEO (Generative Engine Optimization) es estructurar el contenido y la presencia digital de una empresa para que asistentes de IA como ChatGPT, Gemini o los resúmenes de Google la encuentren, la entiendan y la citen. Sus palancas técnicas son los datos estructurados JSON-LD, afirmaciones concretas con fuente y fecha, y un sitio rápido y rastreable.",
     imageUrl: "/images/asistente-futurista.jpg",
     tldr: [
         "GEO consiste en estructurar el contenido y la presencia digital para ser recuperado y citado por sistemas generativos.",
@@ -84,6 +96,20 @@ export const geoBusquedaGenerativa: Article = {
             tone: "alert",
             title: "El error que vuelve el esfuerzo contraproducente",
             text: "Publicar volumen de contenido genérico generado sin revisión para «alimentar» a los modelos. Las afirmaciones vagas o incorrectas no se citan, y un sitio lleno de material impreciso debilita la señal de las páginas que sí dicen algo verificable. Pocos contenidos con datos duros rinden más que muchos sin ellos.",
+        },
+    ],
+    faq: [
+        {
+            q: "¿Qué es GEO?",
+            a: "Generative Engine Optimization: la práctica de estructurar contenido y datos para mejorar la probabilidad de que un sistema de IA generativa recupere, resuma y cite a una empresa en sus respuestas.",
+        },
+        {
+            q: "¿GEO reemplaza al SEO?",
+            a: "No. Lo presupone: un sitio lento, mal indexado o sin datos estructurados difícilmente será citado por un motor generativo.",
+        },
+        {
+            q: "¿Qué es lo primero que conviene implementar?",
+            a: "El marcado de organización correcto en JSON-LD, artículos con autoría y fechas verificables, y respuestas directas a las preguntas que hacen los clientes, con su fuente.",
         },
     ],
     sources: [

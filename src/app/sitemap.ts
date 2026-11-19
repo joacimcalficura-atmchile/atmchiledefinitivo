@@ -9,7 +9,9 @@ import { SITE } from "@/data/site";
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = SITE.url;
-  const latestArticle = ARTICLES[0]?.updatedAt ?? ARTICLES[0]?.publishedAt;
+  // Fecha de la última edición de cualquier artículo (no solo del más nuevo):
+  // una actualización de un artículo antiguo también cambia el listado.
+  const latestArticle = ARTICLES.map((a) => a.updatedAt ?? a.publishedAt).sort().at(-1);
 
   const pages: MetadataRoute.Sitemap = [
     { url: base, changeFrequency: "weekly", priority: 1 },
