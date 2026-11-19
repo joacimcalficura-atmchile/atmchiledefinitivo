@@ -5,6 +5,7 @@ import { Navbar } from "@/components/shared/Navbar";
 import { Providers } from "@/components/providers/Providers";
 import { FloatingChatWidget } from "@/components/ui/FloatingChatWidget";
 import { FloatingWhatsApp } from "@/components/ui/FloatingWhatsApp";
+import { SectionRail } from "@/components/ui/SectionRail";
 import { OriginCapture } from "@/components/ui/OriginCapture";
 import { ConsentedAnalytics } from "@/components/ui/ConsentedAnalytics";
 import { ConsentManager } from "@/components/ui/ConsentManager";
@@ -133,6 +134,7 @@ export default function RootLayout({
             {children}
           </main>
 
+          <SectionRail />
           <FloatingChatWidget />
           <FloatingWhatsApp />
           <OriginCapture />
