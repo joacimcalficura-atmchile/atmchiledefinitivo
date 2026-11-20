@@ -17,6 +17,7 @@ import {
     type TextScale,
 } from "@/lib/a11y-prefs";
 import { clearContrast, enhanceContrast } from "./ContrastEnhancer";
+import { ReaderBar, ReaderControls } from "./PageReader";
 
 type ToggleKey = Exclude<keyof A11yPrefs, "textScale">;
 
@@ -161,6 +162,8 @@ export function AccessibilityPanel() {
                 )}
             </button>
 
+            <ReaderBar />
+
             {mounted &&
                 createPortal(
                     <>
@@ -210,7 +213,9 @@ export function AccessibilityPanel() {
                                         <p className="sr-only" role="status" aria-live="polite">
                                             {announce}
                                         </p>
-                                        <fieldset>
+                                        <ReaderControls onStart={close} />
+
+                                        <fieldset className="mt-6">
                                             <legend className="text-sm font-bold text-[#0F1215]">Tamaño del texto</legend>
                                             <div className="mt-3 grid grid-cols-4 gap-1 rounded-2xl bg-slate-100 p-1">
                                                 {TEXT_SCALES.map((s) => {
@@ -286,8 +291,8 @@ export function AccessibilityPanel() {
                                             </Link>
                                         </div>
                                         <p className="mt-4 text-xs leading-5 text-slate-600">
-                                            Tus preferencias se guardan solo en este navegador. Atajo: Alt + A abre este panel
-                                            desde cualquier página.
+                                            Tus preferencias se guardan solo en este navegador. Atajos: Alt + A abre este panel y
+                                            Alt + L empieza o pausa la lectura en voz alta.
                                         </p>
                                     </div>
                                 </div>

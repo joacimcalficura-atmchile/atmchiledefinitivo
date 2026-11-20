@@ -259,6 +259,15 @@ html.a11y-reduce-motion *::after {
   scroll-behavior: auto !important;
 }
 
+/* «Escuchar esta página»: resalta el bloque que se está leyendo. */
+.a11y-reading {
+  outline: 3px solid #16F3E8 !important;
+  outline-offset: 4px;
+  border-radius: 6px;
+  box-shadow: 0 0 0 7px rgba(23, 107, 222, 0.55) !important;
+  scroll-margin: 120px;
+}
+
 /* Subrayar enlaces (1.4.1). */
 html.a11y-underline-links a:not(.skip-links a) {
   text-decoration-line: underline !important;
