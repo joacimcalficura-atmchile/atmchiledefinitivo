@@ -17,6 +17,8 @@ export interface ProductDemo {
     /** Imagen 16:9 autoalojada que oficia de póster (evita pedirla a YouTube). */
     readonly poster: string | null;
     readonly posterAlt: string;
+    /** Título del video en YouTube; da nombre accesible al iframe y al botón. */
+    readonly title?: string;
 }
 
 export interface DevelopedProduct {
@@ -73,9 +75,10 @@ export const DEVELOPED_PRODUCTS: readonly DevelopedProduct[] = [
         metric: { label: "Eficiencia operativa", value: "+65%" },
         Icon: Layers,
         demo: {
-            youtubeId: null,
-            poster: null,
-            posterAlt: "Demo del ERP de ATM en preparación",
+            youtubeId: "hB1sJEJhlJM",
+            poster: "/images/products/atm-erp-demo-poster.jpg",
+            posterAlt: "Video de ATM ERP: tablero con ventas, inventario y cuentas por cobrar unificados en un solo dato maestro",
+            title: "¿Qué es un ERP? ATM ERP: tu operación en un solo dato maestro + layout 3D",
         },
     },
 ] as const;

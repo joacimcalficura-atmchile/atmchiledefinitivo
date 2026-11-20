@@ -49,7 +49,7 @@ const ProductCard = ({ product }: { product: DevelopedProduct }) => {
                 {demo.youtubeId && demo.poster ? (
                     <YouTubeFacade
                         videoId={demo.youtubeId}
-                        title={`${product.name} — demo del producto`}
+                        title={demo.title ?? `${product.name} — demo del producto`}
                         poster={demo.poster}
                         posterAlt={demo.posterAlt}
                         sizes="(max-width: 1024px) 100vw, 50vw"
