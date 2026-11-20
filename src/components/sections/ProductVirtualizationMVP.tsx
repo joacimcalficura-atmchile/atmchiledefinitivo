@@ -152,7 +152,7 @@ export const ProductVirtualizationMVP = ({ onClose }: ProductVirtualizationMVPPr
 
                         {/* Badge flotante con instrucción de arrastre */}
                         <div className="absolute top-4 left-4 z-10 flex items-center gap-2 px-3 py-1.5 bg-white/70 backdrop-blur-md rounded-full border border-white shadow-sm pointer-events-none">
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                            <span className="text-[0.6875rem] font-bold uppercase tracking-widest text-slate-500">
                                 Arrastra para rotar · Pinch para zoom
                             </span>
                         </div>
@@ -164,7 +164,7 @@ export const ProductVirtualizationMVP = ({ onClose }: ProductVirtualizationMVPPr
 
                             {/* Producto ------------------------------------------- */}
                             <div className="mb-8">
-                                <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 uppercase">
+                                <span className="text-[0.6875rem] font-bold tracking-[0.2em] text-slate-400 uppercase">
                                     Referencia: Válvula CX-99
                                 </span>
                                 <h3 className="text-2xl font-extrabold text-slate-900 mt-2 mb-2">

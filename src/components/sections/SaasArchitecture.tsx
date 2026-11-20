@@ -36,7 +36,7 @@ export const SaasArchitecture = ({ onClose }: SaasArchitectureProps) => {
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                     <div>
                         <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-                            Arquitectura <span className="text-[#176BDE]">SaaS Enterprise</span>
+                            Arquitectura <span className="text-[#0E4FA5]">SaaS Enterprise</span>
                         </h2>
                         <p className="text-slate-600 text-lg max-w-2xl font-medium">
                             Explore cómo diseñamos plataformas en la nube altamente escalables, seguras y preparadas para soportar miles de inquilinos simultáneos.
@@ -83,12 +83,12 @@ export const SaasArchitecture = ({ onClose }: SaasArchitectureProps) => {
                                         {node.icon}
                                     </div>
 
-                                    <h3 className={`text-lg font-bold tracking-tight transition-colors duration-500 ${isActive ? 'text-[#176BDE]' : 'text-slate-700'}`}>
+                                    <h3 className={`text-lg font-bold tracking-tight transition-colors duration-500 ${isActive ? 'text-[#0E4FA5]' : 'text-slate-700'}`}>
                                         {node.title}
                                     </h3>
 
                                     {isActive && (
-                                        <m.div layoutId="active-indicator-saas" className="absolute -right-3 w-6 h-6 bg-[#F8FAFC] flex items-center justify-center rounded-full border border-[#176BDE]/20 shadow-sm text-[#176BDE]">
+                                        <m.div layoutId="active-indicator-saas" className="absolute -right-3 w-6 h-6 bg-[#F8FAFC] flex items-center justify-center rounded-full border border-[#176BDE]/20 shadow-sm text-[#0E4FA5]">
                                             <ArrowRight className="w-4 h-4" />
                                         </m.div>
                                     )}
@@ -101,7 +101,7 @@ export const SaasArchitecture = ({ onClose }: SaasArchitectureProps) => {
                     <div className="lg:col-span-5 relative">
                         <div className="sticky top-32 w-full p-8 bg-white/80 backdrop-blur-2xl border border-white shadow-[0_20px_50px_rgba(0,0,0,0.05)] rounded-[2rem] min-h-[420px] flex flex-col">
 
-                            <div className="text-[10px] font-bold tracking-[0.2em] text-[#176BDE] uppercase mb-6 flex items-center gap-2">
+                            <div className="text-[0.6875rem] font-bold tracking-[0.2em] text-[#0E4FA5] uppercase mb-6 flex items-center gap-2">
                                 <div className="w-2 h-2 rounded-full bg-[#16F3E8] animate-pulse" />
                                 Módulo Cloud Activo
                             </div>
@@ -115,7 +115,7 @@ export const SaasArchitecture = ({ onClose }: SaasArchitectureProps) => {
                                     transition={{ duration: 0.3 }}
                                     className="flex flex-col h-full"
                                 >
-                                    <div className="flex items-center gap-4 mb-6 text-[#176BDE]">
+                                    <div className="flex items-center gap-4 mb-6 text-[#0E4FA5]">
                                         {activeNode.icon}
                                         <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">{activeNode.title}</h3>
                                     </div>
@@ -126,14 +126,14 @@ export const SaasArchitecture = ({ onClose }: SaasArchitectureProps) => {
 
                                     <div className="flex-grow space-y-6 bg-slate-50 p-6 rounded-xl border border-slate-100">
                                         <div>
-                                            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Entradas (Inputs)</h4>
+                                            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-600 mb-2">Entradas (Inputs)</h4>
                                             <p className="text-sm font-semibold text-slate-800 bg-white p-3 rounded-lg border border-slate-100 shadow-sm">
                                                 {activeNode.inputs}
                                             </p>
                                         </div>
                                         <div>
-                                            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Salidas (Outputs)</h4>
-                                            <p className="text-sm font-semibold text-[#176BDE] bg-[#176BDE]/5 p-3 rounded-lg border border-[#176BDE]/10 shadow-sm">
+                                            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-600 mb-2">Salidas (Outputs)</h4>
+                                            <p className="text-sm font-semibold text-[#0E4FA5] bg-[#176BDE]/5 p-3 rounded-lg border border-[#176BDE]/10 shadow-sm">
                                                 {activeNode.outputs}
                                             </p>
                                         </div>

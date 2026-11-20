@@ -23,8 +23,8 @@ const rise: Variants = {
 
 /** Servicios insignia: llevan foto (las mismas de la home) y van primero. */
 const FEATURED_IMAGES: Record<string, { src: string; alt: string }> = {
-    talento: { src: "/images/talento_senior.png", alt: "Desarrollador senior trabajando en código" },
-    "ia-generativa": { src: "/images/ia_generativa.png", alt: "Analista trabajando con soluciones de IA" },
+    talento: { src: "/images/talento_senior.png", alt: "Desarrollador revisando código en un monitor curvo, en una oficina de trabajo colaborativo" },
+    "ia-generativa": { src: "/images/ia_generativa.png", alt: "Analista revisando un tablero de datos con gráficos en su notebook, mientras su equipo trabaja en una pizarra al fondo" },
     seguridad: { src: "/images/ciberseguridad_soc.png", alt: "Centro de operaciones de ciberseguridad" },
 };
 
@@ -155,7 +155,7 @@ export default function ServiciosPage() {
                             </h2>
                         </div>
                         <p className="max-w-md text-base leading-relaxed text-slate-600">
-                            Tres capacidades que sostienen la operación de nuestros clientes: personas, inteligencia y protección.
+                            Tres capacidades que sostienen la operación de las empresas que acompañamos: personas, inteligencia y protección.
                         </p>
                     </m.div>
 
@@ -192,10 +192,10 @@ export default function ServiciosPage() {
                                     </div>
                                     <div className="flex flex-1 flex-col p-7 md:p-8">
                                         <h3 className="text-xl font-bold text-slate-900 transition-colors group-hover:text-[#176BDE] md:text-2xl">{item.title}</h3>
-                                        <p className="mt-3 flex-1 text-[15px] leading-relaxed text-slate-600">{item.desc}</p>
+                                        <p className="mt-3 flex-1 text-[0.9375rem] leading-relaxed text-slate-600">{item.desc}</p>
                                         <ul className="mt-6 flex flex-wrap gap-2" aria-label="Especialidades">
                                             {item.tags.map((tag) => (
-                                                <li key={tag} className="rounded-md border border-[#b8ccf0] bg-[#f2f7ff] px-2.5 py-1 text-[11px] font-bold text-[#0E4FA5]">
+                                                <li key={tag} className="rounded-md border border-[#b8ccf0] bg-[#f2f7ff] px-2.5 py-1 text-[0.75rem] font-bold text-[#0E4FA5]">
                                                     {tag}
                                                 </li>
                                             ))}
@@ -291,10 +291,10 @@ export default function ServiciosPage() {
                                     <span className="text-3xl font-black leading-none tracking-tight text-white/15 transition-colors duration-300 group-hover:text-[#16F3E8]/60">{item.num}</span>
                                 </div>
                                 <h3 className="mt-6 text-xl font-bold text-white">{item.title}</h3>
-                                <p className="mt-3 flex-1 text-[15px] leading-relaxed text-slate-300">{item.desc}</p>
+                                <p className="mt-3 flex-1 text-[0.9375rem] leading-relaxed text-slate-300">{item.desc}</p>
                                 <ul className="mt-6 flex flex-wrap gap-2" aria-label="Especialidades">
                                     {item.tags.map((tag) => (
-                                        <li key={tag} className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-bold text-slate-200">
+                                        <li key={tag} className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-[0.75rem] font-bold text-slate-200">
                                             {tag}
                                         </li>
                                     ))}

@@ -4,9 +4,18 @@ import { geoBusquedaGenerativa } from "./geo-busqueda-generativa";
 import { iso42001 } from "./iso-42001";
 import { ley21663 } from "./ley-21663";
 import { ley21719 } from "./ley-21719";
+import { openaiChileAstra } from "./openai-chile-astra";
 import { regulacionIa } from "./regulacion-ia";
 
-export type { Article, ArticleBlock, ArticleCategory, ArticleIcon, ArticleSource } from "./types";
+export type {
+    Article,
+    ArticleBlock,
+    ArticleCategory,
+    ArticleFaq,
+    ArticleIcon,
+    ArticleMedia,
+    ArticleSource,
+} from "./types";
 
 /**
  * Registro único de Insights, ordenado del más reciente al más antiguo.
@@ -16,6 +25,7 @@ export type { Article, ArticleBlock, ArticleCategory, ArticleIcon, ArticleSource
  * (un artículo de IA aparecía bajo la categoría «Criptografía & Software»).
  */
 export const ARTICLES: readonly Article[] = [
+    openaiChileAstra,
     ley21719,
     ley21663,
     regulacionIa,

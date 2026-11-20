@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { m, Variants, AnimatePresence } from "framer-motion";
+import { m, Variants, AnimatePresence, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { BadgeCheck, Users, Bot, LineChart, ShieldCheck, Cloud, Box, Check, ArrowRight, Lock, BookOpen, Wallet } from "lucide-react";
+import { BadgeCheck, Users, Bot, LineChart, ShieldCheck, Cloud, Box, Check, ArrowRight, Lock, BookOpen, Wallet, Pause, Play } from "lucide-react";
 const PartnersEcosystem = dynamic(() => import("./PartnersEcosystem").then(mod => mod.PartnersEcosystem), {
     loading: () => <div className="h-64 w-full animate-pulse bg-slate-50" />
 });
@@ -20,7 +20,6 @@ const StrategicAllies = dynamic(() => import("./StrategicAllies").then(mod => mo
 import { usePerformanceOptimization } from "@/hooks/usePerformanceOptimization";
 import { getFeaturedArticles } from "@/data/insights";
 import { BrandPattern } from "@/components/ui/BrandPattern";
-import { SectionRail, type RailSection } from "@/components/ui/SectionRail";
 
 
 // Premium Easing Curves
@@ -74,20 +73,6 @@ const HERO_IMAGES = [
     "/images/hero/hero-ferreteria.webp"
 ];
 
-// Navegador lateral (rayitas a la izquierda): una entrada por sección, en el orden de la página.
-const RAIL_SECTIONS: RailSection[] = [
-    { id: "inicio", title: "Inicio", summary: "Partner tecnológico 360° para empresas chilenas: software a medida, IA y ciberseguridad." },
-    { id: "aliados", title: "Empresas que confían", summary: "Organizaciones que ya integran sus procesos con ATM." },
-    { id: "reels", title: "Lo último en video", summary: "Casos reales, cursos y tecnología contada en menos de un minuto." },
-    { id: "productos", title: "Productos propios", summary: "CRM y ERP desarrollados por ATM, listos para operar." },
-    { id: "leasing", title: "Leasing de software", summary: "Tu sistema a medida, pagado en cuotas." },
-    { id: "insights", title: "Insights", summary: "Los plazos normativos que ya están corriendo en Chile." },
-    { id: "ecosistema", title: "Ecosistema 360", summary: "Integración con las plataformas y estándares globales." },
-    { id: "servicios", title: "Servicios estratégicos", summary: "Talento senior, IA generativa y ciberseguridad 360." },
-    { id: "club100", title: "Club 100", summary: "Alianza restringida a 100 empresas, con ingeniería de élite y soporte prioritario." },
-    { id: "admision-form", title: "Portal de Admisión", summary: "Postula tu empresa y cuéntanos tu proyecto." },
-];
-
 interface HomeUnifiedProps {
     /** Sección de reels de Instagram (Server Component con ISR), inyectada desde `app/page.tsx`. */
     readonly reels?: React.ReactNode;
@@ -100,17 +85,21 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
     // false hasta la primera rotación del carrusel del hero (ver `initial` abajo).
     const [heroHasRotated, setHeroHasRotated] = useState(false);
 
+    // El fondo rota solo: se puede pausar (WCAG 2.2.2) y no rota con
+    // movimiento reducido.
+    const reduceMotion = useReducedMotion();
+    const [heroPaused, setHeroPaused] = useState(false);
     useEffect(() => {
+        if (reduceMotion || heroPaused) return;
         const interval = setInterval(() => {
             setHeroHasRotated(true);
             setCurrentImageIdx((prev) => (prev + 1) % HERO_IMAGES.length);
         }, 7000);
         return () => clearInterval(interval);
-    }, []);
+    }, [reduceMotion, heroPaused]);
 
     return (
         <React.Fragment>
-            <SectionRail sections={RAIL_SECTIONS} />
             {/* Hero Section */}
             <section id="inicio" className="relative pt-20 pb-32 overflow-hidden">
                 {/* Dynamic Background Carousel */}
@@ -141,7 +130,19 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
                         </m.div>
                     </AnimatePresence>
                 </div>
-                
+
+                {!reduceMotion && (
+                    <button
+                        type="button"
+                        onClick={() => setHeroPaused((p) => !p)}
+                        aria-pressed={heroPaused}
+                        aria-label={heroPaused ? "Reanudar el cambio de imágenes de fondo" : "Pausar el cambio de imágenes de fondo"}
+                        className="absolute bottom-6 left-1/2 z-20 flex h-11 w-11 -translate-x-1/2 items-center sm:left-auto sm:right-6 sm:translate-x-0 justify-center rounded-full border border-white/25 bg-[#0F1215]/60 text-white backdrop-blur-md transition-colors hover:bg-[#0F1215]/80 sm:flex"
+                    >
+                        {heroPaused ? <Play size={16} aria-hidden="true" /> : <Pause size={16} aria-hidden="true" />}
+                    </button>
+                )}
+
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <m.div
@@ -160,7 +161,7 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
                                 Software a Medida: <br/>
                                 <span className="text-[#6AA5F5]">Hub Tecnológico Latam</span>
                             </h1>
-                            <p className="text-lg text-blue-200/80 leading-relaxed mb-10 max-w-xl">
+                            <p className="text-lg text-blue-100 leading-relaxed mb-10 max-w-xl">
                                 No solo implementamos tecnología. Somos el partner estratégico de alta fidelidad que transforma operaciones complejas en Chile y el mundo a través de ingeniería de software premium.
                             </p>
                             <m.div 
@@ -288,7 +289,7 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
                                     <div className="aspect-[16/10] relative rounded-xl overflow-hidden mb-6">
                                         <Image src={post.imageUrl} alt="" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100" />
                                         <div className="absolute top-4 left-4">
-                                            <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-black text-[#176BDE] uppercase tracking-wider">{post.category}</span>
+                                            <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[0.6875rem] font-black text-[#176BDE] uppercase tracking-wider">{post.category}</span>
                                         </div>
                                     </div>
                                     <div className="px-4 pb-6 flex flex-col flex-grow">
@@ -337,20 +338,20 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
                             whileHover={{ y: -8, scale: 1.02 }}
                             className="service-card group relative p-8 rounded-2xl border border-slate-100/50 hover:border-[#176BDE]/30 bg-white shadow-xl hover:shadow-[0_0_30px_rgba(23,107,222,0.15)] transition-all duration-300 depth-3d flex flex-col h-full"
                         >
-                            <div className="absolute top-4 right-4 text-white text-[10px] font-bold px-2 py-1 rounded bg-[#176BDE] shadow-[0_0_10px_rgba(23,107,222,0.5)] uppercase tracking-wider z-20">Most Requested</div>
+                            <div className="absolute top-4 right-4 text-white text-[0.6875rem] font-bold px-2 py-1 rounded bg-[#176BDE] shadow-[0_0_10px_rgba(23,107,222,0.5)] uppercase tracking-wider z-20">Most Requested</div>
                             
                             {/* High-Fidelity Photorealistic Image */}
                             <div className="aspect-video w-full rounded-xl bg-[#02121d] border border-white/5 group-hover:border-[#176BDE]/40 group-hover:shadow-[0_0_15px_rgba(23,107,222,0.2)] transition-all duration-300 mb-6 overflow-hidden relative z-10">
-                               <Image src="/images/talento_senior.png" alt="Desarrollador Senior Chileno en vscode" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
+                               <Image src="/images/talento_senior.png" alt="Desarrollador revisando código en un monitor curvo, en una oficina de trabajo colaborativo" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
                                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-xl" />
                             </div>
 
-                            <h4 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-[#176BDE] transition-colors">Talento Senior On-Demand</h4>
+                            <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-[#176BDE] transition-colors">Talento Senior On-Demand</h3>
                             <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">
-                                Células ágiles de desarrolladores senior integradas a su flujo de trabajo. Ingeniería de software a medida bajo estándares Audit-Ready y Clean Code.
+                                Células ágiles de desarrollo senior integradas a tu flujo de trabajo. Ingeniería de software a medida bajo estándares Audit-Ready y Clean Code.
                             </p>
                             <div className="pt-4 border-t border-slate-200 mt-auto">
-                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Tech Stack</span>
+                                <span className="text-[0.6875rem] font-bold text-slate-600 uppercase tracking-widest block mb-2">Tech Stack</span>
                                 <p className="text-xs font-semibold text-slate-500 italic">Agile / Senior Management / High Performance Teams</p>
                             </div>
                             <Link href="/talento" className="mt-6 flex items-center justify-center w-full py-3 bg-slate-50 group-hover:bg-[#176BDE]/10 text-slate-600 group-hover:text-[#176BDE] font-bold rounded-lg transition-colors text-sm">
@@ -366,16 +367,16 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
                         >
                             {/* High-Fidelity Photorealistic Image */}
                             <div className="aspect-video w-full rounded-xl bg-[#02121d] border border-white/5 group-hover:border-[#176BDE]/40 group-hover:shadow-[0_0_15px_rgba(23,107,222,0.2)] transition-all duration-300 mb-6 overflow-hidden relative z-10">
-                               <Image src="/images/ia_generativa.png" alt="Analista de IA Chilena" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
+                               <Image src="/images/ia_generativa.png" alt="Analista revisando un tablero de datos con gráficos en su notebook, mientras su equipo trabaja en una pizarra al fondo" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
                                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-xl" />
                             </div>
 
-                            <h4 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-[#176BDE] transition-colors">IA Generativa & Automatización</h4>
+                            <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-[#176BDE] transition-colors">IA Generativa & Automatización</h3>
                             <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">
                                 Soluciones de IA que razonan según el perfil del cliente. No es un chatbot: es un equipo digital a medida con CRM inteligente y scoring de leads.
                             </p>
                             <div className="pt-4 border-t border-slate-200 mt-auto">
-                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Tech Stack</span>
+                                <span className="text-[0.6875rem] font-bold text-slate-600 uppercase tracking-widest block mb-2">Tech Stack</span>
                                 <p className="text-xs font-semibold text-slate-500 italic">Python / PyTorch / LangChain</p>
                             </div>
                             <Link href="/servicios" className="mt-6 flex items-center justify-center w-full py-3 bg-slate-50 group-hover:bg-[#176BDE]/10 text-slate-600 group-hover:text-[#176BDE] font-bold rounded-lg transition-colors text-sm">
@@ -391,16 +392,16 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
                         >
                             {/* High-Fidelity Photorealistic Image */}
                             <div className="aspect-video w-full rounded-xl bg-[#02121d] border border-white/5 group-hover:border-[#176BDE]/40 group-hover:shadow-[0_0_15px_rgba(23,107,222,0.2)] transition-all duration-300 mb-6 overflow-hidden relative z-10">
-                               <Image src="/images/ciberseguridad_soc.png" alt="Analista de Ciberseguridad SOC Chile" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
+                               <Image src="/images/ciberseguridad_soc.png" alt="Analista de ciberseguridad monitoreando alertas en varias pantallas de un centro de operaciones de seguridad (SOC)" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
                                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-xl" />
                             </div>
 
-                            <h4 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-[#176BDE] transition-colors">Ciberseguridad 360</h4>
+                            <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-[#176BDE] transition-colors">Ciberseguridad 360</h3>
                             <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">
                                 Protección integral de infraestructuras críticas en el Hub Metropolitano. Auditoría preventiva, Pentesting y cumplimiento de estándares internacionales ISO 27001.
                             </p>
                             <div className="pt-4 border-t border-slate-200 mt-auto">
-                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Tech Stack</span>
+                                <span className="text-[0.6875rem] font-bold text-slate-600 uppercase tracking-widest block mb-2">Tech Stack</span>
                                 <p className="text-xs font-semibold text-slate-500 italic">ISO 27001 / Pentesting / Zero Trust</p>
                             </div>
                             <Link href="/seguridad" className="mt-6 flex items-center justify-center w-full py-3 bg-slate-50 group-hover:bg-[#176BDE]/10 text-slate-600 group-hover:text-[#176BDE] font-bold rounded-lg transition-colors text-sm">
@@ -429,7 +430,7 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
                             viewport={{ once: true, margin: "-100px" }}
                             transition={{ duration: 0.8, ease: smoothEase }}
                         >
-                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 border border-white/40 text-[10px] font-black tracking-[0.2em] text-white uppercase mb-6 md:mb-8">
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 border border-white/40 text-[0.6875rem] font-black tracking-[0.2em] text-white uppercase mb-6 md:mb-8">
                                 Exclusividad Senior
                             </div>
                              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-6 md:mb-8 leading-tight">
@@ -450,14 +451,14 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
                                 {[
                                     { title: "Pentesting continuo", desc: "Seguridad proactiva sin interrupciones." },
                                     { title: "Implementación prioritaria de Agentes IA", desc: "Acceso beta a nueva tecnología de automatización." },
-                                    { title: "Soporte de Arquitectos Cloud 24/7", desc: "Línea directa con expertos sin intermediarios." }
+                                    { title: "Soporte de arquitectura cloud 24/7", desc: "Línea directa con especialistas, sin intermediarios." }
                                 ].map((item, idx) => (
                                     <m.div key={idx} variants={cardVariant} className="flex items-start gap-4">
                                         <div className="mt-0.5 size-6 rounded-full flex items-center justify-center shrink-0 bg-white/20 border border-white/40">
                                             <Check size={14} className="text-white" />
                                         </div>
                                         <div>
-                                            <h5 className="text-white font-bold text-sm md:text-base mb-0.5">{item.title}</h5>
+                                            <h3 className="text-white font-bold text-sm md:text-base mb-0.5">{item.title}</h3>
                                             <p className="text-white/70 text-xs md:text-sm leading-relaxed">{item.desc}</p>
                                         </div>
                                     </m.div>
@@ -492,7 +493,7 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
                                     className="absolute -top-6 -right-4 md:-top-8 md:-right-8 z-20 size-16 md:size-20 bg-white rounded-full flex flex-col items-center justify-center shadow-xl border-4 border-white/50"
                                 >
                                     <span className="font-black text-[#0A2E6B] text-lg md:text-2xl leading-none">100</span>
-                                    <span className="font-bold text-[#176BDE] text-[8px] md:text-[10px] uppercase tracking-wider">Plazas</span>
+                                    <span className="font-bold text-[#176BDE] text-[0.625rem] md:text-[0.6875rem] uppercase tracking-wider">Plazas</span>
                                 </m.div>
 
                                 {/* Glass VIP card */}
@@ -504,7 +505,7 @@ export const HomeUnified = ({ reels }: HomeUnifiedProps) => {
                                     <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent pointer-events-none" />
                                 </div>
 
-                                    <h4 className="text-xl md:text-3xl font-black text-white text-center mb-3 md:mb-4">Membresía<br/>VIP ATM</h4>
+                                    <h3 className="text-xl md:text-3xl font-black text-white text-center mb-3 md:mb-4">Membresía<br/>VIP ATM</h3>
 
                                     <div className="w-12 md:w-16 h-0.5 bg-white/40 rounded-full mx-auto mb-4 md:mb-6"></div>
 

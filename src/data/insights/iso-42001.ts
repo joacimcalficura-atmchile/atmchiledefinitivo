@@ -12,6 +12,18 @@ export const iso42001: Article = {
         "La primera norma certificable de gestión de IA. Cómo convierte «confíe en nuestro modelo» en evidencia auditable.",
     readTime: "9 min",
     publishedAt: "2026-08-20",
+    updatedAt: "2026-11-19",
+    keywords: [
+        "ISO/IEC 42001",
+        "certificación ISO 42001 Chile",
+        "ISO/IEC 42006",
+        "sistema de gestión de inteligencia artificial",
+        "gobernanza de IA",
+    ],
+    updateNote:
+        "Sumamos ISO/IEC 42006:2025, la norma que fija los requisitos para los organismos que auditan y certifican ISO 42001, el ritmo de certificaciones en 2026 y la situación de la norma en Chile.",
+    answer:
+        "ISO/IEC 42001:2023 es la primera norma internacional certificable para sistemas de gestión de inteligencia artificial. Desde 2025, ISO/IEC 42006 regula a los organismos que la certifican, lo que da más peso al certificado. En Chile no es obligatoria ni ha sido adoptada como NCh, pero se puede certificar con organismos acreditados.",
     imageUrl: "/images/ia-core.jpg",
     tldr: [
         "ISO/IEC 42001:2023 es la primera norma internacional de sistemas de gestión de IA, y la única certificable.",
@@ -24,7 +36,7 @@ export const iso42001: Article = {
         { label: "Norma", value: "ISO/IEC 42001:2023" },
         { label: "Alcance", value: "Cualquier industria" },
         { label: "Certificable", value: "Sí, por tercera parte" },
-        { label: "Marco hermano", value: "ISO/IEC 27001" },
+        { label: "Norma para certificadores", value: "ISO/IEC 42006:2025" },
     ],
     body: [
         {
@@ -87,10 +99,19 @@ export const iso42001: Article = {
                 },
             ],
         },
+        { kind: "heading", text: "Cómo está el mercado de la certificación en 2026" },
+        {
+            kind: "list",
+            items: [
+                "ISO/IEC 42006:2025, publicada en julio de 2025, fija los requisitos para los organismos que auditan y certifican sistemas de gestión de IA. En la práctica, exige auditores con competencia específica en IA y no solo en seguridad de la información.",
+                "El ritmo se aceleró: BSI, uno de los principales certificadores, emitió su certificado ISO/IEC 42001 número 50 en octubre de 2026, frente a 11 en todo 2025, en más de 16 países.",
+                "En Chile, el INN comercializa la norma internacional ISO/IEC 42001:2023 (en inglés); a noviembre de 2026 no encontramos una adopción como norma chilena NCh-ISO 42001.",
+            ],
+        },
         { kind: "heading", text: "Por qué conviene hacerlo antes de que lo exijan" },
         {
             kind: "paragraph",
-            text: "ISO/IEC 42001 no es obligatoria en Chile. Su valor hoy es doble y bastante concreto: permite demostrar ante un cliente corporativo que la IA está gobernada, y adelanta buena parte del trabajo que el proyecto de ley chileno y el reglamento europeo van a exigir por otras vías. Las capacidades se solapan de forma casi total.",
+            text: "ISO/IEC 42001 no es obligatoria en Chile. Su valor hoy es doble y bastante concreto: permite demostrar ante un cliente corporativo que la IA está gobernada, y adelanta buena parte del trabajo que el proyecto de ley chileno y el reglamento europeo van a exigir por otras vías. Si la ley de IA chilena adopta el enfoque de certificación voluntaria que anunció el Gobierno, una norma certificable como esta será la forma natural de demostrar cumplimiento. Las capacidades se solapan de forma casi total.",
         },
         {
             kind: "callout",
@@ -99,7 +120,37 @@ export const iso42001: Article = {
             text: "Certificar un sistema de gestión que no se opera realmente produce el peor resultado posible: el costo de la auditoría más la evidencia documentada de que la organización sabía qué debía hacer y no lo hizo. Primero se construye la capacidad; el certificado acredita algo que ya funciona.",
         },
     ],
+    faq: [
+        {
+            q: "¿Qué es ISO/IEC 42001?",
+            a: "Es la norma internacional que define un Sistema de Gestión de Inteligencia Artificial (SGIA): cómo una organización gobierna, evalúa riesgos, documenta y mejora los sistemas de IA que desarrolla o usa. Es certificable por tercera parte.",
+        },
+        {
+            q: "¿Es obligatoria ISO/IEC 42001 en Chile?",
+            a: "No. Ninguna ley chilena la exige a noviembre de 2026, pero sirve como evidencia frente a clientes corporativos y adelanta lo que pedirían la ley de IA en trámite y el AI Act europeo.",
+        },
+        {
+            q: "¿Qué relación tiene con ISO 27001?",
+            a: "Comparten la estructura de los sistemas de gestión ISO (gobernanza, riesgos, auditoría interna, revisión por la dirección). Una empresa con ISO 27001 reutiliza gran parte de ese andamiaje y suma los riesgos propios de la IA.",
+        },
+        {
+            q: "¿Qué es ISO/IEC 42006?",
+            a: "Es la norma publicada en 2025 que establece los requisitos para los organismos que auditan y certifican ISO/IEC 42001, incluida la competencia de sus auditores en IA.",
+        },
+    ],
     sources: [
+        {
+            label: "ISO — ISO/IEC 42006:2025, requisitos para organismos que auditan y certifican sistemas de gestión de IA",
+            url: "https://www.iso.org/standard/42006",
+        },
+        {
+            label: "BSI (nov-2026) — BSI awards its 50th ISO/IEC 42001 certificate",
+            url: "https://www.bsigroup.com/en-GB/insights-and-media/media-centre/press-releases/2026/november/bsi-awards-its-50th-iso-iec-42001-certificate/",
+        },
+        {
+            label: "INN — ISO/IEC 42001:2023 en la tienda del Instituto Nacional de Normalización",
+            url: "https://ecommerce.inn.cl/isoiec-42001202387698",
+        },
         {
             label: "Microsoft Compliance — ISO/IEC 42001:2023, sistema de gestión de la inteligencia artificial",
             url: "https://learn.microsoft.com/es-es/compliance/regulatory/offering-iso-42001",

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   keywords: ["talento it chile", "desarrolladores senior on-demand", "células ágiles chile", "ingeniería de software senior", "ATM Chile talento"],
   openGraph: {
     title: "Talento Senior — ATM Chile | Ingeniería de Software de Élite",
-    description: "Acceda a ingenieros de software senior integrados a su operación. Escalabilidad técnica con estándares internacionales.",
+    description: "Suma ingeniería de software senior integrada a tu operación. Escalabilidad técnica con estándares internacionales.",
     images: ["/images/talento_senior.png"],
   }
 };

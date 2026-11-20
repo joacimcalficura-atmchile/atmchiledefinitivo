@@ -16,7 +16,7 @@ const flowData = [
     { id: 'gateway', title: 'Pasarela de Pagos (Gateway)', icon: <CreditCard className="w-6 h-6" />, desc: 'Enrutamiento seguro de pagos multiproveedor con tokenización PCI-DSS. Abstrae la complejidad de múltiples adquirentes.', inputs: 'Datos de tarjeta (tokenizados), Monto.', outputs: 'Autorización de pago, ID de transacción.' },
     { id: 'antifraud', title: 'Motor Anti-Fraude (IA)', icon: <ShieldAlert className="w-6 h-6" />, desc: 'Evaluación de riesgo en tiempo real mediante Machine Learning para detectar anomalías y prevenir contracargos.', inputs: 'Huella del dispositivo, Historial, IP.', outputs: 'Score de riesgo, Decisión (Aprobar/Bloquear).' },
     { id: 'switch', title: 'Switch Transaccional', icon: <ArrowRightLeft className="w-6 h-6" />, desc: 'Orquestador de alta concurrencia que enruta la transacción al core bancario o emisor correspondiente sin latencia.', inputs: 'Transacción validada sin fraude.', outputs: 'Petición ISO 8583 / API REST al banco.' },
-    { id: 'ledger', title: 'Core Bancario / Ledger', icon: <Landmark className="w-6 h-6" />, desc: 'Sistema de registro contable inmutable. Mantiene los saldos, cuentas de los usuarios y movimientos estrictamente actualizados.', inputs: 'Peticiones de débito/crédito.', outputs: 'Saldos actualizados, Asientos contables.' },
+    { id: 'ledger', title: 'Core Bancario / Ledger', icon: <Landmark className="w-6 h-6" />, desc: 'Sistema de registro contable inmutable. Mantiene los saldos, cuentas de cada cliente y movimientos estrictamente actualizados.', inputs: 'Peticiones de débito/crédito.', outputs: 'Saldos actualizados, Asientos contables.' },
     { id: 'reconciliation', title: 'Conciliación Automática', icon: <FileCheck className="w-6 h-6" />, desc: 'Cuadratura automática entre los pagos procesados, los abonos del adquirente y el ERP interno de la empresa.', inputs: 'Archivos de liquidación (Settlement).', outputs: 'Reportes de cuadratura, Alertas de descuadre.' },
     { id: 'compliance', title: 'Compliance & Evaluación Estratégica', icon: <FileSearch className="w-6 h-6" />, desc: 'Trazabilidad completa para evaluaciones regulatorias (CMF, UAF) y prevención de lavado de activos (AML / KYC).', inputs: 'Logs inmutables, Datos de usuarios (KYC).', outputs: 'Reportes regulatorios, Trazabilidad total.' }
 ];
@@ -36,7 +36,7 @@ export const FintechArchitecture = ({ onClose }: FintechArchitectureProps) => {
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                     <div>
                         <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-                            Arquitectura <span className="text-[#176BDE]">Core Financiero</span>
+                            Arquitectura <span className="text-[#0E4FA5]">Core Financiero</span>
                         </h2>
                         <p className="text-slate-600 text-lg max-w-2xl font-medium">
                             Explore el flujo transaccional de alta disponibilidad, diseñado bajo estándares PCI-DSS y arquitecturas bancarias modernas.
@@ -83,12 +83,12 @@ export const FintechArchitecture = ({ onClose }: FintechArchitectureProps) => {
                                         {node.icon}
                                     </div>
 
-                                    <h3 className={`text-lg font-bold tracking-tight transition-colors duration-500 ${isActive ? 'text-[#176BDE]' : 'text-slate-700'}`}>
+                                    <h3 className={`text-lg font-bold tracking-tight transition-colors duration-500 ${isActive ? 'text-[#0E4FA5]' : 'text-slate-700'}`}>
                                         {node.title}
                                     </h3>
 
                                     {isActive && (
-                                        <m.div layoutId="active-indicator-fintech" className="absolute -right-3 w-6 h-6 bg-[#F8FAFC] flex items-center justify-center rounded-full border border-[#176BDE]/20 shadow-sm text-[#176BDE]">
+                                        <m.div layoutId="active-indicator-fintech" className="absolute -right-3 w-6 h-6 bg-[#F8FAFC] flex items-center justify-center rounded-full border border-[#176BDE]/20 shadow-sm text-[#0E4FA5]">
                                             <ArrowRight className="w-4 h-4" />
                                         </m.div>
                                     )}
@@ -101,7 +101,7 @@ export const FintechArchitecture = ({ onClose }: FintechArchitectureProps) => {
                     <div className="lg:col-span-5 relative">
                         <div className="sticky top-32 w-full p-8 bg-white/80 backdrop-blur-2xl border border-white shadow-[0_20px_50px_rgba(0,0,0,0.05)] rounded-[2rem] min-h-[420px] flex flex-col">
 
-                            <div className="text-[10px] font-bold tracking-[0.2em] text-[#176BDE] uppercase mb-6 flex items-center gap-2">
+                            <div className="text-[0.6875rem] font-bold tracking-[0.2em] text-[#0E4FA5] uppercase mb-6 flex items-center gap-2">
                                 <div className="w-2 h-2 rounded-full bg-[#16F3E8] animate-pulse" />
                                 Flujo Transaccional
                             </div>
@@ -115,7 +115,7 @@ export const FintechArchitecture = ({ onClose }: FintechArchitectureProps) => {
                                     transition={{ duration: 0.3 }}
                                     className="flex flex-col h-full"
                                 >
-                                    <div className="flex items-center gap-4 mb-6 text-[#176BDE]">
+                                    <div className="flex items-center gap-4 mb-6 text-[#0E4FA5]">
                                         {activeNode.icon}
                                         <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">{activeNode.title}</h3>
                                     </div>
@@ -126,14 +126,14 @@ export const FintechArchitecture = ({ onClose }: FintechArchitectureProps) => {
 
                                     <div className="flex-grow space-y-6 bg-slate-50 p-6 rounded-xl border border-slate-100">
                                         <div>
-                                            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Entradas (Inputs)</h4>
+                                            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-600 mb-2">Entradas (Inputs)</h4>
                                             <p className="text-sm font-semibold text-slate-800 bg-white p-3 rounded-lg border border-slate-100 shadow-sm">
                                                 {activeNode.inputs}
                                             </p>
                                         </div>
                                         <div>
-                                            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Salidas (Outputs)</h4>
-                                            <p className="text-sm font-semibold text-[#176BDE] bg-[#176BDE]/5 p-3 rounded-lg border border-[#176BDE]/10 shadow-sm">
+                                            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-600 mb-2">Salidas (Outputs)</h4>
+                                            <p className="text-sm font-semibold text-[#0E4FA5] bg-[#176BDE]/5 p-3 rounded-lg border border-[#176BDE]/10 shadow-sm">
                                                 {activeNode.outputs}
                                             </p>
                                         </div>

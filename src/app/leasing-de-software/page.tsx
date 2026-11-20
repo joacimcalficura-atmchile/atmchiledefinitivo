@@ -214,11 +214,11 @@ export default function LeasingPage() {
                     <h2 id="comparacion" className="text-3xl font-black tracking-tight text-slate-900 md:text-5xl">
                         Leasing frente a comprar o arrendar un SaaS
                     </h2>
-                    <div className="mt-10 overflow-x-auto rounded-3xl border border-slate-200">
+                    <div tabIndex={0} role="region" aria-label="Tabla comparativa: leasing, desarrollo comprado y SaaS (desplazable)" className="mt-10 overflow-x-auto rounded-3xl border border-slate-200">
                         <table className="w-full min-w-[640px] text-left text-sm">
                             <thead className="bg-slate-50 text-slate-900">
                                 <tr>
-                                    <th scope="col" className="p-4 font-bold"> </th>
+                                    <th scope="col" className="p-4 font-bold"><span className="sr-only">Aspecto</span></th>
                                     <th scope="col" className="p-4 font-bold">Desarrollo comprado</th>
                                     <th scope="col" className="p-4 font-bold">Software SaaS genérico</th>
                                     <th scope="col" className="bg-[#176BDE] p-4 font-bold text-white">Leasing ATM</th>

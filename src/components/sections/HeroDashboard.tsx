@@ -28,7 +28,7 @@ const leftServices: ServiceCard[] = [
     },
     {
         title: "Talento Senior On-Demand",
-        desc: "Células ágiles de programadores subcontratados bajo supervisión técnica senior.",
+        desc: "Células ágiles de programación subcontratadas bajo supervisión técnica senior.",
         icon: <Users className="w-5 h-5" />,
         tech: "Agile / Senior Management"
     },
@@ -116,7 +116,7 @@ export const HeroDashboard = () => {
                             </div>
                             <p className="text-slate-600 text-sm leading-relaxed mb-4">{service.desc}</p>
                             <div className="pt-3 border-t border-slate-100 flex justify-between items-center">
-                                <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400 truncate pr-2">
+                                <span className="text-[0.625rem] font-bold uppercase tracking-widest text-slate-400 truncate pr-2">
                                     Stack: {service.tech}
                                 </span>
                                 <div className="w-1.5 h-1.5 rounded-full bg-[#176BDE]/30 group-hover:bg-[#16F3E8] flex-shrink-0 transition-colors duration-300" />
@@ -223,7 +223,7 @@ export const HeroDashboard = () => {
                             </div>
                             <p className="text-slate-600 text-sm leading-relaxed mb-4">{service.desc}</p>
                             <div className="pt-3 border-t border-slate-100 flex justify-between items-center">
-                                <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400 truncate pr-2">
+                                <span className="text-[0.625rem] font-bold uppercase tracking-widest text-slate-400 truncate pr-2">
                                     Stack: {service.tech}
                                 </span>
                                 <div className="w-1.5 h-1.5 rounded-full bg-[#176BDE]/30 group-hover:bg-[#16F3E8] flex-shrink-0 transition-colors duration-300" />

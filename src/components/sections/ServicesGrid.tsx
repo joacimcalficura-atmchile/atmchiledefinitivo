@@ -38,7 +38,7 @@ const services: ServiceItem[] = [
     },
     {
         title: "Talento Senior On-Demand",
-        description: "Células ágiles de programadores subcontratados, gestionados bajo nuestra supervisión técnica senior.",
+        description: "Células ágiles de programación subcontratadas, gestionadas bajo nuestra supervisión técnica senior.",
         icon: <Users className="w-6 h-6" />,
         tech: "Agile / Senior Management"
     },
@@ -102,7 +102,7 @@ export const ServicesGrid = () => {
                                 </p>
 
                                 <div className="pt-4 border-t border-slate-200/50 flex justify-between items-center mt-auto">
-                                    <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">
+                                    <span className="text-[0.6875rem] font-mono text-slate-400 uppercase tracking-widest">
                                         Stack: {service.tech}
                                     </span>
                                     {/* Micro-interacción: LED pulse indicator */}

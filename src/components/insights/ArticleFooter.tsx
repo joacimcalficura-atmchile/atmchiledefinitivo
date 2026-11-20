@@ -4,10 +4,9 @@ import type { Article } from "@/data/insights";
 import { ArticleIcon } from "./ArticleIcon";
 
 /**
- * Cierre del artículo: fuentes verificables, CTA al servicio relacionado y
- * siguientes lecturas. Las fuentes van primero a propósito —son lo que
- * sostiene el contenido— y el CTA apunta al servicio del tema, no a un
- * «contáctanos» genérico.
+ * Cierre del artículo: fuentes verificables, enlace al servicio relacionado y
+ * siguientes lecturas. El llamado a la acción (bloque Sapphire) lo pone la
+ * página con `ServicesCTA`, igual que en /servicios y /seguridad.
  */
 export const ArticleFooter = ({
     article,
@@ -19,15 +18,18 @@ export const ArticleFooter = ({
     <>
         <section
             aria-labelledby="fuentes"
-            className="mt-16 rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-8"
+            className="mt-16 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8"
         >
             <h2
                 id="fuentes"
-                className="mb-5 flex items-center gap-2.5 text-[11px] font-black uppercase tracking-[0.2em] text-slate-500"
+                className="mb-2 flex items-center gap-2.5 text-[0.75rem] font-black uppercase tracking-[0.2em] text-[#176BDE]"
             >
-                <Link2 className="h-3.5 w-3.5" />
-                Fuentes
+                <Link2 aria-hidden className="h-3.5 w-3.5" />
+                Fuentes consultadas
             </h2>
+            <p className="mb-5 text-sm text-slate-500">
+                Cada fecha y cifra del artículo se puede rastrear a una de estas referencias.
+            </p>
             <ol className="space-y-3">
                 {article.sources.map((source, idx) => (
                     <li key={source.url} className="flex gap-3">
@@ -36,75 +38,60 @@ export const ArticleFooter = ({
                             href={source.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group inline-flex items-start gap-1.5 text-sm leading-relaxed text-slate-400 underline decoration-slate-700 underline-offset-4 transition-colors hover:text-[#8FC0FF] hover:decoration-[#176BDE]"
+                            className="group inline-flex items-start gap-1.5 text-sm leading-relaxed text-[#3F3D44] underline decoration-slate-300 underline-offset-4 transition-colors hover:text-[#176BDE] hover:decoration-[#176BDE]"
                         >
                             {source.label}
-                            <ExternalLink className="mt-1 h-3 w-3 shrink-0 opacity-60" />
+                            <ExternalLink aria-hidden className="mt-1 h-3 w-3 shrink-0 opacity-60" />
                         </a>
                     </li>
                 ))}
             </ol>
+            <p className="mt-6 border-t border-slate-100 pt-4 text-xs leading-relaxed text-slate-500">
+                Contenido divulgativo elaborado por ATM Chile. No constituye asesoría legal: para
+                decisiones jurídicas, consulta el texto oficial de la norma y a tu equipo legal.
+            </p>
         </section>
 
         {article.relatedService && (
-            <section className="relative mt-10 overflow-hidden rounded-[2rem] border border-[#176BDE]/20 bg-gradient-to-br from-[#176BDE]/[0.09] to-transparent p-8 md:p-10">
-                <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[#176BDE]/10 blur-[100px]"
-                />
-                <div className="relative z-10">
-                    <p className="mb-2.5 text-[11px] font-black uppercase tracking-[0.2em] text-[#8FC0FF]">
+            <Link
+                href={article.relatedService.href}
+                className="group mt-6 flex items-center justify-between gap-4 rounded-2xl border border-[#b8ccf0] bg-[#f2f7ff] p-5 transition-colors hover:border-[#176BDE] md:p-6"
+            >
+                <span>
+                    <span className="block text-[0.75rem] font-black uppercase tracking-[0.2em] text-[#176BDE]">
                         Servicio relacionado
-                    </p>
-                    <h2 className="mb-3 text-2xl font-black leading-tight text-white md:text-3xl">
-                        ¿Cómo se ve esto en su operación?
-                    </h2>
-                    <p className="mb-7 max-w-xl text-[15px] leading-relaxed text-slate-400">
-                        Revisamos su caso concreto y le decimos qué alcanza a construirse con
-                        el tiempo y el presupuesto que tiene. Sin compromiso.
-                    </p>
-                    <div className="flex flex-col gap-3 sm:flex-row">
-                        <Link
-                            href="/contacto"
-                            className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#176BDE] px-7 py-3.5 text-sm font-black uppercase tracking-widest text-white transition-all hover:scale-[1.02] hover:shadow-[0_10px_40px_rgba(23,107,222,0.35)] active:scale-[0.98]"
-                        >
-                            Agendar diagnóstico
-                            <ArrowRight className="h-4 w-4" />
-                        </Link>
-                        <Link
-                            href={article.relatedService.href}
-                            className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-white/10"
-                        >
-                            Ver {article.relatedService.label}
-                        </Link>
-                    </div>
-                </div>
-            </section>
+                    </span>
+                    <span className="mt-1 block text-lg font-bold text-[#0F1215]">
+                        {article.relatedService.label}
+                    </span>
+                </span>
+                <ArrowRight aria-hidden className="h-5 w-5 shrink-0 text-[#176BDE] transition-transform group-hover:translate-x-1" />
+            </Link>
         )}
 
         {related.length > 0 && (
             <section aria-labelledby="seguir-leyendo" className="mt-16">
                 <h2
                     id="seguir-leyendo"
-                    className="mb-6 text-[11px] font-black uppercase tracking-[0.2em] text-slate-500"
+                    className="mb-6 text-[0.75rem] font-black uppercase tracking-[0.2em] text-slate-600"
                 >
                     Seguir leyendo
                 </h2>
-                <div className="grid gap-5 sm:grid-cols-2">
+                <div className="grid gap-4 sm:grid-cols-2">
                     {related.map((item) => (
                         <Link
                             key={item.slug}
                             href={`/insights/${item.slug}`}
-                            className="group flex flex-col rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 transition-all hover:border-[#176BDE]/30 hover:bg-white/[0.04]"
+                            className="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#176BDE]/40 hover:shadow-md"
                         >
-                            <span className="mb-3 inline-flex w-fit items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                            <span className="mb-3 inline-flex w-fit items-center gap-1.5 rounded-md bg-[#0F1215] px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-widest text-[#16F3E8]">
                                 <ArticleIcon icon={item.icon} className="h-3 w-3" />
                                 {item.category}
                             </span>
-                            <h3 className="mb-2 text-base font-bold leading-snug text-white transition-colors group-hover:text-[#8FC0FF]">
+                            <h3 className="mb-2 text-base font-bold leading-snug text-[#0F1215] transition-colors group-hover:text-[#176BDE]">
                                 {item.cardTitle}
                             </h3>
-                            <p className="line-clamp-2 text-sm leading-relaxed text-slate-500">
+                            <p className="line-clamp-2 text-sm leading-relaxed text-[#3F3D44]">
                                 {item.cardDesc}
                             </p>
                         </Link>

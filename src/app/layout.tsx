@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
-import { Roboto, Roboto_Slab } from "next/font/google";
+import { Atkinson_Hyperlegible, Roboto, Roboto_Slab } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/shared/Navbar";
 import { Providers } from "@/components/providers/Providers";
 import { FloatingChatWidget } from "@/components/ui/FloatingChatWidget";
 import { FloatingWhatsApp } from "@/components/ui/FloatingWhatsApp";
+import { SectionRail } from "@/components/ui/SectionRail";
 import { OriginCapture } from "@/components/ui/OriginCapture";
 import { ConsentedAnalytics } from "@/components/ui/ConsentedAnalytics";
 import { ConsentManager } from "@/components/ui/ConsentManager";
 import { SITE, SOCIAL_LINKS } from "@/data/site";
+import { SkipLinks } from "@/components/a11y/SkipLinks";
+import { AccessibilityPanel } from "@/components/a11y/AccessibilityPanel";
+import { A11Y_BOOT_SCRIPT } from "@/lib/a11y-prefs";
 
 // Tipografía oficial ATM Brandbook: Roboto (ExtraLight/Medium/Black) para textos,
 // Roboto Slab (Medium) reservada para el eslogan «A tu medida».
@@ -24,6 +28,16 @@ const robotoSlab = Roboto_Slab({
   subsets: ["latin"],
   weight: ["500"],
   display: "swap",
+});
+
+// Fuente de alta legibilidad del panel de accesibilidad. Sin precarga: solo se
+// descarga si alguien la activa.
+const atkinson = Atkinson_Hyperlegible({
+  variable: "--font-atkinson",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -112,15 +126,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="es-CL" className="scroll-smooth" suppressHydrationWarning>
+      <head>
+        {/* Aplica las preferencias de accesibilidad guardadas antes del primer pintado. */}
+        <script dangerouslySetInnerHTML={{ __html: A11Y_BOOT_SCRIPT }} />
+      </head>
       <body
-        className={`${roboto.variable} ${robotoSlab.variable} bg-brand-light text-slate-900 antialiased selection:bg-brand-cobalt selection:text-white`}
+        className={`${roboto.variable} ${robotoSlab.variable} ${atkinson.variable} bg-brand-light text-slate-900 antialiased selection:bg-brand-cobalt selection:text-white`}
         suppressHydrationWarning
       >
         {/* Spline Viewer Runtime removed to avoid multiple ThreeJS instances / eval issues */}
 
+        <SkipLinks />
         <Providers>
-          
+
           {/* Capa de Grain/Ruido sutil para textura premium */}
           <div
             className="fixed inset-0 z-[-1] opacity-[0.03] pointer-events-none noise-bg"
@@ -129,12 +148,17 @@ export default function RootLayout({
 
           <Navbar />
           
-          <main className="relative min-h-screen flex flex-col pt-24">
+          <main id="contenido" tabIndex={-1} className="relative min-h-screen flex flex-col pt-24 outline-none">
             {children}
           </main>
 
-          <FloatingChatWidget />
-          <FloatingWhatsApp />
+          <SectionRail />
+          {/* Botones flotantes dentro de una región con nombre, para lectores de pantalla. */}
+          <aside aria-label="Contacto rápido y accesibilidad">
+            <FloatingChatWidget />
+            <FloatingWhatsApp />
+            <AccessibilityPanel />
+          </aside>
           <OriginCapture />
         </Providers>
         <script

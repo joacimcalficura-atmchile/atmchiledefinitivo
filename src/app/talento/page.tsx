@@ -213,7 +213,7 @@ export default function TalentoPage() {
                                 </div>
                                 <div>
                                     <p className="text-sm font-bold text-white">Liderazgo directo</p>
-                                    <p className="text-xs text-slate-300">Los fundadores en cada proyecto</p>
+                                    <p className="text-xs text-slate-300">El equipo fundador en cada proyecto</p>
                                 </div>
                             </div>
                         </m.div>
@@ -273,7 +273,7 @@ export default function TalentoPage() {
                                     </span>
                                 </div>
                                 <h3 className="mt-6 text-xl font-bold text-slate-900">{a.title}</h3>
-                                <p className="mt-3 text-[15px] leading-relaxed text-slate-600">{a.desc}</p>
+                                <p className="mt-3 text-[0.9375rem] leading-relaxed text-slate-600">{a.desc}</p>
                             </m.li>
                         ))}
                     </m.ul>
@@ -310,10 +310,10 @@ export default function TalentoPage() {
                                     <t.Icon className="h-6 w-6" aria-hidden />
                                 </span>
                                 <h3 className="mt-6 text-xl font-bold text-white">{t.role}</h3>
-                                <p className="mt-2 flex-1 text-[15px] leading-relaxed text-slate-300">{t.desc}</p>
+                                <p className="mt-2 flex-1 text-[0.9375rem] leading-relaxed text-slate-300">{t.desc}</p>
                                 <ul className="mt-6 flex flex-wrap gap-2" aria-label="Roles">
                                     {t.tags.map((tag) => (
-                                        <li key={tag} className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-bold text-slate-200">
+                                        <li key={tag} className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-[0.75rem] font-bold text-slate-200">
                                             {tag}
                                         </li>
                                     ))}
@@ -329,7 +329,7 @@ export default function TalentoPage() {
                     >
                         <div>
                             <p className="text-xl font-black text-white md:text-2xl">Liderazgo estratégico senior</p>
-                            <p className="mt-2 max-w-xl leading-relaxed text-slate-300">Acompañamiento directo de nuestros fundadores en cada proyecto, sin intermediarios.</p>
+                            <p className="mt-2 max-w-xl leading-relaxed text-slate-300">Acompañamiento directo del equipo fundador en cada proyecto, sin intermediarios.</p>
                         </div>
                         <ul className="flex flex-col gap-3 sm:flex-row">
                             {LEADERS.map((l) => {
@@ -387,9 +387,9 @@ export default function TalentoPage() {
                                     <span className="font-slab text-sm font-medium text-[#176BDE]">Fase {p.number}</span>
                                 </div>
                                 <h3 className="mt-6 text-xl font-bold text-slate-900">{p.title}</h3>
-                                <p className="mt-2 text-[15px] leading-relaxed text-slate-600">{p.objective}</p>
+                                <p className="mt-2 text-[0.9375rem] leading-relaxed text-slate-600">{p.objective}</p>
                                 <div className="mt-6 rounded-2xl border border-[#b8ccf0] border-l-4 border-l-[#176BDE] bg-[#f2f7ff] p-4">
-                                    <p className="text-[11px] font-black uppercase tracking-wider text-[#0E4FA5]">Entregables</p>
+                                    <p className="text-[0.75rem] font-black uppercase tracking-wider text-[#0E4FA5]">Entregables</p>
                                     <ul className="mt-3 space-y-2">
                                         {p.deliverables.map((d) => (
                                             <li key={d} className="flex items-start gap-2 text-sm leading-snug text-slate-700">

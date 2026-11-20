@@ -60,7 +60,7 @@ const aiSolutions: AISolution[] = [
                 atm: "Razona sobre el perfil: frecuencia, preferencias, ticket",
             },
             {
-                basic: "Mismo trato para todos los usuarios",
+                basic: "Mismo trato para todas las personas",
                 atm: "Atención diferenciada: VIP, nuevo, recurrente",
             },
         ],
@@ -135,12 +135,12 @@ const ComparisonCard = ({ item }: { item: ComparisonItem }) => (
         {/* Basic */}
         <div className="relative p-4 rounded-xl bg-slate-50/80 border border-slate-200/60">
             <div className="absolute top-3 right-3">
-                <span className="text-[9px] font-bold tracking-[0.15em] uppercase text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
+                <span className="text-[0.625rem] font-bold tracking-[0.15em] uppercase text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full">
                     Chatbot Básico
                 </span>
             </div>
             <div className="flex items-start gap-2.5 mt-4">
-                <MessageSquare className="w-4 h-4 text-slate-400 mt-0.5 shrink-0" />
+                <MessageSquare className="w-4 h-4 text-slate-600 mt-0.5 shrink-0" />
                 <p className="text-sm text-slate-500 leading-relaxed">
                     {item.basic}
                 </p>
@@ -156,12 +156,12 @@ const ComparisonCard = ({ item }: { item: ComparisonItem }) => (
             }}
         >
             <div className="absolute top-3 right-3">
-                <span className="text-[9px] font-bold tracking-[0.15em] uppercase text-[#176BDE] bg-[#176BDE]/8 px-2 py-0.5 rounded-full border border-[#176BDE]/10">
+                <span className="text-[0.625rem] font-bold tracking-[0.15em] uppercase text-[#0E4FA5] bg-[#176BDE]/8 px-2 py-0.5 rounded-full border border-[#176BDE]/10">
                     ATM IA Generativa
                 </span>
             </div>
             <div className="flex items-start gap-2.5 mt-4">
-                <Sparkles className="w-4 h-4 text-[#176BDE] mt-0.5 shrink-0" />
+                <Sparkles className="w-4 h-4 text-[#0E4FA5] mt-0.5 shrink-0" />
                 <p className="text-sm text-slate-800 leading-relaxed font-medium">
                     {item.atm}
                 </p>
@@ -197,7 +197,7 @@ export const AIGenerativeArchitecture = ({
                 {/* ── Header ──────────────────────────── */}
                 <div className="mb-16 flex flex-col md:flex-row justify-between items-start gap-6">
                     <div className="max-w-2xl">
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#176BDE]/5 text-[#176BDE] text-xs font-black uppercase tracking-[0.2em] border border-[#176BDE]/10 mb-5">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#176BDE]/5 text-[#0E4FA5] text-xs font-black uppercase tracking-[0.2em] border border-[#176BDE]/10 mb-5">
                             <BrainCircuit className="w-3.5 h-3.5" />
                             IA Generativa Estratégica
                         </div>
@@ -260,20 +260,20 @@ export const AIGenerativeArchitecture = ({
                                             <h3
                                                 className={`text-base font-bold tracking-tight transition-colors duration-500 ${
                                                     isActive
-                                                        ? "text-[#176BDE]"
+                                                        ? "text-[#0E4FA5]"
                                                         : "text-slate-700"
                                                 }`}
                                             >
                                                 {sol.title}
                                             </h3>
-                                            <p className="text-xs text-slate-400 mt-0.5 truncate">
+                                            <p className="text-xs text-slate-600 mt-0.5 truncate">
                                                 {sol.subtitle}
                                             </p>
                                         </div>
                                         <ChevronRight
                                             className={`w-4 h-4 shrink-0 transition-all duration-300 ${
                                                 isActive
-                                                    ? "text-[#176BDE] translate-x-0.5"
+                                                    ? "text-[#0E4FA5] translate-x-0.5"
                                                     : "text-slate-300"
                                             }`}
                                         />
@@ -309,7 +309,7 @@ export const AIGenerativeArchitecture = ({
                                         "linear-gradient(135deg, rgba(23, 107, 222,0.03) 0%, rgba(22, 243, 232,0.03) 100%)",
                                 }}
                             >
-                                <div className="text-[10px] font-bold tracking-[0.2em] text-[#176BDE] uppercase mb-2">
+                                <div className="text-[0.6875rem] font-bold tracking-[0.2em] text-[#0E4FA5] uppercase mb-2">
                                     Impacto Medido
                                 </div>
                                 <div className="flex items-end gap-3">
@@ -365,7 +365,7 @@ export const AIGenerativeArchitecture = ({
                                         <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">
                                             {activeSolution.title}
                                         </h3>
-                                        <p className="text-sm text-[#176BDE] font-semibold">
+                                        <p className="text-sm text-[#0E4FA5] font-semibold">
                                             {activeSolution.subtitle}
                                         </p>
                                     </div>
@@ -377,7 +377,7 @@ export const AIGenerativeArchitecture = ({
 
                                 {/* Features */}
                                 <div className="mb-8">
-                                    <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-4">
+                                    <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-600 mb-4">
                                         Capacidades Clave
                                     </h4>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -410,7 +410,7 @@ export const AIGenerativeArchitecture = ({
 
                                 {/* Comparación */}
                                 <div className="mb-8">
-                                    <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-4">
+                                    <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-600 mb-4">
                                         ¿Por qué no es lo mismo?
                                     </h4>
                                     <div className="space-y-3">
@@ -442,21 +442,21 @@ export const AIGenerativeArchitecture = ({
                                 {/* Tech Stack & Security */}
                                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pt-6 border-t border-slate-100">
                                     <div className="flex flex-wrap items-center gap-2">
-                                        <span className="text-[10px] font-bold tracking-[0.15em] text-slate-400 uppercase mr-1">
+                                        <span className="text-[0.6875rem] font-bold tracking-[0.15em] text-slate-600 uppercase mr-1">
                                             Tech Stack
                                         </span>
                                         {activeSolution.techStack.map(
                                             (tech) => (
                                                 <span
                                                     key={tech}
-                                                    className="text-[10px] font-bold px-2.5 py-1 bg-slate-50 text-slate-600 border border-slate-100 rounded-md"
+                                                    className="text-[0.6875rem] font-bold px-2.5 py-1 bg-slate-50 text-slate-600 border border-slate-100 rounded-md"
                                                 >
                                                     {tech}
                                                 </span>
                                             )
                                         )}
                                     </div>
-                                    <div className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.1em] text-slate-400 uppercase">
+                                    <div className="flex items-center gap-1.5 text-[0.6875rem] font-bold tracking-[0.1em] text-slate-600 uppercase">
                                         <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
                                         Enterprise-Grade Security
                                     </div>
@@ -480,7 +480,7 @@ export const AIGenerativeArchitecture = ({
                             "0 20px 60px -12px rgba(23, 107, 222,0.08), inset 0 1px 0 rgba(255,255,255,1)",
                     }}
                 >
-                    <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-[#176BDE] mb-8">
+                    <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-[#0E4FA5] mb-8">
                         Flujo de Integración — De la consulta a la conversión
                     </h3>
 
@@ -536,7 +536,7 @@ export const AIGenerativeArchitecture = ({
                                 >
                                     <item.Icon className="w-5 h-5" />
                                 </div>
-                                <span className="text-[10px] font-black tracking-[0.2em] text-slate-300 uppercase mb-2">
+                                <span className="text-[0.6875rem] font-black tracking-[0.2em] text-slate-300 uppercase mb-2">
                                     Paso {item.step}
                                 </span>
                                 <h4 className="text-base font-bold text-slate-900 mb-2 leading-snug">

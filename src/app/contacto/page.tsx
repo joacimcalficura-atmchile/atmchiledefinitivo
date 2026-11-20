@@ -29,8 +29,7 @@ const smoothEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 // ── Avatar placeholder para consultores ────────────────────────────────────────
 const ConsultantAvatar = ({ initials, color }: { initials: string; color: string }) => (
     <div
-        className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center text-[11px] font-black text-white shrink-0"
-        style={{ background: color }}
+        className={`w-10 h-10 rounded-full border-2 border-white flex items-center justify-center text-[0.75rem] font-black shrink-0 ${color === "#16F3E8" ? "bg-[#16F3E8] text-[#0F1215]" : "bg-[#176BDE] text-white"}`}
     >
         {initials}
     </div>
@@ -38,7 +37,7 @@ const ConsultantAvatar = ({ initials, color }: { initials: string; color: string
 
 // ── Íconos Oficiales SVG ───────────────────────────────────────────────────────
 const WhatsAppIcon = ({ className }: { className?: string }) => (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
     </svg>
 );
@@ -244,10 +243,10 @@ export default function ContactoPage() {
                             className="p-8 rounded-2xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.04)]"
                             style={{ background: "rgba(255,255,255,0.80)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)" }}
                         >
-                            <h3 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
+                            <h2 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
                                 <MessageSquare className="w-5 h-5 text-[#176BDE]" />
                                 Información de contacto
-                            </h3>
+                            </h2>
                             <ul className="space-y-6">
                                 {/* Responsable de Operaciones */}
                                 <li className="group">
@@ -256,17 +255,18 @@ export default function ContactoPage() {
                                             <Users className="w-5 h-5 text-[#176BDE]" />
                                         </div>
                                         <div className="flex-grow">
-                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Gerente de Proyectos (Operativo)</p>
+                                            <p className="text-[0.6875rem] font-black text-slate-600 uppercase tracking-widest mb-1">Gerente de Proyectos (Operativo)</p>
                                             <p className="font-bold text-slate-800 text-sm mb-2">Alberto Castillo</p>
                                             <div className="flex gap-2">
-                                                <a href={`mailto:${MANAGER_EMAIL}?subject=Solicitud de Nuevo Proyecto - [Nombre de la Empresa] (atmchile.com)&body=Hola Alberto, ¿qué tal? Te escribo desde atmchile.com porque estamos interesados en un nuevo proyecto.`} 
-                                                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 text-[11px] font-bold hover:bg-slate-200 hover:text-[#EA4335] transition-all group/btn">
+                                                <a aria-label="Escribir por correo a Alberto Castillo" href={`mailto:${MANAGER_EMAIL}?subject=Solicitud de Nuevo Proyecto - [Nombre de la Empresa] (atmchile.com)&body=Hola Alberto, ¿qué tal? Te escribo desde atmchile.com porque estamos interesados en un nuevo proyecto.`} 
+                                                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-[0.75rem] font-bold hover:bg-slate-200 hover:text-[#B3261E] transition-all group/btn">
                                                     <GmailIcon className="w-3.5 h-3.5 opacity-70 group-hover/btn:opacity-100 transition-opacity" /> Email
                                                 </a>
                                                 <button 
                                                    type="button"
                                                    onClick={() => scrollToForm(true, "manager")}
-                                                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 text-[11px] font-bold hover:bg-[#25D366]/10 hover:text-[#25D366] transition-all group/btn">
+                                                   aria-label="Escribir por WhatsApp a Alberto Castillo"
+                                                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-[0.75rem] font-bold hover:bg-[#25D366]/10 hover:text-[#0B6B3A] transition-all group/btn">
                                                     <WhatsAppIcon className="w-3.5 h-3.5 opacity-70 group-hover/btn:opacity-100 transition-opacity" /> WhatsApp
                                                 </button>
                                             </div>
@@ -281,17 +281,18 @@ export default function ContactoPage() {
                                             <CheckCircle2 className="w-5 h-5 text-[#176BDE]" />
                                         </div>
                                         <div className="flex-grow">
-                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Founder & CEO (Strategic Contact)</p>
+                                            <p className="text-[0.6875rem] font-black text-slate-600 uppercase tracking-widest mb-1">Founder & CEO (Strategic Contact)</p>
                                             <p className="font-bold text-slate-800 text-sm mb-2">Joacim Calficura</p>
                                             <div className="flex gap-2">
-                                                <a href={`mailto:${CEO_EMAIL}?subject=Propuesta Estratégica (atmchile.com)&body=Estimado Joacim, un cordial saludo. Le contacto desde atmchile.com para plantearle una oportunidad de negocio.`} 
-                                                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 text-[11px] font-bold hover:bg-slate-200 hover:text-[#EA4335] transition-all group/btn">
+                                                <a aria-label="Escribir por correo a Joacim Calficura" href={`mailto:${CEO_EMAIL}?subject=Propuesta Estratégica (atmchile.com)&body=Estimado Joacim, un cordial saludo. Le contacto desde atmchile.com para plantearle una oportunidad de negocio.`} 
+                                                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-[0.75rem] font-bold hover:bg-slate-200 hover:text-[#B3261E] transition-all group/btn">
                                                     <GmailIcon className="w-3.5 h-3.5 opacity-70 group-hover/btn:opacity-100 transition-opacity" /> Email
                                                 </a>
                                                 <button 
                                                    type="button"
                                                    onClick={() => scrollToForm(true, "ceo")}
-                                                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 text-[11px] font-bold hover:bg-[#25D366]/10 hover:text-[#25D366] transition-all group/btn">
+                                                   aria-label="Escribir por WhatsApp a Joacim Calficura"
+                                                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-[0.75rem] font-bold hover:bg-[#25D366]/10 hover:text-[#0B6B3A] transition-all group/btn">
                                                     <WhatsAppIcon className="w-3.5 h-3.5 opacity-70 group-hover/btn:opacity-100 transition-opacity" /> WhatsApp
                                                 </button>
                                             </div>
@@ -306,7 +307,7 @@ export default function ContactoPage() {
                                             <MapPin className="w-5 h-5" />
                                         </div>
                                         <div>
-                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-0.5">Ubicación Central</p>
+                                            <p className="text-[0.6875rem] font-black text-slate-600 uppercase tracking-widest mb-0.5">Ubicación Central</p>
                                             <p className="font-bold text-slate-800 text-sm leading-relaxed">{LOCATION_TEXT}</p>
                                         </div>
                                     </div>
@@ -329,24 +330,24 @@ export default function ContactoPage() {
 
                             <div className="relative">
                                 <Building2 className="w-6 h-6 text-[#176BDE] mb-4" />
-                                <h4 className="font-bold text-slate-900 text-lg mb-2">Asesoría Directa</h4>
+                                <h2 className="font-bold text-slate-900 text-lg mb-2">Asesoría Directa</h2>
                                 <p className="text-sm text-slate-500 leading-relaxed mb-6">
-                                    Recibe una respuesta en menos de 24 horas hábiles por parte de nuestros especialistas senior.
+                                    Recibe una respuesta en menos de 24 horas hábiles por parte de nuestro equipo de especialistas senior.
                                 </p>
 
                                 {/* Avatares del equipo */}
                                 <div className="flex items-center gap-3">
-                                    <div className="flex -space-x-2">
+                                    <div className="flex -space-x-2" aria-hidden="true">
                                         <ConsultantAvatar initials="JC" color="#176BDE" />
                                         <ConsultantAvatar initials="AC" color="#176BDE" />
                                         <ConsultantAvatar initials="RV" color="#16F3E8" />
-                                        <div className="w-10 h-10 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[10px] font-black text-slate-600 shrink-0">
+                                        <div className="w-10 h-10 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[0.6875rem] font-black text-slate-600 shrink-0">
                                             +5
                                         </div>
                                     </div>
                                     <div>
                                         <p className="text-xs font-bold text-slate-900">Equipo disponible</p>
-                                        <p className="text-xs text-slate-400">Consultores senior</p>
+                                        <p className="text-xs text-slate-600">Consultoría senior</p>
                                     </div>
                                 </div>
                             </div>
@@ -383,7 +384,7 @@ export default function ContactoPage() {
                                             <ShieldAlert className="w-10 h-10 text-[#176BDE]" />
                                         </div>
                                         <div className="max-w-md mx-auto">
-                                            <h3 className="text-2xl font-bold text-slate-900 mb-3">Verificación de seguridad no superada</h3>
+                                            <h2 className="text-2xl font-bold text-slate-900 mb-3">Verificación de seguridad no superada</h2>
                                             <p className="text-slate-500 text-sm leading-relaxed">
                                                 Por tu seguridad y la nuestra, ATM valida cada solicitud entrante antes de
                                                 incorporarla a nuestros sistemas. Esta no superó dicha validación.
@@ -418,12 +419,13 @@ export default function ContactoPage() {
                                             <CheckCircle2 className="w-10 h-10 text-[#176BDE]" />
                                         </div>
                                         <div>
-                                            <h3 className="text-2xl font-bold text-slate-900 mb-2">¡Solicitud enviada!</h3>
+                                            <h2 ref={(el) => el?.focus()} tabIndex={-1} className="text-2xl font-bold text-slate-900 mb-2 outline-none">¡Solicitud enviada!</h2>
                                             <p className="text-slate-500 text-lg">
                                                 Nuestro equipo se comunicará contigo en menos de 24 horas hábiles.
                                             </p>
                                         </div>
                                         <button
+                                            type="button"
                                             onClick={() => { setSubmitted(false); resetForm(); }}
                                             className="inline-flex items-center gap-2 text-sm font-bold text-[#176BDE] hover:gap-3 transition-all"
                                         >
@@ -443,20 +445,22 @@ export default function ContactoPage() {
                                             <div className="flex items-center justify-between">
                                                 <div>
                                                     <h2 className="text-2xl font-bold text-slate-900 mb-1">Cuéntanos sobre tu proyecto</h2>
-                                                    <p className="text-slate-500 text-sm">Escoge tu canal de contacto preferido.</p>
+                                                    <p className="text-slate-600 text-sm">Escoge tu canal de contacto preferido. Todos los campos son obligatorios.</p>
                                                 </div>
-                                                <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200">
+                                                <div role="group" aria-label="Canal de contacto" className="flex bg-slate-100 p-1 rounded-xl border border-slate-200">
                                                     <button
                                                         type="button"
                                                         onClick={() => setIsWhatsAppMode(false)}
-                                                        className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${!isWhatsAppMode ? 'bg-white text-[#176BDE] shadow-sm' : 'text-slate-400'}`}
+                                                        aria-pressed={!isWhatsAppMode}
+                                                        className={`px-4 min-h-9 rounded-lg text-xs font-bold transition-all ${!isWhatsAppMode ? 'bg-white text-[#176BDE] shadow-sm' : 'text-slate-600'}`}
                                                     >
                                                         Email
                                                     </button>
                                                     <button
                                                         type="button"
                                                         onClick={() => setIsWhatsAppMode(true)}
-                                                        className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${isWhatsAppMode ? 'bg-[#25D366] text-white shadow-sm' : 'text-slate-400'}`}
+                                                        aria-pressed={isWhatsAppMode}
+                                                        className={`px-4 min-h-9 rounded-lg text-xs font-bold transition-all ${isWhatsAppMode ? 'bg-[#0B6B3A] text-white shadow-sm' : 'text-slate-600'}`}
                                                     >
                                                         WhatsApp
                                                     </button>
@@ -498,41 +502,47 @@ export default function ContactoPage() {
 
                                         <div className="grid md:grid-cols-2 gap-5">
                                             <div className="flex flex-col gap-2">
-                                                <label className="text-xs font-bold text-slate-600 uppercase tracking-widest">Nombre completo</label>
+                                                <label htmlFor="contacto-nombre" className="text-xs font-bold text-slate-700 uppercase tracking-widest">Nombre completo</label>
                                                 <input
                                                     name="nombre"
+                                                    id="contacto-nombre"
+                                                    autoComplete="name"
                                                     type="text"
                                                     value={form.nombre}
                                                     onChange={handleChange}
                                                     required
                                                     placeholder="Ej: Juan Pérez"
-                                                    className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#176BDE]/30 focus:border-[#176BDE] transition-all"
+                                                    className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-500 text-slate-900 placeholder:text-slate-500 text-sm font-medium focus:outline-none focus:ring-[3px] focus:ring-[#176BDE]/60 focus:border-[#176BDE] transition-all"
                                                 />
                                             </div>
                                             <div className="flex flex-col gap-2">
-                                                <label className="text-xs font-bold text-slate-600 uppercase tracking-widest">Empresa</label>
+                                                <label htmlFor="contacto-empresa" className="text-xs font-bold text-slate-700 uppercase tracking-widest">Empresa</label>
                                                 <input
                                                     name="empresa"
+                                                    id="contacto-empresa"
+                                                    autoComplete="organization"
                                                     type="text"
                                                     value={form.empresa}
                                                     onChange={handleChange}
                                                     required
                                                     placeholder="Nombre de tu organización"
-                                                    className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#176BDE]/30 focus:border-[#176BDE] transition-all"
+                                                    className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-500 text-slate-900 placeholder:text-slate-500 text-sm font-medium focus:outline-none focus:ring-[3px] focus:ring-[#176BDE]/60 focus:border-[#176BDE] transition-all"
                                                 />
                                             </div>
                                         </div>
 
                                         <div className="flex flex-col gap-2">
-                                            <label className="text-xs font-bold text-slate-600 uppercase tracking-widest">Correo Electrónico</label>
+                                            <label htmlFor="contacto-email" className="text-xs font-bold text-slate-700 uppercase tracking-widest">Correo Electrónico</label>
                                             <input
                                                 name="email"
+                                                    id="contacto-email"
+                                                    autoComplete="email"
                                                 type="email"
                                                 value={form.email}
                                                 onChange={handleChange}
                                                 required
                                                 placeholder="tu@empresa.com"
-                                                className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#176BDE]/30 focus:border-[#176BDE] transition-all"
+                                                className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-500 text-slate-900 placeholder:text-slate-500 text-sm font-medium focus:outline-none focus:ring-[3px] focus:ring-[#176BDE]/60 focus:border-[#176BDE] transition-all"
                                             />
                                         </div>
 
@@ -544,32 +554,34 @@ export default function ContactoPage() {
                                                 className="space-y-6 overflow-hidden"
                                             >
                                                 <div className="flex flex-col gap-2">
-                                                    <label className="text-xs font-bold text-slate-600 uppercase tracking-widest">Tamaño de la empresa</label>
+                                                    <label htmlFor="contacto-tamano" className="text-xs font-bold text-slate-700 uppercase tracking-widest">Tamaño de la empresa</label>
                                                     <select
                                                         name="tamano"
+                                                    id="contacto-tamano"
                                                         value={form.tamano}
                                                         onChange={handleChange}
                                                         required={!isWhatsAppMode}
-                                                        className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#176BDE]/30 focus:border-[#176BDE] transition-all appearance-none cursor-pointer"
+                                                        className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-500 text-slate-800 text-sm font-medium focus:outline-none focus:ring-[3px] focus:ring-[#176BDE]/60 focus:border-[#176BDE] transition-all appearance-none cursor-pointer"
                                                     >
                                                         <option value="" disabled>Selecciona una opción</option>
-                                                        <option value="startup">Startup (1-10 empleados)</option>
-                                                        <option value="small">Pequeña (11-50 empleados)</option>
-                                                        <option value="medium">Mediana (51-200 empleados)</option>
-                                                        <option value="large">Grande (+200 empleados)</option>
+                                                        <option value="startup">Startup (1 a 10 personas)</option>
+                                                        <option value="small">Pequeña (11 a 50 personas)</option>
+                                                        <option value="medium">Mediana (51 a 200 personas)</option>
+                                                        <option value="large">Grande (más de 200 personas)</option>
                                                     </select>
                                                 </div>
 
                                                 <div className="flex flex-col gap-2">
-                                                    <label className="text-xs font-bold text-slate-600 uppercase tracking-widest">Mensaje</label>
+                                                    <label htmlFor="contacto-mensaje" className="text-xs font-bold text-slate-700 uppercase tracking-widest">Mensaje</label>
                                                     <textarea
                                                         name="mensaje"
+                                                    id="contacto-mensaje"
                                                         value={form.mensaje}
                                                         onChange={handleChange}
                                                         required={!isWhatsAppMode}
                                                         rows={4}
                                                         placeholder="Cuéntanos sobre tu proyecto, necesidades o desafíos tecnológicos..."
-                                                        className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#176BDE]/30 focus:border-[#176BDE] transition-all resize-none"
+                                                        className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-500 text-slate-900 placeholder:text-slate-500 text-sm font-medium focus:outline-none focus:ring-[3px] focus:ring-[#176BDE]/60 focus:border-[#176BDE] transition-all resize-none"
                                                     />
                                                 </div>
                                             </m.div>
@@ -621,9 +633,9 @@ export default function ContactoPage() {
                                             )}
                                         </m.button>
 
-                                        <p className="text-center text-xs text-slate-400 leading-relaxed">
+                                        <p className="text-center text-xs text-slate-600 leading-relaxed">
                                             Al enviar este formulario, aceptas nuestras{" "}
-                                            <a href="#" className="text-[#176BDE] underline underline-offset-2 hover:text-[#0E4FA5]">
+                                            <a href="/privacidad" className="text-[#176BDE] underline underline-offset-2 hover:text-[#0E4FA5]">
                                                 Políticas de Privacidad
                                             </a>
                                             .

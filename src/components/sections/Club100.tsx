@@ -72,7 +72,7 @@ export const Club100 = () => {
                             {[
                                 { icon: <Lock size={20} />, text: "Pentesting continuo y evaluaciones estratégicas Zero-Day." },
                                 { icon: <Zap size={20} />, text: "Implementación prioritaria de Agentes IA." },
-                                { icon: <ShieldCheck size={20} />, text: "Soporte de Arquitectos Cloud 24/7." }
+                                { icon: <ShieldCheck size={20} />, text: "Soporte de arquitectura cloud 24/7." }
                             ].map((item, i) => (
                                 <li key={i} className="flex items-center gap-4 text-slate-800 font-semibold">
                                     <div className="p-2 rounded-lg bg-slate-100 text-[#176BDE]">
@@ -130,7 +130,7 @@ export const Club100 = () => {
                                     <span className="text-slate-500 font-light">&lt;</span> ATM <span className="text-slate-500 font-light">/&gt;</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-[10px] uppercase tracking-widest font-bold text-yellow-500">Miembro Exclusivo</span>
+                                    <span className="text-[0.6875rem] uppercase tracking-widest font-bold text-yellow-500">Miembro Exclusivo</span>
                                     <Crown size={24} className="text-yellow-400" />
                                 </div>
                             </div>
@@ -147,7 +147,7 @@ export const Club100 = () => {
                             {/* Footer Tarjeta */}
                             <div className="relative z-20 flex justify-between items-end text-white">
                                 <div>
-                                    <p className="text-[8px] uppercase tracking-[0.2em] text-slate-400 mb-1">Nivel de Alianza</p>
+                                    <p className="text-[0.625rem] uppercase tracking-[0.2em] text-slate-400 mb-1">Nivel de Alianza</p>
                                     <p className="text-lg font-mono tracking-widest shadow-black drop-shadow-md">PARTNER 360</p>
                                 </div>
                                 {/* Símbolo tipo Mastercard/Visa pero tecnológico */}

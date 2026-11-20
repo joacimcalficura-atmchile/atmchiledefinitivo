@@ -195,3 +195,143 @@ body {
 html.lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Accesibilidad (WCAG 2.2 AA, con criterios AAA donde es razonable)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Foco visible en todo el sitio (2.4.7 / 2.4.13). Con :where() la regla no
+   pesa: los componentes que dibujan su propio foco lo conservan. Zafiro sobre
+   blanco y sobre Onyx supera 3:1. */
+:where(a, button, input, select, textarea, summary, [tabindex], [role="button"], [role="switch"], [role="tab"]):focus-visible {
+  outline: 3px solid #176BDE;
+  outline-offset: 3px;
+}
+/* Sobre fondos oscuros el anillo se ve mejor en Neon Ice. */
+:where(.bg-\[\#0F1215\], .bg-slate-900, .bg-slate-950, .bg-black, [class*="bg-[#0F1215]/"]) :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline-color: #16F3E8;
+}
+/* Quien navega con teclado no pierde el foco detrás del menú fijo (2.4.11). */
+html {
+  scroll-padding-top: 7rem;
+}
+
+/* Enlaces de salto: ocultos hasta recibir foco. */
+.skip-links > * {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100002;
+  transform: translateY(-200%);
+  border-radius: 0.75rem;
+  background: #0F1215;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  padding: 0.75rem 1.25rem;
+  box-shadow: 0 10px 30px rgba(15, 18, 21, 0.35);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.skip-links > *:focus-visible,
+.skip-links > *:focus {
+  transform: none;
+  outline: 3px solid #16F3E8;
+  outline-offset: 2px;
+}
+
+/* Movimiento reducido: el del sistema y el del panel (2.3.3). */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+html.a11y-reduce-motion,
+html.a11y-reduce-motion *,
+html.a11y-reduce-motion *::before,
+html.a11y-reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Subrayar enlaces (1.4.1). */
+html.a11y-underline-links a:not(.skip-links a) {
+  text-decoration-line: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 0.2em !important;
+}
+
+/* Fuente de alta legibilidad. */
+html.a11y-readable-font body,
+html.a11y-readable-font body *:not(svg):not(svg *):not(code):not(pre):not(kbd) {
+  font-family: var(--font-atkinson), Verdana, Arial, sans-serif !important;
+}
+
+/* Más espacio en el texto: valores de prueba de WCAG 1.4.12, suavizados. */
+html.a11y-text-spacing :where(p, li, dd, dt, td, th, label, blockquote, figcaption, span, a) {
+  line-height: 1.75 !important;
+  letter-spacing: 0.04em !important;
+  word-spacing: 0.14em !important;
+}
+html.a11y-text-spacing :where(p) {
+  margin-bottom: 0.75em;
+}
+
+/* Foco reforzado: borde grueso de doble color, visible en cualquier fondo. */
+html.a11y-strong-focus *:focus-visible,
+html.a11y-strong-focus *:focus:not(main):not([role="dialog"]):not(nav) {
+  outline: 4px solid #176BDE !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 9px #fff, 0 0 0 12px #0F1215 !important;
+}
+
+/* Contraste reforzado: superficies sólidas, sin texto translúcido ni
+   degradados en el texto. El color del texto lo ajusta ContrastEnhancer. */
+html.a11y-contrast * {
+  text-shadow: none !important;
+}
+html.a11y-contrast :where(.bg-clip-text, .brand-gradient-text) {
+  background: none !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+html.a11y-contrast :where(input, select, textarea) {
+  border-color: #3F3D44 !important;
+}
+html.a11y-contrast :where(input, textarea)::placeholder {
+  color: #3F3D44 !important;
+  opacity: 1;
+}
+html.a11y-contrast .noise-bg {
+  display: none;
+}
+html.a11y-contrast :where(nav, footer, [role="dialog"], .glass, .glass-3d, .glass-card-premium) {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Modo de alto contraste de Windows: que los controles dibujados con sombras
+   sigan teniendo borde y foco. */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid CanvasText !important;
+  }
+  .skip-links > * {
+    border: 2px solid CanvasText;
+  }
+}
+/* Contraste reforzado: el zafiro de fondo pasa a su tono profundo (blanco
+   encima llega a 7,8:1) y el menú flotante queda sólido. */
+html.a11y-contrast :where(.bg-\[\#176BDE\], .bg-brand-blue, .bg-brand-cobalt, .bg-atm-sapphire) {
+  background-color: #0E4FA5 !important;
+}
+html.a11y-contrast #navegacion-principal {
+  background-color: #fff !important;
+}
+html.a11y-contrast #navegacion-principal [aria-current="page"] * {
+  color: #0F1215 !important;
+}
