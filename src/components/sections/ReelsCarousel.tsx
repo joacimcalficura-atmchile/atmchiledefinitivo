@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, ExternalLink, Play } from "lucide-react";
+import { Captions, ChevronDown, ChevronLeft, ChevronRight, ExternalLink, Play } from "lucide-react";
 import type { InstagramReel } from "@/lib/instagram";
+import { REEL_SUBTITLES } from "@/data/accesibilidad-video";
 
 /** Primera línea del caption, sin hashtags, para usarla como título accesible. */
 function captionTitle(caption: string) {
@@ -14,6 +15,13 @@ const ReelCard = ({ reel }: { reel: InstagramReel }) => {
     const [playing, setPlaying] = useState(false);
     const title = captionTitle(reel.caption);
     const canPlayInline = Boolean(reel.videoUrl);
+    const subtitles = REEL_SUBTITLES[reel.id];
+    // Texto completo del reel (sin la línea de hashtags), para quien no puede oírlo.
+    const description = reel.caption
+        .split("\n")
+        .filter((l) => !/^(\s*#\S+\s*)+$/.test(l))
+        .join("\n")
+        .trim();
 
     return (
         <li className="snap-start shrink-0 w-[68vw] sm:w-[260px] lg:w-[270px]">
@@ -30,7 +38,9 @@ const ReelCard = ({ reel }: { reel: InstagramReel }) => {
                         playsInline
                         preload="none"
                         aria-label={title}
-                    />
+                    >
+                        {subtitles && <track kind="captions" src={subtitles} srcLang="es" label="Español" default />}
+                    </video>
                 ) : (
                     <>
                         {reel.thumbnailUrl && (
@@ -78,14 +88,34 @@ const ReelCard = ({ reel }: { reel: InstagramReel }) => {
                     </>
                 )}
             </div>
-            <a
-                href={reel.permalink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-atm-rosy-granite hover:text-atm-neon-ice transition-colors"
-            >
-                Ver en Instagram <ExternalLink className="h-3.5 w-3.5" aria-hidden />
-            </a>
+            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                <a
+                    href={reel.permalink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-6 items-center gap-1.5 text-xs font-medium text-atm-rosy-granite hover:text-atm-neon-ice transition-colors"
+                >
+                    Ver en Instagram <ExternalLink className="h-3.5 w-3.5" aria-hidden />
+                    <span className="sr-only"> (se abre en una pestaña nueva)</span>
+                </a>
+                {subtitles && (
+                    <span className="inline-flex items-center gap-1 rounded border border-white/25 px-1.5 text-[0.6875rem] font-bold uppercase tracking-wide text-atm-alabaster">
+                        <Captions className="h-3.5 w-3.5" aria-hidden />
+                        Con subtítulos
+                    </span>
+                )}
+            </div>
+            {description && (
+                <details className="group/desc mt-2 text-atm-alabaster">
+                    <summary className="inline-flex min-h-6 cursor-pointer list-none items-center gap-1 text-xs font-medium text-[#6AA5F5] hover:text-atm-neon-ice [&::-webkit-details-marker]:hidden">
+                        <ChevronDown className="h-3.5 w-3.5 transition-transform group-open/desc:rotate-180" aria-hidden />
+                        Leer el texto del reel
+                    </summary>
+                    <p className="mt-2 max-h-48 overflow-y-auto whitespace-pre-line rounded-xl bg-white/5 p-3 text-xs leading-5 text-atm-alabaster">
+                        {description}
+                    </p>
+                </details>
+            )}
         </li>
     );
 };

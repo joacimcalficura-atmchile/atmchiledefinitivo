@@ -1,4 +1,6 @@
-import { Accessibility, Keyboard, MessageCircle, MonitorSmartphone, SlidersHorizontal, Eye } from "lucide-react";
+import { Accessibility, Ear, Keyboard, MessageCircle, MonitorSmartphone, SlidersHorizontal, Eye } from "lucide-react";
+import { LschVideo } from "@/components/a11y/LschVideo";
+import { LSCH_VIDEO } from "@/data/accesibilidad-video";
 import { BrandPattern } from "@/components/ui/BrandPattern";
 import { OpenA11yPanelButton } from "@/components/a11y/OpenA11yPanelButton";
 import { SITE } from "@/data/site";
@@ -6,6 +8,7 @@ import { SITE } from "@/data/site";
 const REVISION = "20 de noviembre de 2026";
 
 const PANEL = [
+    { title: "Escuchar esta página", text: "Lee en voz alta los títulos, textos y descripciones de imágenes, resalta lo que va leyendo y se puede pausar, saltar o acelerar. Usa la voz de tu dispositivo: nada sale de tu navegador." },
     { title: "Tamaño del texto", text: "Hasta 150 %, sin que el contenido se corte ni aparezca desplazamiento horizontal." },
     { title: "Contraste reforzado", text: "Revisa el texto de cada página y lo lleva a contraste 7:1 (nivel AAA) donde haga falta." },
     { title: "Pausar animaciones", text: "Detiene movimientos y desplazamiento suave. Si tu sistema ya pide menos movimiento, lo respetamos sin que hagas nada." },
@@ -33,6 +36,16 @@ const PRACTICES = [
             "Imágenes con descripción cuando aportan información; las decorativas se omiten.",
             "Formularios con etiquetas, ayudas y mensajes de error que se anuncian.",
             "El asistente virtual anuncia cada respuesta nueva.",
+            "Si no usas lector de pantalla, «Escuchar esta página» (Alt + L) te lee el contenido en voz alta.",
+        ],
+    },
+    {
+        icon: Ear,
+        title: "Personas sordas",
+        items: [
+            "Puedes hacer todo por escrito: formulario, correo o WhatsApp. Nunca necesitas llamarnos.",
+            "Cada reel muestra su texto completo bajo el video, y los que tienen subtítulos lo indican.",
+            "Los videos de YouTube se abren con los subtítulos en español activados cuando existen.",
         ],
     },
     {
@@ -57,7 +70,9 @@ const PRACTICES = [
 ];
 
 const LIMITS = [
-    "Los videos y publicaciones de Instagram y YouTube se muestran con los reproductores de esas plataformas, cuya accesibilidad no controlamos. Siempre incluimos el título y un enlace directo.",
+    "Los videos y publicaciones de Instagram y YouTube se muestran con los reproductores de esas plataformas, cuya accesibilidad no controlamos. Siempre incluimos el título, el texto del reel y un enlace directo.",
+    "Algunos reels todavía no tienen subtítulos. Mientras tanto, puedes leer su texto completo bajo cada video.",
+    "La lectura en voz alta usa las voces instaladas en tu dispositivo: su acento y calidad dependen del sistema operativo.",
     "La verificación antispam de Cloudflare (Turnstile) aparece solo cuando detecta tráfico sospechoso; si te impide enviar un formulario, escríbenos por correo o WhatsApp.",
     "Las respuestas del asistente virtual las genera una inteligencia artificial y pueden no estar en lenguaje claro. Si algo no se entiende, pide que lo explique de otra forma o escríbenos.",
 ];
@@ -119,6 +134,17 @@ export default function AccesibilidadPage() {
                     </ul>
                 </div>
             </section>
+
+            {LSCH_VIDEO && (
+                <section aria-labelledby="lsch-titulo" className="bg-white pt-16 md:pt-24">
+                    <div className="mx-auto max-w-5xl px-5 sm:px-8">
+                        <h2 id="lsch-titulo" className="text-3xl font-black tracking-tight text-[#0F1215]">
+                            En Lengua de Señas Chilena
+                        </h2>
+                        <LschVideo className="mt-8 max-w-3xl" />
+                    </div>
+                </section>
+            )}
 
             <section aria-labelledby="practicas-titulo" className="bg-white py-16 md:py-24">
                 <div className="mx-auto max-w-5xl px-5 sm:px-8">
