@@ -46,7 +46,7 @@ export const InstagramEmbed = ({
                         <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#16F3E8]">
                             Publicación oficial · {account}
                         </p>
-                        <p className="max-w-md text-[15px] leading-relaxed text-slate-300">{caption}</p>
+                        <p className="max-w-md text-[0.9375rem] leading-relaxed text-slate-300">{caption}</p>
                         <div className="flex flex-col gap-3 sm:flex-row">
                             <button
                                 type="button"

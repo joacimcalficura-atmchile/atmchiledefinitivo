@@ -19,7 +19,7 @@ export const solutions: Solution[] = [
         id: "talento",
         num: "01",
         title: "Talento Senior On-Demand",
-        desc: "Células ágiles de programadores de alto rendimiento integradas a tu flujo de trabajo bajo supervisión técnica senior.",
+        desc: "Células ágiles de programación de alto rendimiento integradas a tu flujo de trabajo bajo supervisión técnica senior.",
         tags: ["Agile", "Senior Management", "High Performance"],
         cta: "Ver equipo",
         ctaHref: "/talento",

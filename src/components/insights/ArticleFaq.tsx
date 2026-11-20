@@ -28,7 +28,7 @@ export const ArticleFaq = ({ items }: { items: readonly Faq[] }) => (
                             className="mt-0.5 h-5 w-5 shrink-0 text-[#176BDE] transition-transform group-open:rotate-180"
                         />
                     </summary>
-                    <p className="px-5 pb-5 text-[15px] leading-relaxed text-[#3F3D44] md:px-6 md:pb-6 md:text-base">
+                    <p className="px-5 pb-5 text-[0.9375rem] leading-relaxed text-[#3F3D44] md:px-6 md:pb-6 md:text-base">
                         {item.a}
                     </p>
                 </details>

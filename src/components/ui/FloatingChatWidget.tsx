@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { m as motion, AnimatePresence } from "framer-motion";
+import { m as motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, Send, Activity } from "lucide-react";
 
 // ============================================================================
@@ -30,7 +30,8 @@ const ModernMessage = ({ msg, isLoading }: { msg?: MessageContent; isLoading?: b
     return (
       <div className="flex justify-start animate-in fade-in duration-500">
         <div className="bg-slate-800/60 backdrop-blur-sm text-slate-300 px-5 py-3.5 rounded-2xl rounded-tl-sm shadow-sm flex items-center gap-2 border border-slate-700/30">
-          <div className="flex gap-1.5">
+          <span className="sr-only">El asistente está escribiendo…</span>
+          <div className="flex gap-1.5" aria-hidden="true">
             <span className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
             <span className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
             <span className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
@@ -58,12 +59,12 @@ const ModernMessage = ({ msg, isLoading }: { msg?: MessageContent; isLoading?: b
   
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2 duration-300`}>
-      <div className={`max-w-[85%] px-5 py-3.5 rounded-2xl shadow-lg text-[15px] leading-relaxed ${
+      <div className={`max-w-[85%] px-5 py-3.5 rounded-2xl shadow-lg text-[0.9375rem] leading-relaxed ${
         isUser 
-          ? 'bg-gradient-to-br from-cyan-600 to-cyan-500 text-white rounded-tr-sm' 
+          ? 'bg-[#176BDE] text-white rounded-tr-sm' 
           : 'bg-slate-800/80 backdrop-blur-md text-slate-100 rounded-tl-sm border border-slate-700/50'
       }`}>
-        <p>{content}</p>
+        <p><span className="sr-only">{isUser ? "Tú: " : "Asistente: "}</span>{content}</p>
       </div>
     </div>
   );
@@ -91,11 +92,35 @@ export const FloatingChatWidget = () => {
   const isLoading = status === "submitted" || status === "streaming";
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const launcherRef = useRef<HTMLButtonElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const reduceMotion = useReducedMotion();
+
+  // Al abrir, el foco va al campo de mensaje; al cerrar, vuelve al botón.
+  const wasOpen = useRef(false);
+  useEffect(() => {
+    if (isOpen) {
+      const t = window.setTimeout(() => inputRef.current?.focus(), 50);
+      wasOpen.current = true;
+      return () => window.clearTimeout(t);
+    }
+    if (wasOpen.current) launcherRef.current?.focus();
+  }, [isOpen]);
+
+  // Escape cierra el asistente.
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [isOpen]);
 
   // Auto-scroll logic
   const scrollToBottom = useCallback(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, []);
+    messagesEndRef.current?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest" });
+  }, [reduceMotion]);
 
   useEffect(() => {
     if (isOpen) {
@@ -126,6 +151,9 @@ export const FloatingChatWidget = () => {
             animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
             exit={{ opacity: 0, scale: 0.9, y: 40, filter: "blur(10px)" }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            id="asistente-atm"
+            role="dialog"
+            aria-labelledby="asistente-atm-titulo"
             className="w-[calc(100vw-2rem)] sm:w-[400px] h-[75vh] sm:h-[580px] max-h-[800px] bg-slate-900/85 backdrop-blur-2xl border border-slate-700/50 rounded-[2rem] shadow-2xl mb-4 sm:mb-6 overflow-hidden flex flex-col pointer-events-auto origin-bottom-right"
           >
             
@@ -141,7 +169,7 @@ export const FloatingChatWidget = () => {
                   <div className="absolute inset-0 rounded-full border border-cyan-500/40 overflow-hidden shadow-inner z-10 bg-slate-900">
                     <Image 
                       src="/images/asistente-futurista.jpg" 
-                      alt="ATM AI Assistant" 
+                      alt="" 
                       fill
                       sizes="48px"
                       className="object-cover rounded-full group-hover/header:scale-110 transition-transform duration-700"
@@ -161,24 +189,24 @@ export const FloatingChatWidget = () => {
                   <span className="absolute bottom-0.5 right-0.5 w-3 h-3 bg-green-500 border-2 border-slate-900 rounded-full"></span>
                 </div>
                 <div>
-                  <h3 className="text-slate-100 font-bold text-[15px] tracking-tight">Asistente ATMCHILE</h3>
+                  <h2 id="asistente-atm-titulo" className="text-slate-100 font-bold text-[0.9375rem] tracking-tight">Asistente ATM Chile</h2>
                   <div className="flex items-center gap-1.5">
                     <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse"></div>
-                    <p className="text-cyan-400 text-[11px] font-bold uppercase tracking-wider">En línea</p>
+                    <p className="text-cyan-400 text-[0.75rem] font-bold uppercase tracking-wider">En línea</p>
                   </div>
                 </div>
               </div>
               <button 
                 onClick={() => setIsOpen(false)} 
-                className="text-slate-400 hover:text-white bg-slate-800/80 hover:bg-slate-700 w-9 h-9 rounded-full flex items-center justify-center transition-all active:scale-95"
-                aria-label="Cerrar chat"
+                className="text-slate-200 hover:text-white bg-slate-800/80 hover:bg-slate-700 w-11 h-11 rounded-full flex items-center justify-center transition-all active:scale-95"
+                aria-label="Cerrar asistente"
               >
                 <X size={18} />
               </button>
             </div>
 
             {/* Área de Mensajes */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-5 bg-gradient-to-b from-transparent to-cyan-500/5 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+            <div role="log" aria-live="polite" aria-label="Conversación con el asistente" tabIndex={0} className="flex-1 overflow-y-auto p-6 space-y-5 bg-gradient-to-b from-transparent to-cyan-500/5 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
               {messages.map((msg, idx) => (
                 <ModernMessage key={idx} msg={msg} />
               ))}
@@ -188,7 +216,7 @@ export const FloatingChatWidget = () => {
 
             {/* Banner de Error */}
             {error && (
-              <div className="mx-5 mt-3 px-4 py-3 bg-red-900/60 border border-red-700/50 rounded-xl">
+              <div role="alert" className="mx-5 mt-3 px-4 py-3 bg-red-900/60 border border-red-700/50 rounded-xl">
                 <p className="text-red-200 text-sm">Error de conexión: {error.message}</p>
               </div>
             )}
@@ -196,16 +224,19 @@ export const FloatingChatWidget = () => {
             {/* Input Panel Moderno */}
             <form onSubmit={(e) => onFormSubmit(e)} className="p-5 bg-slate-800/40 border-t border-slate-700/50 flex gap-3">
               <input
+                ref={inputRef}
                 type="text"
+                aria-label="Escribe tu mensaje al asistente"
+                autoComplete="off"
                 value={input}
                 onChange={handleInputChange}
                 placeholder="Escribe tu mensaje..."
-                className="flex-1 bg-slate-900/60 text-slate-100 border border-slate-600/40 rounded-2xl px-5 py-3 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30 transition-all placeholder-slate-500"
+                className="flex-1 bg-slate-900/60 text-slate-100 border border-slate-600/40 rounded-2xl px-5 py-3 text-sm focus:outline-none focus:border-[#16F3E8] focus:ring-2 focus:ring-[#16F3E8]/60 transition-all placeholder-slate-400"
               />
               <button 
                 type="submit" 
                 disabled={isLoading || !input?.trim()} 
-                className="bg-cyan-500 hover:bg-cyan-400 text-white w-12 h-12 rounded-2xl flex items-center justify-center transition-all active:scale-90 disabled:opacity-30 disabled:hover:bg-cyan-500 shadow-xl shadow-cyan-900/20 group"
+                className="bg-[#176BDE] hover:bg-[#0E4FA5] text-white w-12 h-12 rounded-2xl flex items-center justify-center transition-all active:scale-90 disabled:opacity-40 disabled:hover:bg-[#176BDE] shadow-xl shadow-cyan-900/20 group"
                 aria-label="Enviar mensaje"
               >
                 <Send size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -217,12 +248,16 @@ export const FloatingChatWidget = () => {
 
       {/* Botón Flotante con Motor de Capas 3D Realista */}
       <motion.button
+        ref={launcherRef}
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-controls={isOpen ? "asistente-atm" : undefined}
         whileHover="hover"
         whileTap="tap"
         initial="rest"
         className="relative w-24 h-24 flex items-center justify-center pointer-events-auto group"
-        aria-label="Abrir Asistente"
+        aria-label={isOpen ? "Cerrar asistente virtual" : "Abrir asistente virtual de ATM"}
       >
         {/* Capa 0: Sombra Proyectada (Simula altura) */}
         <motion.div 
@@ -234,14 +269,14 @@ export const FloatingChatWidget = () => {
         />
 
         {/* Capa 1: Resplandor Neon Atmosférico */}
-        <motion.div 
+        {!reduceMotion && <motion.div 
           animate={{ 
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.5, 0.3]
           }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           className="absolute w-20 h-20 bg-cyan-500/20 rounded-full blur-2xl z-10"
-        />
+        />}
 
         {/* Capa 2: Nucleo Principal (Texturizado) */}
         <motion.div
@@ -254,7 +289,7 @@ export const FloatingChatWidget = () => {
         >
           <Image 
             src="/images/asistente-futurista.jpg" 
-            alt="Avatar ATM 3D" 
+            alt="" 
             fill
             sizes="64px"
             className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -285,7 +320,7 @@ export const FloatingChatWidget = () => {
         />
 
         {/* Efecto de Pulso (Solo cuando está cerrado) */}
-        {!isOpen && (
+        {!isOpen && !reduceMotion && (
           <motion.div 
             animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
             transition={{ duration: 2, repeat: Infinity }}

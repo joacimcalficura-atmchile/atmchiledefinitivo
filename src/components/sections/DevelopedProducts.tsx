@@ -26,7 +26,7 @@ const DemoPending = ({ product }: { product: DevelopedProduct }) => (
         <div className="pointer-events-none absolute left-1/2 top-1/2 size-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#16F3E8]/10 blur-[90px]" />
 
         <product.Icon className="relative z-10 mb-4 size-12 text-[#8FC0FF]" strokeWidth={1.5} />
-        <span className="relative z-10 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[10px] font-black uppercase tracking-widest text-white backdrop-blur-sm">
+        <span className="relative z-10 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[0.6875rem] font-black uppercase tracking-widest text-white backdrop-blur-sm">
             <Clapperboard size={13} />
             Demo en grabación
         </span>
@@ -70,7 +70,7 @@ const ProductCard = ({ product }: { product: DevelopedProduct }) => {
                             <p className="text-xs font-semibold text-[#8FC0FF]">{product.subtitle}</p>
                         </div>
                     </div>
-                    <span className="shrink-0 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[9px] font-black uppercase tracking-widest text-white/70">
+                    <span className="shrink-0 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[0.625rem] font-black uppercase tracking-widest text-white/70">
                         {product.status}
                     </span>
                 </div>
@@ -92,12 +92,12 @@ const ProductCard = ({ product }: { product: DevelopedProduct }) => {
                     <div className="flex items-end justify-between gap-4">
                         <div>
                             <span className="block text-2xl font-black text-[#16F3E8]">{product.metric.value}</span>
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
+                            <span className="text-[0.6875rem] font-bold uppercase tracking-widest text-white/40">
                                 {product.metric.label}
                             </span>
                         </div>
                         <div className="text-right">
-                            <span className="mb-1 block text-[9px] font-bold uppercase tracking-widest text-white/40">
+                            <span className="mb-1 block text-[0.625rem] font-bold uppercase tracking-widest text-white/40">
                                 Stack
                             </span>
                             <p className="text-xs font-semibold italic text-white/60">{product.techStack.join(" / ")}</p>

@@ -94,7 +94,7 @@ export const YouTubeFacade = ({ videoId, title, poster, posterAlt, sizes = "100v
                         <Play size={26} className="translate-x-0.5 fill-white text-white" />
                     </span>
 
-                    <span className="absolute bottom-4 left-4 rounded-full border border-white/20 bg-slate-950/70 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-white backdrop-blur-sm">
+                    <span className="absolute bottom-4 left-4 rounded-full border border-white/20 bg-slate-950/70 px-3 py-1 text-[0.6875rem] font-black uppercase tracking-widest text-white backdrop-blur-sm">
                         Ver demo real
                     </span>
                 </button>

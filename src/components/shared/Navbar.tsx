@@ -34,8 +34,10 @@ export const Navbar = () => {
 
   return (
     <nav
+      id="navegacion-principal"
+      tabIndex={-1}
       aria-label="Navegación principal"
-      className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] flex gap-0.5 p-1.5 sm:gap-1 sm:p-2 bg-white/70 backdrop-blur-2xl border border-white/20 rounded-full shadow-2xl"
+      className="outline-none fixed top-6 left-1/2 -translate-x-1/2 z-[100] flex gap-0.5 p-1.5 sm:gap-1 sm:p-2 bg-white/90 backdrop-blur-2xl border border-slate-900/10 rounded-full shadow-2xl"
     >
       <LayoutGroup>
         {navItems.map((item, index) => {
@@ -45,7 +47,7 @@ export const Navbar = () => {
             <TransitionLink
               key={item.name}
               href={item.href}
-              className="relative"
+              className="group relative block rounded-full"
               aria-current={isActive ? "page" : undefined}
             >
               {/* Liquid Active Pill — slides between items via layoutId */}
@@ -59,10 +61,10 @@ export const Navbar = () => {
 
               <m.div
                 layout
-                className={`relative z-10 flex items-center gap-2 rounded-full px-2.5 py-2 sm:px-3 text-sm font-semibold transition-colors duration-300 ${
+                className={`relative z-10 flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full px-2.5 py-2 sm:px-3 text-sm font-semibold transition-colors duration-300 ${
                   isActive
-                    ? "text-[#176BDE]"
-                    : "text-slate-500 hover:text-slate-800"
+                    ? "text-[#0E4FA5]"
+                    : "text-slate-600 hover:text-[#0F1215]"
                 }`}
               >
                 {/* Icon — always visible */}
@@ -82,13 +84,24 @@ export const Navbar = () => {
                       animate={{ opacity: 1, width: "auto" }}
                       exit={{ opacity: 0, width: 0 }}
                       transition={{ type: "spring", stiffness: 500, damping: 35 }}
-                      className="hidden overflow-hidden whitespace-nowrap text-[11px] uppercase tracking-widest sm:inline"
+                      className="hidden overflow-hidden whitespace-nowrap text-[0.75rem] uppercase tracking-widest sm:inline"
                     >
                       {item.name}
                     </m.span>
                   )}
                 </AnimatePresence>
               </m.div>
+
+              {/* Etiqueta visible al pasar el mouse o llegar con el teclado,
+                  para no depender solo del ícono. */}
+              {!isActive && (
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute left-1/2 top-full z-20 mt-2 -translate-x-1/2 whitespace-nowrap rounded-lg bg-[#0F1215] px-2.5 py-1 text-xs font-semibold text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100"
+                >
+                  {item.name}
+                </span>
+              )}
             </TransitionLink>
           );
         })}

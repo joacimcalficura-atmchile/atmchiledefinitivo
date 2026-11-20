@@ -29,7 +29,7 @@ const CAPABILITIES = [
     {
         id: "talent",
         title: "Talento Senior On-Demand",
-        description: "Células ágiles de programadores subcontratados, gestionados bajo nuestra supervisión técnica senior.",
+        description: "Células ágiles de programación subcontratadas, gestionadas bajo nuestra supervisión técnica senior.",
         stack: "AGILE / SENIOR MANAGEMENT",
         icon: <Users size={28} className="text-[#176BDE]" />
     },
@@ -125,7 +125,7 @@ export const HeroVisionary = () => {
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] md:w-[800px] h-[120%] md:h-[800px] bg-[#16F3E8]/10 blur-[100px] rounded-full pointer-events-none -z-10" />
 
                     <m.div variants={fadeUpItem} className="mb-6">
-                        <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-md border border-[#176BDE]/10 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#176BDE] shadow-sm">
+                        <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-md border border-[#176BDE]/10 text-[0.6875rem] md:text-xs font-bold uppercase tracking-[0.2em] text-[#176BDE] shadow-sm">
                             <ShieldCheck size={16} className="text-[#16F3E8]" />
                             Innovación y Escalabilidad
                         </span>
@@ -204,7 +204,7 @@ export const HeroVisionary = () => {
                                 <div className="w-full h-[1px] bg-slate-200/50 my-4"></div>
 
                                 <div className="flex items-center justify-between w-full mt-auto">
-                                    <span className="text-[10px] md:text-xs font-bold font-mono text-slate-400 tracking-[0.15em] uppercase truncate pr-4">
+                                    <span className="text-[0.6875rem] md:text-xs font-bold font-mono text-slate-400 tracking-[0.15em] uppercase truncate pr-4">
                                         STACK: {cap.stack}
                                     </span>
                                     <div className="w-1.5 h-1.5 rounded-full bg-[#176BDE]/40 group-hover:bg-[#16F3E8] transition-colors flex-shrink-0 shadow-[0_0_8px_rgba(22, 243, 232,0)] group-hover:shadow-[0_0_8px_rgba(22, 243, 232,0.6)]"></div>

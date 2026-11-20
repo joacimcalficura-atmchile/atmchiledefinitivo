@@ -28,7 +28,9 @@ const Callout = ({
     // Bloque destacado del brandbook: Onyx con borde izquierdo Neon Ice (alerta)
     // o tarjeta informativa azul con borde izquierdo Sapphire (info).
     return (
-        <aside
+        <div
+            role="note"
+            aria-label={isAlert ? `Alerta: ${title}` : title}
             className={`my-10 rounded-2xl border-l-4 p-6 md:p-7 ${
                 isAlert
                     ? "border-l-[#16F3E8] bg-[#0F1215] text-white shadow-[0_20px_50px_rgba(15,18,21,0.15)]"
@@ -52,7 +54,7 @@ const Callout = ({
                         {title}
                     </p>
                     <p
-                        className={`text-[15px] leading-relaxed md:text-base ${
+                        className={`text-[0.9375rem] leading-relaxed md:text-base ${
                             isAlert ? "text-slate-300" : "text-[#3F3D44]"
                         }`}
                     >
@@ -60,7 +62,7 @@ const Callout = ({
                     </p>
                 </div>
             </div>
-        </aside>
+        </div>
     );
 };
 
@@ -80,7 +82,7 @@ export const ArticleBody = ({ blocks }: { blocks: readonly ArticleBlock[] }) => 
 
                 case "paragraph":
                     return (
-                        <p key={idx} className="mb-6 text-[17px] leading-[1.75] text-[#3F3D44]">
+                        <p key={idx} className="mb-6 text-[1.0625rem] leading-[1.75] text-[#3F3D44]">
                             {block.text}
                         </p>
                     );
@@ -94,7 +96,7 @@ export const ArticleBody = ({ blocks }: { blocks: readonly ArticleBlock[] }) => 
                                         aria-hidden="true"
                                         className="mt-[0.65rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[#176BDE]"
                                     />
-                                    <span className="text-[17px] leading-[1.7] text-[#3F3D44]">{item}</span>
+                                    <span className="text-[1.0625rem] leading-[1.7] text-[#3F3D44]">{item}</span>
                                 </li>
                             ))}
                         </ul>
@@ -116,7 +118,7 @@ export const ArticleBody = ({ blocks }: { blocks: readonly ArticleBlock[] }) => 
                                             {item.title}
                                         </h3>
                                     </div>
-                                    <p className="text-[15px] leading-relaxed text-[#3F3D44] md:text-base">
+                                    <p className="text-[0.9375rem] leading-relaxed text-[#3F3D44] md:text-base">
                                         {item.text}
                                     </p>
                                 </li>
@@ -161,7 +163,7 @@ export const ArticleBody = ({ blocks }: { blocks: readonly ArticleBlock[] }) => 
                                     <p className="mt-1 text-base font-bold leading-snug text-[#0F1215] md:text-lg">
                                         {item.title}
                                     </p>
-                                    <p className="mt-1 text-[15px] leading-relaxed text-[#3F3D44]">{item.text}</p>
+                                    <p className="mt-1 text-[0.9375rem] leading-relaxed text-[#3F3D44]">{item.text}</p>
                                 </li>
                             ))}
                         </ol>
@@ -171,6 +173,9 @@ export const ArticleBody = ({ blocks }: { blocks: readonly ArticleBlock[] }) => 
                     return (
                         <div
                             key={idx}
+                            tabIndex={0}
+                            role="region"
+                            aria-label={`Tabla: ${block.headers.join(", ")} (desplazable)`}
                             className="my-10 overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm"
                         >
                             <table className="w-full border-collapse text-left">
@@ -180,7 +185,7 @@ export const ArticleBody = ({ blocks }: { blocks: readonly ArticleBlock[] }) => 
                                             <th
                                                 key={header}
                                                 scope="col"
-                                                className="px-5 py-4 text-[11px] font-black uppercase tracking-widest text-[#16F3E8]"
+                                                className="px-5 py-4 text-[0.75rem] font-black uppercase tracking-widest text-[#16F3E8]"
                                             >
                                                 {header}
                                             </th>
@@ -193,7 +198,7 @@ export const ArticleBody = ({ blocks }: { blocks: readonly ArticleBlock[] }) => 
                                             {row.map((cell, j) => (
                                                 <td
                                                     key={j}
-                                                    className={`px-5 py-4 text-[15px] leading-relaxed ${
+                                                    className={`px-5 py-4 text-[0.9375rem] leading-relaxed ${
                                                         j === 0
                                                             ? "min-w-[7rem] font-bold text-[#0F1215]"
                                                             : "min-w-[12rem] text-[#3F3D44]"

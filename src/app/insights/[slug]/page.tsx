@@ -166,7 +166,7 @@ export default async function ArticlePage({ params }: PageProps) {
                     </nav>
 
                     <div className="mb-6 flex flex-wrap items-center gap-3">
-                        <span className="inline-flex items-center gap-2 rounded-full border border-[#16F3E8]/30 bg-[#16F3E8]/[0.08] px-3.5 py-1.5 text-[11px] font-black uppercase tracking-[0.15em] text-[#16F3E8]">
+                        <span className="inline-flex items-center gap-2 rounded-full border border-[#16F3E8]/30 bg-[#16F3E8]/[0.08] px-3.5 py-1.5 text-[0.75rem] font-black uppercase tracking-[0.15em] text-[#16F3E8]">
                             <ArticleIcon icon={article.icon} className="h-3.5 w-3.5" />
                             {article.category}
                         </span>
@@ -207,12 +207,12 @@ export default async function ArticlePage({ params }: PageProps) {
                     </p>
 
                     {article.updateNote && (
-                        <aside className="mt-8 rounded-2xl border border-white/10 border-l-4 border-l-[#16F3E8] bg-white/[0.04] p-5 backdrop-blur-sm md:p-6">
-                            <p className="mb-1.5 text-[11px] font-black uppercase tracking-[0.2em] text-[#16F3E8]">
+                        <div role="note" className="mt-8 rounded-2xl border border-white/10 border-l-4 border-l-[#16F3E8] bg-white/[0.04] p-5 backdrop-blur-sm md:p-6">
+                            <p className="mb-1.5 text-[0.75rem] font-black uppercase tracking-[0.2em] text-[#16F3E8]">
                                 Actualización {formatDate(modified)}
                             </p>
-                            <p className="text-[15px] leading-relaxed text-slate-200">{article.updateNote}</p>
-                        </aside>
+                            <p className="text-[0.9375rem] leading-relaxed text-slate-200">{article.updateNote}</p>
+                        </div>
                     )}
                 </div>
             </header>
@@ -230,7 +230,7 @@ export default async function ArticlePage({ params }: PageProps) {
                         >
                             <h2
                                 id="respuesta-corta-titulo"
-                                className="mb-3 text-[11px] font-black uppercase tracking-[0.2em] text-[#16F3E8]"
+                                className="mb-3 text-[0.75rem] font-black uppercase tracking-[0.2em] text-[#16F3E8]"
                             >
                                 Respuesta corta
                             </h2>
@@ -261,7 +261,7 @@ export default async function ArticlePage({ params }: PageProps) {
                     >
                         <h2
                             id="resumen"
-                            className="mb-5 text-[11px] font-black uppercase tracking-[0.2em] text-[#176BDE]"
+                            className="mb-5 text-[0.75rem] font-black uppercase tracking-[0.2em] text-[#176BDE]"
                         >
                             Resumen ejecutivo
                         </h2>
@@ -272,7 +272,7 @@ export default async function ArticlePage({ params }: PageProps) {
                                         aria-hidden="true"
                                         className="mt-[0.6rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[#176BDE]"
                                     />
-                                    <span className="text-[15px] leading-relaxed text-[#3F3D44] md:text-base">
+                                    <span className="text-[0.9375rem] leading-relaxed text-[#3F3D44] md:text-base">
                                         {point}
                                     </span>
                                 </li>
@@ -287,7 +287,7 @@ export default async function ArticlePage({ params }: PageProps) {
                                     key={fact.label}
                                     className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:p-5"
                                 >
-                                    <dt className="mb-1.5 text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                                    <dt className="mb-1.5 text-[0.6875rem] font-bold uppercase tracking-widest text-slate-500">
                                         {fact.label}
                                     </dt>
                                     <dd className="text-base font-black leading-tight text-[#176BDE] md:text-lg">

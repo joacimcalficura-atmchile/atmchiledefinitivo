@@ -27,14 +27,14 @@ type Props = {
 export function LegalDocument({ eyebrow, title, version, effectiveDate, summary, sections, related }: Props) {
     return (
         <>
-            <main className="bg-white pb-24 pt-10 md:pt-16">
+            <div className="bg-white pb-24 pt-10 md:pt-16">
                 <div className="mx-auto max-w-6xl px-5 sm:px-8">
-                    <nav aria-label="Ruta de navegación" className="text-xs font-medium text-slate-500">
+                    <nav aria-label="Ruta de navegación" className="text-xs font-medium text-slate-600">
                         <Link href="/" className="hover:text-[#176BDE]">Inicio</Link>
-                        <span className="mx-2 text-slate-300">/</span>
+                        <span aria-hidden="true" className="mx-2 text-slate-400">/</span>
                         <span>Legal</span>
-                        <span className="mx-2 text-slate-300">/</span>
-                        <span className="text-slate-700">{title}</span>
+                        <span aria-hidden="true" className="mx-2 text-slate-400">/</span>
+                        <span aria-current="page" className="text-slate-700">{title}</span>
                     </nav>
 
                     <header className="mt-6 border-b border-slate-200 pb-10">
@@ -54,14 +54,14 @@ export function LegalDocument({ eyebrow, title, version, effectiveDate, summary,
                                 <dd>{SITE.legalName}</dd>
                             </div>
                         </dl>
-                        <div className="mt-8 max-w-3xl border-l-2 border-[#176BDE] pl-5 text-[15px] leading-7 text-slate-700">
+                        <div className="mt-8 max-w-3xl border-l-2 border-[#176BDE] pl-5 text-[0.9375rem] leading-7 text-slate-700">
                             {summary}
                         </div>
                     </header>
 
                     <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-[230px_minmax(0,1fr)] lg:gap-16">
-                        <aside className="lg:sticky lg:top-32 lg:self-start">
-                            <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Contenido</p>
+                        <nav aria-labelledby="indice-documento" className="lg:sticky lg:top-32 lg:self-start">
+                            <p id="indice-documento" className="text-xs font-bold uppercase tracking-[0.18em] text-slate-600">Contenido</p>
                             <ol className="mt-4 space-y-2 border-l border-slate-200 text-sm">
                                 {sections.map((s, i) => (
                                     <li key={s.id}>
@@ -69,13 +69,13 @@ export function LegalDocument({ eyebrow, title, version, effectiveDate, summary,
                                             href={`#${s.id}`}
                                             className="-ml-px block border-l border-transparent py-0.5 pl-4 text-slate-600 transition-colors hover:border-[#176BDE] hover:text-[#176BDE]"
                                         >
-                                            <span className="mr-1.5 tabular-nums text-slate-400">{i + 1}.</span>
+                                            <span className="mr-1.5 tabular-nums text-slate-600">{i + 1}.</span>
                                             {s.title}
                                         </a>
                                     </li>
                                 ))}
                             </ol>
-                        </aside>
+                        </nav>
 
                         <article className="min-w-0 max-w-[72ch]">
                             {sections.map((s, i) => (
@@ -89,7 +89,7 @@ export function LegalDocument({ eyebrow, title, version, effectiveDate, summary,
                                         <span className="mr-2 tabular-nums text-[#176BDE]">{i + 1}.</span>
                                         {s.title}
                                     </h2>
-                                    <div className="legal-body mt-4 space-y-4 text-[15px] leading-7 text-slate-700">{s.body}</div>
+                                    <div className="legal-body mt-4 space-y-4 text-[0.9375rem] leading-7 text-slate-700">{s.body}</div>
                                 </section>
                             ))}
 
@@ -107,7 +107,7 @@ export function LegalDocument({ eyebrow, title, version, effectiveDate, summary,
                         </article>
                     </div>
                 </div>
-            </main>
+            </div>
             <FooterUnified />
         </>
     );

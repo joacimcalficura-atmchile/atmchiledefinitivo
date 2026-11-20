@@ -4,6 +4,7 @@ import React, { useRef, useMemo, useState, useEffect, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Float, PerspectiveCamera, Environment, Lightformer, ContactShadows } from "@react-three/drei";
 import * as THREE from "three";
+import { useReducedMotion } from "framer-motion";
 import { usePerformanceOptimization } from "@/hooks/usePerformanceOptimization";
 
 const Fragment = ({ position, rotation, scale, color, light, isVisible }: any) => {
@@ -103,17 +104,19 @@ class CanvasErrorBoundary extends React.Component<{ children: React.ReactNode },
 
 export const FloatingCubes = ({ count = 40, light = false }) => {
     const { containerRef, isVisible, isMobile, dpr } = usePerformanceOptimization({ threshold: 0 });
+    // Con movimiento reducido la escena se dibuja una vez y queda quieta.
+    const reduceMotion = useReducedMotion();
     
     // Optimize count for mobile
     const optimizedCount = isMobile ? Math.min(count, 15) : count;
 
     return (
-        <div ref={containerRef} className="absolute inset-0 z-0 will-change-transform" style={{ transform: "translateZ(0)" }}>
+        <div ref={containerRef} aria-hidden="true" className="absolute inset-0 z-0 will-change-transform" style={{ transform: "translateZ(0)" }}>
             <CanvasErrorBoundary>
             <Canvas 
                 dpr={dpr} 
                 gl={{ antialias: !isMobile, powerPreference: "high-performance" }}
-                frameloop={isVisible ? "always" : "never"}
+                frameloop={reduceMotion ? "demand" : isVisible ? "always" : "never"}
             >
                 <PerspectiveCamera makeDefault position={[0, 0, 12]} fov={50} />
                 

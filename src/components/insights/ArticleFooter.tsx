@@ -22,7 +22,7 @@ export const ArticleFooter = ({
         >
             <h2
                 id="fuentes"
-                className="mb-2 flex items-center gap-2.5 text-[11px] font-black uppercase tracking-[0.2em] text-[#176BDE]"
+                className="mb-2 flex items-center gap-2.5 text-[0.75rem] font-black uppercase tracking-[0.2em] text-[#176BDE]"
             >
                 <Link2 aria-hidden className="h-3.5 w-3.5" />
                 Fuentes consultadas
@@ -33,7 +33,7 @@ export const ArticleFooter = ({
             <ol className="space-y-3">
                 {article.sources.map((source, idx) => (
                     <li key={source.url} className="flex gap-3">
-                        <span className="text-sm font-bold text-slate-400">{idx + 1}.</span>
+                        <span className="text-sm font-bold text-slate-600">{idx + 1}.</span>
                         <a
                             href={source.url}
                             target="_blank"
@@ -58,7 +58,7 @@ export const ArticleFooter = ({
                 className="group mt-6 flex items-center justify-between gap-4 rounded-2xl border border-[#b8ccf0] bg-[#f2f7ff] p-5 transition-colors hover:border-[#176BDE] md:p-6"
             >
                 <span>
-                    <span className="block text-[11px] font-black uppercase tracking-[0.2em] text-[#176BDE]">
+                    <span className="block text-[0.75rem] font-black uppercase tracking-[0.2em] text-[#176BDE]">
                         Servicio relacionado
                     </span>
                     <span className="mt-1 block text-lg font-bold text-[#0F1215]">
@@ -73,7 +73,7 @@ export const ArticleFooter = ({
             <section aria-labelledby="seguir-leyendo" className="mt-16">
                 <h2
                     id="seguir-leyendo"
-                    className="mb-6 text-[11px] font-black uppercase tracking-[0.2em] text-slate-500"
+                    className="mb-6 text-[0.75rem] font-black uppercase tracking-[0.2em] text-slate-600"
                 >
                     Seguir leyendo
                 </h2>
@@ -84,7 +84,7 @@ export const ArticleFooter = ({
                             href={`/insights/${item.slug}`}
                             className="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#176BDE]/40 hover:shadow-md"
                         >
-                            <span className="mb-3 inline-flex w-fit items-center gap-1.5 rounded-md bg-[#0F1215] px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-[#16F3E8]">
+                            <span className="mb-3 inline-flex w-fit items-center gap-1.5 rounded-md bg-[#0F1215] px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-widest text-[#16F3E8]">
                                 <ArticleIcon icon={item.icon} className="h-3 w-3" />
                                 {item.category}
                             </span>

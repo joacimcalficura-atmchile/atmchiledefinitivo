@@ -28,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     { url: `${base}/privacidad`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/terminos`, changeFrequency: "yearly", priority: 0.2 },
+    { url: `${base}/accesibilidad`, changeFrequency: "yearly", priority: 0.3 },
   ];
 
   const articles: MetadataRoute.Sitemap = ARTICLES.map((article) => ({

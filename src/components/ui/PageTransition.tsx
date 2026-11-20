@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useTransitionContext } from "@/context/TransitionContext";
 import dynamic from "next/dynamic";
+import { prefersReducedMotion } from "@/lib/a11y-prefs";
 
 const Spline = dynamic(() => import('@splinetool/react-spline'), {
     ssr: false,
@@ -15,10 +16,12 @@ export const PageTransition = () => {
         setIsMounted(true);
     }, []);
 
-    if (!isMounted || !isTransitioning) return null;
+    // Con movimiento reducido no hay cortina animada entre páginas.
+    if (!isMounted || !isTransitioning || prefersReducedMotion()) return null;
 
     return (
-        <div 
+        <div
+            aria-hidden="true"
             className="fixed inset-0 z-[9999] flex flex-col items-center justify-center animate-in fade-in duration-500"
         >
             {/* Dark premium background */}

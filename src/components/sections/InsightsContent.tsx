@@ -33,7 +33,7 @@ const Meta = ({ article, tone }: { article: Article; tone: "dark" | "light" }) =
     const muted = tone === "dark" ? "text-slate-300" : "text-slate-500";
     return (
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-            <span className="inline-flex items-center gap-1.5 rounded-md bg-[#0F1215] px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-[#16F3E8] ring-1 ring-white/10">
+            <span className="inline-flex items-center gap-1.5 rounded-md bg-[#0F1215] px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-widest text-[#16F3E8] ring-1 ring-white/10">
                 <ArticleIcon icon={article.icon} className="h-3 w-3" />
                 {article.category}
             </span>
@@ -46,7 +46,7 @@ const Meta = ({ article, tone }: { article: Article; tone: "dark" | "light" }) =
                 {formatDate(article.publishedAt)}
             </time>
             {wasUpdated(article) && (
-                <span className="inline-flex items-center gap-1 rounded-md bg-[#176BDE] px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-white">
+                <span className="inline-flex items-center gap-1 rounded-md bg-[#176BDE] px-2 py-1 text-[0.6875rem] font-bold uppercase tracking-widest text-white">
                     <RefreshCw aria-hidden className="h-3 w-3" />
                     Actualizado {formatDate(lastEdit(article))}
                 </span>
@@ -102,7 +102,7 @@ export const InsightsContent = () => {
                             { label: "Última revisión", value: LATEST_EDIT ? formatDate(LATEST_EDIT) : "—" },
                         ].map((item) => (
                             <div key={item.label} className="px-4 py-4 md:px-6 md:py-5">
-                                <dt className="text-[10px] font-bold uppercase tracking-widest text-[#A09DA0] md:text-[11px]">
+                                <dt className="text-[0.6875rem] font-bold uppercase tracking-widest text-[#A09DA0] md:text-[0.75rem]">
                                     {item.label}
                                 </dt>
                                 <dd className="mt-1 text-lg font-black text-white md:text-2xl">{item.value}</dd>
@@ -132,7 +132,7 @@ export const InsightsContent = () => {
                                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
                                 <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0F1215]/70 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-[#0F1215]" />
-                                <span className="absolute left-4 top-4 rounded-full bg-[#16F3E8] px-3 py-1 text-[11px] font-black uppercase tracking-[0.15em] text-[#0F1215]">
+                                <span className="absolute left-4 top-4 rounded-full bg-[#16F3E8] px-3 py-1 text-[0.75rem] font-black uppercase tracking-[0.15em] text-[#0F1215]">
                                     Lo más reciente
                                 </span>
                             </div>
@@ -142,7 +142,7 @@ export const InsightsContent = () => {
                                 <h2 className="mt-5 text-2xl font-black leading-tight text-white transition-colors group-hover:text-[#6AA5F5] md:text-3xl">
                                     {featured.cardTitle}
                                 </h2>
-                                <p className="mt-4 text-[15px] leading-relaxed text-slate-300 md:text-base">
+                                <p className="mt-4 text-[0.9375rem] leading-relaxed text-slate-300 md:text-base">
                                     {featured.excerpt}
                                 </p>
                                 <span className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#16F3E8]">

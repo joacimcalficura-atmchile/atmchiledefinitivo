@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { SITE } from "@/data/site";
 import { CONSENT_OPEN_EVENT, readConsent, saveConsent } from "@/lib/consent";
+import { useDialogA11y } from "@/hooks/useDialogA11y";
 
 /**
  * Aviso de ingreso: aceptación de Términos y Política de Privacidad y elección
@@ -59,15 +60,9 @@ export function ConsentManager() {
     const isLegalPage = LEGAL_PATHS.some((p) => pathname?.startsWith(p));
     const blocking = open && (!isLegalPage || customize);
 
-    useEffect(() => {
-        if (!blocking) return;
-        const previous = document.body.style.overflow;
-        document.body.style.overflow = "hidden";
-        dialogRef.current?.focus();
-        return () => {
-            document.body.style.overflow = previous;
-        };
-    }, [blocking]);
+    // Diálogo modal: foco dentro, resto de la página inerte y scroll bloqueado.
+    // Sin Escape: hay que elegir una opción para continuar.
+    useDialogA11y(dialogRef, { open: blocking });
 
     const decide = useCallback((choice: { analytics: boolean; marketing: boolean }) => {
         saveConsent(choice);
@@ -93,7 +88,7 @@ export function ConsentManager() {
                 className="fixed inset-x-0 bottom-0 z-[100000] border-t border-slate-200 bg-white/95 shadow-[0_-8px_30px_rgba(15,18,21,0.08)] backdrop-blur"
             >
                 <div className="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-4 md:flex-row md:items-center md:gap-6">
-                    <p className="text-[13px] leading-5 text-slate-700 md:flex-1">
+                    <p className="text-[0.8125rem] leading-5 text-slate-700 md:flex-1">
                         {acceptance} Utilizamos cookies para mejorar tu experiencia.
                     </p>
                     <div className="grid shrink-0 grid-cols-2 gap-2 md:flex">
@@ -136,7 +131,7 @@ export function ConsentManager() {
                         className="h-10 w-auto"
                         priority
                     />
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">
+                    <span className="text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-slate-400">
                         Aviso de privacidad
                     </span>
                 </div>

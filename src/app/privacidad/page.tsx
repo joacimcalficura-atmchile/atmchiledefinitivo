@@ -8,7 +8,7 @@ import { LEGAL_EFFECTIVE_DATE } from "@/components/legal/legal-meta";
  * No editar el contenido sin su validación.
  */
 
-const ul = "list-disc space-y-2 pl-5 marker:text-slate-400";
+const ul = "list-disc space-y-2 pl-5 marker:text-slate-500";
 const mail = (
     <a href={`mailto:${SITE.privacyEmail}`} className="font-semibold text-[#176BDE] underline underline-offset-2">
         {SITE.privacyEmail}
@@ -107,7 +107,7 @@ const sections: LegalSection[] = [
         title: "Cookies",
         body: (
             <>
-                <div className="overflow-x-auto rounded-xl border border-slate-200">
+                <div tabIndex={0} role="region" aria-label="Tabla de cookies (desplazable)" className="overflow-x-auto rounded-xl border border-slate-200">
                     <table className="w-full min-w-[560px] text-left text-sm">
                         <thead className="bg-slate-50 text-slate-800">
                             <tr>

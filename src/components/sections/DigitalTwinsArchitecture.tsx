@@ -49,7 +49,7 @@ export const DigitalTwinsArchitecture = ({ onClose }: DigitalTwinsArchitecturePr
                     {onClose && (
                         <button
                             onClick={onClose}
-                            className="flex items-center gap-2 px-5 py-2.5 bg-white/60 hover:bg-white text-slate-600 hover:text-[#176BDE] rounded-full border border-slate-200 transition-all font-semibold shadow-sm hover:shadow-md"
+                            className="flex items-center gap-2 px-5 py-2.5 bg-white/60 hover:bg-white text-slate-600 hover:text-[#0E4FA5] rounded-full border border-slate-200 transition-all font-semibold shadow-sm hover:shadow-md"
                         >
                             <X size={18} /> Cerrar Pipeline
                         </button>
@@ -86,7 +86,7 @@ export const DigitalTwinsArchitecture = ({ onClose }: DigitalTwinsArchitecturePr
                                         {node.icon}
                                     </div>
 
-                                    <h3 className={`text-lg font-bold tracking-tight transition-colors duration-500 ${isActive ? 'text-[#176BDE]' : 'text-slate-700'}`}>
+                                    <h3 className={`text-lg font-bold tracking-tight transition-colors duration-500 ${isActive ? 'text-[#0E4FA5]' : 'text-slate-700'}`}>
                                         {node.title}
                                     </h3>
 
@@ -107,7 +107,7 @@ export const DigitalTwinsArchitecture = ({ onClose }: DigitalTwinsArchitecturePr
                             {/* Reflejo de luz sutil en el cristal */}
                             <div className="absolute top-[-50px] right-[-50px] w-32 h-32 bg-[#16F3E8]/20 blur-3xl rounded-full pointer-events-none" />
 
-                            <div className="text-[10px] font-bold tracking-[0.2em] text-[#176BDE] uppercase mb-6 flex items-center gap-2">
+                            <div className="text-[0.6875rem] font-bold tracking-[0.2em] text-[#0E4FA5] uppercase mb-6 flex items-center gap-2">
                                 <div className="w-2 h-2 rounded-full bg-[#16F3E8] animate-pulse" />
                                 Pipeline de Producción
                             </div>
@@ -121,7 +121,7 @@ export const DigitalTwinsArchitecture = ({ onClose }: DigitalTwinsArchitecturePr
                                     transition={{ duration: 0.3 }}
                                     className="flex flex-col h-full relative z-10"
                                 >
-                                    <div className="flex items-center gap-4 mb-6 text-[#176BDE]">
+                                    <div className="flex items-center gap-4 mb-6 text-[#0E4FA5]">
                                         {activeNode.icon}
                                         <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">{activeNode.title}</h3>
                                     </div>
@@ -132,14 +132,14 @@ export const DigitalTwinsArchitecture = ({ onClose }: DigitalTwinsArchitecturePr
 
                                     <div className="flex-grow space-y-6 bg-slate-50/80 p-6 rounded-xl border border-slate-100 backdrop-blur-sm">
                                         <div>
-                                            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Requerimientos (Inputs)</h4>
+                                            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-600 mb-2">Requerimientos (Inputs)</h4>
                                             <p className="text-sm font-semibold text-slate-800 bg-white p-3 rounded-lg border border-slate-100 shadow-sm">
                                                 {activeNode.inputs}
                                             </p>
                                         </div>
                                         <div>
-                                            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Entregables (Outputs)</h4>
-                                            <p className="text-sm font-semibold text-[#176BDE] bg-gradient-to-r from-[#176BDE]/5 to-[#16F3E8]/5 p-3 rounded-lg border border-[#176BDE]/10 shadow-sm">
+                                            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-600 mb-2">Entregables (Outputs)</h4>
+                                            <p className="text-sm font-semibold text-[#0E4FA5] bg-gradient-to-r from-[#176BDE]/5 to-[#16F3E8]/5 p-3 rounded-lg border border-[#176BDE]/10 shadow-sm">
                                                 {activeNode.outputs}
                                             </p>
                                         </div>

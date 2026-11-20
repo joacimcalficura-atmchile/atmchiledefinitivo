@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
+import { useDialogA11y } from "@/hooks/useDialogA11y";
 import { m } from "framer-motion";
 import { X } from "lucide-react";
 import { EcommerceArchitecture } from "./EcommerceArchitecture";
@@ -10,6 +11,16 @@ import { ErpArchitecture }       from "./ErpArchitecture";
 import { ProductVisualization3DServices } from "./ProductVisualization3DServices";
 import { AIGenerativeArchitecture } from "./AIGenerativeArchitecture";
 
+const TITLES: Record<string, string> = {
+    "ia-generativa": "IA generativa",
+    "3d": "Visualización 3D de productos",
+    ecommerce: "E-commerce",
+    logistica: "Logística",
+    saas: "SaaS",
+    fintech: "Fintech",
+    erp: "ERP a medida",
+};
+
 export const ArchitectureModal = ({
     id,
     onClose,
@@ -17,18 +28,10 @@ export const ArchitectureModal = ({
     id: string;
     onClose: () => void;
 }) => {
-    // Cerrar con Escape
-    useEffect(() => {
-        const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
-        document.addEventListener("keydown", handler);
-        return () => document.removeEventListener("keydown", handler);
-    }, [onClose]);
-
-    // Bloquear scroll del body mientras el modal está abierto
-    useEffect(() => {
-        document.body.style.overflow = "hidden";
-        return () => { document.body.style.overflow = ""; };
-    }, []);
+    // Foco dentro del diálogo, Escape para cerrar, resto de la página inerte
+    // y scroll bloqueado; al cerrar, el foco vuelve a la tarjeta que lo abrió.
+    const panelRef = useRef<HTMLDivElement>(null);
+    useDialogA11y(panelRef, { onClose });
 
     const Content = () => {
         switch (id) {
@@ -55,12 +58,17 @@ export const ArchitectureModal = ({
             onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
         >
             <m.div
+                ref={panelRef}
                 key="modal-panel"
+                role="dialog"
+                aria-modal="true"
+                aria-label={`Detalle del servicio: ${TITLES[id] ?? "arquitectura"}`}
+                tabIndex={-1}
                 initial={{ opacity: 0, scale: 0.93, y: 32 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 16 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                className="relative w-full max-w-6xl max-h-[88vh] overflow-y-auto rounded-[2.5rem]"
+                className="relative w-full max-w-6xl max-h-[88vh] overflow-y-auto rounded-[2.5rem] outline-none"
                 style={{
                     background: "rgba(255,255,255,0.88)",
                     backdropFilter: "saturate(180%) blur(48px)",
@@ -89,8 +97,9 @@ export const ArchitectureModal = ({
                 {/* Botón cerrar — azul cobalto */}
                 <button
                     onClick={onClose}
-                    aria-label="Cerrar"
-                    className="absolute top-5 right-5 z-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#176BDE] hover:bg-[#0E4FA5] text-white transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#176BDE]/30 border border-[#176BDE]/80"
+                    type="button"
+                    aria-label="Cerrar detalle"
+                    className="absolute top-5 right-5 z-10 flex items-center justify-center w-11 h-11 rounded-full bg-[#176BDE] hover:bg-[#0E4FA5] text-white transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#176BDE]/30 border border-[#176BDE]/80"
                 >
                     <X size={18} />
                 </button>

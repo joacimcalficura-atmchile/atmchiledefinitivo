@@ -5,6 +5,7 @@ import { m } from "framer-motion";
 import Link from "next/link";
 import { BrandPattern } from "@/components/ui/BrandPattern";
 import { openConsentPreferences } from "@/lib/consent";
+import { openA11yPanel } from "@/lib/a11y-prefs";
 import { 
   Mail, 
   MapPin, 
@@ -47,6 +48,7 @@ const footerLinks = [
       { name: "Privacidad", href: "/privacidad" },
       { name: "Términos", href: "/terminos" },
       { name: "Compliance", href: "/privacidad#seguridad" },
+      { name: "Accesibilidad", href: "/accesibilidad" },
     ],
   },
 ];
@@ -83,9 +85,9 @@ export const FooterUnified = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="size-10 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-600 hover:text-brand-cobalt hover:border-brand-cobalt/30 hover:bg-brand-cobalt/5 transition-all"
-                  aria-label={social.label}
+                  aria-label={`${social.label} de ATM Chile (se abre en una pestaña nueva)`}
                 >
-                  <social.icon size={20} />
+                  <social.icon size={20} aria-hidden="true" />
                 </a>
               ))}
             </div>
@@ -94,9 +96,9 @@ export const FooterUnified = () => {
           {/* Columnas de Links */}
           {footerLinks.map((column) => (
             <div key={column.title}>
-              <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">
+              <h3 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">
                 {column.title}
-              </h4>
+              </h3>
               <ul className="space-y-4">
                 {column.links.map((link) => (
                   <li key={link.name}>
@@ -104,7 +106,7 @@ export const FooterUnified = () => {
                       href={link.href}
                       className="group flex items-center text-slate-600 hover:text-brand-cobalt text-sm transition-colors"
                     >
-                      <ArrowRight size={14} className="mr-0 opacity-0 -translate-x-2 group-hover:mr-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                      <ArrowRight size={14} aria-hidden="true" className="mr-0 opacity-0 -translate-x-2 group-hover:mr-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                       {link.name}
                     </Link>
                   </li>
@@ -116,8 +118,20 @@ export const FooterUnified = () => {
                       onClick={openConsentPreferences}
                       className="group flex items-center text-slate-600 hover:text-brand-cobalt text-sm transition-colors"
                     >
-                      <ArrowRight size={14} className="mr-0 opacity-0 -translate-x-2 group-hover:mr-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                      <ArrowRight size={14} aria-hidden="true" className="mr-0 opacity-0 -translate-x-2 group-hover:mr-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                       Preferencias de cookies
+                    </button>
+                  </li>
+                )}
+                {column.title === "Legal" && (
+                  <li>
+                    <button
+                      type="button"
+                      onClick={openA11yPanel}
+                      className="group flex items-center text-slate-600 hover:text-brand-cobalt text-sm transition-colors"
+                    >
+                      <ArrowRight size={14} aria-hidden="true" className="mr-0 opacity-0 -translate-x-2 group-hover:mr-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                      Ajustes de accesibilidad
                     </button>
                   </li>
                 )}
@@ -130,46 +144,46 @@ export const FooterUnified = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 py-10 border-y border-slate-100 mb-12">
           <div className="flex items-center gap-4">
             <div className="size-12 rounded-2xl bg-slate-50 flex items-center justify-center text-brand-cobalt border border-slate-200">
-              <Mail size={24} />
+              <Mail size={24} aria-hidden="true" />
             </div>
             <div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Email Corporativo</p>
-              <p className="text-sm font-bold text-slate-900">alberto.castillo@atmchile.cl</p>
+              <p className="text-[0.6875rem] font-bold text-slate-600 uppercase tracking-widest">Email Corporativo</p>
+              <a href="mailto:alberto.castillo@atmchile.cl" className="text-sm font-bold text-slate-900 underline-offset-4 hover:text-brand-cobalt hover:underline">alberto.castillo@atmchile.cl</a>
             </div>
           </div>
           <div className="flex items-center gap-4">
             <div className="size-12 rounded-2xl bg-slate-50 flex items-center justify-center text-brand-cobalt border border-slate-200">
-              <MapPin size={24} />
+              <MapPin size={24} aria-hidden="true" />
             </div>
             <div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Ubicación Central</p>
+              <p className="text-[0.6875rem] font-bold text-slate-600 uppercase tracking-widest">Ubicación Central</p>
               <p className="text-sm font-bold text-slate-900">Santa Magdalena 75, Providencia</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
             <div className="size-12 rounded-2xl bg-slate-50 flex items-center justify-center text-brand-cobalt border border-slate-200">
-              <ShieldCheck size={24} />
+              <ShieldCheck size={24} aria-hidden="true" />
             </div>
             <div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Certificación</p>
+              <p className="text-[0.6875rem] font-bold text-slate-600 uppercase tracking-widest">Certificación</p>
               <p className="text-sm font-bold text-slate-900">Audit-Ready Solutions</p>
             </div>
           </div>
         </div>
 
         {/* Copyright */}
-        <div className="flex flex-col md:row gap-6 justify-between items-center bg-white/60 backdrop-blur-xl p-6 rounded-3xl border border-white/40 shadow-sm transition-all duration-300">
-          <div className="text-slate-500 text-xs">
+        <div className="flex flex-col md:flex-row gap-6 justify-between items-center bg-white/60 backdrop-blur-xl p-6 rounded-3xl border border-white/40 shadow-sm transition-all duration-300">
+          <p className="text-slate-600 text-xs">
             © {currentYear} ATM CHILE. Todos los derechos reservados.
-          </div>
-          <div className="flex items-center gap-8">
+          </p>
+          <div className="flex items-center gap-8" aria-hidden="true">
              <div className="flex items-center gap-2 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all cursor-default">
                <Globe size={14} className="text-brand-cobalt" />
-               <span className="text-[10px] font-black tracking-widest uppercase">Global Reach</span>
+               <span className="text-[0.6875rem] font-black tracking-widest uppercase">Global Reach</span>
              </div>
              <div className="flex items-center gap-2 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all cursor-default">
                <Layers size={14} className="text-brand-cyan" />
-               <span className="text-[10px] font-black tracking-widest uppercase">360 View</span>
+               <span className="text-[0.6875rem] font-black tracking-widest uppercase">360 View</span>
              </div>
           </div>
         </div>

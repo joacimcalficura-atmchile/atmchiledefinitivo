@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { m, AnimatePresence, Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { BrandPattern } from "@/components/ui/BrandPattern";
 import { ServicesCTA } from "@/components/sections/ServicesCTA";
+import { useDialogA11y } from "@/hooks/useDialogA11y";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TYPES
@@ -165,7 +166,7 @@ const PILLARS: SecurityPillar[] = [
         modal: {
             tag: "ISO 22301 · BCP / DRP",
             headline: "Continuidad Operacional y Recuperación ante Desastres Garantizada",
-            intro: "La continuidad del negocio de nuestros clientes es no negociable. Nuestra arquitectura cloud-native está diseñada para garantizar una disponibilidad del 99,597 % (SLA) con planes de recuperación probados y documentados bajo ISO 22301.",
+            intro: "La continuidad del negocio de cada cliente es no negociable. Nuestra arquitectura cloud-native está diseñada para garantizar una disponibilidad del 99,597 % (SLA) con planes de recuperación probados y documentados bajo ISO 22301.",
             sections: [
                 {
                     heading: "Arquitectura de Alta Disponibilidad",
@@ -283,10 +284,10 @@ function PillarCard({ pillar, index, onOpen }: { pillar: SecurityPillar; index: 
                 <span className="mt-6 block text-lg font-bold leading-snug text-slate-900 transition-colors group-hover:text-[#176BDE] md:text-xl">
                     {pillar.title}
                 </span>
-                <span className="mt-3 block flex-1 text-[15px] leading-relaxed text-slate-600">{pillar.shortDesc}</span>
+                <span className="mt-3 block flex-1 text-[0.9375rem] leading-relaxed text-slate-600">{pillar.shortDesc}</span>
                 <span className="mt-6 flex flex-wrap gap-2">
                     {pillar.badge.split(" · ").map((b) => (
-                        <span key={b} className="rounded-md border border-[#b8ccf0] bg-[#f2f7ff] px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-[#0E4FA5]">
+                        <span key={b} className="rounded-md border border-[#b8ccf0] bg-[#f2f7ff] px-2.5 py-1 text-[0.75rem] font-bold uppercase tracking-wide text-[#0E4FA5]">
                             {b}
                         </span>
                     ))}
@@ -304,27 +305,21 @@ function PillarCard({ pillar, index, onOpen }: { pillar: SecurityPillar; index: 
 // MODAL TÉCNICO
 // ─────────────────────────────────────────────────────────────────────────────
 function TechnicalModal({ pillar, onClose }: { pillar: SecurityPillar; onClose: () => void }) {
-    useEffect(() => {
-        const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
-        window.addEventListener("keydown", handler);
-        const prev = document.body.style.overflow;
-        document.body.style.overflow = "hidden";
-        return () => {
-            window.removeEventListener("keydown", handler);
-            document.body.style.overflow = prev;
-        };
-    }, [onClose]);
+    // Foco atrapado en el diálogo, Escape cierra y el foco vuelve al botón que lo abrió.
+    const dialogRef = useRef<HTMLDivElement>(null);
+    useDialogA11y(dialogRef, { onClose });
 
     const mdata = pillar.modal;
 
     return (
-        <div className="fixed inset-0 z-[10000] flex items-end justify-center sm:items-center sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-seguridad-titulo">
+        <div ref={dialogRef} tabIndex={-1} className="fixed inset-0 z-[10000] flex items-end justify-center outline-none sm:items-center sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-seguridad-titulo">
             <m.div
                 variants={backdropVariants}
                 initial="hidden"
                 animate="show"
                 exit="exit"
                 onClick={onClose}
+                aria-hidden="true"
                 className="absolute inset-0 bg-[#0F1215]/70 backdrop-blur-md"
             />
 
@@ -345,7 +340,7 @@ function TechnicalModal({ pillar, onClose }: { pillar: SecurityPillar; onClose: 
                                 {pillar.icon}
                             </span>
                             <div>
-                                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#16F3E8]">{mdata.tag}</span>
+                                <span className="text-[0.75rem] font-bold uppercase tracking-[0.2em] text-[#16F3E8]">{mdata.tag}</span>
                                 <h2 id="modal-seguridad-titulo" className="mt-2 text-xl font-black leading-tight text-white sm:text-2xl">
                                     {mdata.headline}
                                 </h2>
@@ -362,7 +357,7 @@ function TechnicalModal({ pillar, onClose }: { pillar: SecurityPillar; onClose: 
                     </div>
                 </header>
 
-                <div className="flex-1 overflow-y-auto overscroll-contain px-5 py-6 sm:px-8 sm:py-8">
+                <div tabIndex={0} className="flex-1 overflow-y-auto outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#176BDE] overscroll-contain px-5 py-6 sm:px-8 sm:py-8">
                     <div className="mx-auto max-w-3xl">
                         <p className="mb-8 border-l-4 border-[#176BDE] pl-4 text-base font-medium leading-relaxed text-slate-700 sm:pl-6 sm:text-lg">
                             {mdata.intro}
@@ -371,7 +366,7 @@ function TechnicalModal({ pillar, onClose }: { pillar: SecurityPillar; onClose: 
                             {mdata.sections.map((section) => (
                                 <section key={section.heading} className="rounded-2xl border border-[#b8ccf0] border-l-4 border-l-[#176BDE] bg-[#f2f7ff] p-5 sm:p-6">
                                     <h3 className="text-sm font-black uppercase tracking-wider text-[#0E4FA5]">{section.heading}</h3>
-                                    <p className="mt-3 text-sm leading-relaxed text-slate-700 sm:text-[15px]">{section.body}</p>
+                                    <p className="mt-3 text-sm leading-relaxed text-slate-700 sm:text-[0.9375rem]">{section.body}</p>
                                 </section>
                             ))}
                         </div>
@@ -460,7 +455,7 @@ export default function SeguridadPage() {
                             <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-[#0F1215]">
                                 <Image
                                     src="/images/executive-security.png"
-                                    alt="Arquitecto de seguridad monitoreando infraestructura crítica"
+                                    alt="Especialista de seguridad monitoreando infraestructura crítica"
                                     fill
                                     priority
                                     sizes="(max-width: 1024px) 100vw, 46vw"
@@ -578,7 +573,7 @@ export default function SeguridadPage() {
                                     <span className="font-slab text-sm font-medium text-[#16F3E8]">Paso {i + 1}</span>
                                 </div>
                                 <h3 className="mt-6 text-xl font-bold text-white">{step.title}</h3>
-                                <p className="mt-2 text-[15px] leading-relaxed text-slate-300">{step.text}</p>
+                                <p className="mt-2 text-[0.9375rem] leading-relaxed text-slate-300">{step.text}</p>
                             </m.li>
                         ))}
                     </m.ol>

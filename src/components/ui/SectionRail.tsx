@@ -184,7 +184,7 @@ export function SectionRail() {
 
     return (
         // Franja segura: bajo el menú superior (top-24) y sobre los flotantes (bottom-28).
-        <div className="pointer-events-none fixed bottom-28 right-1 top-24 z-[9990] flex items-center sm:right-3 lg:right-5">
+        <div className="pointer-events-none fixed bottom-28 right-0.5 top-24 z-[9990] flex items-center sm:right-3 lg:right-5">
             <nav
                 ref={navRef}
                 aria-label="Secciones de la página"
@@ -193,7 +193,7 @@ export function SectionRail() {
                 }`}
                 onMouseLeave={() => setShown(null)}
             >
-                <ul className="flex max-h-full flex-col gap-[clamp(2px,0.9vh,7px)] rounded-full border border-[#176BDE]/35 bg-[#0F1215]/70 px-1 py-3 shadow-[0_8px_30px_rgba(2,8,23,0.25)] ring-1 ring-white/5 backdrop-blur-md sm:px-2.5 sm:py-4">
+                <ul className="flex max-h-full flex-col overflow-y-auto overscroll-contain [scrollbar-width:none] rounded-full border border-[#176BDE]/35 bg-[#0F1215]/70 px-1 py-3 shadow-[0_8px_30px_rgba(2,8,23,0.25)] ring-1 ring-white/5 backdrop-blur-md sm:px-2.5 sm:py-4">
                     {items.map((it) => {
                         const isActive = it.key === active;
                         const isShownNow = it.key === shown;
@@ -218,7 +218,7 @@ export function SectionRail() {
                                     onBlur={() => setShown(null)}
                                     aria-label={`Ir a ${it.title}`}
                                     aria-current={isActive ? "true" : undefined}
-                                    className="group relative flex h-[clamp(8px,1.6vh,12px)] w-3 items-center justify-end outline-none after:absolute after:-inset-x-1.5 after:-inset-y-1 after:content-[''] sm:w-6"
+                                    className="group relative flex h-6 w-3 shrink-0 items-center justify-end rounded-sm outline-none focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#16F3E8] sm:w-6"
                                 >
                                     <span
                                         className={`block h-[2px] rounded-full transition-all duration-300 ease-out ${
@@ -251,7 +251,7 @@ export function SectionRail() {
                                 {card.title}
                             </p>
                             {card.summary && (
-                                <p className="mt-1.5 text-[13px] leading-snug text-slate-300">{card.summary}</p>
+                                <p className="mt-1.5 text-[0.8125rem] leading-snug text-slate-300">{card.summary}</p>
                             )}
                         </>
                     )}

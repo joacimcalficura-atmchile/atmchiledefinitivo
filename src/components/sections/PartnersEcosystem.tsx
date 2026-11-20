@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { LazyMotion, m, useMotionValue, useTransform, useSpring, useMotionValueEvent, MotionValue, useAnimationFrame } from "framer-motion";
+import { LazyMotion, m, useMotionValue, useTransform, useSpring, useMotionValueEvent, MotionValue, useAnimationFrame, useReducedMotion } from "framer-motion";
+import { Pause, Play } from "lucide-react";
 
 /**
  * `Providers` carga `domAnimation` (animación + hover/tap/focus) para todo el
@@ -132,7 +133,7 @@ const GlassCard = ({ tech, index, dragX, dim }: { tech: Tech; index: number; dra
             <div className="relative flex items-center justify-center w-[65%] h-[65%] mb-2">
                 {tech.logo}
             </div>
-            <span className="text-[10px] md:text-xs font-black tracking-widest text-[#176BDE] uppercase mt-2 px-2 text-center pointer-events-none">
+            <span className="text-[0.6875rem] md:text-xs font-black tracking-widest text-[#176BDE] uppercase mt-2 px-2 text-center pointer-events-none">
                 {tech.label}
             </span>
         </m.div>
@@ -145,6 +146,12 @@ export const PartnersEcosystem = () => {
     const [dim, setDim] = useState<Dimensions | null>(null);
     const [initialDragSet, setInitialDragSet] = useState(false);
     const isDraggingRef = useRef(false);
+    // Movimiento automático de más de 5 s: se puede pausar (WCAG 2.2.2), se
+    // detiene al pasar el mouse o llegar con el teclado y no corre con
+    // movimiento reducido.
+    const reduceMotion = useReducedMotion();
+    const [paused, setPaused] = useState(false);
+    const hoverRef = useRef(false);
 
     // Initialize dimensions & perfect CSS-free centering
     useEffect(() => {
@@ -200,7 +207,7 @@ export const PartnersEcosystem = () => {
 
     // Auto-scroll loop
     useAnimationFrame((time, delta) => {
-        if (!dim || isDraggingRef.current) return;
+        if (!dim || isDraggingRef.current || paused || reduceMotion || hoverRef.current) return;
         // Smooth slide left: approx 30px per second
         const moveBy = (delta / 1000) * 30;
         dragX.set(dragX.get() - moveBy);
@@ -225,7 +232,7 @@ export const PartnersEcosystem = () => {
                     transition={{ duration: 0.7 }}
                     className="text-center mb-10 md:mb-16"
                 >
-                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#176BDE]/10 border border-[#176BDE]/30 text-[10px] uppercase font-black tracking-[0.22em] text-[#176BDE] mb-5">
+                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#176BDE]/10 border border-[#176BDE]/30 text-[0.6875rem] uppercase font-black tracking-[0.22em] text-[#176BDE] mb-5">
                         ✦ Ecosistema 360
                     </span>
                     <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-tight mb-4">
@@ -236,7 +243,26 @@ export const PartnersEcosystem = () => {
             </div>
 
             {/* ── Seamless 3D Carousel Track ── */}
+            {!reduceMotion && (
+                <div className="relative z-30 flex justify-center">
+                    <button
+                        type="button"
+                        onClick={() => setPaused((p) => !p)}
+                        aria-pressed={paused}
+                        className="inline-flex min-h-11 items-center gap-2 rounded-full border border-slate-300 bg-white px-4 text-xs font-bold uppercase tracking-widest text-slate-700 shadow-sm transition-colors hover:border-[#176BDE] hover:text-[#0E4FA5]"
+                    >
+                        {paused ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
+                        {paused ? "Reanudar movimiento" : "Pausar movimiento"}
+                    </button>
+                </div>
+            )}
             <div 
+                role="region"
+                aria-label="Tecnologías con las que integramos (carrusel desplazable)"
+                onMouseEnter={() => { hoverRef.current = true; }}
+                onMouseLeave={() => { hoverRef.current = false; }}
+                onFocus={() => { hoverRef.current = true; }}
+                onBlur={() => { hoverRef.current = false; }}
                 className={`relative flex items-center py-16 w-full z-20 transition-opacity duration-500 ease-in-out overflow-hidden touch-pan-y ${dim ? "opacity-100" : "opacity-0"}`}
                 style={{ 
                     maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)", 
@@ -277,7 +303,7 @@ export const PartnersEcosystem = () => {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    className="text-center text-[10px] md:text-xs text-slate-400 tracking-widest uppercase mb-8 pointer-events-none"
+                    className="text-center text-[0.6875rem] md:text-xs text-slate-600 tracking-widest uppercase mb-8 pointer-events-none"
                 >
                     ← Experimenta la fluidez →
                 </m.p>
@@ -290,7 +316,7 @@ export const PartnersEcosystem = () => {
                     className="flex flex-wrap items-center justify-center gap-2 md:gap-3 max-w-4xl mx-auto"
                 >
                     {pillsMerged.map((p) => (
-                        <span key={p.label} className={`px-3 py-1.5 md:px-4 md:py-2 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-wider shadow-sm transition-transform duration-300 hover:scale-105 cursor-default ${p.bg} ${p.text}`}>
+                        <span key={p.label} className={`px-3 py-1.5 md:px-4 md:py-2 rounded-full text-[0.625rem] md:text-[0.6875rem] font-black uppercase tracking-wider shadow-sm transition-transform duration-300 hover:scale-105 cursor-default ${p.bg} ${p.text}`}>
                             {p.label}
                         </span>
                     ))}
