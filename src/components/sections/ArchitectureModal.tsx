@@ -33,7 +33,9 @@ export const ArchitectureModal = ({
     const panelRef = useRef<HTMLDivElement>(null);
     useDialogA11y(panelRef, { onClose });
 
-    const Content = () => {
+    // Función (no componente anidado): así el contenido no se vuelve a montar
+    // en cada render del modal.
+    const renderContent = () => {
         switch (id) {
             case "ia-generativa": return <AIGenerativeArchitecture />;
             case "3d":        return <ProductVisualization3DServices />;
@@ -68,7 +70,7 @@ export const ArchitectureModal = ({
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 16 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                className="relative w-full max-w-6xl max-h-[88vh] overflow-y-auto rounded-[2.5rem] outline-none"
+                className="relative w-full max-w-6xl max-h-[88dvh] overflow-y-auto overflow-x-hidden overscroll-contain rounded-[2.5rem] outline-none"
                 style={{
                     background: "rgba(255,255,255,0.88)",
                     backdropFilter: "saturate(180%) blur(48px)",
@@ -106,7 +108,7 @@ export const ArchitectureModal = ({
 
                 {/* Contenido */}
                 <div className="overflow-hidden rounded-[2.5rem]">
-                    <Content />
+                    {renderContent()}
                 </div>
             </m.div>
         </m.div>

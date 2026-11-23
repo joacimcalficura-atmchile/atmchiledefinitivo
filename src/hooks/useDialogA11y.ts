@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type RefObject } from "react";
+import { lockScroll as lockPageScroll } from "@/lib/scroll-lock";
 
 const FOCUSABLE = [
     "a[href]",
@@ -20,12 +21,29 @@ function focusables(root: HTMLElement): HTMLElement[] {
     );
 }
 
+const SCROLL_KEYS = new Set(["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "]);
+
+function isScrollable(el: HTMLElement) {
+    return /(auto|scroll|overlay)/.test(getComputedStyle(el).overflowY) && el.scrollHeight > el.clientHeight;
+}
+
+/** Primera zona con scroll vertical dentro del diálogo (o el propio diálogo). */
+function scrollArea(root: HTMLElement): HTMLElement | null {
+    if (isScrollable(root)) return root;
+    for (const el of Array.from(root.querySelectorAll<HTMLElement>("*"))) {
+        if (isScrollable(el)) return el;
+    }
+    return null;
+}
+
 /**
  * Comportamiento accesible de un diálogo modal (WAI-ARIA APG):
  * - al abrir, lleva el foco al diálogo (o al elemento indicado);
  * - Tab y Mayús+Tab quedan dentro del diálogo;
  * - Escape lo cierra (si se pasa `onClose`);
  * - el resto de la página queda `inert` (ni foco ni lector de pantalla);
+ * - la página de fondo no se desplaza (rueda, trackpad, táctil ni teclado) y
+ *   el contenido de la ventana sí: ver src/lib/scroll-lock.ts;
  * - al cerrar, el foco vuelve a quien abrió el diálogo.
  *
  * `inert` se aplica a los hermanos del diálogo y de cada uno de sus
@@ -74,8 +92,7 @@ export function useDialogA11y(
             node = parent;
         }
 
-        const previousOverflow = document.body.style.overflow;
-        if (lockScroll) document.body.style.overflow = "hidden";
+        const unlockScroll = lockScroll ? lockPageScroll() : null;
 
         const focusFirst = () => {
             const target = initialFocus?.current ?? dialog;
@@ -87,6 +104,23 @@ export function useDialogA11y(
             if (e.key === "Escape" && closeRef.current) {
                 e.stopPropagation();
                 closeRef.current();
+                return;
+            }
+            // Con el foco en el propio diálogo (recién abierto), las flechas,
+            // Re Pág/Av Pág, Inicio/Fin y Espacio desplazan su contenido.
+            if (SCROLL_KEYS.has(e.key) && document.activeElement === dialog && !e.altKey && !e.ctrlKey && !e.metaKey) {
+                const area = scrollArea(dialog);
+                if (!area) return;
+                e.preventDefault();
+                const page = area.clientHeight * 0.85;
+                const behavior: ScrollBehavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+                if (e.key === "Home") area.scrollTo({ top: 0, behavior });
+                else if (e.key === "End") area.scrollTo({ top: area.scrollHeight, behavior });
+                else {
+                    const step = e.key === "ArrowDown" ? 48 : e.key === "ArrowUp" ? -48
+                        : e.key === "PageUp" || (e.key === " " && e.shiftKey) ? -page : page;
+                    area.scrollBy({ top: step, behavior });
+                }
                 return;
             }
             if (e.key !== "Tab") return;
@@ -113,7 +147,7 @@ export function useDialogA11y(
             cancelAnimationFrame(frame);
             document.removeEventListener("keydown", onKeyDown, true);
             for (const el of inerted) el.removeAttribute("inert");
-            if (lockScroll) document.body.style.overflow = previousOverflow;
+            unlockScroll?.();
             if (opener && document.contains(opener)) opener.focus({ preventScroll: true });
         };
     }, [open, closable, ref, initialFocus, lockScroll]);

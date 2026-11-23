@@ -154,7 +154,10 @@ export const FloatingChatWidget = () => {
             id="asistente-atm"
             role="dialog"
             aria-labelledby="asistente-atm-titulo"
-            className="w-[calc(100vw-2rem)] sm:w-[400px] h-[75vh] sm:h-[580px] max-h-[800px] bg-slate-900/85 backdrop-blur-2xl border border-slate-700/50 rounded-[2rem] shadow-2xl mb-4 sm:mb-6 overflow-hidden flex flex-col pointer-events-auto origin-bottom-right"
+            // Ventana no modal: la página sigue usable, pero la rueda y el táctil
+            // dentro del chat mueven la conversación y no la página de fondo.
+            data-scroll-lock-allow=""
+            className="w-[calc(100vw-2rem)] sm:w-[400px] h-[75dvh] sm:h-[580px] max-h-[800px] bg-slate-900/85 backdrop-blur-2xl border border-slate-700/50 rounded-[2rem] shadow-2xl mb-4 sm:mb-6 overflow-hidden flex flex-col pointer-events-auto origin-bottom-right"
           >
             
             {/* Header Limpio y Amigable */}
@@ -206,7 +209,7 @@ export const FloatingChatWidget = () => {
             </div>
 
             {/* Área de Mensajes */}
-            <div role="log" aria-live="polite" aria-label="Conversación con el asistente" tabIndex={0} className="flex-1 overflow-y-auto p-6 space-y-5 bg-gradient-to-b from-transparent to-cyan-500/5 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+            <div role="log" aria-live="polite" aria-label="Conversación con el asistente" tabIndex={0} className="flex-1 overflow-y-auto overscroll-contain p-6 space-y-5 bg-gradient-to-b from-transparent to-cyan-500/5 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
               {messages.map((msg, idx) => (
                 <ModernMessage key={idx} msg={msg} />
               ))}
