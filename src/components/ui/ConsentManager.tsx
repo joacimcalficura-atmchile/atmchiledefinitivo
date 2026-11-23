@@ -136,7 +136,7 @@ export function ConsentManager() {
                     </span>
                 </div>
 
-                <div className="max-h-[72vh] overflow-y-auto px-6 pb-6 pt-5">
+                <div className="max-h-[72dvh] overflow-y-auto overscroll-contain px-6 pb-6 pt-5">
                     <h2 id="consent-title" className="text-lg font-bold tracking-tight text-[#0F1215]">
                         Privacidad y Configuración de Cookies
                     </h2>

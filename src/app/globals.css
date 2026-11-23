@@ -196,6 +196,22 @@ html.lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }
 
+/* ── Ventanas emergentes: la página de fondo no se mueve (src/lib/scroll-lock.ts,
+   que además compensa el ancho de la barra con padding para que nada salte). */
+html.scroll-locked {
+  overflow: hidden !important;
+}
+
+/* El scroll dentro de una ventana no se encadena a la página al llegar al tope.
+   Solo en las zonas que de verdad desplazan: si se aplicara a todo (incluidas
+   las cajas con overflow: hidden), Chrome cortaría la cadena antes de llegar
+   al contenedor con scroll y la rueda dejaría de funcionar. */
+[aria-modal="true"],
+[data-scroll-lock-allow],
+:where([aria-modal="true"], [data-scroll-lock-allow]) :is(.overflow-y-auto, .overflow-auto, .overflow-y-scroll) {
+  overscroll-behavior: contain;
+}
+
 /* ══════════════════════════════════════════════════════════════════════════
    Accesibilidad (WCAG 2.2 AA, con criterios AAA donde es razonable)
    ══════════════════════════════════════════════════════════════════════════ */
