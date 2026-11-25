@@ -245,6 +245,14 @@ export const FloatingChatWidget = () => {
                 <Send size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </button>
             </form>
+            {/* Deber de información (Ley 21.719): quien escribe sabe que habla con una IA y dónde está la política. */}
+            <p className="px-5 pb-4 -mt-2 bg-slate-800/40 text-center text-[0.75rem] leading-relaxed text-slate-300">
+              Conversas con un asistente de inteligencia artificial. Al escribir, aceptas nuestra{" "}
+              <a href="/privacidad" className="text-[#6AA5F5] underline underline-offset-2 hover:text-white">
+                Política de Privacidad
+              </a>
+              .
+            </p>
           </motion.div>
         )}
       </AnimatePresence>

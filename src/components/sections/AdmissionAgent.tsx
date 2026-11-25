@@ -587,7 +587,7 @@ export const AdmissionAgent = () => {
 
                     {/* Footer del Formulario */}
                     {step < 9 && !isSpamBlocked && (
-                        <div className="px-8 md:px-14 py-8 bg-black/40 border-t border-white/10 flex items-center justify-between relative z-10">
+                        <div className="px-8 md:px-14 pt-8 pb-4 bg-black/40 border-t border-white/10 flex items-center justify-between relative z-10">
                             <button
                                 type="button"
                                 onClick={prevStep}
@@ -624,6 +624,17 @@ export const AdmissionAgent = () => {
                                 )}
                             </button>
                         </div>
+                    )}
+
+                    {/* Deber de información (Ley 21.719): aviso y enlace a la política en el punto de recogida. */}
+                    {step < 9 && !isSpamBlocked && (
+                        <p className="px-8 md:px-14 pb-6 bg-black/40 text-center text-xs text-slate-300 leading-relaxed relative z-10">
+                            Al enviar este formulario, aceptas nuestra{" "}
+                            <a href="/privacidad" className="text-[#6AA5F5] underline underline-offset-2 hover:text-white">
+                                Política de Privacidad
+                            </a>
+                            .
+                        </p>
                     )}
                 </div>
             </div>
