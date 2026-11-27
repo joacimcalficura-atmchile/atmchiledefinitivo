@@ -138,10 +138,22 @@ export const ReelsCarousel = ({ reels }: { reels: readonly InstagramReel[] }) =>
             <button type="button" onClick={() => scrollBy(-1)} className={`${arrow} -left-5`} aria-label="Reels anteriores">
                 <ChevronLeft className="h-5 w-5" aria-hidden />
             </button>
+            {/*
+              * Scroll vertical en móvil: la hoja de estilos de Lenis pone
+              * `overscroll-behavior: contain` (en ambos ejes) a todo elemento con
+              * `data-lenis-prevent-horizontal`. Como `overflow-x: auto` obliga a que
+              * el eje Y también sea un contenedor de scroll, Chrome en Android cortaba
+              * ahí la cadena y el gesto vertical sobre los reels no movía la página
+              * ("se queda pegado"). Se anula solo en el eje Y (estilo inline para
+              * ganarle a la regla de Lenis) y se apaga el scroll vertical propio de
+              * la pista: el deslizamiento vertical pasa a la página y el horizontal
+              * sigue contenido en el carrusel (sin activar el "atrás" del navegador).
+              */}
             <ul
                 ref={trackRef}
                 data-lenis-prevent-horizontal
-                className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                style={{ overscrollBehaviorX: "contain", overscrollBehaviorY: "auto", touchAction: "pan-x pan-y pinch-zoom" }}
+                className="flex gap-4 md:gap-6 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
                 {reels.map((reel) => (
                     <ReelCard key={reel.id} reel={reel} />
